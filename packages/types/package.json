@@ -1,0 +1,18 @@
+{
+  "name": "@hashicorp/platform-types",
+  "version": "0.1.0",
+  "description": "Shared types for HashiCorp's web team",
+  "types": "index.d.ts",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@types/segment-analytics": "^0.0.33"
+  },
+  "publishConfig": {
+    "private": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@hashicorp/platform-util",
+  "description": "General utilities for HashiCorp next.js websites",
+  "version": "0.1.0",
+  "author": "HashiCorp",
+  "dependencies": {
+    "nprogress": "0.2.0"
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.0"
+  },
+  "peerDependencies": {
+    "react": ">= 16.x",
+    "next": ">= 9.x"
+  },
+  "license": "MPL-2.0",
+  "publishConfig": {
+    "private": false
+  }
+}

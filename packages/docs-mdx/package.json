@@ -1,0 +1,20 @@
+{
+  "name": "@hashicorp/platform-docs-mdx",
+  "description": "Utilities for working with mdx on docs-focused HashiCorp next.js websites",
+  "version": "0.1.1",
+  "author": "HashiCorp",
+  "dependencies": {
+    "@mdx-js/react": "1.6.22",
+    "@hashicorp/react-code-block": "^4.1.0",
+    "@hashicorp/react-enterprise-alert": "^5.0.1",
+    "@hashicorp/react-tabs": "6.0.1"
+  },
+  "peerDependencies": {
+    "react": ">= 16.x"
+  },
+  "license": "MPL-2.0",
+  "main": "index.jsx",
+  "publishConfig": {
+    "private": false
+  }
+}

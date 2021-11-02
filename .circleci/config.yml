@@ -1,0 +1,27 @@
+# For configuration details, see:
+# https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  node: circleci/node@4.5
+
+jobs:
+  test:
+    executor:
+      name: node/default
+      tag: '15.14.0'
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          # This is one of the few packages that needs to be built to consumed, so we're doing that before tests
+          name: Build nextjs-plugin
+          command: cd packages/nextjs-plugin && npm run build
+      - run:
+          name: Run tests
+          command: npm test
+
+workflows:
+  build-and-test:
+    jobs:
+      - test

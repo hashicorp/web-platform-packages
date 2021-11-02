@@ -1,0 +1,4 @@
+const template = `This
+is a string literal
+that spans ${multiple}
+line`;

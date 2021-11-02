@@ -1,0 +1,23 @@
+{
+  "name": "@hashicorp/platform-markdown-utils",
+  "description": "Utilities for working with markdown",
+  "version": "0.1.3",
+  "author": "HashiCorp",
+  "dependencies": {
+    "@hashicorp/platform-types": "^0.1.0",
+    "@hashicorp/remark-plugins": "^3.2.0",
+    "@mapbox/rehype-prism": "^0.6.0",
+    "@mdx-js/react": "1.6.22",
+    "rehype-katex": "^5.0.0",
+    "remark-math": "^4.0.0",
+    "remark-rehype": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": ">= 16.x"
+  },
+  "license": "MPL-2.0",
+  "main": "index.jsx",
+  "publishConfig": {
+    "private": false
+  }
+}
