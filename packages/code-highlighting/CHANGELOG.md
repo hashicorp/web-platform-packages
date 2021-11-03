@@ -1,5 +1,11 @@
 # @hashicorp/platform-code-highlighting
 
+## 0.1.2
+
+### Patch Changes
+
+- [#215](https://github.com/hashicorp/nextjs-scripts/pull/215) [`7396898`](https://github.com/hashicorp/nextjs-scripts/commit/7396898339c3d70e3c51716ec0eda01e301864a1) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - chore: pin `unist-util-visit` to `2.0.3`
+
 ## 0.1.1
 
 ### Patch Changes

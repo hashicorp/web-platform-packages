@@ -1,6 +1,16 @@
-const withHashicorp = require('./index')
+import withHashicorp from './index'
+import nextOptimizedImages from '@hashicorp/next-optimized-images'
+
+jest.mock('@hashicorp/next-optimized-images', () =>
+  jest.fn().mockImplementation((x) => x)
+)
+
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 
 test('dato token default', () => {
+  console.log(withHashicorp({ dato: { token: 'foo' } })())
   expect(withHashicorp({ dato: { token: 'foo' } })().env.HASHI_DATO_TOKEN).toBe(
     'foo'
   )
@@ -23,7 +33,7 @@ test("dato token doesn't clobber environment variables", () => {
 
 test('default headers are default', () => {
   const config = withHashicorp()({})
-  return config.headers().then((result) => {
+  return config.headers?.().then((result) => {
     expect(result).toHaveLength(1)
     expect(result[0]).toEqual({
       source: '/:path*{/}?',
@@ -49,7 +59,7 @@ test('default headers integrate with user land headers', () => {
       return userLandHeader
     },
   })
-  return config.headers().then((result) => {
+  return config.headers?.().then((result) => {
     expect(result).toHaveLength(2)
     expect(result[0]).toEqual(userLandHeader[0])
     // ensure the last header is SAMEORIGIN, so it can't be overidden
@@ -82,7 +92,7 @@ test('default headers plus tipBranch is set', () => {
       return userLandHeader
     },
   })
-  return config.headers().then((result) => {
+  return config.headers?.().then((result) => {
     expect(result).toHaveLength(3)
     // ensure noindex is set for all paths
     expect(result[0]).toEqual({
@@ -107,7 +117,7 @@ test('tipBranch headers come when no user land headers are set', () => {
   const config = withHashicorp()({
     tipBranch: 'tippy',
   })
-  return config.headers().then((result) => {
+  return config.headers?.().then((result) => {
     expect(result).toHaveLength(2)
     // ensure noindex is set for all paths
     expect(result[0]).toEqual({
@@ -130,7 +140,7 @@ test('ensure x-robot-tag header not set when not on tipBranch', () => {
   const config = withHashicorp()({
     tipBranch: 'tippy',
   })
-  return config.headers().then((result) => {
+  return config.headers?.().then((result) => {
     expect(result).toHaveLength(1)
     // ensure X-Robots-Tag is not present
     expect(result[0].source).toBe('/:path*{/}?')
@@ -140,4 +150,18 @@ test('ensure x-robot-tag header not set when not on tipBranch', () => {
       headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
     })
   })
+})
+
+test('nextOptimizedImages true - integrates next-optimized-images plugin', () => {
+  const config = withHashicorp({ nextOptimizedImages: true })()
+
+  expect(config.images.disableStaticImages).toEqual(true)
+  expect(nextOptimizedImages).toHaveBeenCalled()
+})
+
+test('nextOptimizedImages false - does not integrate next-optimized-images plugin', () => {
+  const config = withHashicorp({ nextOptimizedImages: false })()
+
+  expect(config?.images?.disableStaticImages).toBeUndefined()
+  expect(nextOptimizedImages).not.toHaveBeenCalled()
 })

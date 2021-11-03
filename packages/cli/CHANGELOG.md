@@ -1,5 +1,49 @@
 # @hashicorp/platform-cli
 
+## 1.2.1
+
+### Patch Changes
+
+- [#217](https://github.com/hashicorp/nextjs-scripts/pull/217) [`6b12bf4`](https://github.com/hashicorp/nextjs-scripts/commit/6b12bf4a8757e1895022e40ef5452f1b239b74f3) Thanks [@BRKalow](https://github.com/BRKalow)! - Remove manual prettier parser assignment and rely on prettier automatically inferring the parser instead. Fixes an issue where `package-lock.json` was getting formatted incorrectly. See [here](https://github.com/prettier/prettier/issues/11553) for reference.
+
+## 1.2.0
+
+### Minor Changes
+
+- [#206](https://github.com/hashicorp/nextjs-scripts/pull/206) [`e34a1fa`](https://github.com/hashicorp/nextjs-scripts/commit/e34a1fa290913be2ccfc417890b2835a99e9d719) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - Added `docs:add-version` command to interface with a product repo's `version-manifest.json`
+
+* [#207](https://github.com/hashicorp/nextjs-scripts/pull/207) [`720fc5a`](https://github.com/hashicorp/nextjs-scripts/commit/720fc5ac355addd275d74a73443d8d4fa105b838) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - feat(cli): add `docs:remove-version` command to remove a version from a product repo's `version-manifest.json`
+
+## 1.1.2
+
+### Patch Changes
+
+- [#192](https://github.com/hashicorp/nextjs-scripts/pull/192) [`8d87467`](https://github.com/hashicorp/nextjs-scripts/commit/8d87467e57cac695fab96da2f48159939c922edc) Thanks [@BRKalow](https://github.com/BRKalow)! - Updates the config file generator to use extends instead of spread to ensure that our base rules don't get overwritten.
+
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`754168b`](https://github.com/hashicorp/nextjs-scripts/commit/754168b3c0c6896a4b4e9f88f48f0189f7abde93)]:
+  - @hashicorp/platform-cms@0.3.0
+
+## 1.1.0
+
+### Minor Changes
+
+- [#193](https://github.com/hashicorp/nextjs-scripts/pull/193) [`e8eaf66`](https://github.com/hashicorp/nextjs-scripts/commit/e8eaf665ae95df3176eb81f2a21e0e11bb29cef1) Thanks [@BRKalow](https://github.com/BRKalow)! - Resolve eslint plugins relative to the next-hashicorp bin, per recommendations from the eslint docs.
+
+### Patch Changes
+
+- [#196](https://github.com/hashicorp/nextjs-scripts/pull/196) [`fdb69d2`](https://github.com/hashicorp/nextjs-scripts/commit/fdb69d26376073973fe016f51a5db69a3b934792) Thanks [@BRKalow](https://github.com/BRKalow)! - Bump lint-staged dependency.
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`c27878d`](https://github.com/hashicorp/nextjs-scripts/commit/c27878da0205da7222c5880460b441b555040da1)]:
+  - @hashicorp/platform-cms@0.2.0
+
 ## 1.0.0
 
 ### Major Changes

@@ -25,6 +25,7 @@ withHashicorp({
   dato: { token: 'xxx', environment: 'xxx' }, // if necessary, override the default datocms token/env with your own
   tipBranch: 'main', // configure a branch name for tip.project.io subdomain, to ensure "noindex" http header is set
   transpileModules: ['foo'], // third party package names that should be transpiled by babel
+  nextOptimizedImages: true, // controls whether or not to integrate the next-optimized-images next plugin
 })
 ```
 

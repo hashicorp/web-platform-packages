@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-cms",
   "description": "CMS utilities for HashiCorp next.js websites",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "author": "HashiCorp",
   "dependencies": {
     "rivet-graphql": "0.3.1"

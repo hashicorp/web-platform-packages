@@ -1,5 +1,17 @@
 # @hashicorp/platform-cms
 
+## 0.3.0
+
+### Minor Changes
+
+- [#201](https://github.com/hashicorp/nextjs-scripts/pull/201) [`754168b`](https://github.com/hashicorp/nextjs-scripts/commit/754168b3c0c6896a4b4e9f88f48f0189f7abde93) Thanks [@jmfury](https://github.com/jmfury)! - Rotates Dato token
+
+## 0.2.0
+
+### Minor Changes
+
+- [#194](https://github.com/hashicorp/nextjs-scripts/pull/194) [`c27878d`](https://github.com/hashicorp/nextjs-scripts/commit/c27878da0205da7222c5880460b441b555040da1) Thanks [@jmfury](https://github.com/jmfury)! - Rotate Dato token
+
 ## 0.1.0
 
 ### Minor Changes

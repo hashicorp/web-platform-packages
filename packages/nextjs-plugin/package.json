@@ -1,25 +1,25 @@
 {
   "name": "@hashicorp/platform-nextjs-plugin",
   "description": "Core plugin for HashiCorp next.js websites",
-  "version": "0.2.0",
+  "version": "1.0.1",
   "author": "HashiCorp",
   "scripts": {
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "11.0.1",
+    "@next/bundle-analyzer": "10.0.3",
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
-    "imagemin-svgo": "9.0.0",
+    "imagemin-svgo": "8.0.0",
     "@hashicorp/next-optimized-images": "0.1.0",
     "next-transpile-modules": "^8.0.0",
-    "postcss-normalize": "10.0.0"
+    "postcss-normalize": "10.0.1"
   },
   "devDependencies": {
     "@hashicorp/platform-types": "^0.1.0",
     "@types/postcss-normalize": "^9.0.1",
-    "@types/postcss-preset-env": "^6.7.3",
-    "@types/webpack": "^5.28.0"
+    "@types/postcss-preset-env": "^6.7.0",
+    "@types/webpack": "^4.41.26"
   },
   "peerDependencies": {
     "next": ">= 11.x"

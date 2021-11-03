@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/platform-types",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared types for HashiCorp's web team",
   "types": "index.d.ts",
   "main": "",

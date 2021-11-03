@@ -6,7 +6,7 @@ let url = process.env.HASHI_DATO_ENVIRONMENT
 
 if (process.env.HASHI_ENV === 'preview') url += '/preview'
 
-const token = process.env.HASHI_DATO_TOKEN || '78d2968c99a076419fbb'
+const token = process.env.HASHI_DATO_TOKEN || '2f7896a6b4f1948af64900319aed60'
 
 module.exports = {
   url,

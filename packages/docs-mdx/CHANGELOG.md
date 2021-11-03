@@ -1,5 +1,17 @@
 # @hashicorp/platform-docs-mdx
 
+## 0.1.3
+
+### Patch Changes
+
+- [#213](https://github.com/hashicorp/nextjs-scripts/pull/213) [`541e54a`](https://github.com/hashicorp/nextjs-scripts/commit/541e54ad5cf0f48c9d587deae547b78a5d33de7f) Thanks [@zchsh](https://github.com/zchsh)! - Fixes a CSS modules related issue where Tabs were not styled as expected.
+
+## 0.1.2
+
+### Patch Changes
+
+- [#211](https://github.com/hashicorp/nextjs-scripts/pull/211) [`14284d7`](https://github.com/hashicorp/nextjs-scripts/commit/14284d77d4913bc2a2447b6320dce78e789dba6c) Thanks [@BRKalow](https://github.com/BRKalow)! - Update react- dependencies to the latest versions to ensure we aren't pulling in multiple versions of our component packages.
+
 ## 0.1.1
 
 ### Patch Changes

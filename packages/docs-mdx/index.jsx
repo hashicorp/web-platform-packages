@@ -65,7 +65,7 @@ export function Tabs({ defaultTabIdx, children }) {
 
   return (
     <span className={s.tabsRoot}>
-      <TabsBase defaultTabIdx={defaultTabIdx}>{children}</TabsBase>
+      <TabsBase className="g-tabs" defaultTabIdx={defaultTabIdx}>{children}</TabsBase>
     </span>
   )
 }

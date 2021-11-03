@@ -15,6 +15,7 @@ This monorepo contains a collection of packages which layer a number of configur
 
 Current packages:
 
+- [`@hashicorp/platform-analytics`](/packages/analytics)
 - [`@hashicorp/platform-cli`](/packages/cli)
 - [`@hashicorp/platform-cms`](/packages/cms)
 - [`@hashicorp/platform-code-highlighting`](/packages/code-highlighting)
@@ -43,6 +44,14 @@ To make any adjustments to your changeset, just edit the file!
 ### Releases
 
 The release process is handled mostly automatically via the changesets GitHub action. When changeset files get merged to `main`, a Pull Request is opened which will, upon merge, release all pending changesets and remove the changeset files. We should not need to publish manually with this flow. See the `changesets/action`(https://github.com/changesets/action) repo for more information.
+
+### Canary Releases
+
+If you want to test your changes before merging, you can add a `release:canary` label to your pull request. If any changeset files are found, a release will be created and tagged with `canary`. You can then install the canary version elsewhere:
+
+```
+npm instal @hashicorp/platform-package@canary
+```
 
 ### Prereleases
 

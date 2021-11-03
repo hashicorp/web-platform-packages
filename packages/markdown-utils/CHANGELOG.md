@@ -1,5 +1,11 @@
 # @hashicorp/platform-markdown-utils
 
+## 0.1.4
+
+### Patch Changes
+
+- [#218](https://github.com/hashicorp/nextjs-scripts/pull/218) [`7a85ea0`](https://github.com/hashicorp/nextjs-scripts/commit/7a85ea0168ba6ee1c62f5e954bc20b3d406ab282) Thanks [@kendallstrautman](https://github.com/kendallstrautman)! - Upgrades the @hashicorp/remark-plugins dep for an a11y patch on the alert custom plugin
+
 ## 0.1.3
 
 ### Patch Changes

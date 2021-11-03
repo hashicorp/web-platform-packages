@@ -12,6 +12,11 @@ const globby = require('globby')
 const fs = require('fs')
 const stylelint = require('stylelint')
 
+const {
+  loadVersionManifest,
+  writeVersionManifest,
+  MANIFEST_FILE,
+} = require('./manifest')
 const generators = require('./generators')
 const open = require('open')
 const datoApiConfig = require('@hashicorp/platform-cms/config')
@@ -138,6 +143,8 @@ async function doEslint(files) {
   const { results } = new ESLintCLIEngine({
     extensions: validExtensions,
     fix: true,
+    // ref: https://eslint.org/docs/user-guide/command-line-interface#--resolve-plugins-relative-to
+    resolvePluginsRelativeTo: __dirname,
   }).executeOnFiles(validFiles)
   const errors = []
   const warnings = []
@@ -215,20 +222,20 @@ program
     // we will use this later to determine which files prettier can lint, and
     // what parser it should use to lint them
     // https://prettier.io/docs/en/options.html#parser
-    const extensionParserMap = {
-      mdx: 'mdx',
-      md: 'markdown',
-      jsx: 'babel',
-      js: 'babel',
-      tsx: 'babel-ts',
-      ts: 'babel-ts',
-      css: 'css',
-      json: 'json',
-      html: 'html',
-      graphql: 'graphql',
-      yaml: 'yaml',
-      yml: 'yaml',
-    }
+    const supportedExtensions = [
+      'mdx',
+      'md',
+      'jsx',
+      'js',
+      'tsx',
+      'ts',
+      'css',
+      'json',
+      'html',
+      'graphql',
+      'yaml',
+      'yml',
+    ]
 
     // take prettierignore into account
     // read ignore file if present, format into negate patterns, add to glob array
@@ -262,7 +269,7 @@ program
 
     // drop out any files that are not able to be processed by prettier
     const filteredFiles = files.filter((f) => {
-      return Object.keys(extensionParserMap).includes(path.extname(f).slice(1))
+      return supportedExtensions.includes(path.extname(f).slice(1))
     })
 
     // if there aren't any left, note that we aren't doing any formatting
@@ -272,7 +279,6 @@ program
 
     // now we pull out the file contents and extensions for parsing
     const fileContents = filteredFiles.map((f) => fs.readFileSync(f, 'utf8'))
-    const fileExtensions = filteredFiles.map((f) => path.extname(f).slice(1))
 
     // then format the file contents through prettier
     const prettierConfig = await prettier.resolveConfig(projectRoot)
@@ -284,8 +290,7 @@ program
       return prettier.format(
         content,
         Object.assign({}, prettierConfig, {
-          filepath: files[idx],
-          parser: extensionParserMap[fileExtensions[idx]],
+          filepath: filteredFiles[idx],
         })
       )
     })
@@ -443,6 +448,67 @@ program
     )
   })
 
+/**
+ * Add a new version to the version manifest
+ *
+ * @usage `./packages/cli/next-hashicorp docs:add-version v1.0.0`
+ * @usage `npx @hashicorp/platform-cli docs:add-version v1.0.0`
+ */
+program
+  .command('docs:add-version')
+  .arguments('<display> [slug] [ref]')
+  .description('Add a new version to the version manifest')
+  .action(async (...args) => {
+    const [display, slug = display, ref = display] = args
+    const manifest = await loadVersionManifest()
+
+    if (manifest.find((version) => version.slug === slug)) {
+      signale.error(`Version [${display}] already exists in ${MANIFEST_FILE}`)
+      return
+    }
+
+    const newVersion = {
+      display,
+      slug,
+      ref,
+    }
+
+    await writeVersionManifest([...manifest, newVersion])
+
+    signale.success(`Version [${display}] added to ${MANIFEST_FILE}`)
+  })
+
+/**
+ * Remove a version from the version manifest
+ *
+ * @usage `./packages/cli/next-hashicorp docs:remove-version v1.0.0`
+ * @usage `npx @hashicorp/platform-cli docs:remove-version v1.0.0`
+ */
+program
+  .command('docs:remove-version')
+  .arguments('<slug>')
+  .description('Remove a version from the version manifest')
+  .action(async (...args) => {
+    const [slug] = args
+
+    const manifest = await loadVersionManifest()
+
+    const versionIndex = manifest.findIndex((version) => version.slug === slug)
+
+    if (versionIndex === -1) {
+      signale.error(`Version [${slug}] not found in ${MANIFEST_FILE}`)
+      return
+    }
+
+    const newManifest = [...manifest]
+
+    newManifest.splice(versionIndex, 1)
+
+    await writeVersionManifest(newManifest)
+
+    signale.success(`Version [${slug}] removed from ${MANIFEST_FILE}`)
+  })
+
 program.parse(process.argv)
 
 function checkForConfig(filename) {
@@ -460,17 +526,28 @@ function checkForConfig(filename) {
 function createConfigFile(filename) {
   let contents
 
-  if (filename === '.eslintrc.js') {
-    contents = `module.exports = {
+  switch (filename) {
+    case '.eslintrc.js': {
+      contents = `module.exports = {
   root: true,
-  extends: './node_modules/@hashicorp/nextjs-scripts/.eslintrc.js',
+  extends: './node_modules/@hashicorp/platform-cli/config/.eslintrc.js',
   /* Specify overrides here */
 }\n`
-  } else {
-    contents = `module.exports = {
-  ...require("@hashicorp/nextjs-scripts/${filename}")
+      break
+    }
+    case '.stylelintrc.js': {
+      contents = `module.exports = {
+  extends: ['@hashicorp/platform-cli/config/stylelint.config']
+}\n`
+      break
+    }
+    default: {
+      contents = `module.exports = {
+  ...require("@hashicorp/platform-cli/config/${filename}")
   /* Specify overrides here */
 }\n`
+      break
+    }
   }
 
   fs.writeFileSync(path.join(projectRoot, filename), contents)

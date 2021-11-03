@@ -1,5 +1,23 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 1.0.1
+
+### Patch Changes
+
+- [#209](https://github.com/hashicorp/nextjs-scripts/pull/209) [`e06df86`](https://github.com/hashicorp/nextjs-scripts/commit/e06df8675bc6b72f19e95452a6d3b4d623fcc6fc) Thanks [@BRKalow](https://github.com/BRKalow)! - Bump postcss-normalize dependency to fix error from sanitize.css
+
+## 1.0.0
+
+### Major Changes
+
+- [#205](https://github.com/hashicorp/nextjs-scripts/pull/205) [`a0324fc`](https://github.com/hashicorp/nextjs-scripts/commit/a0324fcf5af12d2fd313693fd6098342756e145d) Thanks [@BRKalow](https://github.com/BRKalow)! - - Excludes `next-optimized-images` plugin by default, it is now opt-in by passing a `nextOptimizedImages: true` option to `withHashicorp`: `withHashicorp({ nextOptimizedImages: true })`
+
+## 0.3.0
+
+### Minor Changes
+
+- [#200](https://github.com/hashicorp/nextjs-scripts/pull/200) [`deaedfa`](https://github.com/hashicorp/nextjs-scripts/commit/deaedfae0d11c62163f6d085324e6ae9b4375f4a) Thanks [@BRKalow](https://github.com/BRKalow)! - Disable eslint during next's build in favor of our existing linting setup.
+
 ## 0.2.0
 
 ### Minor Changes

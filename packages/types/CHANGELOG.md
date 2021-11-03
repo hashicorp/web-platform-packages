@@ -1,5 +1,11 @@
 # @hashicorp/platform-types
 
+## 0.1.1
+
+### Patch Changes
+
+- [#198](https://github.com/hashicorp/nextjs-scripts/pull/198) [`0f46eb0`](https://github.com/hashicorp/nextjs-scripts/commit/0f46eb01f696f653425ae5a13c4c1191074888be) Thanks [@zchsh](https://github.com/zchsh)! - Adds a type declaration for \*.graphql files.
+
 ## 0.1.0
 
 ### Minor Changes

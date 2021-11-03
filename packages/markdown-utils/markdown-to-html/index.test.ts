@@ -24,7 +24,7 @@ test('returns a basic example using our default plugins', async () => {
   expect(result).toMatchInlineSnapshot(`
     "<h3 class=\\"g-type-display-4\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden></a>Hello world!</h3>
     <p class=\\"g-type-long-body\\">This is some markdown that I wrote.</p>
-    <div class=\\"alert alert-danger g-type-body\\" role=\\"alert\\"><p class=\\"g-type-long-body\\">Here be dragons. Proceed with caution!</p></div>"
+    <div class=\\"alert alert-danger g-type-body\\"><p class=\\"g-type-long-body\\">Here be dragons. Proceed with caution!</p></div>"
   `)
 })
 

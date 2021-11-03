@@ -17,6 +17,8 @@ interface NextHashiCorpOptions {
   css?: WithCssOptions
   dato?: DatoOptions
   transpileModules?: string[]
+  /** Controls whether or not to include next-optimized-images. Set it to true to use next-optimized-images. Defaults to false. */
+  nextOptimizedImages?: boolean
 }
 
 export = withHashicorp
@@ -26,16 +28,26 @@ function withHashicorp({
   css = {},
   dato = {},
   transpileModules = [],
+  nextOptimizedImages = false,
 }: NextHashiCorpOptions = {}): (
   nextConfig?: Partial<NextConfig>
 ) => NextConfig {
   return function withHashicorpInternal(nextConfig: Partial<NextConfig> = {}) {
     const chain = [
-      withOptimizedImages,
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
       withCss(css),
       withGraphqlBasic(),
     ]
+
+    // If nextOptimizedImages is true, add the plugin and set the necessary config value
+    if (nextOptimizedImages) {
+      chain.unshift(withOptimizedImages)
+
+      nextConfig.images = {
+        disableStaticImages: true,
+        ...nextConfig.images,
+      }
+    }
 
     nextConfig.future = {
       ...nextConfig.future,
@@ -104,6 +116,12 @@ function withHashicorp({
       // else, just add defaults and permanent headers and resolve the promise
       nextConfig.headers = () =>
         Promise.resolve([...defaultHeaders, ...permanentHeaders])
+    }
+
+    // Disable Next's built-in eslint integration as we already execute elsewhere
+    nextConfig.eslint = {
+      ignoreDuringBuilds: true,
+      ...nextConfig.eslint,
     }
 
     return chain.reduce((acc, next) => next(acc), nextConfig) as NextConfig
