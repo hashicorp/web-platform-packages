@@ -35,7 +35,7 @@ function withHashicorp({
   return function withHashicorpInternal(nextConfig: Partial<NextConfig> = {}) {
     const chain = [
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-      withCss(css),
+      ...(css === false ? [] : [withCss(css)]),
       withGraphqlBasic(),
     ]
 
