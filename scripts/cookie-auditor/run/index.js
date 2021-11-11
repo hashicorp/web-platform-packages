@@ -147,6 +147,9 @@ async function collectAndRecordData(siteData, browser, workbook) {
     `Gathering cookie data from ${url} before accepting our consent manager...`
   )
 
+  // Give the cookies some time to populate
+  await page.waitForTimeout(3000)
+
   const cookiesBeforeCM = await context.cookies()
   let cookiesAfterCM = []
 
