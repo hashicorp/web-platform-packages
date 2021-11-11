@@ -118,7 +118,7 @@ async function createNewWorkbooks(sites) {
       path.join(__dirname, `../out/cookie-data/${browserType.name()}.xlsx`)
     )
 
-    console.log(`Export complete!`)
+    console.log(`${browserType.name()} cookie data export complete!`)
   }
 
   console.log(`Workbooks created!`)
@@ -294,8 +294,9 @@ async function formatSheet(sheet) {
       'What does it intend to store?': '',
     }
   })
+
   const finalSheet = XLSX.utils.json_to_sheet(formattedSheet)
-  console.log({ finalSheet })
+
   return finalSheet
 }
 
@@ -325,6 +326,9 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
 
     // if there isn't, skip comparison, add to results, and move on to the next sheet
     if (!baseSheet) {
+      console.log(
+        `No base data for ${newSheet.name}, adding to workbook and skipping comparison...`
+      )
       XLSX.utils.book_append_sheet(
         resultsWb,
         newSheet,
@@ -337,6 +341,9 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
 
     XLSX.utils.book_append_sheet(resultsWb, resultsSheet, newSheet.name)
   }
+
+  console.log('Comparison complete!')
+  console.log('Exporting result data...')
 
   // If out/result-data isn't yet created in /out, create it
   try {
@@ -353,6 +360,8 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
     resultsWb,
     path.join(__dirname, `../out/result-data/${browserType.name()}.xlsx`)
   )
+
+  console.log('Result data export complete!')
 }
 
 function convertSheetJSWbToAoO(workbook) {
@@ -376,7 +385,9 @@ function convertSheetJSWbToAoO(workbook) {
  * @returns a SheetJS-formatted set of comparison results
  */
 async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
-  // Determine new additions in the new data vs the old
+  console.log(
+    `Determining if there were cookies added for ${newSheet.name} since the last run:`
+  )
   const newlyAddedCookies = newSheet.data
     .filter((newCookie) => {
       const cookieFoundInBaseData = baseSheet.data.find(
@@ -397,6 +408,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
       }
     )
 
+  console.log(`No new cookies added for ${newSheet.name}!`)
   // if no additional cookies, denote this
   if (newlyAddedCookies.length === 1)
     newlyAddedCookies.push({
@@ -408,7 +420,9 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
       'What does it intend to store?': '',
     })
 
-  // Determine new cookie removals in the new data vs the old
+  console.log(
+    `Determining if there were cookies removed for ${newSheet.name} since the last run:`
+  )
   const newlyRemovedCookies = baseSheet.data
     .filter((baseCookie) => {
       const cookieFoundInNewData = newSheet.data.find(
@@ -429,6 +443,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
       }
     )
 
+  console.log(`No cookies removed for ${newSheet.name}!`)
   // if no additional cookies, denote this
   if (newlyAddedCookies.length === 1)
     newlyAddedCookies.push({
