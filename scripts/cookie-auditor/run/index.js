@@ -235,11 +235,11 @@ async function retrievePostCMCookies(page, context, cookiesPreCM) {
    * separate them from the rest visually
    */
   if (cookiesPostCM.length > 0) {
-    // Adds a dummy cookie as a separator
+    // Adds a cookie as a separator for readability in the final data
     cookiesPostCM.unshift({
+      domain: 'vvv Adds/changes after accepting consent manager options vvv',
       name: 'vvv Adds/changes after accepting consent manager options vvv',
       value: '',
-      domain: '.',
       path: '',
       expires: 1652306416,
       httpOnly: false,
