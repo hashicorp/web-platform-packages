@@ -179,6 +179,16 @@ async function collectAndRecordData(siteData, browser, workbook) {
   console.log(`${title} worksheet added!`)
 }
 
+/**
+ * Opens the consent manager on the page, accepts all options,
+ * then saves. Afterward, filters out any cookies from before
+ * the consent manager acceptance, then returns the rest.
+ *
+ * @param {*} page A Playwright page object for the current page to retrieve cookies from
+ * @param {*} context Playwright context, for calling `.cookies()`
+ * @param {Array} cookiesPreCM The array of cookies gathered before accepting the consent manager
+ * @returns An array of just the cookies added by the consent manager
+ */
 async function retrievePostCMCookies(page, context, cookiesPreCM) {
   // Check all option checkboxes for the consent manager and save
   await page.click(
