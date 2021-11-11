@@ -321,12 +321,10 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
   console.log('Running main comparison logic...')
   for (const newSheet of newSheets) {
     // Determine if there's base data for this sheet
-    const baseDataExists = baseSheets.find(
-      (baseSheet) => baseSheet.name === newSheet.name
-    )
+    const baseSheet = baseSheets.find((sheet) => sheet.name === newSheet.name)
 
     // if there isn't, skip comparison, add to results, and move on to the next sheet
-    if (!baseDataExists) {
+    if (!baseSheet) {
       XLSX.utils.book_append_sheet(
         resultsWb,
         newSheet,
@@ -335,7 +333,9 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
       continue
     }
 
-    // TODO Finish comparison logic
+    const resultsSheet = genComparisonResultsAsSheetJS(baseSheet, newSheet)
+
+    XLSX.utils.book_append_sheet(resultsWb, resultsSheet, newSheet.name)
   }
 
   // If out/result-data isn't yet created in /out, create it
@@ -364,4 +364,86 @@ function convertSheetJSWbToAoO(workbook) {
       data: XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]),
     }
   })
+}
+
+/**
+ * Takes a base sheet and new sheet of cookie data, compares them
+ * to denote additions and removals, then generates the results
+ * in a SheetJS-ready worksheet.
+ *
+ * @param {Array} baseSheet A worksheet of previous-run cookie data
+ * @param {Array} newSheet A worksheet of new-run cookie data
+ * @returns a SheetJS-formatted set of comparison results
+ */
+async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
+  // Determine new additions in the new data vs the old
+  const newlyAddedCookies = newSheet.data
+    .filter((newCookie) => {
+      const cookieFoundInBaseData = baseSheet.data.find(
+        (baseCookie) => baseCookie.name === newCookie.name
+      )
+
+      return !cookieFoundInBaseData
+    })
+    .unshift(
+      // Record additions under their own heading
+      {
+        'What domain?': 'vvv Cookies added since last run vvv',
+        'Name?': 'vvv Cookies added since last run vvv',
+        'What are the contents?': '',
+        'Accepted connections?': '',
+        'Third-pary access?': '',
+        'What does it intend to store?': '',
+      }
+    )
+
+  // if no additional cookies, denote this
+  if (newlyAddedCookies.length === 1)
+    newlyAddedCookies.push({
+      'What domain?': 'none',
+      'Name?': '',
+      'What are the contents?': '',
+      'Accepted connections?': '',
+      'Third-pary access?': '',
+      'What does it intend to store?': '',
+    })
+
+  // Determine new cookie removals in the new data vs the old
+  const newlyRemovedCookies = baseSheet.data
+    .filter((baseCookie) => {
+      const cookieFoundInNewData = newSheet.data.find(
+        (newCookie) => baseCookie.name === newCookie.name
+      )
+
+      return !cookieFoundInNewData
+    })
+    .unshift(
+      // Record additions under their own heading
+      {
+        'What domain?': 'vvv Cookies removed since last run vvv',
+        'Name?': 'vvv Cookies removed since last run vvv',
+        'What are the contents?': '',
+        'Accepted connections?': '',
+        'Third-pary access?': '',
+        'What does it intend to store?': '',
+      }
+    )
+
+  // if no additional cookies, denote this
+  if (newlyAddedCookies.length === 1)
+    newlyAddedCookies.push({
+      'What domain?': 'none',
+      'Name?': '',
+      'What are the contents?': '',
+      'Accepted connections?': '',
+      'Third-pary access?': '',
+      'What does it intend to store?': '',
+    })
+
+  // TODO Add comparison for changes between duplicate cookies
+
+  return XLSX.utils.json_to_sheet([
+    ...newlyAddedCookies,
+    ...newlyRemovedCookies,
+  ])
 }
