@@ -122,19 +122,28 @@ async function createNewWorkbooks(sites) {
 
     // If /cookie-data isn't yet created in /out, create it
     try {
-      await fs.promises.access(path.join(__dirname, '../out/cookie-data'))
+      await fs.promises.access(
+        path.join(__dirname, `../out/cookie-data/${browserType.name()}.xlsx`)
+      )
+      XLSX.writeFileSync(
+        browserWb,
+        path.join(__dirname, `../out/cookie-data/${browserType.name()}.xlsx`)
+      )
     } catch {
-      fs.mkdir(path.join(__dirname, '../out/cookie-data'), (err) => {
-        if (err) {
-          throw err
+      fs.mkdirSync(
+        path.join(__dirname, '../out/cookie-data'),
+        { recursive: true },
+        (err) => {
+          if (err) {
+            throw err
+          }
         }
-      })
+      )
+      XLSX.writeFileSync(
+        browserWb,
+        path.join(__dirname, `../out/cookie-data/${browserType.name()}.xlsx`)
+      )
     }
-
-    XLSX.writeFileSync(
-      browserWb,
-      path.join(__dirname, `../out/cookie-data/${browserType.name()}.xlsx`)
-    )
 
     console.log(`${browserType.name()} cookie data export complete!`)
   }
