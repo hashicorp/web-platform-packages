@@ -11,49 +11,67 @@ import glob from 'glob'
 // =================
 
 async function run() {
-  console.log('Loading base data into a SheetJS workbook...')
+  console.log('Loading base data into SheetJS workbook(s)...')
 
   let baseCookieData = []
 
-  // Check if at least a chromium.xlsx file exists
-  try {
-    await fs.promises.access(path.join(__dirname, '../base-data/chromium.xlsx'))
-    // If it does, create a SheetJS workbook from it
-
+  // Check if at least one base-data file exists
+  if (
+    (await fs.promises.access(
+      path.join(__dirname, '../base-data/chromium.xlsx')
+    )) ||
+    (await fs.promises.access(
+      path.join(__dirname, '../base-data/firefox.xlsx')
+    ))
+  ) {
+    // If it does, create an array of data from any workbooks in the folder
     baseCookieData = glob
       .sync(path.join(__dirname, '../base-data/*.xlsx'))
-      .map((baseDataFile) => {
-        XLSX.readFileSync(
-          path.join(__dirname, `../base-data/${baseDataFile}.xlsx`)
+      .map((baseDataPath) => {
+        const browserTypeRegex = new RegExp(
+          /(?<=base-data\/)(.*)\w(?=.xlsx)/,
+          'gi'
         )
+
+        return {
+          browserType: baseDataPath.match(browserTypeRegex),
+          dataWb: XLSX.readFileSync(path.join(baseDataPath)),
+        }
       })
-  } catch {
+  } else {
     throw Error('No `base-data` file(s) found to compare against! Aborting.')
   }
 
   await createNewWorkbooks(pages)
 
   // Add workbooks generated above to a new array, with browser type as label
-  const workbooks = glob
+  const newCookieData = glob
     .sync(path.join(__dirname, '../out/cookie-data/*.xlsx'))
-    .map((path) => {
+    .map((newDataPath) => {
       const browserTypeRegex = new RegExp(
         /(?<=cookie-data\/)(.*)\w(?=.xlsx)/,
         'gi'
       )
 
       return {
-        browserType: path.match(browserTypeRegex),
-        newCookieData: XLSX.readFileSync(path),
+        browserType: newDataPath.match(browserTypeRegex),
+        dataWb: XLSX.readFileSync(newDataPath),
       }
     })
 
   /**
-   * For each new workbook, compare its data to the base data
+   * For each new workbook, compare its data to matching base data
    * and export the differences
    */
-  for (const { browserType, newCookieData } of workbooks) {
-    await recordCookieDataComparison(baseCookieData, newCookieData, browserType)
+  for (const { browserType, dataWb } of newCookieData) {
+    const baseData = baseCookieData.find(
+      (obj) => obj.browserType === browserType
+    )
+
+    // Skip if no base data for this browser
+    if (!baseData) continue
+
+    await recordCookieDataComparison(baseData, dataWb, browserType)
   }
 }
 
