@@ -16,22 +16,32 @@ async function run() {
 
   let baseCookieData = []
 
-  baseCookieData = browserTypes.map((browserType) => {
-    // Check if at least one base-data file exists
-    fs.promises
-      .access(path.join(__dirname, `../base-data/${browserType}.xlsx`))
-      .then(() => {
-        return {
-          browserType,
-          dataWb: XLSX.readFileSync(
-            path.join(__dirname, `../base-data/${browserType}.xlsx`)
-          ),
-        }
-      })
-      .catch(() => {
-        return
-      })
-  })
+  // Check if at least one base-data file exists
+  try {
+    await fs.promises.access(path.join(__dirname, `../base-data/chromium.xlsx`))
+    const dataWb = XLSX.readFileSync(
+      path.join(__dirname, `../base-data/chromium.xlsx`)
+    )
+    baseCookieData.push({
+      browserType: 'chromium',
+      dataWb,
+    })
+  } catch {
+    /* Do nothing */
+  }
+
+  try {
+    await fs.promises.access(path.join(__dirname, `../base-data/firefox.xlsx`))
+    const dataWb = XLSX.readFileSync(
+      path.join(__dirname, `../base-data/firefox.xlsx`)
+    )
+    baseCookieData.push({
+      browserType: 'firefox',
+      dataWb,
+    })
+  } catch {
+    /* Do nothing */
+  }
 
   if (baseCookieData.length === 0)
     throw Error('No `base-data` file(s) found to compare against! Aborting.')
@@ -54,14 +64,15 @@ async function run() {
    * new data
    */
   for (const { browserType, dataWb } of newCookieData) {
-    const baseData = baseCookieData.find(
-      (obj) => obj.browserType === browserType
-    )
+    const baseData = baseCookieData.find((obj) => {
+      if (obj === undefined) return false
+      return obj.browserType === browserType
+    })
 
     // Skip if no base data for this browserType
     if (!baseData) continue
 
-    await recordCookieDataComparison(baseData, dataWb, browserType)
+    await recordCookieDataComparison(baseData.dataWb, dataWb, browserType)
   }
 }
 
@@ -96,7 +107,6 @@ async function createNewWorkbooks(sites) {
 
     // Collect data from each page and add it to the browser-specific workbook
     console.log('Beginning cookie collection...')
-
     for (const siteData of sites) {
       await collectAndRecordData(siteData, browser, browserWb)
     }
@@ -357,18 +367,25 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
   // If out/result-data isn't yet created in /out, create it
   try {
     await fs.promises.access(path.join(__dirname, '../out/result-data'))
+    XLSX.writeFileSync(
+      resultsWb,
+      path.join(__dirname, `../out/result-data/${browserType}.xlsx`)
+    )
   } catch {
-    fs.mkdir(path.join(__dirname, '../out/result-data'), (err) => {
-      if (err) {
-        throw err
+    fs.mkdirSync(
+      path.join(__dirname, '../out/result-data'),
+      { recursive: true },
+      (err) => {
+        if (err) {
+          throw err
+        }
       }
-    })
+    )
+    XLSX.writeFileSync(
+      resultsWb,
+      path.join(__dirname, `../out/result-data/${browserType}.xlsx`)
+    )
   }
-
-  XLSX.writeFileSync(
-    resultsWb,
-    path.join(__dirname, `../out/result-data/${browserType.name()}.xlsx`)
-  )
 
   console.log('Result data export complete!')
 }
