@@ -281,27 +281,29 @@ async function retrievePostCMCookies(page, context, cookiesPreCM) {
  * @returns SheetJS-ready sheet
  */
 async function formatSheet(sheet) {
-  const formattedSheet = sheet.map((cookie) => {
-    // TODO Add proper descriptions for cookies with a "Lax" or "None" setting
-    const acceptedConnectionType =
-      cookie.sameSite === 'Strict'
-        ? 'Same-site connections only'
-        : 'Any kind of connection'
+  const formattedSheet = sheet
+    .map((cookie) => {
+      // TODO Add proper descriptions for cookies with a "Lax" or "None" setting
+      const acceptedConnectionType =
+        cookie.sameSite === 'Strict'
+          ? 'Same-site connections only'
+          : 'Any kind of connection'
 
-    /**
-     * "Third-party access" and "What does it intend..."
-     * can realistically only be filled out manually,
-     * so these are left blank here.
-     */
-    return {
-      'What domain?': cookie.domain,
-      'Name?': cookie.name,
-      'What are the contents?': cookie.value,
-      'Accepted connections?': acceptedConnectionType,
-      'Third-pary access?': '',
-      'What does it intend to store?': '',
-    }
-  })
+      /**
+       * "Third-party access" and "What does it intend..."
+       * can realistically only be filled out manually,
+       * so these are left blank here.
+       */
+      return {
+        'What domain?': cookie.domain,
+        'Name?': cookie.name,
+        'What are the contents?': cookie.value,
+        'Accepted connections?': acceptedConnectionType,
+        'Third-pary access?': '',
+        'What does it intend to store?': '',
+      }
+    })
+    .sort(cookieSort)
 
   const finalSheet = XLSX.utils.json_to_sheet(formattedSheet)
 
@@ -396,13 +398,15 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
   console.log(
     `Determining if there were cookies added for ${newSheet.name} since the last run:`
   )
-  const newlyAddedCookies = newSheet.data.filter((newCookie) => {
-    const cookieFoundInBaseData = baseSheet.data.find(
-      (baseCookie) => baseCookie.name === newCookie.name
-    )
+  const newlyAddedCookies = newSheet.data
+    .filter((newCookie) => {
+      const cookieFoundInBaseData = baseSheet.data.find(
+        (baseCookie) => baseCookie.name === newCookie.name
+      )
 
-    return !cookieFoundInBaseData
-  })
+      return !cookieFoundInBaseData
+    })
+    .sort(cookieSort)
 
   // if no additional cookies, denote this
   if (newlyAddedCookies.length === 0) {
@@ -435,13 +439,15 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
   console.log(
     `Determining if there were cookies removed for ${newSheet.name} since the last run:`
   )
-  const newlyRemovedCookies = baseSheet.data.filter((baseCookie) => {
-    const cookieFoundInNewData = newSheet.data.find(
-      (newCookie) => baseCookie.name === newCookie.name
-    )
+  const newlyRemovedCookies = baseSheet.data
+    .filter((baseCookie) => {
+      const cookieFoundInNewData = newSheet.data.find(
+        (newCookie) => baseCookie.name === newCookie.name
+      )
 
-    return !cookieFoundInNewData
-  })
+      return !cookieFoundInNewData
+    })
+    .sort(cookieSort)
 
   // if no additional cookies, denote this
   if (newlyRemovedCookies.length === 0) {
@@ -477,4 +483,30 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
     ...newlyAddedCookies,
     ...newlyRemovedCookies,
   ])
+}
+
+/**
+ * Sorts cookies first by domain, then by name
+ *
+ * @param {Object} a first cookie to compare
+ * @param {Object} b next cookie to compare
+ * @returns A sorting value
+ */
+function cookieSort(a, b) {
+  // Sort cookie by domain...
+  if (a.domain > b.domain) {
+    return 1
+  }
+  if (a.domain < b.domain) {
+    return -1
+  }
+
+  // ...then by name
+  if (a.name > b.name) {
+    return 1
+  }
+  if (a.name < b.name) {
+    return -1
+  }
+  return 0
 }
