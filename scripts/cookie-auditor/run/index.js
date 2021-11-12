@@ -281,31 +281,30 @@ async function retrievePostCMCookies(page, context, cookiesPreCM) {
  * @returns SheetJS-ready sheet
  */
 async function formatSheet(sheet) {
-  const formattedSheet = sheet
-    .map((cookie) => {
-      // TODO Add proper descriptions for cookies with a "Lax" or "None" setting
-      const acceptedConnectionType =
-        cookie.sameSite === 'Strict'
-          ? 'Same-site connections only'
-          : 'Any kind of connection'
+  const formattedSheet = sheet.map((cookie) => {
+    // TODO Add proper descriptions for cookies with a "Lax" or "None" setting
+    const acceptedConnectionType =
+      cookie.sameSite === 'Strict'
+        ? 'Same-site connections only'
+        : 'Any kind of connection'
 
-      /**
-       * "Third-party access" and "What does it intend..."
-       * can realistically only be filled out manually,
-       * so these are left blank here.
-       */
-      return {
-        'What domain?': cookie.domain,
-        'Name?': cookie.name,
-        'What are the contents?': cookie.value,
-        'Accepted connections?': acceptedConnectionType,
-        'Third-pary access?': '',
-        'What does it intend to store?': '',
-      }
-    })
-    .sort(cookieSort)
+    /**
+     * "Third-party access" and "What does it intend..."
+     * can realistically only be filled out manually,
+     * so these are left blank here.
+     */
+    return {
+      'What domain?': cookie.domain,
+      'Name?': cookie.name,
+      'What are the contents?': cookie.value,
+      'Accepted connections?': acceptedConnectionType,
+      'Third-pary access?': '',
+      'What does it intend to store?': '',
+    }
+  })
 
-  const finalSheet = XLSX.utils.json_to_sheet(formattedSheet)
+  const sortedSheet = formattedSheet.sort(cookieSort)
+  const finalSheet = XLSX.utils.json_to_sheet(sortedSheet)
 
   return finalSheet
 }
@@ -398,15 +397,15 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
   console.log(
     `Determining if there were cookies added for ${newSheet.name} since the last run:`
   )
-  const newlyAddedCookies = newSheet.data
-    .filter((newCookie) => {
-      const cookieFoundInBaseData = baseSheet.data.find(
-        (baseCookie) => baseCookie.name === newCookie.name
-      )
+  const newlyAddedCookies = newSheet.data.filter((newCookie) => {
+    const cookieFoundInBaseData = baseSheet.data.find(
+      (baseCookie) =>
+        baseCookie['Name?'] === newCookie['Name?'] &&
+        baseCookie['What domain?'] === newCookie['What domain?']
+    )
 
-      return !cookieFoundInBaseData
-    })
-    .sort(cookieSort)
+    return !cookieFoundInBaseData
+  })
 
   // if no additional cookies, denote this
   if (newlyAddedCookies.length === 0) {
@@ -439,15 +438,15 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
   console.log(
     `Determining if there were cookies removed for ${newSheet.name} since the last run:`
   )
-  const newlyRemovedCookies = baseSheet.data
-    .filter((baseCookie) => {
-      const cookieFoundInNewData = newSheet.data.find(
-        (newCookie) => baseCookie.name === newCookie.name
-      )
+  const newlyRemovedCookies = baseSheet.data.filter((baseCookie) => {
+    const baseCookieFoundInNewData = newSheet.data.find(
+      (newCookie) =>
+        baseCookie['Name?'] === newCookie['Name?'] &&
+        baseCookie['What domain?'] === newCookie['What domain?']
+    )
 
-      return !cookieFoundInNewData
-    })
-    .sort(cookieSort)
+    return !baseCookieFoundInNewData
+  })
 
   // if no additional cookies, denote this
   if (newlyRemovedCookies.length === 0) {
@@ -477,12 +476,18 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
     )
   }
 
-  // TODO Add comparison for changes between duplicate cookies
+  const sortedAdditions = newlyAddedCookies
+    .filter(
+      (cookie) =>
+        cookie['What domain?'] !==
+        'vvv Adds/changes after accepting consent manager options vvv'
+    )
+    .sort(cookieSort)
 
-  return XLSX.utils.json_to_sheet([
-    ...newlyAddedCookies,
-    ...newlyRemovedCookies,
-  ])
+  const sortedRemovals = newlyRemovedCookies.sort(cookieSort)
+
+  // TODO Add comparison for changes between duplicate cookies
+  return XLSX.utils.json_to_sheet([...sortedAdditions, ...sortedRemovals])
 }
 
 /**
