@@ -241,7 +241,7 @@ async function retrievePostCMCookies(page, context, cookiesPreCM) {
     // Adds a cookie as a separator for readability in the final data
     cookiesPostCM.unshift({
       domain: 'vvv Adds/changes after accepting consent manager options vvv',
-      name: 'vvv Adds/changes after accepting consent manager options vvv',
+      name: '',
       value: '',
       path: '',
       expires: 1652306416,
@@ -388,72 +388,80 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
   console.log(
     `Determining if there were cookies added for ${newSheet.name} since the last run:`
   )
-  const newlyAddedCookies = newSheet.data
-    .filter((newCookie) => {
-      const cookieFoundInBaseData = baseSheet.data.find(
-        (baseCookie) => baseCookie.name === newCookie.name
-      )
+  const newlyAddedCookies = newSheet.data.filter((newCookie) => {
+    const cookieFoundInBaseData = baseSheet.data.find(
+      (baseCookie) => baseCookie.name === newCookie.name
+    )
 
-      return !cookieFoundInBaseData
-    })
-    .unshift(
+    return !cookieFoundInBaseData
+  })
+
+  // if no additional cookies, denote this
+  if (newlyAddedCookies.length === 0) {
+    console.log(`No new cookies added for ${newSheet.name}!`)
+    newlyRemovedCookies.push(
       // Record additions under their own heading
       {
-        'What domain?': 'vvv Cookies added since last run vvv',
-        'Name?': 'vvv Cookies added since last run vvv',
+        'What domain?': 'No cookies added since last run',
+        'Name?': '',
         'What are the contents?': '',
         'Accepted connections?': '',
         'Third-pary access?': '',
         'What does it intend to store?': '',
       }
     )
-
-  console.log(`No new cookies added for ${newSheet.name}!`)
-  // if no additional cookies, denote this
-  if (newlyAddedCookies.length === 1)
-    newlyAddedCookies.push({
-      'What domain?': 'none',
-      'Name?': '',
-      'What are the contents?': '',
-      'Accepted connections?': '',
-      'Third-pary access?': '',
-      'What does it intend to store?': '',
-    })
+  } else {
+    newlyAddedCookies.unshift(
+      // Record additions under their own heading
+      {
+        'What domain?': 'vvv Cookies added since last run vvv',
+        'Name?': '',
+        'What are the contents?': '',
+        'Accepted connections?': '',
+        'Third-pary access?': '',
+        'What does it intend to store?': '',
+      }
+    )
+  }
 
   console.log(
     `Determining if there were cookies removed for ${newSheet.name} since the last run:`
   )
-  const newlyRemovedCookies = baseSheet.data
-    .filter((baseCookie) => {
-      const cookieFoundInNewData = newSheet.data.find(
-        (newCookie) => baseCookie.name === newCookie.name
-      )
+  const newlyRemovedCookies = baseSheet.data.filter((baseCookie) => {
+    const cookieFoundInNewData = newSheet.data.find(
+      (newCookie) => baseCookie.name === newCookie.name
+    )
 
-      return !cookieFoundInNewData
-    })
-    .unshift(
+    return !cookieFoundInNewData
+  })
+
+  // if no additional cookies, denote this
+  if (newlyRemovedCookies.length === 0) {
+    console.log(`No cookies removed for ${newSheet.name}!`)
+    newlyRemovedCookies.push(
       // Record additions under their own heading
       {
-        'What domain?': 'vvv Cookies removed since last run vvv',
-        'Name?': 'vvv Cookies removed since last run vvv',
+        'What domain?': 'No cookies removed since last run',
+        'Name?': '',
         'What are the contents?': '',
         'Accepted connections?': '',
         'Third-pary access?': '',
         'What does it intend to store?': '',
       }
     )
-
-  console.log(`No cookies removed for ${newSheet.name}!`)
-  // if no additional cookies, denote this
-  if (newlyAddedCookies.length === 1)
-    newlyAddedCookies.push({
-      'What domain?': 'none',
-      'Name?': '',
-      'What are the contents?': '',
-      'Accepted connections?': '',
-      'Third-pary access?': '',
-      'What does it intend to store?': '',
-    })
+  } else {
+    newlyRemovedCookies.unshift(
+      // Record additions under their own heading
+      {
+        'What domain?': 'vvv Cookies removed since last run vvv',
+        'Name?': '',
+        'What are the contents?': '',
+        'Accepted connections?': '',
+        'Third-pary access?': '',
+        'What does it intend to store?': '',
+      }
+    )
+  }
 
   // TODO Add comparison for changes between duplicate cookies
 
