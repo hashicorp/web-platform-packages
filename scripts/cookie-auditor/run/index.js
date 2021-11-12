@@ -341,7 +341,7 @@ async function formatSheet(sheet) {
  */
 async function recordCookieDataComparison(baseData, newData, browserType) {
   console.log('Creating comparison results workbook...')
-  const resultsWb = XLSX.book_new()
+  const resultsWb = XLSX.utils.book_new()
 
   console.log('Converting workbooks to workable JS...')
   const newSheets = convertSheetJSWbToAoO(newData)
@@ -365,7 +365,10 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
       continue
     }
 
-    const resultsSheet = genComparisonResultsAsSheetJS(baseSheet, newSheet)
+    const resultsSheet = await genComparisonResultsAsSheetJS(
+      baseSheet,
+      newSheet
+    )
 
     XLSX.utils.book_append_sheet(resultsWb, resultsSheet, newSheet.name)
   }
@@ -400,7 +403,7 @@ async function recordCookieDataComparison(baseData, newData, browserType) {
 }
 
 function convertSheetJSWbToAoO(workbook) {
-  const sheetNames = workbook.sheetNames
+  const sheetNames = workbook.SheetNames
 
   return sheetNames.map((sheetName) => {
     return {
@@ -436,7 +439,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
   // if no additional cookies, denote this
   if (newlyAddedCookies.length === 0) {
     console.log(`No new cookies added for ${newSheet.name}!`)
-    newlyRemovedCookies.push(
+    newlyAddedCookies.push(
       // Record additions under their own heading
       {
         'What domain?': 'No cookies added since last run',
