@@ -317,7 +317,7 @@ async function formatSheet(sheet) {
       'Name?': cookie.name,
       'What are the contents?': cookie.value,
       'Accepted connections?': acceptedConnectionType,
-      'Third-pary access?': '',
+      'Third-party access?': '',
       'What does it intend to store?': '',
     }
   })
@@ -446,7 +446,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
         'Name?': '',
         'What are the contents?': '',
         'Accepted connections?': '',
-        'Third-pary access?': '',
+        'Third-party access?': '',
         'What does it intend to store?': '',
       }
     )
@@ -458,7 +458,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
         'Name?': '',
         'What are the contents?': '',
         'Accepted connections?': '',
-        'Third-pary access?': '',
+        'Third-party access?': '',
         'What does it intend to store?': '',
       }
     )
@@ -487,7 +487,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
         'Name?': '',
         'What are the contents?': '',
         'Accepted connections?': '',
-        'Third-pary access?': '',
+        'Third-party access?': '',
         'What does it intend to store?': '',
       }
     )
@@ -499,7 +499,7 @@ async function genComparisonResultsAsSheetJS(baseSheet, newSheet) {
         'Name?': '',
         'What are the contents?': '',
         'Accepted connections?': '',
-        'Third-pary access?': '',
+        'Third-party access?': '',
         'What does it intend to store?': '',
       }
     )
