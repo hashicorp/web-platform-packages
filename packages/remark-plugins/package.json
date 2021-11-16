@@ -18,6 +18,7 @@
     "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
+    "@mdx-js/mdx": "^2.0.0-rc.2",
     "normalize-newline": "^4.1.0"
   }
 }
