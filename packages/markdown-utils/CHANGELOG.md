@@ -1,5 +1,11 @@
 # @hashicorp/platform-markdown-utils
 
+## 0.2.0
+
+### Minor Changes
+
+- [#4](https://github.com/hashicorp/web-platform-packages/pull/4) [`9852603`](https://github.com/hashicorp/web-platform-packages/commit/9852603d13f2cbf8a4a2b2ab7ab897afcd55441a) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - Bump `@hashicorp/remark-plugins` dependency. Enables `headings` option for `anchorLinks` plugin.
+
 ## 0.1.4
 
 ### Patch Changes
