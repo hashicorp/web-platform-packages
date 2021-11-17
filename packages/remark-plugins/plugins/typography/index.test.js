@@ -1,4 +1,7 @@
-import { createProcessor } from '@mdx-js/mdx'
+import { remark } from 'remark'
+import remarkMdx from 'remark-mdx'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
 import typographyPlugin from './index.js'
 
 const fileContents = `hi there
@@ -18,11 +21,32 @@ Foo bar baz wow *amaze*
 - bar
 `
 
+const makeProcessor = (options) =>
+  remark()
+    .use(remarkMdx)
+    .use(typographyPlugin, options)
+    .use(remarkRehype)
+    .use(rehypeStringify)
+
 describe('type-styles', () => {
   it('adds classNames to headings, paragraphs, and list items', () => {
-    const compiler = createProcessor({ remarkPlugins: [typographyPlugin] })
-    const output = compiler.processSync(fileContents)
-    expect(output).toMatchInlineSnapshot()
+    const compiler = makeProcessor()
+    const output = String(compiler.processSync(fileContents))
+    expect(output).toMatchInlineSnapshot(`
+      "<p class=\\"g-type-long-body\\">hi there</p>
+      <h1 class=\\"g-type-display-2\\">Heading One</h1>
+      <h2 class=\\"g-type-display-3\\">Heading Two</h2>
+      <p class=\\"g-type-long-body\\">sadklfjhlskdjf</p>
+      <h3 class=\\"g-type-display-4\\">Heading Three</h3>
+      <h4 class=\\"g-type-display-5\\">Heading Four</h4>
+      <h5 class=\\"g-type-display-6\\">Heading Five</h5>
+      <h6 class=\\"g-type-label\\">Heading Six</h6>
+      <p class=\\"g-type-long-body\\">Foo bar baz wow <em>amaze</em></p>
+      <ul>
+      <li class=\\"g-type-long-body\\">foo</li>
+      <li class=\\"g-type-long-body\\">bar</li>
+      </ul>"
+    `)
   })
 
   it('allows empty strings in map to prevent the addition of classNames', () => {
@@ -31,10 +55,8 @@ describe('type-styles', () => {
         p: '',
       },
     }
-    const compiler = createProcessor({
-      remarkPlugins: [[typographyPlugin, options]],
-    })
-    const output = compiler.processSync(fileContents)
+    const compiler = makeProcessor(options)
+    const output = String(compiler.processSync(fileContents))
     expect(output).not.toMatch('custom-paragraph')
   })
 
@@ -51,10 +73,22 @@ describe('type-styles', () => {
         li: 'custom-list-item',
       },
     }
-    const compiler = createProcessor({
-      remarkPlugins: [[typographyPlugin, options]],
-    })
-    const output = compiler.processSync(fileContents)
-    expect(output).toMatchInlineSnapshot()
+    const compiler = makeProcessor(options)
+    const output = String(compiler.processSync(fileContents))
+    expect(output).toMatchInlineSnapshot(`
+      "<p class=\\"custom-paragraph\\">hi there</p>
+      <h1 class=\\"custom-1\\">Heading One</h1>
+      <h2 class=\\"custom-2\\">Heading Two</h2>
+      <p class=\\"custom-paragraph\\">sadklfjhlskdjf</p>
+      <h3 class=\\"custom-3\\">Heading Three</h3>
+      <h4 class=\\"custom-4\\">Heading Four</h4>
+      <h5 class=\\"custom-5\\">Heading Five</h5>
+      <h6 class=\\"custom-6\\">Heading Six</h6>
+      <p class=\\"custom-paragraph\\">Foo bar baz wow <em>amaze</em></p>
+      <ul>
+      <li class=\\"custom-list-item\\">foo</li>
+      <li class=\\"custom-list-item\\">bar</li>
+      </ul>"
+    `)
   })
 })
