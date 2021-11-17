@@ -15,7 +15,7 @@ describe('paragraph-custom-alerts', () => {
     `)
   })
 
-  it.only('should handle multiple paragraph blocks', () => {
+  it('should handle multiple paragraph blocks', () => {
     const md = `this is a normal, non-alert paragraph
 
 ~> this is a warning block
