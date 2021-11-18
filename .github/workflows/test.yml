@@ -19,7 +19,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
       - name: Install and build
-      - run: |
+        run: |
           npm ci
           npm run build
       - name: Run Jest
