@@ -23,6 +23,7 @@ Current packages:
 - [`@hashicorp/platform-markdown-utils`](/packages/markdown-utils)
 - [`@hashicorp/platform-nextjs-plugin`](/packages/nextjs-plugin)
 - [`@hashicorp/platform-product-meta`](/packages/product-meta)
+- [`@hashicorp/platform-remark-plugins`](/packages/remark-plugins)
 - [`@hashicorp/platform-runtime-error-monitoring`](/packages/runtime-error-monitoring)
 - [`@hashicorp/platform-types`](/packages/types)
 - [`@hashicorp/platform-util`](/packages/util)

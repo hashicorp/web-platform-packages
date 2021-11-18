@@ -9,7 +9,7 @@
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.14",
     "@types/segment-analytics": "^0.0.34",
-    "jest": "^27.0.6",
+    "jest": "^27.3.1",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -42,7 +42,7 @@
     "lint": "./packages/cli/next-hashicorp lint",
     "release": "npm run build && changeset publish",
     "release:canary": "npm run build && changeset publish --tag canary",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:watch": "jest --watch",
     "prepare": "simple-git-hooks"
   },

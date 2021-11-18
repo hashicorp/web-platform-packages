@@ -1,0 +1,29 @@
+{
+  "name": "@hashicorp/platform-remark-plugins",
+  "description": "A potpourri of remark plugins used to process .mdx files",
+  "version": "0.0.0",
+  "author": "Jeff Escalante",
+  "bugs": "https://github.com/hashicorp/web-platform-packages/issues",
+  "contributors": [],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./index.js",
+  "dependencies": {
+    "remark": "^14.0.1",
+    "remark-html": "^15.0.0",
+    "remark-mdx": "^2.0.0-rc.2",
+    "remark-stringify": "^10.0.1",
+    "to-vfile": "^7.2.2",
+    "unist-builder": "^3.0.0",
+    "unist-util-is": "^5.1.1",
+    "unist-util-map": "^3.0.0",
+    "unist-util-visit": "^4.1.0"
+  },
+  "devDependencies": {
+    "@mdx-js/mdx": "^2.0.0-rc.2",
+    "normalize-newline": "^4.1.0",
+    "rehype-remark": "^9.1.0",
+    "rehype-stringify": "^9.0.2",
+    "remark-rehype": "^10.0.1"
+  }
+}
