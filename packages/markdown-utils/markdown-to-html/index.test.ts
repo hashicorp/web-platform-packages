@@ -22,7 +22,7 @@ test('returns a basic example using our default plugins', async () => {
     '### Hello world!\n\nThis is some markdown that I wrote.\n\n!> Here be dragons. Proceed with caution!'
   const result = await markdownToHtml(markdown, { contentPlugins: true })
   expect(result).toMatchInlineSnapshot(`
-    "<h3 class=\\"g-type-display-4\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden></a>Hello world!</h3>
+    "<h3 class=\\"g-type-display-4\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden=\\"true\\"></a>Hello world!</h3>
     <p class=\\"g-type-long-body\\">This is some markdown that I wrote.</p>
     <div class=\\"alert alert-danger g-type-body\\"><p class=\\"g-type-long-body\\">Here be dragons. Proceed with caution!</p></div>"
   `)
@@ -37,7 +37,7 @@ test('returns a basic example using typography plugin options', async () => {
     contentPlugins: { pluginOptions },
   })
   expect(result).toMatchInlineSnapshot(`
-    "<h3 class=\\"g-type-label\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden></a>Hello world!</h3>
+    "<h3 class=\\"g-type-label\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden=\\"true\\"></a>Hello world!</h3>
     <p class=\\"g-type-body-small\\">This is some markdown that I wrote.</p>"
   `)
 })
@@ -61,7 +61,7 @@ test('returns a basic example using an additional remark plugin', async () => {
     contentPlugins: { addRemarkPlugins: [exampleRemarkPlugin] },
   })
   expect(result).toMatchInlineSnapshot(`
-    "<h3 class=\\"g-type-display-4\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden></a>Hello world!</h3>
+    "<h3 class=\\"g-type-display-4\\"><a class=\\"__permalink-h\\" href=\\"#hello-world\\" aria-label=\\"hello world permalink\\">»</a><a class=\\"__target-h\\" id=\\"hello-world\\" aria-hidden=\\"true\\"></a>Hello world!</h3>
     <p class=\\"g-type-long-body\\" data-test-attribute=\\"some-value\\">This is some markdown that I wrote.</p>"
   `)
 })
