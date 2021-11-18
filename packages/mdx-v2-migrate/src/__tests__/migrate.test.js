@@ -105,4 +105,12 @@ describe('mdx-v2-migrate', () => {
       `"- Watch **Developing a secrets engine for HashiCorp Vault**. <VideoEmbed url={video} /> <br />"`
     )
   })
+
+  test('markup in a link', async () => {
+    const mdx = `[<div>url</div>](https://example.com?foo&bar=1)`
+
+    expect(await migrate(mdx)).toMatchInlineSnapshot(
+      `"[<div>url</div>](https://example.com?foo\\\\&bar=1)"`
+    )
+  })
 })
