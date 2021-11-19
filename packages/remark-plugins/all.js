@@ -1,4 +1,5 @@
 import anchorLinks from './plugins/anchor-links/index.js'
+import jumpToSection from './plugins/jump-to-section/index.js'
 import paragraphCustomAlerts from './plugins/paragraph-custom-alerts/index.js'
 import typography from './plugins/typography/index.js'
 import includeMarkdown from './plugins/include-markdown/index.js'
@@ -12,6 +13,7 @@ export default function allPlugins({
   return [
     [includeMarkdown, includeMarkdownOptions],
     [anchorLinks, anchorLinksOptions],
+    jumpToSection,
     paragraphCustomAlerts,
     [typography, typographyOptions],
   ]
