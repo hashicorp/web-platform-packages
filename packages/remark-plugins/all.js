@@ -7,7 +7,6 @@ import includeMarkdown from './plugins/include-markdown/index.js'
 // for easy use of everything at the same time
 export default function allPlugins({
   anchorLinks: anchorLinksOptions,
-
   typography: typographyOptions,
   includeMarkdown: includeMarkdownOptions,
 } = {}) {
