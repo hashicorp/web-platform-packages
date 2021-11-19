@@ -5,7 +5,7 @@
   "author": "HashiCorp",
   "dependencies": {
     "@hashicorp/platform-types": "^0.1.0",
-    "@hashicorp/remark-plugins": "^3.3.1",
+    "@hashicorp/platform-remark-plugins": "0.2.0-canary-2021101921045",
     "@mapbox/rehype-prism": "^0.6.0",
     "@mdx-js/react": "1.6.22",
     "rehype-katex": "^5.0.0",
