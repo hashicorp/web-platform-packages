@@ -49,6 +49,7 @@ jobs:
         run: |
           echo "::set-output name=count::$(echo ${{toJson(steps.changesets.outputs.publishedPackages)}} | jq '. | length')"
           echo "::set-output name=packageList::$(echo ${{toJson(steps.changesets.outputs.publishedPackages)}} | jq 'reduce .[] as $item (""; . + "#### \($item.name)@\($item.version)\n```\nnpm install \($item.name)@canary\n```\n")')"
+
       - name: Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: success() && steps.changesets.outputs.published == 'true'
@@ -56,7 +57,11 @@ jobs:
           header: 'canary-release'
           message: |
             ### :package: Canary Packages Published
+
             Latest commit: ${{ github.event.pull_request.head.sha }}
+
             <details><summary>Published ${{ steps.packagesData.outputs.count }} packages</summary>
+
             ${{ fromJSON(steps.packagesData.outputs.packageList) }}
+
             </details>
