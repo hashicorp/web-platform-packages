@@ -1,5 +1,6 @@
-const config = require('./config')
-const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
+import { jest } from '@jest/globals'
+import config from './config'
+import withHashicorp from '@hashicorp/platform-nextjs-plugin'
 
 test('returns the correct url based on the environment', async () => {
   // first we test the default url
@@ -10,7 +11,7 @@ test('returns the correct url based on the environment', async () => {
   const oldEnv = process.env.HASHI_ENV
   jest.resetModules()
   process.env.HASHI_ENV = 'preview'
-  const prodConfig = await require('./config')
+  const { default: prodConfig } = await import('./config')
   expect(prodConfig.url).toBe('https://graphql.datocms.com/preview')
 
   // finally we reset the HASHI_ENV for subsequent tests
@@ -18,10 +19,10 @@ test('returns the correct url based on the environment', async () => {
 })
 
 // this would require an integration test, since nextjs internals set this variable now
-test.skip('returns the correct dato token based on withHashicorp options', () => {
+test.skip('returns the correct dato token based on withHashicorp options', async () => {
   const testToken = '12345'
   withHashicorp({ dato: { token: testToken } })()
   jest.resetModules()
-  const clientConfig = require('./config')
+  const { default: clientConfig } = await import('./config')
   expect(clientConfig.headers.Authorization).toBe(testToken)
 })
