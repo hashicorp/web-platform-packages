@@ -28,8 +28,18 @@ export default function jumpToSection(options) {
         found = true
         return [
           node,
-          u('jsx', {
-            value: '<JumpToSection headings={headings}/>',
+          u('mdxJsxFlowElement', {
+            name: 'JumpToSection',
+            attributes: [
+              u('mdxJsxAttribute', {
+                name: 'headings',
+                value: u(
+                  'mdxJsxAttributeValueExpression',
+                  { data: { estree: undefined } },
+                  'headings'
+                ),
+              }),
+            ],
           }),
         ]
       }
