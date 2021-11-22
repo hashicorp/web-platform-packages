@@ -38,7 +38,7 @@
   "private": true,
   "repository": "hashicorp/nextjs-scripts",
   "scripts": {
-    "build": "npm run build --workspace=@hashicorp/platform-nextjs-plugin",
+    "build": "npm run build --workspaces --if-present",
     "lint": "./packages/cli/next-hashicorp lint",
     "release": "npm run build && changeset publish",
     "release:canary": "npm run build && changeset publish --tag canary",
