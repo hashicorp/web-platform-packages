@@ -1,4 +1,4 @@
-const markdownToInlineHtml = require('.')
+import markdownToInlineHtml from './index'
 
 test('returns an empty string for an empty markdown string', async () => {
   const markdown = ''

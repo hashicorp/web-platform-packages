@@ -1,4 +1,4 @@
-const splitTextNode = require('./split-text-node')
+import splitTextNode from './split-text-node'
 
 /**
  * Given an array of HAST tokens, extract newlines
@@ -13,7 +13,7 @@ const splitTextNode = require('./split-text-node')
  * @param {Number} depth For internal use
  * @returns
  */
-function surfaceNewlines(tokensArray, depth = 0) {
+export default function surfaceNewlines(tokensArray, depth = 0) {
   return tokensArray.reduce((acc, token) => {
     // return text tokens
     const isTextToken = token.type == 'text'
@@ -67,5 +67,3 @@ function surfaceNewlines(tokensArray, depth = 0) {
     return acc.concat(processedTokens)
   }, [])
 }
-
-module.exports = surfaceNewlines
