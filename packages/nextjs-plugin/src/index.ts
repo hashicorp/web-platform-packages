@@ -21,10 +21,8 @@ interface NextHashiCorpOptions {
   nextOptimizedImages?: boolean
 }
 
-export = withHashicorp
-
 // Export a plugin function that just goes through and calls our chain
-function withHashicorp({
+export default function withHashicorp({
   css = {},
   dato = {},
   transpileModules = [],
