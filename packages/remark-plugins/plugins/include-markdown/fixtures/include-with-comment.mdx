@@ -1,0 +1,9 @@
+We should now be able include custom MDX components in partials. For example, a `"official"` `PluginTierLabel` should render below:
+
+<PluginTierLabel tier="official" />
+
+Comments should NOT mess things up:
+
+<!-- HTML comment but nested -->
+
+But they seem to be messing things up, apparently due to differences in `remark` 12 vs 13.
