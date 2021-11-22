@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals'
 import config from './config'
-import withHashicorp from '@hashicorp/platform-nextjs-plugin'
 
 test('returns the correct url based on the environment', async () => {
   // first we test the default url
@@ -16,13 +15,4 @@ test('returns the correct url based on the environment', async () => {
 
   // finally we reset the HASHI_ENV for subsequent tests
   process.env.HASHI_ENV = oldEnv
-})
-
-// this would require an integration test, since nextjs internals set this variable now
-test.skip('returns the correct dato token based on withHashicorp options', async () => {
-  const testToken = '12345'
-  withHashicorp({ dato: { token: testToken } })()
-  jest.resetModules()
-  const { default: clientConfig } = await import('./config')
-  expect(clientConfig.headers.Authorization).toBe(testToken)
 })
