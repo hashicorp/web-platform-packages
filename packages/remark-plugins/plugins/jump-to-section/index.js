@@ -6,7 +6,7 @@ import { u } from 'unist-builder'
  * @usage
  * ```ts
  * let headings = []
- * 
+ *
  * const mdxSource = await serialize(content, {
  *   mdxOptions: {
  *     remarkPlugins: [
@@ -22,16 +22,15 @@ import { u } from 'unist-builder'
 export default function jumpToSection(options) {
   if (options?.hide) return
   return function transformer(tree) {
-    let found = false;
-    flatMap(tree, (node, index) => {
-      if (is(node, "heading") && node.depth === 1 && !found) {
-        found = true;
+    let found = false
+    flatMap(tree, (node) => {
+      if (is(node, 'heading') && node.depth === 1 && !found) {
+        found = true
         return [
           node,
-          u("jsx", {
-            value: "<JumpToSection headings={headings}/>",
-          })
-
+          u('jsx', {
+            value: '<JumpToSection headings={headings}/>',
+          }),
         ]
       }
 
