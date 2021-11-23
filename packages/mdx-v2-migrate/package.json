@@ -1,0 +1,22 @@
+{
+  "name": "@hashicorp/mdx-v2-migrate",
+  "version": "0.0.0",
+  "description": "Migration utility to make content compatible with MDX v2",
+  "main": "index.js",
+  "bin": {
+    "mdx-v2-migrate": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bryce Kalow",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "mdast-util-mdx-jsx": "^1.1.2",
+    "mdast-util-to-markdown": "^1.2.4",
+    "readdirp": "^3.6.0",
+    "remark": "^14.0.1"
+  }
+}
