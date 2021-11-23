@@ -50,7 +50,7 @@ describe('mdx-v2-migrate', () => {
     const mdx = `<!-- HTML comments are bad -->`
 
     expect(await migrate(mdx)).toMatchInlineSnapshot(
-      `"{/* HTML comments are bad  */}"`
+      `"{/* HTML comments are bad */}"`
     )
   })
 
@@ -66,8 +66,14 @@ describe('mdx-v2-migrate', () => {
         
         Believe it
           
-       */}"
+      */}"
     `)
+  })
+
+  test('transform HTML comments - special characters', async () => {
+    const mdx = `<!-- TODO: fixme -->`
+
+    expect(await migrate(mdx)).toMatchInlineSnapshot(`"{/* TODO: fixme */}"`)
   })
 
   test('Escape brackets {}', async () => {

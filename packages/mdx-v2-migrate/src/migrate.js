@@ -5,7 +5,7 @@ import { remark } from 'remark'
 import matter from 'gray-matter'
 import { text } from 'mdast-util-to-markdown/lib/handle/text.js'
 
-const commentExpression = /\s*<!--\s*([a-zA-Z\d-]+\s+[\s\S]*)?\s*-->\s*/
+const commentExpression = /\s*<!--([\s\S]*?)-->\s*/
 
 export function createMigrationCompiler() {
   return remark().data('settings', {
@@ -34,7 +34,7 @@ export function createMigrationCompiler() {
         const match = node.value.match(commentExpression)
 
         if (match) {
-          return `{/* ${match[1]} */}`
+          return `{/*${match[1]}*/}`
         }
 
         return node.value
