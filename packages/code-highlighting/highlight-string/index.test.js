@@ -1,12 +1,12 @@
-const highlightString = require('./').default
+import highlightString from './'
 // Fixtures
-const JS_FIXTURE = require('../fixtures/hello-world')
-const JS_MULTILINE_FIXTURE = require('../fixtures/js-multiline')
-const SHELL_FIXTURE = require('../fixtures/shell-hello')
-const GO_FIXTURE = require('../fixtures/go-multiline')
-const HCL_FIXTURE = require('../fixtures/hcl-config')
-const WITH_HTML_ENTITIES_FIXTURE = require('../fixtures/with-html-entities')
-const WITH_TOKEN_ACROSS_NEWLINE = require('../fixtures/with-token-across-newline')
+import JS_FIXTURE from '../fixtures/hello-world'
+import JS_MULTILINE_FIXTURE from '../fixtures/js-multiline'
+import SHELL_FIXTURE from '../fixtures/shell-hello'
+import GO_FIXTURE from '../fixtures/go-multiline'
+import HCL_FIXTURE from '../fixtures/hcl-config'
+import WITH_HTML_ENTITIES_FIXTURE from '../fixtures/with-html-entities'
+import WITH_TOKEN_ACROSS_NEWLINE from '../fixtures/with-token-across-newline'
 
 test('returns an unmodified string if language is undefined', () => {
   const code = JS_FIXTURE.input

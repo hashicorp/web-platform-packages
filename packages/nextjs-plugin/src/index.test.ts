@@ -1,13 +1,5 @@
+import { jest } from '@jest/globals'
 import withHashicorp from './index'
-import nextOptimizedImages from '@hashicorp/next-optimized-images'
-
-jest.mock('@hashicorp/next-optimized-images', () =>
-  jest.fn().mockImplementation((x) => x)
-)
-
-beforeEach(() => {
-  jest.clearAllMocks()
-})
 
 test('dato token default', () => {
   console.log(withHashicorp({ dato: { token: 'foo' } })())
@@ -156,12 +148,12 @@ test('nextOptimizedImages true - integrates next-optimized-images plugin', () =>
   const config = withHashicorp({ nextOptimizedImages: true })()
 
   expect(config.images.disableStaticImages).toEqual(true)
-  expect(nextOptimizedImages).toHaveBeenCalled()
+  expect(config.__nextOptimizedImages).toEqual(true)
 })
 
 test('nextOptimizedImages false - does not integrate next-optimized-images plugin', () => {
   const config = withHashicorp({ nextOptimizedImages: false })()
 
   expect(config?.images?.disableStaticImages).toBeUndefined()
-  expect(nextOptimizedImages).not.toHaveBeenCalled()
+  expect(config.__nextOptimizedImages).toBeUndefined()
 })
