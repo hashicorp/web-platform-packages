@@ -1,8 +1,10 @@
-const readFile = require('./_read-file')
+import readFile from './_read-file'
 
 // Note: fixture input and output are in
 // separate files to make them easier to edit
-module.exports = {
+const fixture = {
   input: readFile('go-multiline_input.txt'),
   output: readFile('go-multiline_output.txt'),
 }
+
+export default fixture
