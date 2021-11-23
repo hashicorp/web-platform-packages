@@ -44,7 +44,7 @@ export default function withHashicorp({
       nextConfig.images = {
         disableStaticImages: true,
         ...nextConfig.images,
-      }
+      } as NextConfig['images']
     }
 
     nextConfig.future = {
