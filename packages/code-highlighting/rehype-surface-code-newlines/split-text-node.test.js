@@ -1,4 +1,4 @@
-const splitTextNode = require('./split-text-node')
+import splitTextNode from './split-text-node'
 
 it('returns a string without newlines as a single-element array', () => {
   expect(splitTextNode('hello')).toMatchObject(['hello'])

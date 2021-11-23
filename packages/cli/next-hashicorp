@@ -19,7 +19,7 @@ const {
 } = require('./manifest')
 const generators = require('./generators')
 const open = require('open')
-const datoApiConfig = require('@hashicorp/platform-cms/config')
+const datoApiConfig = require('@hashicorp/platform-cms/config.cjs')
 
 program.version(pkg.version)
 

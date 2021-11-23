@@ -1,0 +1,13 @@
+// Slightly different config from our nextjs default since we target node.js
+{
+  "extends": "../cli/config/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "jsx": "react",
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "include": ["config.ts", "index.ts", "global.d.ts"],
+  "exclude": ["./dist/**"]
+}
