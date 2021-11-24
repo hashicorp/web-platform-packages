@@ -119,4 +119,36 @@ describe('mdx-v2-migrate', () => {
       `"[<div>url</div>](https://example.com?foo\\\\&bar=1)"`
     )
   })
+
+  test('formatted tag', async () => {
+    const mdx = `<video
+  muted
+  playsInline
+  autoPlay
+  loop
+  class="boundary-clickthrough-video boundary-clickthrough-desktop-video"
+>
+  <source
+    type="video/mp4"
+    src="https://www.datocms-assets.com/2885/1613612831-boundary-desktop-clickthrough-authenticate-v1-0-0.mp4"
+  />
+</video>`
+
+    expect(await migrate(mdx)).toMatchInlineSnapshot(`
+      "<video
+      muted
+      playsInline
+      autoPlay
+      loop
+      class=\\"boundary-clickthrough-video boundary-clickthrough-desktop-video\\"
+
+      >
+
+        <source
+          type=\\"video/mp4\\"
+          src=\\"https://www.datocms-assets.com/2885/1613612831-boundary-desktop-clickthrough-authenticate-v1-0-0.mp4\\"
+        />
+      </video>"
+    `)
+  })
 })

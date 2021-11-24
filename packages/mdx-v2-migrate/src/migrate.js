@@ -55,7 +55,22 @@ export function createMigrationCompiler() {
          */
         let safe = text(node, _, context, safeOptions)
         if (
-          (safe.match(/^\\<\w.*?>$/m) || safe.match(/\\<\w.*?\/>/)) &&
+          (safe.match(/^\\<\w.*?>$/m) ||
+            safe.match(/\\<\w.*?\/>/) ||
+            /**
+             * matches a tag which is formatted so that properties spread across multiple lines
+             *
+             * e.g.
+             *
+             * <video
+             *   muted
+             *   playsInline
+             *   autoPlay
+             *   loop
+             *   class="boundary-clickthrough-video boundary-clickthrough-desktop-video"
+             * >
+             */
+            safe.match(/^\\<\w+(\s+\w+(=.+)?.+?\n)+/)) &&
           ['phrasing', 'emphasis', 'strong'].includes(
             context.stack.slice(-1)[0]
           )
