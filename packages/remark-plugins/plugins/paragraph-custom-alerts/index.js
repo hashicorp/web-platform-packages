@@ -13,7 +13,7 @@ function generateAlertElement({ format, type, children }) {
   switch (format) {
     case 'html': {
       return {
-        type: 'html',
+        type: 'wrapper',
         children: [children],
         data: {
           hName: 'div',
