@@ -2,7 +2,7 @@ import util from 'util'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withOptimizedImages from '@hashicorp/next-optimized-images'
 import withTMBase from 'next-transpile-modules'
-import { NextConfig } from 'next/dist/next-server/server/config'
+import { NextConfig } from 'next/dist/server/config'
 import withCss, { WithCssOptions } from './plugins/with-css'
 import withGraphqlBasic from './plugins/with-graphql-basic'
 import { getHashicorpPackages } from './get-hashicorp-packages'
@@ -21,10 +21,8 @@ interface NextHashiCorpOptions {
   nextOptimizedImages?: boolean
 }
 
-export = withHashicorp
-
 // Export a plugin function that just goes through and calls our chain
-function withHashicorp({
+export default function withHashicorp({
   css = {},
   dato = {},
   transpileModules = [],
@@ -46,7 +44,7 @@ function withHashicorp({
       nextConfig.images = {
         disableStaticImages: true,
         ...nextConfig.images,
-      }
+      } as NextConfig['images']
     }
 
     nextConfig.future = {

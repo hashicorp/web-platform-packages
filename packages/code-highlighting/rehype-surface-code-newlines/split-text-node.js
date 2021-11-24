@@ -12,7 +12,7 @@
  * @param {String} string
  * @returns {String[]}
  */
-function splitTextNode(string) {
+export default function splitTextNode(string) {
   const noNewlines = string.indexOf('\n') === -1
   if (noNewlines) return [string]
   // if the string is literally just a newline,
@@ -34,5 +34,3 @@ function splitTextNode(string) {
   // return the array
   return filteredParts
 }
-
-module.exports = splitTextNode

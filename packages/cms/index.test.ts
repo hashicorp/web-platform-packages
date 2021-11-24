@@ -1,5 +1,5 @@
-const rivet = require('./')
-const config = require('./config')
+import rivet from '.'
+import config from './config'
 
 test('configuration is passed into rivet correctly', () => {
   expect(rivet.client.url).toBe(config.url)
