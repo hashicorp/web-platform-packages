@@ -4,6 +4,10 @@ import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import markdownDefaults, { ContentPluginsOptions } from '../index'
 
+const defaultPluginOptions = {
+  customAlerts: { outputFormat: 'html' },
+}
+
 /**
  * Transforms a string of markdown into a string of HTML
  *
@@ -22,6 +26,15 @@ export default async function markdownToHtml(
   //  Use content plugins from our configurable default set
   if (contentPlugins) {
     const configOptions = contentPlugins === true ? {} : contentPlugins
+
+    if (!configOptions.pluginOptions) {
+      configOptions.pluginOptions = { ...defaultPluginOptions }
+    } else if (!configOptions.pluginOptions?.customAlerts) {
+      configOptions.pluginOptions.customAlerts = {
+        ...defaultPluginOptions.customAlerts,
+      }
+    }
+
     const configuredDefaults = markdownDefaults(configOptions)
     remarkPlugins = configuredDefaults.remarkPlugins
     rehypePlugins = configuredDefaults.rehypePlugins

@@ -8,11 +8,12 @@ export default function allPlugins({
   anchorLinks: anchorLinksOptions,
   typography: typographyOptions,
   includeMarkdown: includeMarkdownOptions,
+  customAlerts: customAlertsOptions,
 } = {}) {
   return [
     [includeMarkdown, includeMarkdownOptions],
     [anchorLinks, anchorLinksOptions],
-    paragraphCustomAlerts,
+    [paragraphCustomAlerts, customAlertsOptions],
     [typography, typographyOptions],
   ]
 }
