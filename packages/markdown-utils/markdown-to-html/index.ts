@@ -1,4 +1,4 @@
-import unified, { Pluggable } from 'unified'
+import { unified, Pluggable } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'

@@ -3,6 +3,9 @@
   "description": "CMS utilities for HashiCorp next.js websites",
   "version": "0.3.0",
   "author": "HashiCorp",
+  "scripts": {
+    "build": "rm -rf ./dist/ && tsc"
+  },
   "dependencies": {
     "rivet-graphql": "0.3.1"
   },

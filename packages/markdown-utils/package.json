@@ -4,19 +4,24 @@
   "version": "0.2.0",
   "author": "HashiCorp",
   "dependencies": {
-    "@hashicorp/platform-types": "^0.1.0",
-    "@hashicorp/remark-plugins": "^3.3.1",
-    "@mapbox/rehype-prism": "^0.6.0",
+    "@hashicorp/platform-remark-plugins": "^0.1.0",
+    "@hashicorp/platform-types": "^0.1.1",
+    "@mapbox/rehype-prism": "^0.8.0",
     "@mdx-js/react": "1.6.22",
-    "rehype-katex": "^5.0.0",
-    "remark-math": "^4.0.0",
-    "remark-rehype": "^7.0.0"
+    "rehype-katex": "^6.0.2",
+    "rehype-raw": "^6.1.0",
+    "rehype-stringify": "^9.0.0",
+    "remark-gfm": "^3.0.1",
+    "remark-math": "^5.1.1",
+    "remark-parse": "^10.0.0",
+    "remark-rehype": "^10.0.1"
   },
   "peerDependencies": {
     "react": ">= 16.x"
   },
   "license": "MPL-2.0",
-  "main": "index.jsx",
+  "main": "index.ts",
+  "type": "module",
   "publishConfig": {
     "private": false
   }

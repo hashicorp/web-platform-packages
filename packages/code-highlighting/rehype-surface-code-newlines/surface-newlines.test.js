@@ -1,6 +1,6 @@
-const surfaceNewlines = require('./surface-newlines')
-const unified = require('unified')
-const stringify = require('rehype-stringify')
+import surfaceNewlines from './surface-newlines'
+import { unified } from 'unified'
+import stringify from 'rehype-stringify'
 
 const processor = unified().use(stringify).data('settings', { fragment: true })
 function hastToHtml(hastNodes) {

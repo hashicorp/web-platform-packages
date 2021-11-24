@@ -4,14 +4,15 @@
   "version": "0.1.2",
   "author": "HashiCorp",
   "dependencies": {
-    "@mapbox/rehype-prism": "0.5.0",
-    "rehype-parse": "7.0.1",
-    "rehype-stringify": "8.0.0",
-    "unified": "9.2.0",
+    "@mapbox/rehype-prism": "^0.8.0",
+    "rehype-parse": "^8.0.0",
+    "rehype-stringify": "^9.0.0",
+    "unified": "^10.0.0",
     "unist-util-visit": "2.0.3"
   },
   "license": "MPL-2.0",
   "publishConfig": {
     "private": false
-  }
+  },
+  "type": "module"
 }
