@@ -23,6 +23,8 @@ const withOptimizedImages = (nextConfig = {}, nextComposePlugins = {}) => {
     overwriteImageLoaderPaths,
   } = getConfig(nextConfig)
 
+  nextConfig.__nextOptimizedImages = true
+
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (!options.defaultLoaders) {

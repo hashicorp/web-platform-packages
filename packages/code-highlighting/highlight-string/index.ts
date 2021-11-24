@@ -1,4 +1,4 @@
-import unified from 'unified'
+import { unified } from 'unified'
 import parse from 'rehype-parse'
 import stringify from 'rehype-stringify'
 import rehypePrism from '@mapbox/rehype-prism'

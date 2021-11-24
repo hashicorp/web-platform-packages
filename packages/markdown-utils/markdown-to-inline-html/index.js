@@ -1,14 +1,14 @@
-const unified = require('unified')
-const remarkParse = require('remark-parse')
-const remarkRehype = require('remark-rehype')
-const rehypeStringify = require('rehype-stringify')
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
 
 /**
  * Transforms a string of inline markdown into a string of inline HTML
  *
  * @param {string} markdown - A string of markdown. Must only contain inline markdown elements. If block elements are detected, this function will throw an error.
  */
-async function markdownToInlineHtml(markdown) {
+export default async function markdownToInlineHtml(markdown) {
   //  Configure a unified processor
   var processor = unified()
   //  Parse markdown to an [`mdast`](https://github.com/syntax-tree/mdast) syntax tree
@@ -47,5 +47,3 @@ function inlineElementsOnly() {
     tree.children = flatChildren
   }
 }
-
-module.exports = markdownToInlineHtml

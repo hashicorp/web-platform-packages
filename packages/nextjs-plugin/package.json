@@ -22,7 +22,7 @@
     "@types/webpack": "^4.41.26"
   },
   "peerDependencies": {
-    "next": ">= 11.x"
+    "next": ">= 11.1.x"
   },
   "files": [
     "dist/**"

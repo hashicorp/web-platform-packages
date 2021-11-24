@@ -2,7 +2,9 @@ import { allPlugins } from '@hashicorp/remark-plugins'
 import highlight from '@mapbox/rehype-prism'
 import { Pluggable } from 'unified'
 import remarkMath from 'remark-math'
+import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
+import rehypeRaw from 'rehype-raw'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 
 interface MarkdownDefaults {
@@ -26,12 +28,27 @@ export default function markdownDefaults(
 
   // Set default remark/rehype plugins
   // Add user-provided remark plugins if present
-  const remarkDefaults: Pluggable[] = allPlugins(options.pluginOptions)
+  const remarkDefaults: Pluggable[] = [
+    ...allPlugins(options.pluginOptions),
+    remarkGfm,
+  ]
   res.remarkPlugins = options.addRemarkPlugins
     ? [...remarkDefaults, ...options.addRemarkPlugins]
     : remarkDefaults
 
   const rehypeDefaults: Pluggable[] = [
+    [
+      rehypeRaw,
+      {
+        passThrough: [
+          'mdxFlowExpression',
+          'mdxJsxFlowElement',
+          'mdxJsxTextElement',
+          'mdxTextExpression',
+          'mdxjsEsm',
+        ],
+      },
+    ],
     [highlight, { ignoreMissing: true }],
     rehypeSurfaceCodeNewlines,
   ]
