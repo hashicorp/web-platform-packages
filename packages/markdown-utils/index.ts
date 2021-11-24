@@ -13,7 +13,7 @@ interface MarkdownDefaults {
 }
 
 export interface ContentPluginsOptions {
-  // TODO: implement this once our @hashicorp/remark-plugins package is typed (https://app.asana.com/0/1100423001970639/1199650430485548)
+  // TODO: implement this once our @hashicorp/platform-remark-plugins package is typed (https://app.asana.com/0/1100423001970639/1199650430485548)
   pluginOptions?: $TSFixMe
   addRemarkPlugins?: Pluggable[]
   addRehypePlugins?: Pluggable[]
