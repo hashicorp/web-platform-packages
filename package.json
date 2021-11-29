@@ -43,7 +43,7 @@
     "release": "npm run build && changeset publish",
     "release:canary": "npm run build && changeset publish --tag canary",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:watch": "jest --watch",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "prepare": "simple-git-hooks"
   },
   "workspaces": [
