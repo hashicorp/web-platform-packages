@@ -9,7 +9,43 @@ const sigils = {
   '!>': 'danger',
 }
 
-export default function paragraphCustomAlertsPlugin() {
+function generateAlertElement({ format, type, children }) {
+  switch (format) {
+    case 'html': {
+      return {
+        type: 'wrapper',
+        children: [children],
+        data: {
+          hName: 'div',
+          hProperties: {
+            className: ['alert', `alert-${type}`, 'g-type-body'],
+          },
+        },
+      }
+    }
+    default:
+    case 'jsx': {
+      return u(
+        'mdxJsxFlowElement',
+        {
+          name: 'div',
+          attributes: [
+            u(
+              'mdxJsxAttribute',
+              { name: 'className' },
+              `alert alert-${type} g-type-body`
+            ),
+          ],
+        },
+        [children]
+      )
+    }
+  }
+}
+
+export default function paragraphCustomAlertsPlugin({
+  outputFormat = 'jsx',
+} = {}) {
   return function transformer(tree) {
     visit(tree, 'paragraph', (pNode, _, parent) => {
       let prevTextNode
@@ -34,20 +70,11 @@ export default function paragraphCustomAlertsPlugin() {
             // Wrap matched nodes with <div> (containing proper attributes)
             parent.children = parent.children.map((node) => {
               return is(pNode, node)
-                ? u(
-                    'mdxJsxFlowElement',
-                    {
-                      name: 'div',
-                      attributes: [
-                        u(
-                          'mdxJsxAttribute',
-                          { name: 'className' },
-                          `alert alert-${sigils[symbol]} g-type-body`
-                        ),
-                      ],
-                    },
-                    [node]
-                  )
+                ? generateAlertElement({
+                    format: outputFormat,
+                    type: sigils[symbol],
+                    children: node,
+                  })
                 : node
             })
           }

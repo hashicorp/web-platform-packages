@@ -1,8 +1,10 @@
-import { allPlugins } from '@hashicorp/remark-plugins'
+import allPlugins from '@hashicorp/platform-remark-plugins/all'
 import highlight from '@mapbox/rehype-prism'
 import { Pluggable } from 'unified'
 import remarkMath from 'remark-math'
+import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
+import rehypeRaw from 'rehype-raw'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 
 interface MarkdownDefaults {
@@ -11,7 +13,7 @@ interface MarkdownDefaults {
 }
 
 export interface ContentPluginsOptions {
-  // TODO: implement this once our @hashicorp/remark-plugins package is typed (https://app.asana.com/0/1100423001970639/1199650430485548)
+  // TODO: implement this once our @hashicorp/platform-remark-plugins package is typed (https://app.asana.com/0/1100423001970639/1199650430485548)
   pluginOptions?: $TSFixMe
   addRemarkPlugins?: Pluggable[]
   addRehypePlugins?: Pluggable[]
@@ -26,12 +28,27 @@ export default function markdownDefaults(
 
   // Set default remark/rehype plugins
   // Add user-provided remark plugins if present
-  const remarkDefaults: Pluggable[] = allPlugins(options.pluginOptions)
+  const remarkDefaults: Pluggable[] = [
+    ...allPlugins(options.pluginOptions),
+    remarkGfm,
+  ]
   res.remarkPlugins = options.addRemarkPlugins
     ? [...remarkDefaults, ...options.addRemarkPlugins]
     : remarkDefaults
 
   const rehypeDefaults: Pluggable[] = [
+    [
+      rehypeRaw,
+      {
+        passThrough: [
+          'mdxFlowExpression',
+          'mdxJsxFlowElement',
+          'mdxJsxTextElement',
+          'mdxTextExpression',
+          'mdxjsEsm',
+        ],
+      },
+    ],
     [highlight, { ignoreMissing: true }],
     rehypeSurfaceCodeNewlines,
   ]

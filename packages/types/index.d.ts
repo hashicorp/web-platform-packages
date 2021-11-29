@@ -6,6 +6,7 @@ declare module 'next-transpile-modules'
 
 declare module '@hashicorp/remark-plugins'
 declare module '@hashicorp/react-consent-manager'
+declare module '@hashicorp/platform-remark-plugins*'
 
 declare module 'rivet-graphql'
 declare module '*.graphql'
