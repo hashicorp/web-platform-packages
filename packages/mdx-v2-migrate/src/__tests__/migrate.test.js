@@ -1,9 +1,9 @@
-import { createMigrationCompiler } from '../migrate.js'
+import { createMigrationCompiler, beforeParse } from '../migrate.js'
 
 const compiler = createMigrationCompiler()
 
 async function migrate(string) {
-  const result = String(await compiler.process(string))
+  const result = String(await compiler.process(await beforeParse(string)))
   return result.trim()
 }
 
@@ -176,6 +176,19 @@ describe('mdx-v2-migrate', () => {
           src=\\"https://www.datocms-assets.com/2885/1613612831-boundary-desktop-clickthrough-authenticate-v1-0-0.mp4\\"
         />
       </video>"
+    `)
+  })
+
+  test('elements in a table cell', async () => {
+    const mdx = `| Sequence              | Matches                                                                          |
+| --------------------- | -------------------------------------------------------------------------------- |
+| <code>x|y</code> | either \`x\` or \`y\`, preferring \`x\`                                                |
+`
+
+    expect(await migrate(mdx)).toMatchInlineSnapshot(`
+      "| Sequence              | Matches                                                                          |
+      | --------------------- | -------------------------------------------------------------------------------- |
+      | \`x\\\\|y\` | either \`x\` or \`y\`, preferring \`x\`                                                |"
     `)
   })
 })

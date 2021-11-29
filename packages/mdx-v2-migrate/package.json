@@ -17,6 +17,7 @@
     "mdast-util-mdx-jsx": "^1.1.2",
     "mdast-util-to-markdown": "^1.2.4",
     "readdirp": "^3.6.0",
-    "remark": "^14.0.1"
+    "remark": "^14.0.1",
+    "remark-gfm": "^3.0.1"
   }
 }
