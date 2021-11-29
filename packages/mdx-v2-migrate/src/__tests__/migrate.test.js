@@ -76,6 +76,21 @@ describe('mdx-v2-migrate', () => {
     expect(await migrate(mdx)).toMatchInlineSnapshot(`"{/* TODO: fixme */}"`)
   })
 
+  test('transform HTML comments - empty comment', async () => {
+    const mdx = `
+- \`roles\` \`(list [string] <required>)\` - List of roles that the API Key needs to have. If the roles array is provided:
+
+* \`ip_addresses\` \`(list [string] <Optional>)\` - IP address to be added to the whitelist for the API key. This field is mutually exclusive with the cidrBlock field.
+* \`cidr_blocks\` \`(list [string] <Optional>)\` - Whitelist entry in CIDR notation to be added for the API key. This field is mutually exclusive with the ipAddress field.`
+
+    expect(await migrate(mdx)).toMatchInlineSnapshot(`
+      "- \`roles\` \`(list [string] <required>)\` - List of roles that the API Key needs to have. If the roles array is provided:
+
+      - \`ip_addresses\` \`(list [string] <Optional>)\` - IP address to be added to the whitelist for the API key. This field is mutually exclusive with the cidrBlock field.
+      - \`cidr_blocks\` \`(list [string] <Optional>)\` - Whitelist entry in CIDR notation to be added for the API key. This field is mutually exclusive with the ipAddress field."
+    `)
+  })
+
   test('Escape brackets {}', async () => {
     const mdx = `This should be {escaped}`
 
@@ -91,6 +106,18 @@ describe('mdx-v2-migrate', () => {
     expect(await migrate(mdx)).toMatchInlineSnapshot(
       `"The lab provides an example configuration file, \`least-req-resolver.hcl\`\\\\{\\\\{open}} for _least_request_ policy."`
     )
+  })
+
+  test('Double brackets - alternate', async () => {
+    const mdx = `\`left_delimiter\` \`(string: "{{")\` - Delimiter to use in the template. The
+    default is "{{" but for some templates, it may be easier to use a different
+    delimiter that does not conflict with the output file itself.`
+
+    expect(await migrate(mdx)).toMatchInlineSnapshot(`
+      "\`left_delimiter\` \`(string: \\"{{\\")\` - Delimiter to use in the template. The
+      default is \\"\\\\{\\\\{\\" but for some templates, it may be easier to use a different
+      delimiter that does not conflict with the output file itself."
+    `)
   })
 
   test('inline img element', async () => {
