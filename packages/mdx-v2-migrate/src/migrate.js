@@ -3,6 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import { remark } from 'remark'
 // import remarkGfm from 'remark-gfm'
+import { compile } from '@mdx-js/mdx'
 import matter from 'gray-matter'
 import { text } from 'mdast-util-to-markdown/lib/handle/text.js'
 import { mdxToMarkdown } from 'mdast-util-mdx'
@@ -66,7 +67,6 @@ export function createMigrationCompiler() {
              * no match: **\<foo>**
              */
             let safe = text(node, _, context, safeOptions)
-            if (safe === 'x|y') console.log(node, context.stack)
             if (
               (safe.match(/^\\<\w.*?>$/m) ||
                 safe.match(/\\<\w.*?\/>/) ||
@@ -163,11 +163,16 @@ export async function migrate(files) {
 
     content = await beforeParse(content)
 
-    const updatedFileContents = String(await compiler.process(content))
+    // Try to parse it with MDX v2, fallback to the migration compiler
+    try {
+      await compile(content)
+    } catch {
+      content = String(await compiler.process(content))
+    }
 
     await fs.promises.writeFile(
       entry.fullPath,
-      matter.stringify(updatedFileContents, data, {
+      matter.stringify(content, data, {
         delimiters: ['---', '---\n\n'],
       }),
       'utf-8'
