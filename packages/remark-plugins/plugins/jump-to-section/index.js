@@ -27,19 +27,24 @@ export default function jumpToSection(options) {
         found = true
         return [
           node,
-          u('mdxJsxFlowElement', {
-            name: 'JumpToSection',
-            attributes: [
-              u('mdxJsxAttribute', {
-                name: 'headings',
-                value: u(
-                  'mdxJsxAttributeValueExpression',
-                  { data: { estree: undefined } },
-                  'headings'
-                ),
-              }),
-            ],
+          /** @TODO Use this for MDX v1*/
+          u('jsx', {
+            value: '<JumpToSection headings={headings}/>',
           }),
+          /** @TODO Use this when MDX v2 is introduced */
+          // u('mdxJsxFlowElement', {
+          //   name: 'JumpToSection',
+          //   attributes: [
+          //     u('mdxJsxAttribute', {
+          //       name: 'headings',
+          //       value: u(
+          //         'mdxJsxAttributeValueExpression',
+          //         { data: { estree: undefined } },
+          //         'headings'
+          //       ),
+          //     }),
+          //   ],
+          // }),
         ]
       }
 

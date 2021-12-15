@@ -11,7 +11,7 @@
   "dependencies": {
     "remark": "^14.0.1",
     "remark-html": "^15.0.0",
-    "remark-mdx": "^2.0.0-rc.2",
+    "remark-mdx": "^1.6.22",
     "remark-stringify": "^10.0.1",
     "to-vfile": "^7.2.2",
     "unist-builder": "^3.0.0",
@@ -20,7 +20,7 @@
     "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^2.0.0-rc.2",
+    "@mdx-js/mdx": "^1.6.22",
     "normalize-newline": "^4.1.0",
     "rehype-remark": "^9.1.0",
     "rehype-stringify": "^9.0.2",
