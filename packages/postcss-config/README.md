@@ -17,3 +17,15 @@ module.exports = {
   ...require('@hashicorp/platform-postcss-config'),
 }
 ```
+
+## CSS Processing
+
+This package configures a standard stack of PostCSS plugins, listed below:
+
+- [postcss-flexbugs-fixes](https://github.com/luisrudge/postcss-flexbugs-fixes)
+- [postcss-normalize](https://github.com/csstools/postcss-normalize)
+- [postcss-preset-env](https://github.com/csstools/postcss-preset-env)
+  - `stage` is set to `3`
+  - `nesting-rules` is set to `true`
+  - `custom-media-queries` loads in some [of our defaults](https://github.com/hashicorp/web-components/blob/master/packages/global-styles/custom-media.css) out of the box
+  - `custom-properties` is set to false - we polyfill these for ie11 and do not compile them
