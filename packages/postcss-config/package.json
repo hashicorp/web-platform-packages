@@ -1,0 +1,14 @@
+{
+  "name": "@hashicorp/platform-postcss-config",
+  "description": "Shared PostCSS config for HashiCorp Next.js websites",
+  "version": "0.0.0",
+  "author": "HashiCorp",
+  "peerDependencies": {
+    "@hashicorp/mktg-global-styles": "^4.0.0"
+  },
+  "license": "MPL-2.0",
+  "main": "index.js",
+  "publishConfig": {
+    "private": false
+  }
+}
