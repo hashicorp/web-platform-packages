@@ -3,7 +3,6 @@ import withBundleAnalyzer from '@next/bundle-analyzer'
 import withOptimizedImages from '@hashicorp/next-optimized-images'
 import withTMBase from 'next-transpile-modules'
 import { NextConfig } from 'next/dist/next-server/server/config'
-import withCss, { WithCssOptions } from './plugins/with-css'
 import withGraphqlBasic from './plugins/with-graphql-basic'
 import { getHashicorpPackages } from './get-hashicorp-packages'
 
@@ -14,7 +13,6 @@ interface DatoOptions {
   token?: string
 }
 interface NextHashiCorpOptions {
-  css?: WithCssOptions
   dato?: DatoOptions
   transpileModules?: string[]
   /** Controls whether or not to include next-optimized-images. Set it to true to use next-optimized-images. Defaults to false. */
@@ -25,7 +23,6 @@ export = withHashicorp
 
 // Export a plugin function that just goes through and calls our chain
 function withHashicorp({
-  css = {},
   dato = {},
   transpileModules = [],
   nextOptimizedImages = false,
@@ -35,7 +32,6 @@ function withHashicorp({
   return function withHashicorpInternal(nextConfig: Partial<NextConfig> = {}) {
     const chain = [
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-      withCss(css),
       withGraphqlBasic(),
     ]
 
