@@ -3,6 +3,11 @@
   "description": "Shared PostCSS config for HashiCorp Next.js websites",
   "version": "0.0.0",
   "author": "HashiCorp",
+  "dependencies": {
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^6.7.0"
+  },
   "peerDependencies": {
     "@hashicorp/mktg-global-styles": "^4.0.0"
   },
