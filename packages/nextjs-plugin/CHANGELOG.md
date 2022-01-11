@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 2.0.0
+
+### Major Changes
+
+- [#14](https://github.com/hashicorp/web-platform-packages/pull/14) [`4a627bd`](https://github.com/hashicorp/web-platform-packages/commit/4a627bd9ab531a474e6abc51937c9592f729755c) Thanks [@dstaley](https://github.com/dstaley)! - PostCSS configuration is now done with `@hashicorp/platform-postcss-config`. Please see the [README](https://github.com/hashicorp/web-platform-packages/blob/main/packages/postcss-config/README.md) for more information on how to migrate your configuration.
+
 ## 1.0.1
 
 ### Patch Changes
