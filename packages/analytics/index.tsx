@@ -2,6 +2,11 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { trackPageview, load } from 'fathom-client'
 
+interface UsePageViewAnalyticsOptions {
+  siteId?: string
+  includedDomains?: string
+}
+
 function onRouteChangeComplete() {
   trackPageview()
 }
@@ -10,22 +15,19 @@ function onRouteChangeComplete() {
  * Sets up analytics calls on route changes to track page view analytics.
  * Currently uses [fathom](https://usefathom.com) under the hood.
  */
-export default function usePageviewAnalytics(): void {
+export default function usePageviewAnalytics({
+  siteId = process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
+  includedDomains = process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS,
+}: UsePageViewAnalyticsOptions = {}): void {
   const router = useRouter()
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
-      if (
-        !process.env.NEXT_PUBLIC_FATHOM_SITE_ID ||
-        !process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS
-      )
-        return
+      if (!siteId || !includedDomains) return
 
-      load(process.env.NEXT_PUBLIC_FATHOM_SITE_ID, {
+      load(siteId, {
         url: 'https://tarantula.hashicorp.com/script.js',
-        includedDomains: process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS.split(
-          ' '
-        ),
+        includedDomains: includedDomains.split(' '),
       })
 
       // Record a pageview when route changes
@@ -36,23 +38,14 @@ export default function usePageviewAnalytics(): void {
         router.events.off('routeChangeComplete', onRouteChangeComplete)
       }
     } else {
-      if (
-        !process.env.NEXT_PUBLIC_FATHOM_SITE_ID ||
-        !process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS
-      ) {
+      if (!siteId || !includedDomains) {
         console.warn(
-          `[@hashicorp/platform-analytics] Missing required environment variables for pageview analytics: ${
-            !process.env.NEXT_PUBLIC_FATHOM_SITE_ID
-              ? '\nNEXT_PUBLIC_FATHOM_SITE_ID'
-              : ''
-          }${
-            !process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS
-              ? '\nNEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS'
-              : ''
-          }
+          `[@hashicorp/platform-analytics] Missing required options for pageview analytics: ${
+            !siteId ? '\nNEXT_PUBLIC_FATHOM_SITE_ID' : ''
+          }${!includedDomains ? '\nNEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS' : ''}
         `
         )
       }
     }
-  }, [router.events])
+  }, [includedDomains, siteId, router.events])
 }
