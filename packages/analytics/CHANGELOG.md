@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.3.0
+
+### Minor Changes
+
+- [#16](https://github.com/hashicorp/web-platform-packages/pull/16) [`251fa63`](https://github.com/hashicorp/web-platform-packages/commit/251fa6317392f00124d3a221dbda2661284e8ea1) Thanks [@BRKalow](https://github.com/BRKalow)! - Add support for passing options to the analytics hook
+
 ## 0.2.0
 
 ### Minor Changes
