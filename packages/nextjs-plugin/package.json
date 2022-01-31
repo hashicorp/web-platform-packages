@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-nextjs-plugin",
   "description": "Core plugin for HashiCorp next.js websites",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "HashiCorp",
   "scripts": {
     "build": "rm -rf ./dist && tsc"
@@ -11,7 +11,7 @@
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
     "imagemin-svgo": "8.0.0",
-    "@hashicorp/next-optimized-images": "0.1.0",
+    "@hashicorp/next-optimized-images": "0.2.0",
     "next-transpile-modules": "^8.0.0",
     "postcss-normalize": "10.0.1"
   },
