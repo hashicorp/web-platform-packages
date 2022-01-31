@@ -17,11 +17,8 @@ const regexLikeCss = /\.(css|scss|sass)(\.webpack\[javascript\/auto\])?$/
  * @returns {object}
  */
 const withOptimizedImages = (nextConfig = {}, nextComposePlugins = {}) => {
-  const {
-    optimizeImages,
-    optimizeImagesInDev,
-    overwriteImageLoaderPaths,
-  } = getConfig(nextConfig)
+  const { optimizeImages, optimizeImagesInDev, overwriteImageLoaderPaths } =
+    getConfig(nextConfig)
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -66,14 +63,16 @@ const withOptimizedImages = (nextConfig = {}, nextComposePlugins = {}) => {
                 !subRule.test &&
                 !subRule.include &&
                 subRule.exclude &&
-                subRule.use &&
-                subRule.use.options &&
-                subRule.use.options.name
+                ((subRule.use &&
+                  subRule.use.options &&
+                  subRule.use.options.name) ||
+                  subRule.type === 'asset/resource')
               ) {
                 if (
-                  (String(subRule.issuer.test) === String(regexLikeCss) ||
+                  ((String(subRule.issuer.test) === String(regexLikeCss) ||
                     String(subRule.issuer) === String(regexLikeCss)) &&
-                  subRule.use.options.name.startsWith('static/media/')
+                    subRule.use.options.name.startsWith('static/media/')) ||
+                  subRule.type === 'asset/resource'
                 ) {
                   subRule.exclude.push(/\.(jpg|jpeg|png|svg|webp|gif|ico)$/)
                 }
