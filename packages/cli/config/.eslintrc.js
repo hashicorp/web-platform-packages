@@ -65,8 +65,6 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
-        'prettier/@typescript-eslint',
-        'prettier/react',
       ],
 
       rules: {
@@ -124,12 +122,7 @@ module.exports = {
     },
   ],
 
-  extends: [
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-    'prettier/react',
-    'next',
-  ],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'next'],
 
   rules: {
     // An odd rule that leads to odd code patterns, we are opting to disable it for our projects (https://app.asana.com/0/1100423001970639/1199667739287945/f)
