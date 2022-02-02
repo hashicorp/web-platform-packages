@@ -2,4 +2,4 @@
 '@hashicorp/platform-cli': major
 ---
 
-Bump eslint packages (8)
+Upgrade ESLint to v8.8.0, and its related dependencies as needed to support the new major version.
