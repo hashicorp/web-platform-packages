@@ -17,8 +17,11 @@ const regexLikeCss = /\.(css|scss|sass)(\.webpack\[javascript\/auto\])?$/
  * @returns {object}
  */
 const withOptimizedImages = (nextConfig = {}, nextComposePlugins = {}) => {
-  const { optimizeImages, optimizeImagesInDev, overwriteImageLoaderPaths } =
-    getConfig(nextConfig)
+  const {
+    optimizeImages,
+    optimizeImagesInDev,
+    overwriteImageLoaderPaths,
+  } = getConfig(nextConfig)
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
