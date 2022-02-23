@@ -1,5 +1,12 @@
 # @hashicorp/platform-cli
 
+## 2.0.0
+
+### Major Changes
+
+- [#21](https://github.com/hashicorp/web-platform-packages/pull/21) [`4ea603c`](https://github.com/hashicorp/web-platform-packages/commit/4ea603cf0f7304d882af3ddc159cf402f7511453) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - - Upgrade ESLint to v8.8.0, and its related dependencies as needed to support the new major version.
+  - Upgrades prettier to 2.5.1
+
 ## 1.2.1
 
 ### Patch Changes

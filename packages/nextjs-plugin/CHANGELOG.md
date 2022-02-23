@@ -1,5 +1,12 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`4d53e04`](https://github.com/hashicorp/web-platform-packages/commit/4d53e047eeddcd7461fc9ee05306ace1f08947cd)]:
+  - @hashicorp/next-optimized-images@0.2.0
+
 ## 2.0.0
 
 ### Major Changes
