@@ -1,5 +1,11 @@
 # @hashicorp/platform-docs-mdx
 
+## 0.1.4
+
+### Patch Changes
+
+- [#18](https://github.com/hashicorp/web-platform-packages/pull/18) [`7d3f3a8`](https://github.com/hashicorp/web-platform-packages/commit/7d3f3a8ad49f7052aa751f2a43a6e294018c745f) Thanks [@zchsh](https://github.com/zchsh)! - Bumps react-code-block dep to fix issue with manual copy of newlines.
+
 ## 0.1.3
 
 ### Patch Changes
