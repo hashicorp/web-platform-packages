@@ -3,7 +3,7 @@ import config from './config'
 
 const instance = rivet(config.url, {
   headers: config.headers,
-  cors: true,
+  mode: 'cors',
   retryCount: 3,
 })
 const client = instance.client
