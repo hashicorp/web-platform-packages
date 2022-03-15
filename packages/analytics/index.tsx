@@ -26,7 +26,7 @@ export default function usePageviewAnalytics({
       // This short-circuit prwevents the following from happening:
       // - Runtime crash if siteId or includedDomains are not set
       // - Instant 404 when a Fathom client method is called and the navigator.sendBeacon method is unavailable
-      if (!siteId || !includedDomains || !navigator.sendBeacon) return
+      if (!siteId || !includedDomains || !window.navigator.sendBeacon) return
 
       load(siteId, {
         url: 'https://tarantula.hashicorp.com/script.js',
