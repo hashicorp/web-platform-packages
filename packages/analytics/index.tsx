@@ -22,7 +22,7 @@ export default function usePageviewAnalytics({
   const router = useRouter()
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
+    if (typeof siteId === 'string') {
       // These short-circuits prwevent the following from happening:
       // - Prevents runtime crash if siteId or includedDomains are not set
       if (!siteId || !includedDomains) return
