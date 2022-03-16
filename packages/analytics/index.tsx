@@ -16,8 +16,9 @@ function onRouteChangeComplete() {
  * Currently uses [fathom](https://usefathom.com) under the hood.
  */
 export default function usePageviewAnalytics({
-  siteId = process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
-  includedDomains = process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS,
+  // siteId = process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
+  siteId = 'e',
+  includedDomains = 'learn-git-nq-upgrade-analytics-hashicorp.vercel.app',
 }: UsePageViewAnalyticsOptions = {}): void {
   const router = useRouter()
 
