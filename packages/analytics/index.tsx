@@ -24,10 +24,10 @@ export default function usePageviewAnalytics({
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       // These short-circuits prwevent the following from happening:
-      // - Runtime crash if siteId or includedDomains are not set
+      // - Prevents runtime crash if siteId or includedDomains are not set
       if (!siteId || !includedDomains) return
 
-      // - Instant 404 when a Fathom client method is called and the navigator.sendBeacon method is unavailable
+      // - Prevents instant 404 when a Fathom client method is called and the navigator.sendBeacon method is unavailable
       if (navigator.sendBeacon === undefined) return
 
       load(siteId, {
