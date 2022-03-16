@@ -28,7 +28,7 @@ export default function usePageviewAnalytics({
       if (!siteId || !includedDomains) return
 
       // - Instant 404 when a Fathom client method is called and the navigator.sendBeacon method is unavailable
-      if (!navigator.sendBeacon) return
+      if (navigator.sendBeacon === undefined) return
 
       load(siteId, {
         url: 'https://tarantula.hashicorp.com/script.js',
