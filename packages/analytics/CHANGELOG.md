@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.3.1
+
+### Patch Changes
+
+- [#24](https://github.com/hashicorp/web-platform-packages/pull/24) [`878c3d7`](https://github.com/hashicorp/web-platform-packages/commit/878c3d794f10a9776aea7ed342b59e76a2d56a73) Thanks [@EnMod](https://github.com/EnMod)! - Adds a check for `navigator.sendBeacon` before the Fathom server-side script loads.
+
 ## 0.3.0
 
 ### Minor Changes
