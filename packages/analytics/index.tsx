@@ -16,14 +16,13 @@ function onRouteChangeComplete() {
  * Currently uses [fathom](https://usefathom.com) under the hood.
  */
 export default function usePageviewAnalytics({
-  // siteId = process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
-  siteId = 'e',
-  includedDomains = 'learn-git-nq-upgrade-analytics-hashicorp.vercel.app',
+  siteId = process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
+  includedDomains = process.env.NEXT_PUBLIC_FATHOM_INCLUDED_DOMAINS,
 }: UsePageViewAnalyticsOptions = {}): void {
   const router = useRouter()
 
   useEffect(() => {
-    if (typeof siteId === 'string') {
+    if (process.env.NODE_ENV === 'production') {
       // These short-circuits prwevent the following from happening:
       // - Prevents runtime crash if siteId or includedDomains are not set
       if (!siteId || !includedDomains) return
