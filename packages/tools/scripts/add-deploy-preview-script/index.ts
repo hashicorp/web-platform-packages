@@ -10,4 +10,6 @@ export default async function main(product: string) {
 
   console.log('writing script to:', destinationPath)
   await fs.promises.writeFile(destinationPath, script, { encoding: 'utf-8' })
+  // ensure the script file is executable after write
+  await fs.promises.chmod(destinationPath, '755')
 }

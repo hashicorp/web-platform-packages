@@ -6,7 +6,11 @@ import { register } from 'ts-node'
 import { doesFileExist } from './util'
 
 // Register ts-node with the node process so it can handle imports of ts files
-register({ transpileOnly: true, skipIgnore: true })
+register({
+  transpileOnly: true,
+  skipIgnore: true,
+  compilerOptions: { module: 'CommonJS' },
+})
 
 async function main() {
   const [, , scriptName, ...rest] = process.argv
@@ -26,7 +30,14 @@ async function main() {
   if (await doesFileExist(scriptName)) {
     execFileSync(
       'npx',
-      ['ts-node', '--transpileOnly', '--skipIgnore', scriptName],
+      [
+        'ts-node',
+        '--transpileOnly',
+        '--skipIgnore',
+        '--compilerOptions',
+        '{"module": "CommonJS"}',
+        scriptName,
+      ],
       { stdio: 'inherit' }
     )
     return
