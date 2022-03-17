@@ -1,0 +1,28 @@
+{
+  "name": "@hashicorp/platform-tools",
+  "version": "0.0.0",
+  "description": "A collection of tools and utilities for use throughout our projects.",
+  "main": "index.js",
+  "bin": {
+    "hc-tools": "./dist/index.js"
+  },
+  "dependencies": {
+    "ts-node": "^10.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "postbuild": "chmod +x ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hashicorp/web-platform-packages.git"
+  },
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/hashicorp/web-platform-packages/issues"
+  },
+  "homepage": "https://github.com/hashicorp/web-platform-packages#readme"
+}
