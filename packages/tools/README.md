@@ -27,3 +27,13 @@ $ npx hc-tools add-deploy-preview-script waypoint
 
 # Executes the add-deploy-preview script with the argument "waypoint"
 ```
+
+## Included scripts
+
+### `add-deploy-preview-script`
+
+```shell
+$ hc-tools add-deploy-preview-script <product>
+```
+
+Adds a shell script in `./scripts/website-build.sh`, which is used to build deploy previews from hashicorp/dev-portal within a product repository so contributors can continue to preview their docs changes.
