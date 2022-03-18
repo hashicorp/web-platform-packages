@@ -1,0 +1,19 @@
+{
+  "extends": "../cli/config/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "jsx": "react",
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "include": ["./src"],
+  "exclude": [
+    "base/generators/*/templates/*",
+    "**/*.test.*",
+    "**/fixtures/**/*",
+    "**/__mocks__/**/*",
+    "./dist/**",
+    "./scripts/**"
+  ]
+}
