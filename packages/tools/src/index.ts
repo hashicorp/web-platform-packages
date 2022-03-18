@@ -20,7 +20,7 @@ async function main() {
       path.join(__dirname, '..', 'scripts')
     )
     console.warn(
-      '[hc-tools]: Expected a script name to be passed, available scripts:',
+      '[hc-tools]: Expected a script name to be passed, or a relative path to a script in your working directory. Available scripts:',
       ...scripts.map((script) => `\n  - ${script}`)
     )
     return
