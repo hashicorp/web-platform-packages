@@ -37,3 +37,11 @@ $ hc-tools add-deploy-preview-script <product>
 ```
 
 Adds a shell script in `./scripts/website-build.sh`, which is used to build deploy previews from hashicorp/dev-portal within a product repository so contributors can continue to preview their docs changes.
+
+### `next-build-webpack-only`
+
+```shell
+$ hc-tools next-build-webpack-only
+```
+
+Executes `next build` and short-circuits the process before static generation occurs. Helpful for more performant builds if all we care about is the compilation output (for bundle analysis, for example).
