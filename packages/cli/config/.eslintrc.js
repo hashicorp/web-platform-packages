@@ -1,5 +1,6 @@
 module.exports = {
-  parser: 'babel-eslint',
+  // The parser is inherited from the eslint-config-next, extended here
+  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'next'],
 
   plugins: ['jsx-a11y', 'prettier'],
 
@@ -121,8 +122,6 @@ module.exports = {
       },
     },
   ],
-
-  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'next'],
 
   rules: {
     // An odd rule that leads to odd code patterns, we are opting to disable it for our projects (https://app.asana.com/0/1100423001970639/1199667739287945/f)
