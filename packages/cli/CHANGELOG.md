@@ -1,5 +1,13 @@
 # @hashicorp/platform-cli
 
+## 2.1.0
+
+### Minor Changes
+
+- [#32](https://github.com/hashicorp/web-platform-packages/pull/32) [`5b48abc`](https://github.com/hashicorp/web-platform-packages/commit/5b48abc1f7b92433a50130fc2d9386f7bb5b6845) Thanks [@BRKalow](https://github.com/BRKalow)! - \* Rely on eslint-config-next's parser instead of the deprecated babel-eslint parser.
+  - Only attempt to fix rules when not in CI, to ensure anything which is not caught locally will fail in CI.
+  - Ensures fixes made by ESLint are applied.
+
 ## 2.0.0
 
 ### Major Changes
