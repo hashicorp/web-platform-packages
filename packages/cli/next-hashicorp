@@ -142,13 +142,16 @@ async function doEslint(files) {
 
   const eslint = new ESLint({
     extensions: validExtensions,
-    fix: true,
+    // Do not attempt to fix in CI, as we can't persist the changes
+    fix: process.env.CI ? false : true,
     // ref: https://eslint.org/docs/user-guide/command-line-interface#--resolve-plugins-relative-to
     resolvePluginsRelativeTo: __dirname,
   })
   const results = await eslint.lintFiles(validFiles)
   const errors = []
   const warnings = []
+
+  await ESLint.outputFixes(results)
 
   for (const { filePath: file, messages } of results) {
     const fileErrors = []
