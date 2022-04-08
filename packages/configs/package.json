@@ -1,0 +1,10 @@
+{
+  "name": "@hashicorp/platform-configs",
+  "description": "Shared configuration files for HashiCorp projects",
+  "version": "0.0.0",
+  "author": "HashiCorp",
+  "publishConfig": {
+    "private": false
+  },
+  "license": "MPL-2.0"
+}
