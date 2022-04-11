@@ -9,7 +9,10 @@ module.exports = {
       },
     },
   },
-  testPathIgnorePatterns: ['<rootDir>/packages/.*/__tests__/fixtures/.*.js'],
+  testPathIgnorePatterns: [
+    '<rootDir>/packages/.*/__tests__/fixtures/.*.js',
+    '<rootDir>/packages/.*/__tests__/__fixtures__/.*',
+  ],
   watchPathIgnorePatterns: [
     '<rootDir>/packages/cli/__tests__/fixtures/prettier.js',
   ],
