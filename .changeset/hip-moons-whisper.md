@@ -2,4 +2,5 @@
 '@hashicorp/platform-tools': minor
 ---
 
-Add a project config option when invoking local scripts
+* Ensure that scripts invoked through hc-tools respect a project's tsconfig `paths` and `baseUrl` options
+* Load .env variables using `@next/env` and make the values available in invoked local scripts
