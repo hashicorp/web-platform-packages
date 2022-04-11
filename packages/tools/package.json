@@ -13,8 +13,7 @@
   },
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "postbuild": "chmod +x ./dist/index.js",
-    "pretest": "npm run build"
+    "postbuild": "chmod +x ./dist/index.js"
   },
   "repository": {
     "type": "git",
