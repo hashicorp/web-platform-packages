@@ -3,6 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import { execFileSync } from 'child_process'
 import { register } from 'ts-node'
+import { loadEnvConfig } from '@next/env'
 import { doesFileExist } from './util'
 
 // Register ts-node with the node process so it can handle imports of ts files
@@ -28,6 +29,12 @@ async function main() {
 
   // If we receive a relative file path that is found on disk, execute it directly with ts-node.
   if (await doesFileExist(scriptName)) {
+    // Load env variables from .env using Next.js's utility
+    const env = loadEnvConfig(
+      process.cwd(),
+      process.env.NODE_ENV !== 'production'
+    )
+
     execFileSync(
       'npx',
       [
@@ -36,9 +43,11 @@ async function main() {
         '--skipIgnore',
         '--compilerOptions',
         '{"module": "CommonJS"}',
+        '--require',
+        'tsconfig-paths/register',
         scriptName,
       ],
-      { stdio: 'inherit' }
+      { stdio: 'inherit', env: { ...process.env, ...env.combinedEnv } }
     )
     return
   }
