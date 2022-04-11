@@ -43,6 +43,8 @@ async function main() {
         '--skipIgnore',
         '--compilerOptions',
         '{"module": "CommonJS"}',
+        // including the require option here to support paths and baseUrl,
+        // per: https://www.npmjs.com/package/ts-node#paths-and-baseurl
         '--require',
         'tsconfig-paths/register',
         scriptName,
