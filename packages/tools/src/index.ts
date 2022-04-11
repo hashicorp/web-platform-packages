@@ -36,6 +36,8 @@ async function main() {
         '--skipIgnore',
         '--compilerOptions',
         '{"module": "CommonJS"}',
+        '--project',
+        '.',
         scriptName,
       ],
       { stdio: 'inherit' }
