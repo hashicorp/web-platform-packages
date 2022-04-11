@@ -7,9 +7,10 @@
     "hc-tools": "./dist/index.js"
   },
   "dependencies": {
-    "ts-node": "^10.7.0"
+    "@next/env": "^12.1.4",
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.14.1"
   },
-  "devDependencies": {},
   "scripts": {
     "build": "rm -rf dist && tsc",
     "postbuild": "chmod +x ./dist/index.js",
