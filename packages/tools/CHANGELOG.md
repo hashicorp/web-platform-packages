@@ -1,5 +1,11 @@
 # @hashicorp/platform-tools
 
+## 0.4.0
+
+### Minor Changes
+
+- [#37](https://github.com/hashicorp/web-platform-packages/pull/37) [`51f3750`](https://github.com/hashicorp/web-platform-packages/commit/51f37501bf4d30dc3ec36c88483b28df4630ba8a) Thanks [@BRKalow](https://github.com/BRKalow)! - By default pass --skipProject to ts-node to ensure a stable execution. Add --project option, which mirrors the behavior of ts-nodes option of the same name.
+
 ## 0.3.0
 
 ### Minor Changes
