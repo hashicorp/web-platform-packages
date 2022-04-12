@@ -38,6 +38,11 @@ $ hc-tools ./scripts/my-script.ts
 
 As part of this, `hc-tools` will also load environment variables defined in `.env` using the same [loading strategy as Next.js](https://www.npmjs.com/package/@next/env).
 
+### Options
+
+- `--project [path to tsconfig]` - If specified, loads the tsconfig from the specified path
+- `--resolve-paths [true|false]` - Controls whether or not to resolve paths based on local tsconfig settings (default: `true`)
+
 ## Included scripts
 
 ### `add-deploy-preview-script`
