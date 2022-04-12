@@ -2,6 +2,7 @@
 import path from 'path'
 import fs from 'fs'
 import { execFileSync } from 'child_process'
+import yargs from 'yargs'
 import { register } from 'ts-node'
 import { loadEnvConfig } from '@next/env'
 import { doesFileExist } from './util'
@@ -14,7 +15,13 @@ register({
 })
 
 async function main() {
-  const [, , scriptName, ...rest] = process.argv
+  const argv = yargs.option('project', {
+    alias: 'p',
+    description: 'If specified, loads the tsconfig from the specified path',
+    type: 'string',
+  }).argv
+
+  const [scriptName, ...rest] = argv._
 
   if (!scriptName) {
     const scripts = await fs.promises.readdir(
@@ -28,12 +35,16 @@ async function main() {
   }
 
   // If we receive a relative file path that is found on disk, execute it directly with ts-node.
-  if (await doesFileExist(scriptName)) {
+  if (await doesFileExist(scriptName as string)) {
     // Load env variables from .env using Next.js's utility
     const env = loadEnvConfig(
       process.cwd(),
       process.env.NODE_ENV !== 'production'
     )
+
+    const projectOptions = argv.project
+      ? ['--project', argv.project]
+      : ['--skipProject']
 
     execFileSync(
       'npx',
@@ -47,14 +58,15 @@ async function main() {
         // per: https://www.npmjs.com/package/ts-node#paths-and-baseurl
         '--require',
         'tsconfig-paths/register',
-        scriptName,
+        ...projectOptions,
+        scriptName as string,
       ],
       { stdio: 'inherit', env: { ...process.env, ...env.combinedEnv } }
     )
     return
   }
 
-  const scriptPath = path.join(__dirname, '..', 'scripts', scriptName)
+  const scriptPath = path.join(__dirname, '..', 'scripts', scriptName as string)
 
   let script
   try {
