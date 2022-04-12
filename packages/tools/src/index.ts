@@ -103,7 +103,6 @@ async function main() {
   await script(...rest)
 }
 
-main().catch((err) => {
-  console.error(err)
+main().catch(() => {
   process.exit(1)
 })
