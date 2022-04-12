@@ -28,6 +28,16 @@ $ npx hc-tools add-deploy-preview-script waypoint
 # Executes the add-deploy-preview script with the argument "waypoint"
 ```
 
+## Local scripts
+
+`hc-tools` can be used to run scripts defined locally in your project, for example:
+
+```shell
+$ hc-tools ./scripts/my-script.ts
+```
+
+As part of this, `hc-tools` will also load environment variables defined in `.env` using the same [loading strategy as Next.js](https://www.npmjs.com/package/@next/env).
+
 ## Included scripts
 
 ### `add-deploy-preview-script`

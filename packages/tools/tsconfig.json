@@ -11,7 +11,7 @@
   "exclude": [
     "base/generators/*/templates/*",
     "**/*.test.*",
-    "**/fixtures/**/*",
+    "**/__fixtures__/**/*",
     "**/__mocks__/**/*",
     "./dist/**",
     "./scripts/**"
