@@ -11,15 +11,23 @@ import { doesFileExist } from './util'
 register({
   transpileOnly: true,
   skipIgnore: true,
+  skipProject: true,
   compilerOptions: { module: 'CommonJS' },
 })
 
 async function main() {
-  const argv = yargs.option('project', {
-    alias: 'p',
-    description: 'If specified, loads the tsconfig from the specified path',
-    type: 'string',
-  }).argv
+  const argv = yargs
+    .option('project', {
+      alias: 'p',
+      description: 'If specified, loads the tsconfig from the specified path',
+      type: 'string',
+    })
+    .option('resolve-paths', {
+      description:
+        'Controls whether or not to resolve paths based on local tsconfig settings',
+      default: true,
+      type: 'boolean',
+    }).argv
 
   const [scriptName, ...rest] = argv._
 
@@ -46,7 +54,13 @@ async function main() {
       ? ['--project', argv.project]
       : ['--skipProject']
 
-    execFileSync(
+    // including the require option here to support paths and baseUrl,
+    // per: https://www.npmjs.com/package/ts-node#paths-and-baseurl
+    const requireOptions = argv['resolve-paths']
+      ? ['--require', 'tsconfig-paths/register']
+      : []
+
+    return execFileSync(
       'npx',
       [
         'ts-node',
@@ -54,16 +68,12 @@ async function main() {
         '--skipIgnore',
         '--compilerOptions',
         '{"module": "CommonJS"}',
-        // including the require option here to support paths and baseUrl,
-        // per: https://www.npmjs.com/package/ts-node#paths-and-baseurl
-        '--require',
-        'tsconfig-paths/register',
+        ...requireOptions,
         ...projectOptions,
         scriptName as string,
       ],
       { stdio: 'inherit', env: { ...process.env, ...env.combinedEnv } }
     )
-    return
   }
 
   const scriptPath = path.join(__dirname, '..', 'scripts', scriptName as string)
@@ -93,4 +103,6 @@ async function main() {
   await script(...rest)
 }
 
-main()
+main().catch(() => {
+  process.exit(1)
+})
