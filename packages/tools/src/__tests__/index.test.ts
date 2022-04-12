@@ -37,6 +37,16 @@ describe('hc-tools', () => {
     expect(result).toContain(`hello from lib`)
   })
 
+  test('does not load baseUrl or paths with --resolve-paths=false', () => {
+    setCwdToFixture('tsconfig-paths-env')
+
+    try {
+      execHCTools('./scripts/my-script.ts', '--resolve-paths', 'false')
+    } catch (err) {
+      expect(err.message).toContain("Cannot find module 'lib/index'")
+    }
+  })
+
   test('respects custom paths with different tsconfig', () => {
     setCwdToFixture('tsconfig-paths-env')
 
