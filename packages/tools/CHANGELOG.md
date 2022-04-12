@@ -1,5 +1,12 @@
 # @hashicorp/platform-tools
 
+## 0.3.0
+
+### Minor Changes
+
+- [#35](https://github.com/hashicorp/web-platform-packages/pull/35) [`d9a2384`](https://github.com/hashicorp/web-platform-packages/commit/d9a2384bb662e96df711c78fcc98ab17040eba40) Thanks [@BRKalow](https://github.com/BRKalow)! - \* Ensure that scripts invoked through hc-tools respect a project's tsconfig `paths` and `baseUrl` options
+  - Load .env variables using `@next/env` and make the values available in invoked local scripts
+
 ## 0.2.0
 
 ### Minor Changes
