@@ -36,4 +36,20 @@ describe('hc-tools', () => {
     // Importing a module dependent on baseUrl
     expect(result).toContain(`hello from lib`)
   })
+
+  test('respects custom paths with different tsconfig', () => {
+    setCwdToFixture('tsconfig-paths-env')
+
+    const result = execHCTools(
+      './scripts/my-script-custom-paths.ts',
+      '--project',
+      'tsconfig.paths.json'
+    )
+
+    // loading a value from .env
+    expect(result).toContain(`bar`)
+
+    // Importing a module dependent on paths
+    expect(result).toContain(`hello from lib`)
+  })
 })
