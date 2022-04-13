@@ -22,6 +22,7 @@ Current packages:
 - [`@hashicorp/platform-docs-mdx`](/packages/docs-mdx)
 - [`@hashicorp/platform-markdown-utils`](/packages/markdown-utils)
 - [`@hashicorp/platform-nextjs-plugin`](/packages/nextjs-plugin)
+- [`@hashicorp/platform-packer-plugins`](/packages/packer-plugins)
 - [`@hashicorp/platform-product-meta`](/packages/product-meta)
 - [`@hashicorp/platform-remark-plugins`](/packages/remark-plugins)
 - [`@hashicorp/platform-runtime-error-monitoring`](/packages/runtime-error-monitoring)

@@ -1,0 +1,17 @@
+{
+  "name": "@hashicorp/platform-packer-plugins",
+  "version": "0.0.0",
+  "author": "HashiCorp",
+  "license": "MPL-2.0",
+  "publishConfig": {
+    "private": false
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.9",
+    "gray-matter": "^4.0.3",
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.0"
+  }
+}
