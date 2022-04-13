@@ -4,6 +4,25 @@ import { fetchDevPluginDocs } from './fetch-dev-plugin-docs'
 import { fetchPluginDocs } from './fetch-plugin-docs'
 import { PluginFile, PluginManifestEntry } from './types'
 
+/**
+ * Takes in a plugin manifest array and returns it decorated with file data for each plugin.
+ *
+ * Example:
+ *
+ * ```ts
+ * const result = resolvePluginDocs([
+ *   {
+ *     title: '1&1',
+ *     path: 'oneandone',
+ *     repo: 'hashicorp/packer-plugin-oneandone',
+ *     pluginTier: 'community',
+ *     version: 'latest',
+ *   },
+ * ])
+ *
+ * console.log(result.files) // [{ filePath, fileString, path, sourceUrl, title }]
+ * ```
+ */
 export async function resolvePluginDocs(pluginManifest: PluginManifestEntry[]) {
   return Promise.all(
     pluginManifest.map(async (manifestEntry) => {
