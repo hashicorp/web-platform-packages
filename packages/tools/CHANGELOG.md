@@ -1,5 +1,11 @@
 # @hashicorp/platform-tools
 
+## 0.5.0
+
+### Minor Changes
+
+- [#39](https://github.com/hashicorp/web-platform-packages/pull/39) [`ef3de40`](https://github.com/hashicorp/web-platform-packages/commit/ef3de4066819fac1c842145817139b45f6eaeb66) Thanks [@BRKalow](https://github.com/BRKalow)! - Add new `--resolve-paths` flag, which allows us to opt-out of resolving based on the baseUrl and custom paths in tsconfig.json
+
 ## 0.4.0
 
 ### Minor Changes
