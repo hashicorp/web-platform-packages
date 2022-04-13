@@ -1,7 +1,8 @@
 import { resolvePluginDocs } from '..'
 
 describe('resolvePluginDocs', () => {
-  test('resolve docs files for each entry in the manifest', async () => {
+  // un-skip this to validate that the full flow works
+  test.skip('resolve docs files for each entry in the manifest', async () => {
     expect(
       await resolvePluginDocs([
         {
