@@ -2,6 +2,7 @@ import { resolvePluginDocs } from '..'
 
 describe('resolvePluginDocs', () => {
   // un-skip this to validate that the full flow works
+  // TODO: add a fixture and use nock
   test.skip('resolve docs files for each entry in the manifest', async () => {
     expect(
       await resolvePluginDocs([
