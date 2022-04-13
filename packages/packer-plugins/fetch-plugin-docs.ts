@@ -49,7 +49,7 @@ async function fetchDocsFiles({ repo, tag }: Options) {
   return await parseSourceZip(sourceZipResponse)
 }
 
-const fetchPluginDocs = memoize(async function fetchPluginDocs({
+export const fetchPluginDocs = memoize(async function fetchPluginDocs({
   repo,
   tag,
 }: Options): Promise<RawPluginFile[]> {
@@ -67,11 +67,8 @@ function memoize<T extends (...args: any[]) => unknown>(method: T): T {
   return async function (...args) {
     const key = JSON.stringify(args)
     if (!cache[key]) {
-      // @ts-expect-error -- not sure on the correct way to type `this` here
-      cache[key] = method.apply(this, args)
+      cache[key] = method(...args) as ReturnType<T>
     }
     return cache[key]
   } as T
 }
-
-export default fetchPluginDocs

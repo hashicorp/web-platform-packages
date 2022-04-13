@@ -1,7 +1,7 @@
 import path from 'path'
 import grayMatter from 'gray-matter'
 import { fetchDevPluginDocs } from './fetch-dev-plugin-docs'
-import fetchPluginDocs from './fetch-plugin-docs'
+import { fetchPluginDocs } from './fetch-plugin-docs'
 import { PluginFile, PluginManifestEntry } from './types'
 
 export async function resolvePluginDocs(pluginManifest: PluginManifestEntry[]) {
