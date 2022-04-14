@@ -17,5 +17,5 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc -p ."
   },
-  "main": "./index.cjs"
+  "main": "./dist/index.js"
 }
