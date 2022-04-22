@@ -25,3 +25,11 @@ Ensure that `global.d.ts` is included in `tsconfig.json`
   // "exclude": [...]
 }
 ```
+
+## Utility Types
+
+This package also ships a collection of utility types from [utility-types](https://github.com/piotrwitek/utility-types). You can import a utility type with the following:
+
+```ts
+import { Optional } from '@hashicorp/platform-types/utilities'
+```
