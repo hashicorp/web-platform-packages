@@ -10,7 +10,8 @@
   "author": "",
   "license": "MPL-2.0",
   "dependencies": {
-    "@types/segment-analytics": "^0.0.33"
+    "@types/segment-analytics": "^0.0.33",
+    "utility-types": "^3.10.0"
   },
   "publishConfig": {
     "private": false
