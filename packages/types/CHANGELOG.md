@@ -1,5 +1,11 @@
 # @hashicorp/platform-types
 
+## 0.2.0
+
+### Minor Changes
+
+- [#45](https://github.com/hashicorp/web-platform-packages/pull/45) [`c7437ee`](https://github.com/hashicorp/web-platform-packages/commit/c7437eecc1bbc9c53d11db8eb294d71bb88ec88d) Thanks [@dstaley](https://github.com/dstaley)! - Add utility types
+
 ## 0.1.1
 
 ### Patch Changes

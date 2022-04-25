@@ -16,7 +16,7 @@
     "postcss-normalize": "10.0.1"
   },
   "devDependencies": {
-    "@hashicorp/platform-types": "^0.1.0",
+    "@hashicorp/platform-types": "^0.2.0",
     "@types/postcss-normalize": "^9.0.1",
     "@types/postcss-preset-env": "^6.7.0",
     "@types/webpack": "^4.41.26"
