@@ -1,5 +1,6 @@
 import path from 'path'
 import AdmZip from 'adm-zip'
+import { isValidDocsContentPath } from './is-valid-docs-file-path'
 import { validatePluginDocsFiles } from './validate-plugin-docs-files'
 
 /*
@@ -41,10 +42,9 @@ export async function parseSourceZip(response: Response) {
   }
   // If valid, filter for markdown or MDX files only, and return
   // a { filePath, fileString } object for each mdx file
-  const extensionRegex = /\.mdx?$/
   const docsMdxFiles = docsEntries
     .filter((e) => {
-      return extensionRegex.test(path.extname(e.entryName))
+      return isValidDocsContentPath(e.entryName)
     })
     .map((e) => {
       // We need to remove the leading directory,
