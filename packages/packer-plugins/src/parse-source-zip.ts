@@ -39,11 +39,12 @@ export async function parseSourceZip(response: Response) {
   if (validationError) {
     return [validationError, null]
   }
-  // If valid, filter for MDX files only, and return
+  // If valid, filter for markdown or MDX files only, and return
   // a { filePath, fileString } object for each mdx file
+  const extensionRegex = /\.mdx?$/
   const docsMdxFiles = docsEntries
     .filter((e) => {
-      return path.extname(e.entryName) === '.mdx'
+      return extensionRegex.test(path.extname(e.entryName))
     })
     .map((e) => {
       // We need to remove the leading directory,
