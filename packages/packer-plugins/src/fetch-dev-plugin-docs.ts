@@ -1,5 +1,5 @@
-import path from 'path'
 import { validatePluginDocsFiles } from './validate-plugin-docs-files'
+import { isValidDocsContentPath } from './is-valid-docs-file-path'
 import AdmZip from 'adm-zip'
 
 // Given a zipFile path,
@@ -47,7 +47,7 @@ async function parseZipFile(
   // a { filePath, fileString } object for each mdx file
   const docsMdxFiles = docsEntries
     .filter((e) => {
-      return path.extname(e.entryName) === '.mdx'
+      return isValidDocsContentPath(e.entryName)
     })
     .map((e) => {
       const filePath = e.entryName
