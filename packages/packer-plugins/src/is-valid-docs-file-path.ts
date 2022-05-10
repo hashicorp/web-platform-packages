@@ -19,7 +19,7 @@ export function isValidDocsPath(filePath: string): boolean {
 
 export function isValidDocsContentPath(filePath: string): boolean {
   return COMPONENT_TYPES.reduce((acc: boolean, type: string) => {
-    const mdxPathRegex = new RegExp(`^docs/${type}/(.*).mdx$`)
+    const mdxPathRegex = new RegExp(`^docs/${type}/(.*).mdx?$`)
     const isValidMdxFile = mdxPathRegex.test(filePath)
     return acc || isValidMdxFile
   }, false)
