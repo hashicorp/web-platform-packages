@@ -2,6 +2,7 @@ import path from 'path'
 import grayMatter from 'gray-matter'
 import { fetchDevPluginDocs } from './fetch-dev-plugin-docs'
 import { fetchPluginDocs } from './fetch-plugin-docs'
+import { fetchLatestReleaseTag } from './fetch-latest-release-tag'
 import { PluginFile, PluginManifestEntry } from './types'
 
 /**
@@ -33,6 +34,10 @@ export async function resolvePluginDocs(pluginManifest: PluginManifestEntry[]) {
         version,
         sourceBranch = 'main',
       } = manifestEntry
+      // here, we could use "fetchLatestReleaseTag" to resolve
+      // "version" to an explicit tag string, eg "v0.4.0"
+      const latestReleaseTag =
+        version === 'latest' ? await fetchLatestReleaseTag(repo) : version
       // Determine the pluginTier, which can be set manually,
       // or will be automatically set based on repo ownership
       const pluginOwner = repo.split('/')[0]
@@ -43,7 +48,7 @@ export async function resolvePluginDocs(pluginManifest: PluginManifestEntry[]) {
       if (zipFile !== '') {
         docsMdxFiles = (await fetchDevPluginDocs(zipFile)) ?? []
       } else {
-        docsMdxFiles = await fetchPluginDocs({ repo, tag: version })
+        docsMdxFiles = await fetchPluginDocs({ repo, tag: latestReleaseTag })
       }
 
       const files: PluginFile[] = docsMdxFiles.map((rawFile) => {
