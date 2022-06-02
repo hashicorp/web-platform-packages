@@ -7,12 +7,13 @@ function setCwdToFixture(name: string) {
   process.chdir(path.join(__dirname, '__fixtures__', name))
 }
 
-function execHCTools(...args: string[]) {
+function execHCTools(args: string[], opts = {}) {
   return String(
-    execFileSync('node', [
-      path.join(__dirname, '../..', './dist/index.js'),
-      ...args,
-    ])
+    execFileSync(
+      'node',
+      [path.join(__dirname, '../..', './dist/index.js'), ...args],
+      opts
+    )
   )
 }
 
@@ -28,7 +29,7 @@ describe('hc-tools', () => {
   test('respects baseUrl and loads .env file', () => {
     setCwdToFixture('tsconfig-paths-env')
 
-    const result = execHCTools('./scripts/my-script.ts')
+    const result = execHCTools(['./scripts/my-script.ts'])
 
     // loading a value from .env
     expect(result).toContain(`bar`)
@@ -41,7 +42,7 @@ describe('hc-tools', () => {
     setCwdToFixture('tsconfig-paths-env')
 
     try {
-      execHCTools('./scripts/my-script.ts', '--resolve-paths', 'false')
+      execHCTools(['./scripts/my-script.ts', '--resolve-paths', 'false'])
     } catch (err) {
       expect(err.message).toContain("Cannot find module 'lib/index'")
     }
@@ -50,16 +51,30 @@ describe('hc-tools', () => {
   test('respects custom paths with different tsconfig', () => {
     setCwdToFixture('tsconfig-paths-env')
 
-    const result = execHCTools(
+    const result = execHCTools([
       './scripts/my-script-custom-paths.ts',
       '--project',
-      'tsconfig.paths.json'
-    )
+      'tsconfig.paths.json',
+    ])
 
     // loading a value from .env
     expect(result).toContain(`bar`)
 
     // Importing a module dependent on paths
     expect(result).toContain(`hello from lib`)
+  })
+
+  test('rewrite-internal-redirects', () => {
+    setCwdToFixture('rewrite-internal-redirects')
+
+    const result = execHCTools(['rewrite-internal-redirects', 'vault'], {
+      env: { ...process.env, DRY_RUN: 'true' },
+    })
+
+    expect(result).toMatchInlineSnapshot(`
+      "• content/index.mdx
+        - /redirected/link -> /new/destination
+      "
+    `)
   })
 })
