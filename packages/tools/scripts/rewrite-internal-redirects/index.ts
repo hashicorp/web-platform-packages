@@ -208,7 +208,12 @@ export default async function main(product) {
       document.data.internalRedirects.forEach(({ source, destination }) => {
         console.log('  -', `${source} -> ${destination}`)
       })
-      fs.writeFileSync(document.path, document.contents, { encoding: 'utf-8' })
+
+      if (process.env.DRY_RUN !== 'true') {
+        fs.writeFileSync(document.path, document.contents, {
+          encoding: 'utf-8',
+        })
+      }
     }
   }
 }
