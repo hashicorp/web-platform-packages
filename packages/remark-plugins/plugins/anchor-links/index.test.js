@@ -8,9 +8,8 @@ describe('anchor-links', () => {
       const headings = []
       expect(execute('# hello world', { headings })).toMatch(
         [
-          '<h1>',
+          '<h1 id="hello-world">',
           '<a class="__permalink-h" href="#hello-world" aria-label="hello world permalink">»</a>',
-          '<a class="__target-h" id="hello-world" aria-hidden="true"></a>',
           'hello world',
           '</h1>',
         ].join('')
@@ -687,7 +686,7 @@ function execute(input, options = {}) {
 }
 
 function expectedHeadingResult({ slug, compatSlugs, aria, text, level }) {
-  const res = [`<h${level || '1'}>`]
+  const res = [`<h${level || '1'} id="${slug}">`]
   res.push(
     `<a class="__permalink-h" href="#${
       compatSlugs && compatSlugs.length ? compatSlugs[0] : slug
@@ -701,7 +700,6 @@ function expectedHeadingResult({ slug, compatSlugs, aria, text, level }) {
       )
     )
   }
-  res.push(`<a class="__target-h" id="${slug}" aria-hidden="true"></a>`)
   res.push(text || slug)
   res.push(`</h${level || '1'}>`)
   return res.join('')
