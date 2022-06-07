@@ -1,5 +1,5 @@
 ---
-'@hashicorp/platform-remark-plugins': major
+'@hashicorp/platform-remark-plugins': minor
 ---
 
 Breaking change. Replaces \_\_target-h elements, makes heading element the target, by setting their ID global attribute.
