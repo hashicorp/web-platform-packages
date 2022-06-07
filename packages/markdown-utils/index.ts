@@ -1,4 +1,4 @@
-import { allPlugins } from '@hashicorp/remark-plugins'
+import { allPlugins } from '@hashicorp/platform-remark-plugins'
 import highlight from '@mapbox/rehype-prism'
 import { Pluggable } from 'unified'
 import remarkMath from 'remark-math'
