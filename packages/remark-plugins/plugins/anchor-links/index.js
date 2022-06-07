@@ -56,6 +56,7 @@ function processHeading(node, compatibilitySlug, links, headings) {
     .substring(level + 1)
     .replace(/<\/?[^>]*>/g, '') // Strip html
     .replace(/\(\(#.*?\)\)/g, '') // Strip anchor link aliases
+    .replace(/»/g, '') // Safeguard against double-running this plugin
     .replace(/\s+/g, ' ') // Collapse whitespace
     .trim()
 
