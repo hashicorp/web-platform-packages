@@ -1,4 +1,3 @@
-import { allPlugins } from '@hashicorp/remark-plugins'
 import highlight from '@mapbox/rehype-prism'
 import { Pluggable } from 'unified'
 import remarkMath from 'remark-math'
@@ -11,8 +10,6 @@ interface MarkdownDefaults {
 }
 
 export interface ContentPluginsOptions {
-  // TODO: implement this once our @hashicorp/remark-plugins package is typed (https://app.asana.com/0/1100423001970639/1199650430485548)
-  pluginOptions?: $TSFixMe
   addRemarkPlugins?: Pluggable[]
   addRehypePlugins?: Pluggable[]
   resolveIncludes?: string
@@ -24,12 +21,8 @@ export default function markdownDefaults(
 ): MarkdownDefaults {
   const res = {} as MarkdownDefaults
 
-  // Set default remark/rehype plugins
   // Add user-provided remark plugins if present
-  const remarkDefaults: Pluggable[] = allPlugins(options.pluginOptions)
-  res.remarkPlugins = options.addRemarkPlugins
-    ? [...remarkDefaults, ...options.addRemarkPlugins]
-    : remarkDefaults
+  res.remarkPlugins = options.addRemarkPlugins || []
 
   const rehypeDefaults: Pluggable[] = [
     [highlight, { ignoreMissing: true }],
