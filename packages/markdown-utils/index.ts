@@ -10,6 +10,16 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 
+/**
+ * TODO
+ *
+ * allPlugins was previously present as part of the remark-plugins, but has
+ * since been removed and is not present in platform-remark-plugins.
+ *
+ * One path forward might be to rely on consumers providing remarkPlugins,
+ * rather than providing a set of defaults that can only be _extended_
+ * with addRemarkPlugins.
+ */
 function allPlugins({
   anchorLinks: anchorLinksOptions,
   typography: typographyOptions,
