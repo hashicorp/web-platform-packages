@@ -12,7 +12,6 @@ interface MarkdownDefaults {
 export interface ContentPluginsOptions {
   addRemarkPlugins?: Pluggable[]
   addRehypePlugins?: Pluggable[]
-  resolveIncludes?: string
   enableMath?: boolean
 }
 
@@ -31,25 +30,6 @@ export default function markdownDefaults(
   res.rehypePlugins = options.addRehypePlugins
     ? [...rehypeDefaults, ...options.addRehypePlugins]
     : rehypeDefaults
-
-  // Convenience option to replace `{ pluginOptions: { includeMarkdown: { resolveFrom: '<PATH>' } } }`
-  // with simply `{ resolveIncludes: '<PATH>' }`
-  if (options.resolveIncludes) {
-    res.remarkPlugins = res.remarkPlugins.map((entry) => {
-      const [plugin, opts] = Array.isArray(entry) ? entry : [entry, undefined]
-      if (
-        typeof plugin === 'function' &&
-        plugin.name === 'includeMarkdownPlugin'
-      ) {
-        return [
-          plugin,
-          { resolveMdx: true, resolveFrom: options.resolveIncludes, ...opts },
-        ]
-      } else {
-        return entry
-      }
-    })
-  }
 
   // Add math plugins if enabled
   if (options.enableMath) {
