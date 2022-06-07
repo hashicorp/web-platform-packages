@@ -67,8 +67,14 @@ function processHeading(node, compatibilitySlug, links, headings) {
     hProperties: { ...node.data?.hProperties, id: slug },
   }
 
-  // handle anchor link aliases
-  const aliases = processAlias(node, 1)
+  /**
+   * Handle anchor link aliases
+   *
+   * Note: depends on children of heading element! Expects first child,
+   * at index 0, to be the text element. As well, aliases must be attached
+   * to separate __target-h elements.
+   */
+  const aliases = processAlias(node, 0)
   if (aliases.length) node.children.unshift(...aliasesToNodes(aliases, 'h'))
 
   // if the compatibilitySlug option is present, we generate it and add it
