@@ -4,7 +4,7 @@
   "version": "0.2.1",
   "author": "HashiCorp",
   "dependencies": {
-    "@hashicorp/platform-remark-plugins": "1.0.0-canary-2022571993",
+    "@hashicorp/platform-remark-plugins": "^1.0.0-canary-2022571993",
     "@hashicorp/platform-types": "^0.2.0",
     "@mapbox/rehype-prism": "^0.6.0",
     "@mdx-js/react": "1.6.22",

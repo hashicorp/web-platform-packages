@@ -1,9 +1,27 @@
-import { allPlugins } from '@hashicorp/platform-remark-plugins'
+import {
+  anchorLinks,
+  includeMarkdown,
+  paragraphCustomAlerts,
+  typography,
+} from '@hashicorp/platform-remark-plugins'
 import highlight from '@mapbox/rehype-prism'
 import { Pluggable } from 'unified'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+
+function allPlugins({
+  anchorLinks: anchorLinksOptions,
+  typography: typographyOptions,
+  includeMarkdown: includeMarkdownOptions,
+}: $TSFixMe) {
+  return [
+    [includeMarkdown, includeMarkdownOptions],
+    [anchorLinks, anchorLinksOptions],
+    paragraphCustomAlerts,
+    [typography, typographyOptions],
+  ]
+}
 
 interface MarkdownDefaults {
   remarkPlugins: Pluggable[]
