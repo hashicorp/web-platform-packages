@@ -10,7 +10,7 @@ interface MarkdownDefaults {
 }
 
 export interface ContentPluginsOptions {
-  addRemarkPlugins?: Pluggable[]
+  remarkPlugins?: Pluggable[]
   addRehypePlugins?: Pluggable[]
   enableMath?: boolean
 }
@@ -21,7 +21,7 @@ export default function markdownDefaults(
   const res = {} as MarkdownDefaults
 
   // Add user-provided remark plugins if present
-  res.remarkPlugins = options.addRemarkPlugins || []
+  res.remarkPlugins = options.remarkPlugins || []
 
   const rehypeDefaults: Pluggable[] = [
     [highlight, { ignoreMissing: true }],
