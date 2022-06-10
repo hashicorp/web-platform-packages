@@ -11,7 +11,7 @@ test('returns the correct url based on the environment', async () => {
   jest.resetModules()
   process.env.HASHI_ENV = 'preview'
   const prodConfig = await require('./config')
-  expect(prodConfig.url).toBe('https://graphql.datocms.com/preview')
+  expect(prodConfig.headers['X-Include-Drafts']).toBe('true')
 
   // finally we reset the HASHI_ENV for subsequent tests
   process.env.HASHI_ENV = oldEnv
