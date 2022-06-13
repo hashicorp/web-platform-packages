@@ -11,6 +11,6 @@ module.exports = {
   headers: {
     Authorization: token,
     ...(isPreview && { 'X-Include-Drafts': 'true' }),
-    ...(datoEnvironment && { 'X-Environment:': datoEnvironment }),
+    ...(datoEnvironment && { 'X-Environment': datoEnvironment }),
   },
 }
