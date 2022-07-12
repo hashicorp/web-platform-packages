@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 2.1.0
+
+### Minor Changes
+
+- [#56](https://github.com/hashicorp/web-platform-packages/pull/56) [`85c209c`](https://github.com/hashicorp/web-platform-packages/commit/85c209cb26ab89439566f55e78238a4227b88131) Thanks [@dstaley](https://github.com/dstaley)! - Disable ES modules for framer-motion
+
 ## 2.0.1
 
 ### Patch Changes
