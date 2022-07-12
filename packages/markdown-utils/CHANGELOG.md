@@ -1,5 +1,12 @@
 # @hashicorp/platform-markdown-utils
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`4f1447c`](https://github.com/hashicorp/web-platform-packages/commit/4f1447c1dc34bb467cda1f30c485a8fb8c1a915d)]:
+  - @hashicorp/platform-types@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
