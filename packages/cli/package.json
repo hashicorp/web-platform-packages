@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-cli",
   "description": "CLI for code generation, linting, formatting, etc for HashiCorp next.js websites",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "HashiCorp",
   "bin": {
     "next-hashicorp": "next-hashicorp"
