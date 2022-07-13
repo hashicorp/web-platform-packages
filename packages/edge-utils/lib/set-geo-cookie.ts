@@ -29,13 +29,13 @@ export default function setGeoCookie(
 
   if (isStableMiddleware(resultResponse)) {
     // use the stable middleware cookie API, requires next >= 12.2
-    response?.cookies.set(GEO_COOKIE_NAME, cookieValue, {
+    resultResponse?.cookies.set(GEO_COOKIE_NAME, cookieValue, {
       maxAge: GEO_COOKIE_MAX_AGE_SECONDS,
     })
   } else {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore - we're using the latest next types, but supporting the previous API as well
-    response.cookie(GEO_COOKIE_NAME, cookieValue, {
+    resultResponse.cookie(GEO_COOKIE_NAME, cookieValue, {
       maxAge: GEO_COOKIE_MAX_AGE_SECONDS * 1000,
     })
   }
