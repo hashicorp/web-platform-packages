@@ -9,7 +9,7 @@ interface GeoInformation {
 const GEO_COOKIE_NAME = 'hc_geo'
 
 // This value is only set via our edge middleware and should be safely global for the life of a session
-let geoInformation: GeoInformation
+let geoInformation: GeoInformation | undefined
 
 /**
  * If not already done, parses the hc_geo cookie and returns its value.
@@ -47,4 +47,8 @@ export function getGeoInformation(): GeoInformation {
 
 export function isInUS() {
   return getGeoInformation().country === 'US'
+}
+
+export function __test__resetGeoInformation() {
+  geoInformation = undefined
 }
