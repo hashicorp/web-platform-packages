@@ -49,6 +49,9 @@ export function isInUS() {
   return getGeoInformation().country === 'US'
 }
 
+/**
+ * Intended to be used for testing, resets the geoInformation value in memory to validate the setting logic
+ */
 export function __test__resetGeoInformation() {
   geoInformation = undefined
 }
