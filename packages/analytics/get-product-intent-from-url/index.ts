@@ -9,36 +9,21 @@ const products = [
   'vagrant',
 ] as const
 
-type Products = typeof products[number]
+type Product = typeof products[number]
 
-export const getProductIntentFromURL = (url: string): Products | null => {
-  if (!url || typeof url !== 'string') {
+export const getProductIntentFromURL = (url?: string): Product | null => {
+  if (!url && typeof window === 'undefined') {
     return null
   }
-  let productIntent = null
-  try {
-    // The URL is an absolute URL. Check if the hostname
-    // or pathname includes a product name.
-    const _url = new URL(url)
-    products.forEach((product) => {
-      if (_url.hostname.includes(product)) {
-        productIntent = product
-      }
-    })
+  const fromUrl = url || window.location.href.toString()
+  const result: Partial<Record<Product, number>> = {}
+  products.forEach((product) => {
+    let index = fromUrl.indexOf(product)
+    result[product] = index
+  })
+  const productIntent = (Object.entries(result) as [Product, number][])
+    .filter(([_, index]) => index > -1)
+    .sort((a, b) => a[1] - b[1])
 
-    _url.pathname.split('/').forEach((path) => {
-      if (products.includes(path)) {
-        productIntent = path
-      }
-    })
-  } catch (e) {
-    // The URL is relative. Check if the pathname includes
-    // a product name.
-    url.split('/').forEach((path) => {
-      if (products.includes(path)) {
-        productIntent = path
-      }
-    })
-  }
-  return productIntent
+  return productIntent.length ? productIntent[0][0] : null
 }
