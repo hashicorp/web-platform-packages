@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 3.0.0
+
+### Major Changes
+
+- [#62](https://github.com/hashicorp/web-platform-packages/pull/62) [`6841e0c`](https://github.com/hashicorp/web-platform-packages/commit/6841e0cf83c332b3d4ff610dfffd5701578ec664) Thanks [@BRKalow](https://github.com/BRKalow)! - Removes deprecated / deleted next config future flag, `strictPostcssConfiguration`. Also ups the minimum next version to 12.0.5 to coincide with the removal of this flag.
+
 ## 2.1.0
 
 ### Minor Changes
