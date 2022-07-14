@@ -11,6 +11,18 @@ const products = [
 
 type Product = typeof products[number]
 
+/**
+ * Based on a URL, return the first instance of a product name within
+ * a URL else return null.
+ * @example
+ * // returns consul
+ * getProductIntentFromURL('https://hashicorp.com/consul/docs')
+ * @example
+ * // returns waypoint
+ * getProductIntentFromURL('https://developer.hashicorp.com/waypoint/tutorials/get-started-nomad/get-started-nomad')
+ * @param {string} [url] defaults to window object if no URL is provided
+ * @returns {string | null} A product name or null
+ */
 export const getProductIntentFromURL = (url?: string): Product | null => {
   if (!url && typeof window === 'undefined') {
     return null
