@@ -18,6 +18,19 @@ usePageviewAnalytics({
 })
 ```
 
+
+### `getProductIntentFromURL`
+
+Given a URL, find the first occurance of a product name within the URL and return the product name, else return null.
+
+```js
+getProductIntentFromURL('https://hashicorp.com/consul') // => 'consul'
+getProductIntentFromURL('https://consul.io') // => 'consul'
+getProductIntentFromURL('https://hashicorp.com') // => null
+getProductIntentFromURL(
+  'https://developer.hashicorp.com/waypoint/tutorials/get-started-nomad/get-started-nomad'
+) // => 'waypoint
+
 ### `utmParamsCapture`
 
 Captures UTM params from a URL and stores an approved list of UTM params as cookies which can then be read and used within forms and segment data.
