@@ -6,7 +6,7 @@ module.exports = function withFramerMotionEsmodulesDisabled() {
     return Object.assign({}, nextConfig, {
       webpack(config, options) {
         config.module.rules.push({
-          test: /framer-motion|react-motion-config/,
+          test: /framer-motion|motion-config/,
           resolve: {
             exportsFields: [],
           },
