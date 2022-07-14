@@ -1,8 +1,8 @@
-import { connect } from 'datocms-plugin-sdk';
-import { render } from './utils/render';
-import FieldExtension from './entrypoints/FieldExtension';
-import Modal from './entrypoints/Modal';
-import 'datocms-react-ui/styles.css';
+import { connect } from 'datocms-plugin-sdk'
+import { render } from './utils/render'
+import FieldExtension from './entrypoints/FieldExtension'
+import Modal from './entrypoints/Modal'
+import 'datocms-react-ui/styles.css'
 
 connect({
   manualFieldExtensions() {
@@ -10,15 +10,15 @@ connect({
       {
         id: 'table',
         type: 'editor',
-        name: 'Pricing Table Editor',
+        name: 'Table V2',
         fieldTypes: ['json'],
       },
-    ];
+    ]
   },
   renderFieldExtension(id, ctx) {
     render(<FieldExtension ctx={ctx} />)
   },
   renderModal(id, ctx) {
     render(<Modal ctx={ctx} />)
-  }
-});
+  },
+})

@@ -7,7 +7,7 @@
 
 .settingsButton {
   background-color: white;
-  border: none;
+  border: 1px solid black;
   transition: transform 0.4s, color 0.2s, background 0.2s, border-color 0.2s;
   text-decoration: none;
   -webkit-appearance: none;
@@ -15,9 +15,13 @@
   opacity: .2;
 }
 
-.cell:hover .settingsButton {
+.settingsButton:focus {
   opacity: 1;
 }
+/* 
+.cell:hover .settingsButton {
+  opacity: 1;
+} */
 
 .checkboxCell {
   /* border: 1px solid rgb(196, 196, 196) !important; */
@@ -36,6 +40,7 @@
   width: 100%;
   height: 100%;
   position: relative;
+  border: 1px solid black;
 }
 
 .cell > div:first-child {
