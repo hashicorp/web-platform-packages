@@ -29,10 +29,14 @@ export const getProductIntentFromURL = (url?: string): Product | null => {
   }
   const fromUrl = url || window.location.href.toString()
   const result: Partial<Record<Product, number>> = {}
+  // Create an object of product names found
+  // as keys with the index as the value.
   products.forEach((product) => {
     let index = fromUrl.indexOf(product)
     result[product] = index
   })
+  // Capture the first index of a product name
+  // found within the URL.
   const productIntent = (Object.entries(result) as [Product, number][])
     .filter(([_, index]) => index > -1)
     .sort((a, b) => a[1] - b[1])
