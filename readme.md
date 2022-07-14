@@ -20,6 +20,7 @@ Current packages:
 - [`@hashicorp/platform-cms`](/packages/cms)
 - [`@hashicorp/platform-code-highlighting`](/packages/code-highlighting)
 - [`@hashicorp/platform-docs-mdx`](/packages/docs-mdx)
+- [`@hashicorp/platform-edge-utils`](/packages/edge-utils)
 - [`@hashicorp/platform-markdown-utils`](/packages/markdown-utils)
 - [`@hashicorp/platform-nextjs-plugin`](/packages/nextjs-plugin)
 - [`@hashicorp/platform-packer-plugins`](/packages/packer-plugins)
