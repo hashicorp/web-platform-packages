@@ -17,3 +17,16 @@ usePageviewAnalytics({
   includedDomains: 'example.com example2.com',
 })
 ```
+
+### `getProductIntentFromURL`
+
+Given a URL, find the first occurance of a product name within the URL and return the product name, else return null.
+
+```js
+getProductIntentFromURL('https://hashicorp.com/consul') // => 'consul'
+getProductIntentFromURL('https://consul.io') // => 'consul'
+getProductIntentFromURL('https://hashicorp.com') // => null
+getProductIntentFromURL(
+  'https://developer.hashicorp.com/waypoint/tutorials/get-started-nomad/get-started-nomad'
+) // => 'waypoint
+```
