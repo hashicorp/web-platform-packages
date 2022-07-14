@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 const { getProductIntentFromURL } = require('./')
 
 describe('getProductIntentFromURL', () => {
