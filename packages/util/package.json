@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-util",
   "description": "General utilities for HashiCorp next.js websites",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "HashiCorp",
   "dependencies": {
     "js-cookie": "^2.2.1",

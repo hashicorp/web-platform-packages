@@ -1,5 +1,13 @@
 # @hashicorp/platform-analytics
 
+## 0.4.0
+
+### Minor Changes
+
+- [#57](https://github.com/hashicorp/web-platform-packages/pull/57) [`d9566d2`](https://github.com/hashicorp/web-platform-packages/commit/d9566d2940912e180631b67914210cf81f174278) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - Adds utmParamsCapture
+
+* [#63](https://github.com/hashicorp/web-platform-packages/pull/63) [`c3f6caf`](https://github.com/hashicorp/web-platform-packages/commit/c3f6caf1d2884bf6db98abe27a8c68276af60e85) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add getProductIntentFromURL util
+
 ## 0.3.1
 
 ### Patch Changes
