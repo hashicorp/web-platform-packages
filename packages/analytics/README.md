@@ -18,7 +18,6 @@ usePageviewAnalytics({
 })
 ```
 
-
 ### `getProductIntentFromURL`
 
 Given a URL, find the first occurance of a product name within the URL and return the product name, else return null.
@@ -30,6 +29,7 @@ getProductIntentFromURL('https://hashicorp.com') // => null
 getProductIntentFromURL(
   'https://developer.hashicorp.com/waypoint/tutorials/get-started-nomad/get-started-nomad'
 ) // => 'waypoint
+```
 
 ### `utmParamsCapture`
 
