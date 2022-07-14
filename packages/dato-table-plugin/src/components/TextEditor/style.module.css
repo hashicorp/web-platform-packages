@@ -1,3 +1,31 @@
 .textEditor {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #c6c6c6;
+}
+
+.editor {
+  position: relative;
+  border-top: 1px solid #c6c6c6;
+}
+
+.editorHeading {
+  position: absolute;
+  right: 35px;
+  top: 7px;
+  color: #c6c6c6;
+  text-transform: uppercase;
+  font-size: 10px;
+  z-index: 1;
+}
+
+.editorHeadingContent {
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  color: #c6c6c6;
+  text-transform: uppercase;
+  font-size: 10px;
+  z-index: 1;
 }

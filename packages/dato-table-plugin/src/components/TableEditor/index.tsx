@@ -1,46 +1,59 @@
-import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import {
   useTable,
   useFlexLayout,
   useResizeColumns,
   Column,
   TableOptions,
-} from 'react-table';
-import { useDeepCompareMemo } from 'use-deep-compare';
-import { Actions, Row, Value } from '../../types';
-import EditableCell from '../EditableCell';
-import omit from 'lodash-es/omit';
-import EditableHeader from '../EditableHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from 'react-table'
+import { useDeepCompareMemo } from 'use-deep-compare'
+import { Actions, Row, Value } from '../../types'
+import EditableCell from '../EditableCell'
+import omit from 'lodash-es/omit'
+import EditableHeader from '../EditableHeader'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCheckCircle, faCaretUp, faExpand, faPlus, faTrash, faPencil,
+  faCheckCircle,
+  faCaretUp,
+  faExpand,
+  faPlus,
+  faTrash,
+  faPencil,
   faLongArrowAltDown,
   faLongArrowAltUp,
   faTrashAlt,
   faCog,
   faMinus,
-} from '@fortawesome/free-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons'
 import {
   Button,
   Dropdown,
   DropdownMenu,
   DropdownOption,
   DropdownSeparator,
-} from 'datocms-react-ui';
-import classNames from 'classnames';
-import s from './styles.module.css';
+} from 'datocms-react-ui'
+import classNames from 'classnames'
+import s from './styles.module.css'
 
 type Props = {
-  value: Value;
-  onChange: (value: Value | null) => void;
-  onOpenInFullScreen?: () => void;
-};
+  value: Value
+  onChange: (value: Value | null) => void
+  onOpenInFullScreen?: () => void
+}
 
 export default function TableEditor({
   value,
   onChange,
   onOpenInFullScreen,
 }: Props) {
+  console.log('editor')
   const { collapsibleRows, hasColumnHeaders, table } = value
 
   const defaultColumn = useMemo(
@@ -49,18 +62,19 @@ export default function TableEditor({
       width: 150,
       maxWidth: 400,
     }),
-    [],
-  );
+    []
+  )
 
   const tableColumns = useDeepCompareMemo<Column<Row>[]>(
-    () => table.columns.map((column) => ({
-      Header: EditableHeader,
-      Cell: EditableCell,
-      id: !column.length ? 'BLANK_COLUMN_HEADER' : column,
-      accessor: (row: Row) => row[column],
-    })),
-    [table.columns],
-  );
+    () =>
+      table.columns.map((column) => ({
+        Header: EditableHeader,
+        Cell: EditableCell,
+        id: !column.length ? 'BLANK_COLUMN_HEADER' : column,
+        accessor: (row: Row) => row[column],
+      })),
+    [table.columns]
+  )
 
   const onCellUpdate: Actions['onCellUpdate'] = (index, column, cellValue) => {
     onChange({
@@ -71,102 +85,109 @@ export default function TableEditor({
           i !== index
             ? row
             : {
-              ...row,
-              [column === 'BLANK_COLUMN_HEADER' ? '' : column]: cellValue,
-            },
+                ...row,
+                [column === 'BLANK_COLUMN_HEADER' ? '' : column]: cellValue,
+              }
         ),
-      }
-    });
-  };
+      },
+    })
+  }
 
   const onColumnRename: Actions['onColumnRename'] = (oldColumn, newColumn) => {
     onChange({
-      ...value, table: {
+      ...value,
+      table: {
         columns: table.columns.map((c) => (c === oldColumn ? newColumn : c)),
         data: table.data.map((row, i) => ({
           ...omit(row, [oldColumn]),
           [newColumn]: row[oldColumn],
         })),
-      }
-    });
-  };
+      },
+    })
+  }
 
   const onRemoveColumn: Actions['onRemoveColumn'] = (column) => {
     onChange({
-      ...value, table: {
+      ...value,
+      table: {
         columns: table.columns.filter((c) => c !== column),
         data: table.data.map((row, i) => omit(row, [column])),
-      }
-    });
-  };
+      },
+    })
+  }
 
   const findNewColumnName = () => {
-    let columnName = 'New Column';
-    let i = 1;
+    let columnName = 'New Column'
+    let i = 1
 
     while (table.columns.indexOf(columnName) !== -1) {
-      columnName = `New Column ${i}`;
-      i += 1;
+      columnName = `New Column ${i}`
+      i += 1
     }
 
-    return columnName;
-  };
+    return columnName
+  }
 
   const onAddColumn: Actions['onAddColumn'] = (column, toTheLeft) => {
-    const columnName = findNewColumnName();
+    const columnName = findNewColumnName()
 
-    const newColumns = [...table.columns];
+    const newColumns = [...table.columns]
     newColumns.splice(
       table.columns.indexOf(column) + (toTheLeft ? 0 : 1),
       0,
-      columnName,
-    );
+      columnName
+    )
 
     onChange({
-      ...value, table: {
+      ...value,
+      table: {
         columns: newColumns,
         data: table.data.map((row, i) => {
-          const isBooleanRow = Object.values(row).some(val => typeof (val) === 'boolean')
+          const isBooleanRow = Object.values(row).some(
+            (val) => typeof val === 'boolean'
+          )
           return {
             ...row,
             [columnName]: isBooleanRow ? false : '',
           }
         }),
-      }
-    });
-  };
+      },
+    })
+  }
 
   const onAddRow: Actions['onAddRow'] = (row, toTheBottom) => {
     const newRow = table.columns.reduce<Row>(
       (acc, column) => ({ ...acc, [column]: '' }),
-      {},
-    );
+      {}
+    )
 
-    const newData = [...table.data];
-    newData.splice(row + (toTheBottom ? 1 : 0), 0, newRow);
+    const newData = [...table.data]
+    newData.splice(row + (toTheBottom ? 1 : 0), 0, newRow)
     onChange({
-      ...value, table: {
+      ...value,
+      table: {
         ...table,
         data: newData,
-      }
-    });
-  };
+      },
+    })
+  }
 
   const onRemoveRow: Actions['onRemoveRow'] = (row) => {
-    const newData = [...table.data];
-    newData.splice(row, 1);
+    const newData = [...table.data]
+    newData.splice(row, 1)
 
     onChange({
-      ...value, table: {
+      ...value,
+      table: {
         ...table,
         data: newData,
-      }
-    });
-  };
+      },
+    })
+  }
 
   const onChangeRowType: Actions['onChangeRowType'] = (row, type) => {
-    const newData = [...table.data];
-    const rowData = newData[row];
+    const newData = [...table.data]
+    const rowData = newData[row]
     Object.keys(rowData).forEach((key, i) => {
       if (key !== 'BLANK_COLUMN_HEADER' && key !== '') {
         rowData[key] = type === 'checkbox' ? false : ''
@@ -176,11 +197,12 @@ export default function TableEditor({
     newData[row] = rowData
 
     onChange({
-      ...value, table: {
+      ...value,
+      table: {
         ...table,
         data: newData,
-      }
-    });
+      },
+    })
   }
 
   const onChangeRowCollapse: Actions['onChangeRowCollapse'] = (row) => {
@@ -194,13 +216,13 @@ export default function TableEditor({
 
     onChange({
       ...value,
-      collapsibleRows: newCollapsibleRows
-    });
+      collapsibleRows: newCollapsibleRows,
+    })
   }
 
   const handleClear = () => {
-    onChange(null);
-  };
+    onChange(null)
+  }
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -217,69 +239,78 @@ export default function TableEditor({
         onChangeRowType,
       } as TableOptions<Row>,
       useResizeColumns,
-      useFlexLayout,
-    );
+      useFlexLayout
+    )
 
-  const tbodyRef = useRef<HTMLDivElement>(null);
-  const theadRef = useRef<HTMLDivElement>(null);
+  const tbodyRef = useRef<HTMLDivElement>(null)
+  const theadRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!tbodyRef.current) {
-      return;
+      return
     }
 
-    const tbody = tbodyRef.current;
+    const tbody = tbodyRef.current
 
     const handler = (event: Event) => {
       if (!theadRef.current) {
-        return;
+        return
       }
 
-      theadRef.current.scrollLeft = (event.target as any).scrollLeft;
-    };
+      theadRef.current.scrollLeft = (event.target as any).scrollLeft
+    }
 
-    tbody.addEventListener('scroll', handler);
+    tbody.addEventListener('scroll', handler)
 
     return () => {
-      tbody.removeEventListener('scroll', handler);
-    };
-  }, []);
+      tbody.removeEventListener('scroll', handler)
+    }
+  }, [])
 
   function checkRowType(row: Row, type: 'boolean' | 'string') {
     if (Array.isArray(row.cells)) {
-      return row.cells.filter(({ column }) => column.id !== 'BLANK_COLUMN_HEADER').every(({ value }) => typeof value === type)
+      return row.cells
+        .filter(({ column }) => column.id !== 'BLANK_COLUMN_HEADER')
+        .every(({ value }) => typeof value === type)
     }
   }
 
-  const rowIsCollapsible = (rowIndex: number) => collapsibleRows.includes(rowIndex)
+  const rowIsCollapsible = (rowIndex: number) =>
+    collapsibleRows.includes(rowIndex)
 
   function changeHasColumnHeaders() {
     onChange({
       ...value,
-      hasColumnHeaders: !hasColumnHeaders
+      hasColumnHeaders: !hasColumnHeaders,
     })
   }
 
   return (
     <div className={s.container}>
       <div {...getTableProps()} className={s.table}>
-        {hasColumnHeaders && (<div className={s.thead} ref={theadRef} style={{ overflowX: 'hidden' }}>
-          {headerGroups.map((headerGroup) => (
-            <div {...headerGroup.getHeaderGroupProps()} className={s.tr}>
-              {headerGroup.headers.map((column) => (
-                <div {...column.getHeaderProps()} className={s.th}>
-                  {column.render('Header')}
-                  <div
-                    {...column.getResizerProps()}
-                    className={classNames(s.resizer, {
-                      [s.isResizing]: column.isResizing,
-                    })}
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>)}
+        {hasColumnHeaders && (
+          <div
+            className={s.thead}
+            ref={theadRef}
+            style={{ overflowX: 'hidden' }}
+          >
+            {headerGroups.map((headerGroup) => (
+              <div {...headerGroup.getHeaderGroupProps()} className={s.tr}>
+                {headerGroup.headers.map((column) => (
+                  <div {...column.getHeaderProps()} className={s.th}>
+                    {column.render('Header')}
+                    <div
+                      {...column.getResizerProps()}
+                      className={classNames(s.resizer, {
+                        [s.isResizing]: column.isResizing,
+                      })}
+                    />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
 
         <div
           {...getTableBodyProps()}
@@ -287,28 +318,46 @@ export default function TableEditor({
           style={{ overflowX: 'auto' }}
         >
           {rows.map((row, i) => {
-            prepareRow(row);
+            prepareRow(row)
             return (
               <div {...row.getRowProps()} className={s.tr}>
                 <div className={s.dropdownWrapper}>
                   <Dropdown
                     renderTrigger={({ onClick }) => (
-                      <button onClick={onClick} className={s.handle}><FontAwesomeIcon icon={faCog} color="white" className={s.handleIcon} /></button>
+                      <button onClick={onClick} className={s.handle}>
+                        <FontAwesomeIcon
+                          icon={faCog}
+                          color="white"
+                          className={s.handleIcon}
+                        />
+                      </button>
                     )}
                   >
                     <DropdownMenu>
                       {!checkRowType(row, 'boolean') && (
-                        <DropdownOption onClick={onChangeRowType.bind(null, i, 'checkbox')}>
-                          <FontAwesomeIcon icon={faCheckCircle} /> Make all cells checkbox type
+                        <DropdownOption
+                          onClick={onChangeRowType.bind(null, i, 'checkbox')}
+                        >
+                          <FontAwesomeIcon icon={faCheckCircle} /> Make all
+                          cells checkbox type
                         </DropdownOption>
                       )}
                       {!checkRowType(row, 'string') && (
-                        <DropdownOption onClick={onChangeRowType.bind(null, i, 'rich text')}>
-                          <FontAwesomeIcon icon={faPencil} /> Make all cells rich text type
+                        <DropdownOption
+                          onClick={onChangeRowType.bind(null, i, 'rich text')}
+                        >
+                          <FontAwesomeIcon icon={faPencil} /> Make all cells
+                          rich text type
                         </DropdownOption>
                       )}
-                      <DropdownOption onClick={onChangeRowCollapse.bind(null, i)}>
-                        <FontAwesomeIcon icon={faCaretUp} />Make row {rowIsCollapsible(i) ? 'not collapsible' : 'collapsible'}
+                      <DropdownOption
+                        onClick={onChangeRowCollapse.bind(null, i)}
+                      >
+                        <FontAwesomeIcon icon={faCaretUp} />
+                        Make row{' '}
+                        {rowIsCollapsible(i)
+                          ? 'not collapsible'
+                          : 'collapsible'}
                       </DropdownOption>
                       <DropdownSeparator />
                       <DropdownOption onClick={onAddRow.bind(null, i, false)}>
@@ -331,10 +380,10 @@ export default function TableEditor({
                     <div {...cell.getCellProps()} className={s.td}>
                       {cell.render('Cell')}
                     </div>
-                  );
+                  )
                 })}
               </div>
-            );
+            )
           })}
         </div>
       </div>
@@ -348,7 +397,17 @@ export default function TableEditor({
           Add new row
         </Button> */}
 
-        <Button buttonSize="s" leftIcon={<FontAwesomeIcon icon={hasColumnHeaders ? faMinus : faPlus}></FontAwesomeIcon>} onClick={changeHasColumnHeaders}>{hasColumnHeaders ? 'Remove column headers' : 'Add column headers'}</Button>
+        <Button
+          buttonSize="s"
+          leftIcon={
+            <FontAwesomeIcon
+              icon={hasColumnHeaders ? faMinus : faPlus}
+            ></FontAwesomeIcon>
+          }
+          onClick={changeHasColumnHeaders}
+        >
+          {hasColumnHeaders ? 'Remove column headers' : 'Add column headers'}
+        </Button>
 
         <div className={s.actionsSpacer} />
 
@@ -370,5 +429,5 @@ export default function TableEditor({
         </Button>
       </div>
     </div>
-  );
+  )
 }

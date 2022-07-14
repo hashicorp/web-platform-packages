@@ -10,8 +10,6 @@ This is currently a work in progress and is in early stages.
 
 `cd packages/dato-table-plugin`
 
-`npm install`
-
 `npm start`
 
 #### In Dato:
