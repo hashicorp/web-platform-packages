@@ -32,7 +32,7 @@ export const getProductIntentFromURL = (url?: string): Product | null => {
   // Create an object of product names found
   // as keys with the index as the value.
   products.forEach((product) => {
-    let index = fromUrl.indexOf(product)
+    const index = fromUrl.indexOf(product)
     result[product] = index
   })
   // Capture the first index of a product name
