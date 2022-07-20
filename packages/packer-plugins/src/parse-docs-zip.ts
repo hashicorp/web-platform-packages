@@ -1,5 +1,6 @@
 import path from 'path'
 import AdmZip from 'adm-zip'
+import type { Response } from 'node-fetch'
 import { validatePluginDocsFiles } from './validate-plugin-docs-files'
 
 /*
