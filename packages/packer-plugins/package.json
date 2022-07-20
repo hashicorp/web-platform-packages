@@ -7,9 +7,9 @@
     "private": false
   },
   "dependencies": {
+    "@vercel/fetch": "^6.2.0",
     "adm-zip": "^0.5.9",
-    "gray-matter": "^4.0.3",
-    "isomorphic-unfetch": "^3.1.0"
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0"
