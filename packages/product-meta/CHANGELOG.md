@@ -1,5 +1,12 @@
 # @hashicorp/platform-product-meta
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`fb425af`](https://github.com/hashicorp/web-platform-packages/commit/fb425af2a956b7ab7040f88d8bb529b641a298d2)]:
+  - @hashicorp/platform-util@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
