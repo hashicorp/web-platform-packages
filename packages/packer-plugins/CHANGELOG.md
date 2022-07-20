@@ -1,5 +1,11 @@
 # @hashicorp/platform-packer-plugins
 
+## 0.3.0
+
+### Minor Changes
+
+- [#68](https://github.com/hashicorp/web-platform-packages/pull/68) [`866dac1`](https://github.com/hashicorp/web-platform-packages/commit/866dac195e9e55eef63390bb66b330706b6d6b79) Thanks [@BRKalow](https://github.com/BRKalow)! - Leverage @vercel/fetch to take advantage of automatic fetch retries when fetching plugin docs.
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 3.1.0
+
+### Minor Changes
+
+- [#66](https://github.com/hashicorp/web-platform-packages/pull/66) [`2e96273`](https://github.com/hashicorp/web-platform-packages/commit/2e96273eaebfcdd039d70bb7da820e3efc4d3882) Thanks [@dstaley](https://github.com/dstaley)! - Handle motion-config paths from react-components
+
 ## 3.0.0
 
 ### Major Changes
