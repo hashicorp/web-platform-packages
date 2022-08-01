@@ -26,6 +26,11 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+.isCollapsed div:not(:first-child) {
+  height: 80px;
+  overflow: hidden;
+}
+
 .tr:last-child .td {
   border-bottom: 0;
 }
@@ -81,11 +86,25 @@
 
 .dropdownWrapper > * {
   position: absolute !important;
+  right: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  top: 20px;
+}
+
+.collapsibleTrigger {
+  position: absolute;
   right: 100%;
   left: 0;
   width: 20px;
-  top: 0;
-  bottom: 0;
+  top: 50%;
+  display: inline-block;
+  float: left;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
 }
 
 .handle {
@@ -107,15 +126,6 @@
 
 .handle:hover {
   background: rgba(var(--light-body-color-rgb-components), 0.2);
-}
-
-.handle:hover .handleIcon {
-  display: block;
-}
-
-
-.handleIcon {
-  display: none;
 }
 
 .actions {

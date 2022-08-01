@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCheckCircle,
   faCaretUp,
+  faCaretDown,
   faExpand,
   faPlus,
   faTrash,
@@ -53,8 +54,19 @@ export default function TableEditor({
   onChange,
   onOpenInFullScreen,
 }: Props) {
-  console.log('editor')
   const { collapsibleRows, hasColumnHeaders, table } = value
+  const [collapsedRows, setCollapsedRows] = useState<Array<number>>([])
+
+  function handleCollapseRow(idx: number) {
+    if (collapsedRows.includes(idx)) {
+      const updatedCollapsedRows = [...collapsedRows]
+      const currentCollapsibleRowIdx = updatedCollapsedRows.indexOf(idx)
+      updatedCollapsedRows.splice(currentCollapsibleRowIdx, 1)
+      setCollapsedRows(updatedCollapsedRows)
+    } else {
+      setCollapsedRows([...collapsedRows, idx])
+    }
+  }
 
   const defaultColumn = useMemo(
     () => ({
@@ -320,7 +332,12 @@ export default function TableEditor({
           {rows.map((row, i) => {
             prepareRow(row)
             return (
-              <div {...row.getRowProps()} className={s.tr}>
+              <div
+                {...row.getRowProps()}
+                className={`${s.tr} ${
+                  collapsedRows.includes(i) ? s.isCollapsed : ''
+                }`}
+              >
                 <div className={s.dropdownWrapper}>
                   <Dropdown
                     renderTrigger={({ onClick }) => (
@@ -374,6 +391,19 @@ export default function TableEditor({
                       </DropdownOption>
                     </DropdownMenu>
                   </Dropdown>
+                  {collapsibleRows.includes(i) && (
+                    <button
+                      className={s.collapsibleTrigger}
+                      aria-label="toggle row content"
+                      onClick={() => handleCollapseRow(i)}
+                    >
+                      {collapsedRows.includes(i) ? (
+                        <FontAwesomeIcon icon={faCaretUp} color="white" />
+                      ) : (
+                        <FontAwesomeIcon icon={faCaretDown} color="white" />
+                      )}
+                    </button>
+                  )}
                 </div>
                 {row.cells.map((cell) => {
                   return (
