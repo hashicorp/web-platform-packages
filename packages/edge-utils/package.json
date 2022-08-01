@@ -1,0 +1,9 @@
+{
+  "name": "@hashicorp/platform-edge-utils",
+  "description": "Utilities for use in a Next.js edge environment.",
+  "version": "0.1.1",
+  "author": "HashiCorp",
+  "peerDependencies": {
+    "next": ">=12.0.0"
+  }
+}

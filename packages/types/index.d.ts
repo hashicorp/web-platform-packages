@@ -7,6 +7,9 @@ declare module 'next-transpile-modules'
 declare module '@hashicorp/remark-plugins'
 declare module '@hashicorp/react-consent-manager'
 
+declare module 'framer-motion/dist/es/motion/features/layout'
+declare module 'framer-motion/dist/es/projection/node/HTMLProjectionNode'
+
 declare module 'rivet-graphql'
 declare module '*.graphql'
 

@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.2.0
+
+### Minor Changes
+
+- [#48](https://github.com/hashicorp/web-platform-packages/pull/48) [`4ce0701`](https://github.com/hashicorp/web-platform-packages/commit/4ce0701c8b5839ceeb22dd17624f4f56fcaddcc7) Thanks [@dstaley](https://github.com/dstaley)! - Use SVG browser logos
+
 ## 2.1.0
 
 ### Minor Changes

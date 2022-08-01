@@ -49,3 +49,14 @@ export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
 ```
+
+### Geo Utilities
+
+Provides utilities for accessing geo location data stored in the `hc_geo` cookie.
+
+```ts
+import { getGeoInformation, isInUS } from '@hashicorp/platform-util/geo'
+
+console.log(getGeoInformation()) // { country: 'US', region: 'MN' }
+console.log(isInUS()) // true
+```
