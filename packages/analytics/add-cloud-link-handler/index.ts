@@ -6,8 +6,8 @@ const destinations: string[] = [
   'app.terraform.io',
 ]
 const containsDestination = (str: string): boolean =>
-  destinations.some(function (v) {
-    return str.indexOf(v) >= 0
+  destinations.some(function (destination) {
+    return str.indexOf(destination) >= 0
   })
 
 export function addCloudLinkHandler() {
