@@ -32,6 +32,7 @@ export function addCloudLinkHandler() {
             : ''
         }`
       } catch (error) {
+        location.href = linkElement.href
         console.error(error)
       }
     }
