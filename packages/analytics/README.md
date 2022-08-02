@@ -54,3 +54,13 @@ import { getUTMParamsCaptureState } from '@hashicorp/platform-analytics'
 
 const utmParams = getUTMParamsCaptureState()
 ```
+
+### `addCloudLinkHandler`
+
+Adds window event listener to watch for clicks on links within a specified list and passes along utm and product params if present.
+
+```tsx
+import { addCloudLinkHandler } from '@hashicorp/platform-analytics'
+
+addCloudLinkHandler()
+```
