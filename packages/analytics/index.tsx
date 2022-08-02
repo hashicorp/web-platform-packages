@@ -4,6 +4,7 @@ import {
   initializeUTMParamsCapture,
   getUTMParamsCaptureState,
 } from './utm-params-capture'
+import { addCloudLinkHandler } from './add-cloud-link-handler'
 
 export default usePageviewAnalytics
 export {
@@ -11,4 +12,5 @@ export {
   getProductIntentFromURL,
   initializeUTMParamsCapture,
   getUTMParamsCaptureState,
+  addCloudLinkHandler,
 }
