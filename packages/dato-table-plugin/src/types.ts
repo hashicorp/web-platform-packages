@@ -6,7 +6,7 @@ import { ReactEditor } from 'slate-react'
 
 export type TableProps = {
   columns: string[]
-  data: Row[]
+  data: Data
 }
 
 export type Value = {
@@ -15,14 +15,15 @@ export type Value = {
   table: TableProps
 }
 
-export type Row = Record<string, any>
-
-export type Data = Row[]
-
 export type CellValue = {
   heading: string
   content?: string
 }
+
+export type Row = Record<string, boolean | CellValue>
+// export interface Row { [x: string]: boolean | CellValue }
+
+export type Data = Row[]
 
 export type Actions = {
   onCellUpdate: (
@@ -43,11 +44,21 @@ const isObject = (data: unknown): data is Record<string, unknown> => {
   return typeof data === 'object' && !Array.isArray(data) && data !== null
 }
 
-const isRow = (data: unknown): data is Row => {
+export const isRow = (data: unknown): data is Row => {
   return (
     isObject(data) &&
-    Object.values(data).every(
-      (v) => typeof v === 'string' || typeof v === 'boolean'
+    Object.values(data).every((v) => isCellValue(v) || isBoolean(v))
+  )
+}
+
+export const isBoolean = (data: unknown): data is boolean =>
+  typeof data === 'boolean'
+
+export const isCellValue = (data: unknown): data is CellValue => {
+  return (
+    isObject(data) &&
+    Object.keys(data).every(
+      (k) => (k === 'heading' || k === 'content') && typeof data[k] === 'string'
     )
   )
 }
@@ -71,13 +82,17 @@ const isData = (data: unknown, columns: string[]): data is Data => {
   )
 }
 
-export const isValue = (data: unknown): data is TableProps => {
+export const isValue = (data: unknown): data is Value => {
   return (
     isObject(data) &&
-    'columns' in data &&
-    isColumns((data as any).columns) &&
-    'data' in data
-    // &&
-    // isData((data as any).data, (data as any).columns as string[])
+    'table' in data &&
+    'columns' in (data as any).table &&
+    isColumns((data as any).table.columns) &&
+    'data' in (data as any).table &&
+    isData((data as any).table.data, (data as any).table.columns as string[]) &&
+    'hasColumnHeaders' in data &&
+    isBoolean(data.hasColumnHeaders) &&
+    'collapsibleRows' in data &&
+    Array.isArray(data.collapsibleRows)
   )
 }

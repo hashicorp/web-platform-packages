@@ -21,10 +21,12 @@ function toInnerValue(value: string | null): InnerValue {
   }
 
   const parsedValue = JSON.parse(value)
-  console.log(isValue(parsedValue.table))
-  if (!isValue(parsedValue.table)) {
+  console.log(isValue(parsedValue))
+  if (!isValue(parsedValue)) {
     return 'invalid'
   }
+
+  console.log({ parsedValue })
 
   return parsedValue
 }
@@ -80,7 +82,7 @@ export default function FieldExtension({ ctx }: Props) {
     handleUpdate(exitValue)
   }
 
-  console.log({ value })
+  console.log('value')
 
   return (
     <Canvas ctx={ctx}>

@@ -1,11 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   useTable,
   useFlexLayout,
@@ -14,7 +7,15 @@ import {
   TableOptions,
 } from 'react-table'
 import { useDeepCompareMemo } from 'use-deep-compare'
-import { Actions, Row, Value } from '../../types'
+import {
+  Actions,
+  CellValue,
+  isBoolean,
+  isCellValue,
+  isRow,
+  Row,
+  Value,
+} from '../../types'
 import EditableCell from '../EditableCell'
 import omit from 'lodash-es/omit'
 import EditableHeader from '../EditableHeader'
@@ -160,7 +161,7 @@ export default function TableEditor({
           )
           return {
             ...row,
-            [columnName]: isBooleanRow ? false : '',
+            [columnName]: isBooleanRow ? false : { heading: '', content: '' },
           }
         }),
       },
@@ -169,7 +170,7 @@ export default function TableEditor({
 
   const onAddRow: Actions['onAddRow'] = (row, toTheBottom) => {
     const newRow = table.columns.reduce<Row>(
-      (acc, column) => ({ ...acc, [column]: '' }),
+      (acc, column) => ({ ...acc, [column]: { heading: '', content: '' } }),
       {}
     )
 
@@ -202,7 +203,8 @@ export default function TableEditor({
     const rowData = newData[row]
     Object.keys(rowData).forEach((key, i) => {
       if (key !== 'BLANK_COLUMN_HEADER' && key !== '') {
-        rowData[key] = type === 'checkbox' ? false : ''
+        rowData[key] =
+          type === 'checkbox' ? false : { heading: '', content: '' }
       }
     })
 
@@ -279,12 +281,15 @@ export default function TableEditor({
     }
   }, [])
 
-  function checkRowType(row: Row, type: 'boolean' | 'string') {
-    if (Array.isArray(row.cells)) {
-      return row.cells
-        .filter(({ column }) => column.id !== 'BLANK_COLUMN_HEADER')
-        .every(({ value }) => typeof value === type)
+  function checkRowType(row: any, callback: (x: Row) => boolean): boolean {
+    if (isRow(row)) {
+      if (Array.isArray(row.cells)) {
+        return row.cells
+          .filter(({ column }) => column.id !== 'BLANK_COLUMN_HEADER')
+          .every(({ value }) => callback(value))
+      }
     }
+    return false
   }
 
   const rowIsCollapsible = (rowIndex: number) =>
@@ -331,6 +336,7 @@ export default function TableEditor({
         >
           {rows.map((row, i) => {
             prepareRow(row)
+            console.log({ row })
             return (
               <div
                 {...row.getRowProps()}
@@ -351,7 +357,7 @@ export default function TableEditor({
                     )}
                   >
                     <DropdownMenu>
-                      {!checkRowType(row, 'boolean') && (
+                      {checkRowType(row, isBoolean) && (
                         <DropdownOption
                           onClick={onChangeRowType.bind(null, i, 'checkbox')}
                         >
@@ -359,7 +365,7 @@ export default function TableEditor({
                           cells checkbox type
                         </DropdownOption>
                       )}
-                      {!checkRowType(row, 'string') && (
+                      {checkRowType(row, isCellValue) && (
                         <DropdownOption
                           onClick={onChangeRowType.bind(null, i, 'rich text')}
                         >
@@ -419,14 +425,6 @@ export default function TableEditor({
       </div>
 
       <div className={s.actions}>
-        {/* <Button
-          onClick={onAddRow.bind(null, table.data.length, true)}
-          buttonSize="s"
-          leftIcon={<FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>}
-        >
-          Add new row
-        </Button> */}
-
         <Button
           buttonSize="s"
           leftIcon={
