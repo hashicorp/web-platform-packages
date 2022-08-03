@@ -51,7 +51,7 @@ export default function TextEditor({ id, index, onChange, value }) {
         </div>
         <CKEditor
           editor={ClassicEditor}
-          data={value.heading ? value.heading : '<h4 />'}
+          data={value.heading ? value.heading : '<p />'}
           config={{
             toolbar: ['link'],
           }}

@@ -7,6 +7,7 @@ type Props = {
 }
 
 export const Empty = ({ onChange }: Props) => {
+  console.log('empty')
   return (
     <div className={s.noValue}>
       <div className={s.noValue_label}>No table present!</div>

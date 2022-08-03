@@ -26,8 +26,6 @@ function toInnerValue(value: string | null): InnerValue {
     return 'invalid'
   }
 
-  console.log({ parsedValue })
-
   return parsedValue
 }
 
@@ -36,9 +34,10 @@ export default function FieldExtension({ ctx }: Props) {
   const [value, setValue] = useState<InnerValue>(toInnerValue(rawValue))
 
   const pendingChange = useRef(false)
+  console.log({ deepEqual: deepEqual(toInnerValue(rawValue), value) })
+  console.log('39999')
 
   useDeepCompareEffect(() => {
-    console.log('deep compare')
     const newValue = toInnerValue(rawValue)
     if (deepEqual(newValue, value)) {
       return
@@ -53,8 +52,11 @@ export default function FieldExtension({ ctx }: Props) {
   }, [rawValue, value])
 
   if (value === 'invalid') {
+    console.log('invalid')
     return <Canvas ctx={ctx}>Invalid value!</Canvas>
   }
+
+  console.log('58888')
 
   const handleUpdate = (value: Value | null) => {
     console.log('handle update')
@@ -81,9 +83,7 @@ export default function FieldExtension({ ctx }: Props) {
 
     handleUpdate(exitValue)
   }
-
-  console.log('value')
-
+  console.log('688888')
   return (
     <Canvas ctx={ctx}>
       {value === null ? (
