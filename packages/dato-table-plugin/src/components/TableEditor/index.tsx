@@ -11,7 +11,7 @@ import {
   Actions,
   CellValue,
   isBoolean,
-  isCellValue,
+  isRichText,
   isRow,
   Row,
   Value,
@@ -27,7 +27,7 @@ import {
   faExpand,
   faPlus,
   faTrash,
-  faPencil,
+  faPencilAlt,
   faLongArrowAltDown,
   faLongArrowAltUp,
   faTrashAlt,
@@ -239,8 +239,6 @@ export default function TableEditor({
     onChange(null)
   }
 
-  console.log('useTable')
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
@@ -285,15 +283,10 @@ export default function TableEditor({
     }
   }, [])
 
-  function checkRowType(row: any, callback: (x: Row) => boolean): boolean {
-    if (isRow(row)) {
-      if (Array.isArray(row.cells)) {
-        return row.cells
-          .filter(({ column }) => column.id !== 'BLANK_COLUMN_HEADER')
-          .every(({ value }) => callback(value))
-      }
-    }
-    return false
+  function checkRowType(row: Row, callback: (x: unknown) => boolean): boolean {
+    return Object.keys(row)
+      .filter((key) => key !== '')
+      .every((key) => callback(row[key]))
   }
 
   const rowIsCollapsible = (rowIndex: number) =>
@@ -305,7 +298,6 @@ export default function TableEditor({
       hasColumnHeaders: !hasColumnHeaders,
     })
   }
-  console.log('return')
 
   return (
     <div className={s.container}>
@@ -341,7 +333,6 @@ export default function TableEditor({
         >
           {rows.map((row, i) => {
             prepareRow(row)
-            console.log({ row })
             return (
               <div
                 {...row.getRowProps()}
@@ -362,19 +353,19 @@ export default function TableEditor({
                     )}
                   >
                     <DropdownMenu>
-                      {checkRowType(row, isBoolean) && (
+                      {!checkRowType(row.original, isBoolean) && (
                         <DropdownOption
                           onClick={onChangeRowType.bind(null, i, 'checkbox')}
                         >
-                          <FontAwesomeIcon icon={faCheckCircle} /> Make all
-                          cells checkbox type
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                          &nbsp;Make all cells checkbox type
                         </DropdownOption>
                       )}
-                      {checkRowType(row, isCellValue) && (
+                      {!checkRowType(row.original, isRichText) && (
                         <DropdownOption
                           onClick={onChangeRowType.bind(null, i, 'rich text')}
                         >
-                          <FontAwesomeIcon icon={faPencil} /> Make all cells
+                          <FontAwesomeIcon icon={faPencilAlt} /> Make all cells
                           rich text type
                         </DropdownOption>
                       )}

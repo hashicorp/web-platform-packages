@@ -15,14 +15,13 @@ type Props = {
 type InnerValue = 'invalid' | Value | null
 
 function toInnerValue(value: string | null): InnerValue {
-  console.log('to inner')
   if (value === null) {
     return null
   }
 
   const parsedValue = JSON.parse(value)
-  console.log(isValue(parsedValue))
-  if (!isValue(parsedValue)) {
+
+  if (!isValue(parsedValue.table)) {
     return 'invalid'
   }
 
@@ -32,10 +31,7 @@ function toInnerValue(value: string | null): InnerValue {
 export default function FieldExtension({ ctx }: Props) {
   const rawValue = get(ctx.formValues, ctx.fieldPath) as string | null
   const [value, setValue] = useState<InnerValue>(toInnerValue(rawValue))
-
   const pendingChange = useRef(false)
-  console.log({ deepEqual: deepEqual(toInnerValue(rawValue), value) })
-  console.log('39999')
 
   useDeepCompareEffect(() => {
     const newValue = toInnerValue(rawValue)
@@ -52,14 +48,10 @@ export default function FieldExtension({ ctx }: Props) {
   }, [rawValue, value])
 
   if (value === 'invalid') {
-    console.log('invalid')
     return <Canvas ctx={ctx}>Invalid value!</Canvas>
   }
 
-  console.log('58888')
-
   const handleUpdate = (value: Value | null) => {
-    console.log('handle update')
     pendingChange.current = true
     setValue(value)
     ctx.setFieldValue(
@@ -83,7 +75,7 @@ export default function FieldExtension({ ctx }: Props) {
 
     handleUpdate(exitValue)
   }
-  console.log('688888')
+
   return (
     <Canvas ctx={ctx}>
       {value === null ? (

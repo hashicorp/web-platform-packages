@@ -1,13 +1,4 @@
 import { dequal } from 'dequal'
-import { Row as TableRow } from 'react-table'
-// TypeScript users only add this code
-import { BaseEditor, Descendant } from 'slate'
-import { ReactEditor } from 'slate-react'
-
-export type TableProps = {
-  columns: string[]
-  data: Data
-}
 
 export type Value = {
   collapsibleRows: Array<number>
@@ -15,21 +6,28 @@ export type Value = {
   table: TableProps
 }
 
-export type CellValue = {
+export type TableProps = {
+  columns: string[]
+  data: Data
+}
+
+export type RichTextProps = {
   heading: string
   content?: string
 }
 
-export type Row = Record<string, boolean | CellValue>
-// export interface Row { [x: string]: boolean | CellValue }
+export type CellValue = boolean | RichTextProps
+
+export type Row = Record<string, CellValue>
 
 export type Data = Row[]
 
 export type Actions = {
-  onCellUpdate: (
+  onCellUpdate: (index: number, column: string, value: CellValue) => void
+  onMultipleCellUpdate: (
     index: number,
     column: string,
-    value: CellValue | boolean
+    value: string[][]
   ) => void
   onAddColumn: (column: string, toTheLeft: boolean) => void
   onRemoveColumn: (column: string) => void
@@ -47,14 +45,14 @@ const isObject = (data: unknown): data is Record<string, unknown> => {
 export const isRow = (data: unknown): data is Row => {
   return (
     isObject(data) &&
-    Object.values(data).every((v) => isCellValue(v) || isBoolean(v))
+    Object.values(data).every((v) => isRichText(v) || isBoolean(v))
   )
 }
 
 export const isBoolean = (data: unknown): data is boolean =>
   typeof data === 'boolean'
 
-export const isCellValue = (data: unknown): data is CellValue => {
+export const isRichText = (data: unknown): data is CellValue => {
   return (
     isObject(data) &&
     Object.keys(data).every(
@@ -65,6 +63,10 @@ export const isCellValue = (data: unknown): data is CellValue => {
 
 const isColumns = (data: unknown): data is string[] => {
   if (!Array.isArray(data)) {
+    return false
+  }
+
+  if (data.length === 0) {
     return false
   }
 
@@ -83,16 +85,18 @@ const isData = (data: unknown, columns: string[]): data is Data => {
 }
 
 export const isValue = (data: unknown): data is Value => {
+  // console.log(
+  //   isObject(data),
+  //   'columns' in data,
+  //   isColumns((data as any).columns),
+  //   'data' in data,
+  //   isData((data as any).data, (data as any).columns as string[])
+  // )
   return (
     isObject(data) &&
-    'table' in data &&
-    'columns' in (data as any).table &&
-    isColumns((data as any).table.columns) &&
-    'data' in (data as any).table &&
-    isData((data as any).table.data, (data as any).table.columns as string[]) &&
-    'hasColumnHeaders' in data &&
-    isBoolean(data.hasColumnHeaders) &&
-    'collapsibleRows' in data &&
-    Array.isArray(data.collapsibleRows)
+    'columns' in data &&
+    isColumns((data as any).columns) &&
+    'data' in data &&
+    isData((data as any).data, (data as any).columns as string[])
   )
 }

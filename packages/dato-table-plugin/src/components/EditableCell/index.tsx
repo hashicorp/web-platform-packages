@@ -1,58 +1,19 @@
 import { Column as TableColumn, Row as TableRow } from 'react-table'
-import { Actions, CellValue, Row } from '../../types'
-import TextEditor from '../TextEditor'
-import classNames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCog,
-  faCheckCircle,
-  faCheckSquare,
-  faPencil,
-  faBook,
-  faLongArrowAltRight,
-  faPen,
-  faTimes,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCheckSquare, faBook } from '@fortawesome/free-solid-svg-icons'
+import { Actions, CellValue, isBoolean, Row } from '../../types'
 import s from './style.module.css'
+import classNames from 'classnames'
 import { Dropdown, DropdownMenu, DropdownOption } from 'datocms-react-ui'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import TextEditor from '../TextEditor'
 
 type Props = Actions & {
-  value: string | boolean
+  value: CellValue
   row: TableRow<Row>
   rows: TableRow<Row>[]
   columns: TableColumn<Row>[]
   column: TableColumn<Row>
-  onCellUpdate: (index: number, column: string, value: string | boolean) => void
-}
-
-function toTable(transfer: DataTransfer) {
-  const html = transfer.getData('text/html')
-  if (html) {
-    const document = new DOMParser().parseFromString(html, 'text/html')
-    const tableEl = document.querySelector('table')
-
-    if (tableEl) {
-      return Array.from(tableEl.rows).reduce((acc, row) => {
-        const columns = Array.from(row.children).map(
-          (column) =>
-            column.textContent
-              ?.replace(/\n/g, ' ')
-              .replace(/\s+/, ' ')
-              .trim() || ''
-        )
-
-        return [...acc, columns]
-      }, [] as string[][])
-    }
-  }
-
-  const data = transfer.getData('text/plain')
-
-  return data
-    .trim()
-    .split(/\r\n|\n|\r/)
-    .map((row) => row.split('\t'))
+  onCellUpdate: (index: number, column: string, value: CellValue) => void
 }
 
 export default function EditableCell({
@@ -62,13 +23,17 @@ export default function EditableCell({
   column: { id },
   onCellUpdate,
 }: Props) {
-  const isCheckboxCell = typeof value === 'boolean'
+  const isCheckbox = isBoolean(value)
   function handleCellTypeChange() {
-    onCellUpdate(index, id as string, isCheckboxCell ? '' : false)
+    onCellUpdate(
+      index,
+      id as string,
+      isCheckbox ? { heading: '', content: '' } : false
+    )
   }
 
   return (
-    <div className={classNames(s.cell, isCheckboxCell && s.checkboxCell)}>
+    <div className={classNames(s.cell, isCheckbox && s.checkboxCell)}>
       <Dropdown
         renderTrigger={({ onClick }) => (
           <button onClick={onClick} className={s.settingsButton}>
@@ -79,13 +44,13 @@ export default function EditableCell({
         <DropdownMenu>
           <DropdownOption onClick={handleCellTypeChange}>
             <span className={s.dropdownOption}>
-              {`Make cell ${isCheckboxCell ? 'text editor' : 'checkbox'} type`}
+              {`Make cell ${isCheckbox ? 'text editor' : 'checkbox'} type`}
             </span>
-            <FontAwesomeIcon icon={isCheckboxCell ? faBook : faCheckSquare} />
+            <FontAwesomeIcon icon={isCheckbox ? faBook : faCheckSquare} />
           </DropdownOption>
         </DropdownMenu>
       </Dropdown>
-      {isCheckboxCell ? (
+      {isCheckbox ? (
         <input
           type="checkbox"
           onChange={(e) => {
@@ -101,10 +66,9 @@ export default function EditableCell({
       ) : (
         <TextEditor
           onChange={(val: any) => {
-            onCellUpdate(index, id as string, val as CellValue | boolean)
+            onCellUpdate(index, id as string, val as CellValue)
           }}
           value={value}
-          id={id}
           index={index}
         />
       )}
