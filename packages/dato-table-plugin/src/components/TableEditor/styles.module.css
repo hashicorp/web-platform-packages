@@ -2,14 +2,13 @@
   border-spacing: 0;
   border: 1px solid var(--border-color);
   border-bottom: 0;
-  margin-bottom: var(--spacing-m);
   border-radius: 4px;
 }
 
 .thead {
   /* These styles are required for a scrollable body to align with the header properly */
-  padding-left: 20px;
-  background: rgba(var(--light-body-color-rgb-components), 0.1);
+  padding-left: 22px;
+  /* background: rgba(var(--light-body-color-rgb-components), 0.1); */
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -80,7 +79,7 @@
 }
 
 .dropdownWrapper {
-  width: 20px;
+  width: 22px;
   background: gray;
 }
 
@@ -90,7 +89,7 @@
   left: 0;
   width: 20px;
   height: 20px;
-  top: 20px;
+  top: 5px;
 }
 
 .collapsibleTrigger {
@@ -129,6 +128,7 @@
 }
 
 .actions {
+  margin-top: var(--spacing-m);
   display: flex;
 }
 
@@ -142,4 +142,18 @@
 
 .actionsSpacer {
   flex: 1;
+}
+
+.branding {
+  text-align: right;
+}
+
+.branding a {
+  color: rgba(34, 47, 62, 0.7);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.branding a:hover {
+  text-decoration: underline;
 }

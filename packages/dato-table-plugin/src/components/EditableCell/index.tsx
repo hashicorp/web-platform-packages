@@ -10,15 +10,12 @@ import TextEditor from '../TextEditor'
 type Props = Actions & {
   value: CellValue
   row: TableRow<Row>
-  rows: TableRow<Row>[]
-  columns: TableColumn<Row>[]
   column: TableColumn<Row>
   onCellUpdate: (index: number, column: string, value: CellValue) => void
 }
 
 export default function EditableCell({
   value,
-  columns,
   row: { index },
   column: { id },
   onCellUpdate,
@@ -33,43 +30,35 @@ export default function EditableCell({
   }
 
   return (
-    <div className={classNames(s.cell, isCheckbox && s.checkboxCell)}>
-      <Dropdown
-        renderTrigger={({ onClick }) => (
-          <button onClick={onClick} className={s.settingsButton}>
-            <FontAwesomeIcon icon={faCog} />
-          </button>
-        )}
-      >
-        <DropdownMenu>
-          <DropdownOption onClick={handleCellTypeChange}>
-            <span className={s.dropdownOption}>
-              {`Make cell ${isCheckbox ? 'text editor' : 'checkbox'} type`}
-            </span>
-            <FontAwesomeIcon icon={isCheckbox ? faBook : faCheckSquare} />
-          </DropdownOption>
-        </DropdownMenu>
-      </Dropdown>
+    <div className={s.cell}>
+      <div className={s.cellOptionContainer}>
+        <button onClick={handleCellTypeChange} className={s.settingsButton}>
+          <span className={s.cellOption}>
+            {`Convert cell to ${isCheckbox ? 'text editor' : 'checkbox'}`}
+          </span>
+        </button>
+      </div>
       {isCheckbox ? (
-        <input
-          type="checkbox"
-          onChange={(e) => {
-            onCellUpdate(
-              index,
-              id as string,
-              e.target.value === 'on' ? true : false
-            )
-          }}
-          defaultChecked={!!value}
-          className={s.checkboxInput}
-        />
+        <div className={s.checkboxCell}>
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              onCellUpdate(
+                index,
+                id as string,
+                e.target.value === 'on' ? true : false
+              )
+            }}
+            defaultChecked={!!value}
+            className={s.checkboxInput}
+          />
+        </div>
       ) : (
         <TextEditor
           onChange={(val: any) => {
             onCellUpdate(index, id as string, val as CellValue)
           }}
           value={value}
-          index={index}
         />
       )}
     </div>

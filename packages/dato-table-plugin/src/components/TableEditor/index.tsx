@@ -416,7 +416,16 @@ export default function TableEditor({
           })}
         </div>
       </div>
-
+      <div className={s.branding}>
+        <a
+          href="https://www.tiny.cloud/?utm_campaign=editor_referral&amp;utm_medium=poweredby&amp;utm_source=tinymce&amp;utm_content=v5"
+          rel="noopener noreferrer"
+          target="_blank"
+          aria-label="Powered by Tiny"
+        >
+          Powered by Tiny
+        </a>
+      </div>
       <div className={s.actions}>
         <Button
           buttonSize="s"

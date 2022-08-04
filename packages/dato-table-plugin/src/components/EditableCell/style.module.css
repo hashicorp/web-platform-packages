@@ -1,23 +1,22 @@
-/* .checkboxCell {
-  width: 100%;
-  height: 100%;
-  padding-left: 12px;
-  padding-top: 38px;
-} */
-
-.settingsButton {
-  background-color: white;
+.cellOptionContainer {
+  background-color: rgb(198, 198, 198);
   border: 1px solid black;
-  transition: transform 0.4s, color 0.2s, background 0.2s, border-color 0.2s;
-  text-decoration: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  opacity: .2;
-  z-index: 4;
 }
 
-.settingsButton:focus {
-  opacity: 1;
+.cellOptionContainer button {
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  background-color: white;
+  border: none;
+  text-decoration: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  top: 4px;
+  right: 4px;
+  text-decoration: underline;
+  background-color: rgb(198, 198, 198);
 }
 /* 
 .cell:hover .settingsButton {
@@ -27,28 +26,27 @@
 .checkboxCell {
   /* border: 1px solid rgb(196, 196, 196) !important; */
   /* border-radius: 2px; */
+  /* height: calc(100% - 17px); */
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top: 1px solid rgb(198, 198, 198);
+  border-bottom: 1px solid rgb(198, 198, 198);
 }
 
-.dropdownOption {
+.cellOption {
   font-size: 12px;
   margin-right: 12px;
 }
 
 .cell {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   position: relative;
-  border: 1px solid black;
-}
-
-.cell > div:first-child {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  z-index: 1;
+  /* border: 1px solid #c6c6c6; */
+  /* border-inline: 2px solid rgb(198, 198, 198); */
 }
 
 .checkboxInput {

@@ -1,31 +1,26 @@
 .textEditor {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid #c6c6c6;
+  /* display: grid;
+  flex-direction: column; */
+  min-width: 100%;
+  /* height: calc(100% -17px); */
+  /* border-right: 1px solid #c6c6c6; */
 }
 
 .editor {
   position: relative;
-  border-top: 1px solid #c6c6c6;
+  /* border-top: 1px solid #c6c6c6; */
 }
 
-.editorHeading {
+.editorType {
   position: absolute;
-  right: 35px;
-  top: 7px;
-  color: #c6c6c6;
-  text-transform: uppercase;
-  font-size: 10px;
-  z-index: 1;
-}
-
-.editorHeadingContent {
-  position: absolute;
-  right: 5px;
-  top: 7px;
-  color: #c6c6c6;
-  text-transform: uppercase;
-  font-size: 10px;
-  z-index: 1;
+  bottom: 0;
+  height: 18px;
+  /* border-right: 1px solid rgb(198, 198, 198); */
+  padding: 0 8px;
+  color: #adaaaa;
+  font-size: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
