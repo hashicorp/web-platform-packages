@@ -2,7 +2,7 @@ import { RenderFieldExtensionCtx } from 'datocms-plugin-sdk'
 import { Canvas } from 'datocms-react-ui'
 import get from 'lodash-es/get'
 import deepEqual from 'fast-deep-equal'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDeepCompareEffect } from 'use-deep-compare'
 import { Empty } from '../../components/Empty'
 import TableEditor from '../../components/TableEditor'
@@ -75,7 +75,7 @@ export default function FieldExtension({ ctx }: Props) {
 
     handleUpdate(exitValue)
   }
-
+  console.log({ value })
   return (
     <Canvas ctx={ctx}>
       {value === null ? (

@@ -7,15 +7,7 @@ import {
   TableOptions,
 } from 'react-table'
 import { useDeepCompareMemo } from 'use-deep-compare'
-import {
-  Actions,
-  CellValue,
-  isBoolean,
-  isRichText,
-  isRow,
-  Row,
-  Value,
-} from '../../types'
+import { Actions, isBoolean, isRichText, Row, Value } from '../../types'
 import EditableCell from '../EditableCell'
 import omit from 'lodash-es/omit'
 import EditableHeader from '../EditableHeader'
@@ -57,6 +49,7 @@ export default function TableEditor({
 }: Props) {
   console.log('TableEditor')
   const { collapsibleRows, hasColumnHeaders, table } = value
+  console.log({ collapsibleRows, hasColumnHeaders, table })
   const [collapsedRows, setCollapsedRows] = useState<Array<number>>([])
 
   function handleCollapseRow(idx: number) {
@@ -87,7 +80,7 @@ export default function TableEditor({
         id: !column.length ? 'BLANK_COLUMN_HEADER' : column,
         accessor: (row: Row) => row[column],
       })),
-    [table.columns]
+    [{}, table.columns]
   )
 
   const onCellUpdate: Actions['onCellUpdate'] = (index, column, cellValue) => {
@@ -238,6 +231,7 @@ export default function TableEditor({
   const handleClear = () => {
     onChange(null)
   }
+  console.log('before')
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -256,6 +250,7 @@ export default function TableEditor({
       useResizeColumns,
       useFlexLayout
     )
+  console.log('after')
 
   const tbodyRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLDivElement>(null)
@@ -298,6 +293,8 @@ export default function TableEditor({
       hasColumnHeaders: !hasColumnHeaders,
     })
   }
+
+  console.log('return')
 
   return (
     <div className={s.container}>

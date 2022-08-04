@@ -33,7 +33,7 @@ export default function TextEditor({
 }: TextEditorProps) {
   const headingEditorRef = useRef<any>(null)
   const contentEditorRef = useRef<any>(null)
-  console.log(headingEditorRef)
+  // console.log(headingEditorRef)
   // console.log(editorRef)
   // const log = () => {
   //   if (editorRef !== null && editorRef.current) {
