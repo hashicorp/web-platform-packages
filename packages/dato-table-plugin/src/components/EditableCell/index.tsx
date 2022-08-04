@@ -1,11 +1,7 @@
 import { Column as TableColumn, Row as TableRow } from 'react-table'
-import { faCog, faCheckSquare, faBook } from '@fortawesome/free-solid-svg-icons'
 import { Actions, CellValue, isBoolean, Row } from '../../types'
-import s from './style.module.css'
-import classNames from 'classnames'
-import { Dropdown, DropdownMenu, DropdownOption } from 'datocms-react-ui'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TextEditor from '../TextEditor'
+import s from './style.module.css'
 
 type Props = Actions & {
   value: CellValue

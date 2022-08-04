@@ -54,7 +54,7 @@ The release process is handled mostly automatically via the changesets GitHub ac
 If you want to test your changes before merging, you can add a `release:canary` label to your pull request. If any changeset files are found, a release will be created and tagged with `canary`. You can then install the canary version elsewhere:
 
 ```
-npm instal @hashicorp/platform-package@canary
+npm install @hashicorp/platform-package@canary
 ```
 
 ### Prereleases
