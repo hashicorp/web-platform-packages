@@ -1,21 +1,15 @@
 .textEditor {
-  /* display: grid;
-  flex-direction: column; */
   min-width: 100%;
-  /* height: calc(100% -17px); */
-  /* border-right: 1px solid #c6c6c6; */
 }
 
 .editor {
   position: relative;
-  /* border-top: 1px solid #c6c6c6; */
 }
 
 .editorType {
   position: absolute;
   bottom: 0;
   height: 18px;
-  /* border-right: 1px solid rgb(198, 198, 198); */
   padding: 0 8px;
   color: #adaaaa;
   font-size: 12px;

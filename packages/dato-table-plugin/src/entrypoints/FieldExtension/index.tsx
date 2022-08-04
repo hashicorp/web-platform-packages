@@ -75,7 +75,7 @@ export default function FieldExtension({ ctx }: Props) {
 
     handleUpdate(exitValue)
   }
-  console.log({ value })
+
   return (
     <Canvas ctx={ctx}>
       {value === null ? (

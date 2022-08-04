@@ -47,9 +47,7 @@ export default function TableEditor({
   onChange,
   onOpenInFullScreen,
 }: Props) {
-  console.log('TableEditor')
   const { collapsibleRows, hasColumnHeaders, table } = value
-  console.log({ collapsibleRows, hasColumnHeaders, table })
   const [collapsedRows, setCollapsedRows] = useState<Array<number>>([])
 
   function handleCollapseRow(idx: number) {
@@ -231,7 +229,6 @@ export default function TableEditor({
   const handleClear = () => {
     onChange(null)
   }
-  console.log('before')
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -250,7 +247,6 @@ export default function TableEditor({
       useResizeColumns,
       useFlexLayout
     )
-  console.log('after')
 
   const tbodyRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLDivElement>(null)
@@ -264,7 +260,6 @@ export default function TableEditor({
 
     const handler = (event: Event) => {
       if (!theadRef.current) {
-        console.log('handler')
         return
       }
 
@@ -293,8 +288,6 @@ export default function TableEditor({
       hasColumnHeaders: !hasColumnHeaders,
     })
   }
-
-  console.log('return')
 
   return (
     <div className={s.container}>

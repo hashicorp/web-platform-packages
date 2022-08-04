@@ -35,11 +35,6 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
     onChange(currentValue)
   }
 
-  const editorProps = {
-    initialValue: '<p />',
-    onFocusOut: saveChange,
-  }
-
   const editorInitProps = {
     menubar: false,
     plugins: ['link'],
@@ -55,11 +50,13 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
           <span>Heading</span>
         </div>
         <ReactEditor
-          {...editorProps}
+          onFocusOut={saveChange}
           value={currentValue.heading ? currentValue.heading : '<p />'}
           init={{
             ...editorInitProps,
             toolbar: 'link',
+            content_style:
+              'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
           }}
           onEditorChange={(newVal) => handleChange('heading', newVal)}
         />
@@ -69,7 +66,7 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
           <span>Content</span>
         </div>
         <ReactEditor
-          {...editorProps}
+          onFocusOut={saveChange}
           value={currentValue.content ? currentValue.content : '<p />'}
           init={{
             ...editorInitProps,
@@ -78,7 +75,6 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
               'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
           }}
           onEditorChange={(newVal) => handleChange('content', newVal)}
-          onFocusOut={saveChange}
         />
       </div>
     </div>

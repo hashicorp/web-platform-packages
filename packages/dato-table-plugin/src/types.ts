@@ -85,13 +85,6 @@ const isData = (data: unknown, columns: string[]): data is Data => {
 }
 
 export const isValue = (data: unknown): data is Value => {
-  // console.log(
-  //   isObject(data),
-  //   'columns' in data,
-  //   isColumns((data as any).columns),
-  //   'data' in data,
-  //   isData((data as any).data, (data as any).columns as string[])
-  // )
   return (
     isObject(data) &&
     'columns' in data &&
