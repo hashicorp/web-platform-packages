@@ -99,14 +99,14 @@
   top: 50%;
   display: inline-block;
   float: left;
-  appearance: none;
   background-color: transparent;
   border: 0;
   cursor: pointer;
 }
 
 .handle {
-  all: inherit;
+  appearance: none;
+  border: 0;
   position: absolute;
   top: 0;
   left: 0;
