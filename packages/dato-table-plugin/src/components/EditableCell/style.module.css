@@ -9,24 +9,14 @@
   font-style: italic;
   background-color: white;
   border: none;
-  text-decoration: none;
-  -webkit-appearance: none;
-  outline: none;
   cursor: pointer;
   top: 4px;
   right: 4px;
   text-decoration: underline;
   background-color: rgb(198, 198, 198);
 }
-/* 
-.cell:hover .settingsButton {
-  opacity: 1;
-} */
 
 .checkboxCell {
-  /* border: 1px solid rgb(196, 196, 196) !important; */
-  /* border-radius: 2px; */
-  /* height: calc(100% - 17px); */
   flex-grow: 1;
   display: flex;
   align-items: center;
@@ -45,8 +35,6 @@
   flex-direction: column;
   height: 100%;
   position: relative;
-  /* border: 1px solid #c6c6c6; */
-  /* border-inline: 2px solid rgb(198, 198, 198); */
 }
 
 .checkboxInput {

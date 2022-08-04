@@ -15,7 +15,7 @@ require('tinymce/plugins/emoticons')
 require('tinymce/plugins/link')
 require('tinymce/plugins/lists')
 require('tinymce/plugins/paste')
-require('tinymce/plugins/autoresize')
+// require('tinymce/plugins/autoresize')
 
 interface TextEditorProps {
   onChange: (x: RichTextProps) => void
@@ -41,6 +41,7 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
     branding: false,
     width: '100%',
     elementpath: false,
+    resize: false,
   }
 
   return (
@@ -61,7 +62,7 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
           onEditorChange={(newVal) => handleChange('heading', newVal)}
         />
       </div>
-      <div className={s.editor}>
+      <div className={s.editor} id="contentEditor">
         <div className={s.editorType}>
           <span>Content</span>
         </div>

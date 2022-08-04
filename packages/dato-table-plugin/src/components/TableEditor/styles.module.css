@@ -3,12 +3,11 @@
   border: 1px solid var(--border-color);
   border-bottom: 0;
   border-radius: 4px;
+  border-right: 1px solid rgb(198, 198, 198);
 }
 
 .thead {
-  /* These styles are required for a scrollable body to align with the header properly */
   padding-left: 22px;
-  /* background: rgba(var(--light-body-color-rgb-components), 0.1); */
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -25,8 +24,8 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-.isCollapsed div:not(:first-child) {
-  height: 80px;
+.isCollapsed  {
+  height: 226px;
   overflow: hidden;
 }
 
