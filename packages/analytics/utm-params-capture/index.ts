@@ -2,9 +2,11 @@ import Cookies from 'js-cookie'
 
 const UTM_ALLOW_LIST = [
   'utm_source',
-  'utm_offer',
   'utm_medium',
+  'utm_offer',
   'utm_campaign',
+  'utm_content',
+  'utm_channel_bucket',
 ] as const
 type UTMKeys = typeof UTM_ALLOW_LIST[number]
 type UTMParams = Partial<Record<UTMKeys, string>>
