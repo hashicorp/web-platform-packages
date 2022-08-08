@@ -18,7 +18,7 @@ export function addCloudLinkHandler() {
     if (linkElement && containsDestination(linkElement.href)) {
       event.preventDefault()
       const productIntent = getProductIntentFromURL()
-      const searchParams = {
+      const forwardedSearchParams: Record<string, string> = {
         ...getUTMParamsCaptureState(),
         ...(productIntent && {
           product: productIntent,
@@ -26,9 +26,14 @@ export function addCloudLinkHandler() {
       }
       try {
         const url = new URL(linkElement.href)
+        for (const [key, value] of url.searchParams.entries()) {
+          if (!forwardedSearchParams.hasOwnProperty(key)) {
+            forwardedSearchParams[key] = value
+          }
+        }
         location.href = `${url.origin}${
-          Object.keys(searchParams).length > 0
-            ? `?${new URLSearchParams(searchParams).toString()}`
+          Object.keys(forwardedSearchParams).length > 0
+            ? `?${new URLSearchParams(forwardedSearchParams).toString()}`
             : ''
         }`
       } catch (error) {
