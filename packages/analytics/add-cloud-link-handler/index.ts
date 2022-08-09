@@ -27,11 +27,11 @@ export function addCloudLinkHandler() {
       try {
         const url = new URL(linkElement.href)
         const urlSearchParams = url.searchParams
-        for (const key of urlSearchParams.keys()) {
+        urlSearchParams.forEach((value, key) => {
           if (!forwardedSearchParams.hasOwnProperty(key)) {
-            forwardedSearchParams[key] = urlSearchParams.get(key)!
+            forwardedSearchParams[key] = value
           }
-        }
+        })
         location.href = `${url.origin}${
           Object.keys(forwardedSearchParams).length > 0
             ? `?${new URLSearchParams(forwardedSearchParams).toString()}`
