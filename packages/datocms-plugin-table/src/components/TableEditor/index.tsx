@@ -51,12 +51,16 @@ export default function TableEditor({
   const { collapsibleRows, hasColumnHeaders, table } = value
   const [collapsedRows, setCollapsedRows] = useState<Array<number>>([])
 
+  function removeCollapsedRow(idx: number) {
+    const updatedCollapsedRows = [...collapsedRows]
+    const currentCollapsibleRowIdx = updatedCollapsedRows.indexOf(idx)
+    updatedCollapsedRows.splice(currentCollapsibleRowIdx, 1)
+    setCollapsedRows(updatedCollapsedRows)
+  }
+
   function handleCollapseRow(idx: number) {
     if (collapsedRows.includes(idx)) {
-      const updatedCollapsedRows = [...collapsedRows]
-      const currentCollapsibleRowIdx = updatedCollapsedRows.indexOf(idx)
-      updatedCollapsedRows.splice(currentCollapsibleRowIdx, 1)
-      setCollapsedRows(updatedCollapsedRows)
+      removeCollapsedRow(idx)
     } else {
       setCollapsedRows([...collapsedRows, idx])
     }
@@ -222,6 +226,7 @@ export default function TableEditor({
     if (newCollapsibleRows.includes(row)) {
       const currentCollapsibleRowIdx = newCollapsibleRows.indexOf(row)
       newCollapsibleRows.splice(currentCollapsibleRowIdx, 1)
+      removeCollapsedRow(row)
     } else {
       newCollapsibleRows = [...newCollapsibleRows, row]
     }
