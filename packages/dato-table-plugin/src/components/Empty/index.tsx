@@ -24,6 +24,11 @@ export const Empty = ({ onChange }: Props) => {
                   'Column A': { heading: '', content: '' },
                   'Column B': { heading: '', content: '' },
                 },
+                {
+                  '': { heading: '', content: '' },
+                  'Column A': false,
+                  'Column B': false,
+                },
               ],
             },
           })

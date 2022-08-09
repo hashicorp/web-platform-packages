@@ -1,5 +1,6 @@
 import { Column as TableColumn, Row as TableRow } from 'react-table'
 import { Actions, CellValue, isBoolean, Row } from '../../types'
+import { isBlankColumnHeader } from '../../utils/constants'
 import TextEditor from '../TextEditor'
 import s from './style.module.css'
 
@@ -28,11 +29,14 @@ export default function EditableCell({
   return (
     <div className={s.cell}>
       <div className={s.cellOptionContainer}>
-        <button onClick={handleCellTypeChange} className={s.settingsButton}>
-          <span className={s.cellOption}>
-            {`Convert cell to ${isCheckbox ? 'text editor' : 'checkbox'}`}
-          </span>
-        </button>
+        {!isBlankColumnHeader(id!) && (
+          <button onClick={handleCellTypeChange} className={s.settingsButton}>
+            <span className={s.cellOption}>
+              Convert to
+              <strong>{isCheckbox ? ' text editor' : ' checkbox'}</strong>
+            </span>
+          </button>
+        )}
       </div>
       {isCheckbox ? (
         <div className={s.checkboxCell}>

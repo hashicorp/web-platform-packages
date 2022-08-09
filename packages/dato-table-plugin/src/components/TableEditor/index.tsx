@@ -35,6 +35,7 @@ import {
 } from 'datocms-react-ui'
 import classNames from 'classnames'
 import s from './styles.module.css'
+import { isBlankColumnHeader } from '../../utils/constants'
 
 type Props = {
   value: Value
@@ -91,7 +92,7 @@ export default function TableEditor({
             ? row
             : {
                 ...row,
-                [column === 'BLANK_COLUMN_HEADER' ? '' : column]: cellValue,
+                [isBlankColumnHeader(column) ? '' : column]: cellValue,
               }
         ),
       },
@@ -99,13 +100,17 @@ export default function TableEditor({
   }
 
   const onColumnRename: Actions['onColumnRename'] = (oldColumn, newColumn) => {
+    const updatedColumn = isBlankColumnHeader(newColumn) ? '' : newColumn
     onChange({
       ...value,
       table: {
-        columns: table.columns.map((c) => (c === oldColumn ? newColumn : c)),
+        columns: table.columns.map((c) =>
+          c === oldColumn ? updatedColumn : c
+        ),
         data: table.data.map((row, i) => ({
           ...omit(row, [oldColumn]),
-          [newColumn]: row[oldColumn],
+          [updatedColumn]:
+            newColumn === '' ? { heading: '', content: '' } : row[oldColumn],
         })),
       },
     })
@@ -138,7 +143,8 @@ export default function TableEditor({
 
     const newColumns = [...table.columns]
     newColumns.splice(
-      table.columns.indexOf(column) + (toTheLeft ? 0 : 1),
+      table.columns.indexOf(isBlankColumnHeader(column) ? '' : column) +
+        (toTheLeft ? 0 : 1),
       0,
       columnName
     )
@@ -194,7 +200,7 @@ export default function TableEditor({
     const newData = [...table.data]
     const rowData = newData[row]
     Object.keys(rowData).forEach((key, i) => {
-      if (key !== 'BLANK_COLUMN_HEADER' && key !== '') {
+      if (isBlankColumnHeader(key) && key !== '') {
         rowData[key] =
           type === 'checkbox' ? false : { heading: '', content: '' }
       }

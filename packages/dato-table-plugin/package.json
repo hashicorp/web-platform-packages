@@ -1,8 +1,15 @@
 {
-  "name": "pricing-table-editor",
-  "description": "A table editor that outputs JSON objects",
+  "name": "datocms-plugin-complex-table-editor",
+  "version": "0.0.1",
   "homepage": "https://github.com/hashicorp/web-platform-packages/blob/pb.dato-pricing-table-plugin/packages/dato-table-plugin/README.md",
-  "version": "0.1.3",
+  "description": "A table editor that includes boolean and rich text editable cells",
+  "keywords": ["datocms-plugin"],
+  "datoCmsPlugin": {
+    "title": "Complex Table Editor",
+    "previewImage": "docs/demo.mp4",
+    "coverImage": "docs/cover.png",
+    "entryPoint": "build/index.html"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
@@ -23,10 +30,6 @@
     "typescript": "^4.5.4",
     "use-deep-compare": "^1.1.0"
   },
-  "keywords": [
-    "datocms",
-    "datocms-plugin"
-  ],
   "files": [
     "build",
     "docs"
@@ -59,11 +62,5 @@
     "@types/lodash-es": "^4.17.5",
     "@types/react-table": "^7.7.9",
     "cross-env": "^7.0.3"
-  },
-  "datoCmsPlugin": {
-    "title": "Pricing Table Editor",
-    "previewImage": "docs/demo.mp4",
-    "coverImage": "docs/cover.png",
-    "entryPoint": "build/index.html"
   }
 }

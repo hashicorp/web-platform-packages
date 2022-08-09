@@ -1,6 +1,7 @@
 .cellOptionContainer {
   background-color: rgb(198, 198, 198);
   border: 1px solid black;
+  min-height: 23px;
 }
 
 .cellOptionContainer button {
@@ -21,13 +22,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid rgb(198, 198, 198);
-  border-bottom: 1px solid rgb(198, 198, 198);
+  border: 1px solid rgb(198, 198, 198);
 }
 
 .cellOption {
   font-size: 12px;
-  margin-right: 12px;
 }
 
 .cell {
@@ -38,8 +37,6 @@
 }
 
 .checkboxInput {
-  /* margin: 12px; */
   width: 24px;
   height: 24px;
-  /* margin-top: 38px; */
 }

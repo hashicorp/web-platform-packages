@@ -1,6 +1,6 @@
-import { Column } from 'react-table';
-import { Actions, Row } from '../../types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Column } from 'react-table'
+import { Actions, Row } from '../../types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCog,
   faLongArrowAltLeft,
@@ -8,7 +8,7 @@ import {
   faPen,
   faTimes,
   faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons'
 import {
   Button,
   Dropdown,
@@ -17,16 +17,17 @@ import {
   DropdownSeparator,
   TextField,
   useCtx,
-} from 'datocms-react-ui';
-import s from './style.module.css';
-import { useEffect, useState } from 'react';
+} from 'datocms-react-ui'
+import s from './style.module.css'
+import { useEffect, useState } from 'react'
+import { isBlankColumnHeader } from '../../utils/constants'
 
 type Props = Actions & {
-  value: string;
-  row: { index: number };
-  column: Column<Row>;
-  columns: Column<Row>[];
-};
+  value: string
+  row: { index: number }
+  column: Column<Row>
+  columns: Column<Row>[]
+}
 
 export default function EditableHeader({
   column: { id },
@@ -35,30 +36,34 @@ export default function EditableHeader({
   onAddColumn,
   onRemoveColumn,
 }: Props) {
-  const ctx = useCtx();
-  const [panel, setPanel] = useState('root');
-  const [nameValue, setNameValue] = useState(id!);
-  const isBlankColumnHeader = id === 'BLANK_COLUMN_HEADER'
+  const ctx = useCtx()
+  const [panel, setPanel] = useState('root')
+  const [nameValue, setNameValue] = useState(id!)
+  const blank = isBlankColumnHeader(id!)
 
   useEffect(() => {
-    setNameValue(id!);
-  }, [id, setNameValue]);
+    setNameValue(id!)
+  }, [id, setNameValue])
 
   const handleChangeName = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     if (columns.find((c) => c.id === nameValue)) {
-      ctx.alert('Column names must be unique!');
-      return;
+      ctx.alert('Column names must be unique!')
+      return
     }
-    onColumnRename(id!, nameValue);
-  };
+    if (blank) {
+      onColumnRename('', nameValue)
+    } else {
+      onColumnRename(id!, nameValue)
+    }
+  }
 
   return (
     <>
       <Dropdown
         renderTrigger={({ onClick }) => (
           <button onClick={onClick} className={s.button}>
-            {!isBlankColumnHeader && <span>{id}</span>}
+            {!blank && <span>{id}</span>}
             <FontAwesomeIcon icon={faCog} />
           </button>
         )}
@@ -75,7 +80,7 @@ export default function EditableHeader({
               <DropdownOption
                 closeMenuOnClick={false}
                 onClick={() => {
-                  setPanel('rename');
+                  setPanel('rename')
                 }}
               >
                 <FontAwesomeIcon icon={faPen} /> Rename column
@@ -84,11 +89,11 @@ export default function EditableHeader({
                 <FontAwesomeIcon icon={faLongArrowAltRight} /> Add column to the
                 right
               </DropdownOption>
-              {!isBlankColumnHeader && (
+              {!blank && (
                 <>
                   <DropdownOption onClick={onAddColumn.bind(null, id!, true)}>
-                    <FontAwesomeIcon icon={faLongArrowAltLeft} /> Add column to the
-                    left
+                    <FontAwesomeIcon icon={faLongArrowAltLeft} /> Add column to
+                    the left
                   </DropdownOption>
                   <DropdownSeparator />
                   <DropdownOption red onClick={onRemoveColumn.bind(null, id!)}>
@@ -116,7 +121,7 @@ export default function EditableHeader({
               <DropdownOption
                 closeMenuOnClick={false}
                 onClick={() => {
-                  setPanel('root');
+                  setPanel('root')
                 }}
               >
                 <FontAwesomeIcon icon={faTimes} /> Cancel
@@ -126,5 +131,5 @@ export default function EditableHeader({
         </DropdownMenu>
       </Dropdown>
     </>
-  );
+  )
 }
