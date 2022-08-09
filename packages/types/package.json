@@ -15,5 +15,10 @@
   },
   "publishConfig": {
     "private": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/types"
   }
 }

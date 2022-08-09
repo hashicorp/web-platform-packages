@@ -25,5 +25,10 @@
     "rehype-remark": "^9.1.0",
     "rehype-stringify": "^9.0.2",
     "remark-rehype": "^10.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/remark-plugins"
   }
 }
