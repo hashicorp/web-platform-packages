@@ -7,19 +7,17 @@ import {
   TableOptions,
 } from 'react-table'
 import { useDeepCompareMemo } from 'use-deep-compare'
-import { Actions, isBoolean, isRichText, Row, Value } from '../../types'
+import { Actions, cellTypes, Row, Value, CellValue } from '../../types'
 import EditableCell from '../EditableCell'
 import omit from 'lodash-es/omit'
 import EditableHeader from '../EditableHeader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCheckCircle,
   faCaretUp,
   faCaretDown,
   faExpand,
   faPlus,
   faTrash,
-  faPencilAlt,
   faLongArrowAltDown,
   faLongArrowAltUp,
   faTrashAlt,
@@ -158,12 +156,14 @@ export default function TableEditor({
       table: {
         columns: newColumns,
         data: table.data.map((row, i) => {
-          const isBooleanRow = Object.values(row).some(
-            (val) => typeof val === 'boolean'
-          )
+          const rowType =
+            cellTypes.find(({ isOfType }) =>
+              Object.values(row).some((val) => isOfType(val))
+            ) || cellTypes[0]
+
           return {
             ...row,
-            [columnName]: isBooleanRow ? false : { heading: '', content: '' },
+            [columnName]: rowType.defaultVal,
           }
         }),
       },
@@ -200,13 +200,15 @@ export default function TableEditor({
     })
   }
 
-  const onChangeRowType: Actions['onChangeRowType'] = (row, type) => {
+  const onChangeRowType: Actions['onChangeRowType'] = (
+    row: number,
+    defaultVal: CellValue
+  ) => {
     const newData = [...table.data]
     const rowData = newData[row]
     Object.keys(rowData).forEach((key, i) => {
       if (!isBlankColumnHeader(key) && key !== '') {
-        rowData[key] =
-          type === 'checkbox' ? false : { heading: '', content: '' }
+        rowData[key] = defaultVal
       }
     })
 
@@ -354,22 +356,21 @@ export default function TableEditor({
                     )}
                   >
                     <DropdownMenu>
-                      {!checkRowType(row.original, isBoolean) && (
-                        <DropdownOption
-                          onClick={onChangeRowType.bind(null, i, 'checkbox')}
-                        >
-                          <FontAwesomeIcon icon={faCheckCircle} />
-                          &nbsp;Make all cells checkbox type
-                        </DropdownOption>
+                      {cellTypes.map(
+                        (type) =>
+                          !checkRowType(row.original, type.isOfType) && (
+                            <DropdownOption
+                              onClick={onChangeRowType.bind(
+                                null,
+                                i,
+                                type.defaultVal
+                              )}
+                            >
+                              &nbsp;Make all cells {type.name} type
+                            </DropdownOption>
+                          )
                       )}
-                      {!checkRowType(row.original, isRichText) && (
-                        <DropdownOption
-                          onClick={onChangeRowType.bind(null, i, 'rich text')}
-                        >
-                          <FontAwesomeIcon icon={faPencilAlt} /> Make all cells
-                          rich text type
-                        </DropdownOption>
-                      )}
+
                       <DropdownOption
                         onClick={onChangeRowCollapse.bind(null, i)}
                       >

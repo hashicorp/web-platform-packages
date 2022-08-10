@@ -34,7 +34,7 @@ export type Actions = {
   onColumnRename: (column: string, newColumn: string) => void
   onAddRow: (row: number, toTheBottom: boolean) => void
   onRemoveRow: (row: number) => void
-  onChangeRowType: (row: number, type: string) => void
+  onChangeRowType: (row: number, defaultVal: CellValue) => void
   onChangeRowCollapse: (row: number) => void
 }
 
@@ -45,18 +45,8 @@ const isObject = (data: unknown): data is Record<string, unknown> => {
 export const isRow = (data: unknown): data is Row => {
   return (
     isObject(data) &&
-    Object.values(data).every((v) => isRichText(v) || isBoolean(v))
-  )
-}
-
-export const isBoolean = (data: unknown): data is boolean =>
-  typeof data === 'boolean'
-
-export const isRichText = (data: unknown): data is CellValue => {
-  return (
-    isObject(data) &&
-    Object.keys(data).every(
-      (k) => (k === 'heading' || k === 'content') && typeof data[k] === 'string'
+    Object.values(data).every((v) =>
+      cellTypes.some(({ isOfType }) => isOfType(v))
     )
   )
 }
@@ -93,3 +83,25 @@ export const isValue = (data: unknown): data is Value => {
     isData((data as any).data, (data as any).columns as string[])
   )
 }
+
+export interface CellTypeInfo {
+  name: string
+  defaultVal: CellValue
+  isOfType: (val: unknown) => boolean
+}
+
+export const cellTypes: Array<CellTypeInfo> = [
+  {
+    name: 'rich text',
+    defaultVal: { heading: '', content: '' },
+    isOfType: (val) =>
+      !!val &&
+      typeof val === 'object' &&
+      Object.keys(val).every((k) => k === 'heading' || k === 'content'),
+  },
+  {
+    name: 'checkbox',
+    defaultVal: false,
+    isOfType: (val) => typeof val === 'boolean',
+  },
+]
