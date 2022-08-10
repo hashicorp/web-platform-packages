@@ -200,15 +200,16 @@ export default function TableEditor({
     })
   }
 
-  const onChangeRowType: Actions['onChangeRowType'] = (
-    row: number,
-    defaultVal: CellValue
-  ) => {
+  const onChangeRowType: Actions['onChangeRowType'] = (row, cellType) => {
     const newData = [...table.data]
     const rowData = newData[row]
     Object.keys(rowData).forEach((key, i) => {
-      if (!isBlankColumnHeader(key) && key !== '') {
-        rowData[key] = defaultVal
+      if (
+        !isBlankColumnHeader(key) &&
+        key !== '' &&
+        !cellType.isOfType(rowData[key])
+      ) {
+        rowData[key] = cellType.defaultVal
       }
     })
 
@@ -360,11 +361,7 @@ export default function TableEditor({
                         (type) =>
                           !checkRowType(row.original, type.isOfType) && (
                             <DropdownOption
-                              onClick={onChangeRowType.bind(
-                                null,
-                                i,
-                                type.defaultVal
-                              )}
+                              onClick={onChangeRowType.bind(null, i, type)}
                             >
                               &nbsp;Make all cells {type.name} type
                             </DropdownOption>

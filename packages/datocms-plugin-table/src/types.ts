@@ -34,7 +34,7 @@ export type Actions = {
   onColumnRename: (column: string, newColumn: string) => void
   onAddRow: (row: number, toTheBottom: boolean) => void
   onRemoveRow: (row: number) => void
-  onChangeRowType: (row: number, defaultVal: CellValue) => void
+  onChangeRowType: (row: number, cellType: CellTypeInfo) => void
   onChangeRowCollapse: (row: number) => void
 }
 
