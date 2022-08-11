@@ -14,7 +14,7 @@ Add plugin
 
 Choose Create New Plugin
 
-Enter plugin name (Pricing Table)
+Enter plugin name (Features Table)
 
 Enter entry point url `https://localhost:3000`
 

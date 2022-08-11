@@ -7,7 +7,7 @@ import {
   TableOptions,
 } from 'react-table'
 import { useDeepCompareMemo } from 'use-deep-compare'
-import { Actions, cellTypes, Row, Value, CellValue } from '../../types'
+import { Actions, cellTypes, Row, Value } from '../../types'
 import EditableCell from '../EditableCell'
 import omit from 'lodash-es/omit'
 import EditableHeader from '../EditableHeader'
