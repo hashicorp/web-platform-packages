@@ -1,5 +1,15 @@
 # @hashicorp/platform-analytics
 
+## 0.5.0
+
+### Minor Changes
+
+- [#72](https://github.com/hashicorp/web-platform-packages/pull/72) [`c584e5e`](https://github.com/hashicorp/web-platform-packages/commit/c584e5e8217e6f929d0e575e2fc6ce8dd27474cc) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add addCloudLinkHandler util
+
+### Patch Changes
+
+- [#73](https://github.com/hashicorp/web-platform-packages/pull/73) [`412cad2`](https://github.com/hashicorp/web-platform-packages/commit/412cad2d04c92719ac24d150ffe282ffa5aafb57) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - update utm allow list
+
 ## 0.4.0
 
 ### Minor Changes
