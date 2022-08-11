@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "homepage": "https://github.com/hashicorp/web-platform-packages/blob/pb.dato-pricing-table-plugin/packages/dato-table-plugin/README.md",
   "description": "A table editor that includes boolean and rich text editable cells",
+  "author": "HashiCorp",
   "keywords": ["datocms-plugin"],
   "datoCmsPlugin": {
     "title": "Complex Table Editor",
