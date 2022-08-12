@@ -79,7 +79,7 @@
 
 .dropdownWrapper {
   width: 22px;
-  background: rgba(var(--light-body-color-rgb-components), 0.1)
+  background: rgba(var(--light-body-color-rgb-components), 0.1);
 }
 
 .dropdownWrapper > * {
@@ -121,8 +121,8 @@
   transition: background 0.2s var(--material-ease);
 }
 
-.handle:hover {
-  background: rgba(var(--light-body-color-rgb-components), 0.2);
+.handle:hover svg {
+  color: rgba(var(--light-body-color-rgb-components), 0.8);
 }
 
 .actions {
