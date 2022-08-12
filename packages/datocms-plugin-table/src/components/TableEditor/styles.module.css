@@ -79,7 +79,7 @@
 
 .dropdownWrapper {
   width: 22px;
-  background: gray;
+  background: rgba(var(--light-body-color-rgb-components), 0.1)
 }
 
 .dropdownWrapper > * {
@@ -116,7 +116,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(var(--light-body-color-rgb-components), 0.1);
   cursor: pointer;
   border-radius: 4px 0 0 4px;
   transition: background 0.2s var(--material-ease);

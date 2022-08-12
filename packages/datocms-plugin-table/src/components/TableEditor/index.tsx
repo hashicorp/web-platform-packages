@@ -350,7 +350,6 @@ export default function TableEditor({
                       <button onClick={onClick} className={s.handle}>
                         <FontAwesomeIcon
                           icon={faCog}
-                          color="white"
                           className={s.handleIcon}
                         />
                       </button>

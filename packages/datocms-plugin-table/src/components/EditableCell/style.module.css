@@ -1,20 +1,26 @@
 .cellOptionContainer {
-  background-color: rgb(198, 198, 198);
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   min-height: 23px;
   display: flex;
   align-items: center;
 }
 
-.cellOptions button {
+.cellOptionButton {
   background-color: transparent;
-  text-decoration: underline;
   cursor: pointer;
-  margin-left: 4px;
   border: none;
   font-size: 12px;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
+  border-left: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  line-height: 1.5;
+}
+
+.cellOptionButton:hover {
+  text-decoration: underline;
+}
+
+.cellOptionButton:last-child {
+  border-right: 1px solid var(--accent-color);
 }
 
 .cellOptionsText {
@@ -29,10 +35,6 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgb(198, 198, 198);
-}
-
-.cellOption {
-  font-size: 12px;
 }
 
 .cell {

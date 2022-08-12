@@ -64,18 +64,16 @@ export default function EditableCell({
       <div className={s.cellOptionContainer}>
         {!isBlankColumnHeader(id!) && (
           <>
-            <span className={s.cellOptionsText}>Convert to:</span>
+            <span className={s.cellOptionsText}>Convert to</span>
             {cellTypes.map(
               ({ name }) =>
                 name !== currentCellType.name && (
-                  <div className={s.cellOptions}>
-                    <button
-                      onClick={() => handleCellTypeChange(name)}
-                      className={s.settingsButton}
-                    >
-                      <span>{name}</span>
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleCellTypeChange(name)}
+                    className={s.cellOptionButton}
+                  >
+                    {name}
+                  </button>
                 )
             )}
           </>
