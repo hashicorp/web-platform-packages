@@ -7,8 +7,8 @@
   "keywords": ["datocms-plugin"],
   "datoCmsPlugin": {
     "title": "Complex Table Editor",
-    "previewImage": "docs/demo.mov",
-    "coverImage": "",
+    "previewImage": "docs/demo.mp4",
+    "coverImage": "docs/cover.png",
     "entryPoint": "build/index.html"
   },
   "dependencies": {
