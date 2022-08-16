@@ -1,5 +1,11 @@
 # @hashicorp/platform-docs-mdx
 
+## 0.2.0
+
+### Minor Changes
+
+- [#79](https://github.com/hashicorp/web-platform-packages/pull/79) [`da81109`](https://github.com/hashicorp/web-platform-packages/commit/da811097f7400efaba3a4bcedb15aa8620b32f38) Thanks [@dstaley](https://github.com/dstaley)! - Update dependencies
+
 ## 0.1.4
 
 ### Patch Changes
