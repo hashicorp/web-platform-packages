@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-docs-mdx",
   "description": "Utilities for working with mdx on docs-focused HashiCorp next.js websites",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": "HashiCorp",
   "dependencies": {
     "@hashicorp/react-code-block": "^6.1.0",
