@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.5.1
+
+### Patch Changes
+
+- [#80](https://github.com/hashicorp/web-platform-packages/pull/80) [`79b0392`](https://github.com/hashicorp/web-platform-packages/commit/79b03920a32efefd5cdddcb41889dfa7e543e041) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - Change product intent search param key
+
 ## 0.5.0
 
 ### Minor Changes
