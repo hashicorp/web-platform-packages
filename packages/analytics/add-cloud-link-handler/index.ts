@@ -21,7 +21,7 @@ export function addCloudLinkHandler() {
       const forwardedSearchParams: Record<string, string> = {
         ...getUTMParamsCaptureState(),
         ...(productIntent && {
-          product: productIntent,
+          product_intent: productIntent,
         }),
       }
       try {
