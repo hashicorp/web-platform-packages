@@ -305,6 +305,17 @@ export default function TableEditor({
 
   return (
     <div className={s.container}>
+      <div className={s.actionsTop}>
+        {onOpenInFullScreen && (
+          <Button
+            onClick={onOpenInFullScreen}
+            buttonSize="s"
+            leftIcon={<FontAwesomeIcon icon={faExpand}></FontAwesomeIcon>}
+          >
+            Edit in full-screen
+          </Button>
+        )}
+      </div>
       <div {...getTableProps()} className={s.table}>
         {hasColumnHeaders && (
           <div
@@ -399,9 +410,9 @@ export default function TableEditor({
                       onClick={() => handleCollapseRow(i)}
                     >
                       {collapsedRows.includes(i) ? (
-                        <FontAwesomeIcon icon={faCaretUp} color="white" />
+                        <FontAwesomeIcon icon={faCaretUp} color="#848484" />
                       ) : (
-                        <FontAwesomeIcon icon={faCaretDown} color="white" />
+                        <FontAwesomeIcon icon={faCaretDown} color="#848484" />
                       )}
                     </button>
                   )}
