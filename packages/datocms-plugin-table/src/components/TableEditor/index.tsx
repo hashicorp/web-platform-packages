@@ -303,9 +303,23 @@ export default function TableEditor({
     })
   }
 
-  return (
-    <div className={s.container}>
-      <div className={s.actionsTop}>
+  function Actions({ className }: { className?: string }) {
+    return (
+      <div className={classNames(s.actions, className)}>
+        <Button
+          buttonSize="s"
+          leftIcon={
+            <FontAwesomeIcon
+              icon={hasColumnHeaders ? faMinus : faPlus}
+            ></FontAwesomeIcon>
+          }
+          onClick={changeHasColumnHeaders}
+        >
+          {hasColumnHeaders ? 'Remove column headers' : 'Add column headers'}
+        </Button>
+
+        <div className={s.actionsSpacer} />
+
         {onOpenInFullScreen && (
           <Button
             onClick={onOpenInFullScreen}
@@ -315,7 +329,20 @@ export default function TableEditor({
             Edit in full-screen
           </Button>
         )}
+        <Button
+          onClick={handleClear}
+          buttonSize="s"
+          leftIcon={<FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>}
+        >
+          Clear
+        </Button>
       </div>
+    )
+  }
+
+  return (
+    <div className={s.container}>
+      <Actions className={s.actionsTop} />
       <div {...getTableProps()} className={s.table}>
         {hasColumnHeaders && (
           <div
@@ -439,38 +466,7 @@ export default function TableEditor({
           Powered by Tiny
         </a>
       </div>
-      <div className={s.actions}>
-        <Button
-          buttonSize="s"
-          leftIcon={
-            <FontAwesomeIcon
-              icon={hasColumnHeaders ? faMinus : faPlus}
-            ></FontAwesomeIcon>
-          }
-          onClick={changeHasColumnHeaders}
-        >
-          {hasColumnHeaders ? 'Remove column headers' : 'Add column headers'}
-        </Button>
-
-        <div className={s.actionsSpacer} />
-
-        {onOpenInFullScreen && (
-          <Button
-            onClick={onOpenInFullScreen}
-            buttonSize="s"
-            leftIcon={<FontAwesomeIcon icon={faExpand}></FontAwesomeIcon>}
-          >
-            Edit in full-screen
-          </Button>
-        )}
-        <Button
-          onClick={handleClear}
-          buttonSize="s"
-          leftIcon={<FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>}
-        >
-          Clear
-        </Button>
-      </div>
+      <Actions />
     </div>
   )
 }
