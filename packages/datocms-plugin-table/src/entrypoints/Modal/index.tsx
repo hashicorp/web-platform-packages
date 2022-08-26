@@ -23,13 +23,8 @@ export default function Modal({ ctx }: Props) {
     ctx.resolve(value)
   }
 
-  return (
-    <Canvas ctx={ctx}>
-      {value === null ? (
-        <Empty onChange={setValue} />
-      ) : (
-        <TableEditor value={value} onChange={setValue} />
-      )}
+  function Actions() {
+    return (
       <div className={s.bar}>
         <Button onClick={handleClose}>Cancel</Button>{' '}
         <div className={s.barSpacer} />
@@ -37,6 +32,18 @@ export default function Modal({ ctx }: Props) {
           Save and close
         </Button>
       </div>
+    )
+  }
+
+  return (
+    <Canvas ctx={ctx}>
+      <Actions />
+      {value === null ? (
+        <Empty onChange={setValue} />
+      ) : (
+        <TableEditor value={value} onChange={setValue} />
+      )}
+      <Actions />
     </Canvas>
   )
 }

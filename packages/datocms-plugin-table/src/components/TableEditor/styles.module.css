@@ -155,3 +155,7 @@
 .branding a:hover {
   text-decoration: underline;
 }
+
+.actionsTop {
+  padding-bottom: 22px;
+}
