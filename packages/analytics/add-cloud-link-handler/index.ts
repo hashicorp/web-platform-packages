@@ -32,7 +32,7 @@ export function addCloudLinkHandler() {
             forwardedSearchParams[key] = value
           }
         })
-        location.href = `${url.origin}${
+        location.href = `${url.origin}${url.pathname}${
           Object.keys(forwardedSearchParams).length > 0
             ? `?${new URLSearchParams(forwardedSearchParams).toString()}`
             : ''
