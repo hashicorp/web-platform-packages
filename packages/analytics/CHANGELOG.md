@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.6.0
+
+### Minor Changes
+
+- [#84](https://github.com/hashicorp/web-platform-packages/pull/84) [`2c7fe1b`](https://github.com/hashicorp/web-platform-packages/commit/2c7fe1bb3f21946cfbd252bdd1f3156b97a6d33c) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - fix: include pathname in url generation
+
 ## 0.5.1
 
 ### Patch Changes
