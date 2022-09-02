@@ -1,4 +1,5 @@
 import usePageviewAnalytics from './use-page-view-analytics'
+import useErrorPageAnalytics from './use-error-page-analytics'
 import { getProductIntentFromURL } from './get-product-intent-from-url'
 import {
   initializeUTMParamsCapture,
@@ -9,6 +10,7 @@ import { addCloudLinkHandler } from './add-cloud-link-handler'
 export default usePageviewAnalytics
 export {
   usePageviewAnalytics,
+  useErrorPageAnalytics,
   getProductIntentFromURL,
   initializeUTMParamsCapture,
   getUTMParamsCaptureState,
