@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.6.1
+
+### Patch Changes
+
+- [#86](https://github.com/hashicorp/web-platform-packages/pull/86) [`4bf17bb`](https://github.com/hashicorp/web-platform-packages/commit/4bf17bb91ed711eadc60d219eef7a3d9df623d77) Thanks [@nandereck](https://github.com/nandereck)! - Add useErrorPageAnalytics hook
+
 ## 0.6.0
 
 ### Minor Changes
