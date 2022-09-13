@@ -10,10 +10,14 @@ const containsDestination = (str: string): boolean =>
     return str.indexOf(destination) >= 0
   })
 
+// Track if we've setup this handler already to prevent registering the handler
+// multiple times.
+let hasHandler = false
+
 export function addCloudLinkHandler(
   callback?: (destinationUrl: string) => void
 ) {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined' || hasHandler) return
 
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
@@ -47,4 +51,6 @@ export function addCloudLinkHandler(
       }
     }
   })
+
+  hasHandler = true
 }
