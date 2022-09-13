@@ -10,7 +10,9 @@ const containsDestination = (str: string): boolean =>
     return str.indexOf(destination) >= 0
   })
 
-export function addCloudLinkHandler() {
+export function addCloudLinkHandler(
+  callback?: (destinationUrl: string) => void
+) {
   if (typeof window === 'undefined') return
 
   window.addEventListener('click', (event) => {
@@ -32,11 +34,13 @@ export function addCloudLinkHandler() {
             forwardedSearchParams[key] = value
           }
         })
-        location.href = `${url.origin}${url.pathname}${
+        const destinationUrl = `${url.origin}${url.pathname}${
           Object.keys(forwardedSearchParams).length > 0
             ? `?${new URLSearchParams(forwardedSearchParams).toString()}`
             : ''
         }`
+        callback && callback(destinationUrl)
+        location.href = destinationUrl
       } catch (error) {
         location.href = linkElement.href
         console.error(error)
