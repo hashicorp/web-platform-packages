@@ -1,0 +1,161 @@
+.table {
+  border-spacing: 0;
+  border: 1px solid var(--border-color);
+  border-bottom: 0;
+  border-radius: 4px;
+  border-right: 1px solid rgb(198, 198, 198);
+}
+
+.thead {
+  padding-left: 22px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tbody {
+  /* These styles are required for a scrollable table body */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 250px;
+}
+
+.tr {
+  position: relative;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.isCollapsed  {
+  height: 226px;
+  overflow: hidden;
+}
+
+.tr:last-child .td {
+  border-bottom: 0;
+}
+
+.th,
+.td {
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid var(--border-color);
+  /* In this example we use an absolutely position resizer so this . */
+  position: relative;
+}
+
+.th > div {
+  height: 100% !important;
+}
+
+.th:last-child,
+.td:last-child {
+  border-right: 0;
+}
+
+.td textarea {
+  font-family: inherit;
+  font-size: inherit;
+  resize: none;
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  outline: none;
+  background: transparent;
+}
+
+.resizer {
+  right: 0;
+  width: 10px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: -5px;
+  z-index: 1;
+  /* prevents from scrolling while dragging on touch devices */
+  touch-action: none;
+}
+
+.dropdownWrapper {
+  width: 22px;
+  background: rgba(var(--light-body-color-rgb-components), 0.1);
+}
+
+.dropdownWrapper > * {
+  position: absolute !important;
+  right: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+}
+
+.collapsibleTrigger {
+  position: absolute;
+  right: 100%;
+  left: 0;
+  width: 20px;
+  top: 50%;
+  display: inline-block;
+  float: left;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.handle {
+  appearance: none;
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px 0 0 4px;
+  transition: background 0.2s var(--material-ease);
+}
+
+.handle:hover svg {
+  color: rgba(var(--light-body-color-rgb-components), 0.8);
+}
+
+.actions {
+  margin-top: var(--spacing-m);
+  display: flex;
+}
+
+.actions > * {
+  margin-right: 10px;
+}
+
+.actions > *:last-child {
+  margin-right: 0;
+}
+
+.actionsSpacer {
+  flex: 1;
+}
+
+.branding {
+  text-align: right;
+}
+
+.branding a {
+  color: rgba(34, 47, 62, 0.7);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.branding a:hover {
+  text-decoration: underline;
+}
+
+.actionsTop {
+  padding-bottom: 22px;
+}

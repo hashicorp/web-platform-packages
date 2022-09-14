@@ -1,10 +1,11 @@
 {
   "name": "@hashicorp/platform-analytics",
   "description": "Utilities for collecting analytics from our applications",
-  "version": "0.3.1",
+  "version": "0.6.1",
   "author": "HashiCorp",
   "dependencies": {
-    "fathom-client": "^3.2.0"
+    "fathom-client": "^3.2.0",
+    "js-cookie": "^2.2.1"
   },
   "peerDependencies": {
     "react": ">= 16.x"
@@ -12,5 +13,10 @@
   "license": "MPL-2.0",
   "publishConfig": {
     "private": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/analytics"
   }
 }

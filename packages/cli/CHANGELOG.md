@@ -1,5 +1,17 @@
 # @hashicorp/platform-cli
 
+## 2.3.0
+
+### Minor Changes
+
+- [#88](https://github.com/hashicorp/web-platform-packages/pull/88) [`9ad8877`](https://github.com/hashicorp/web-platform-packages/commit/9ad88779846281c2f808d1b2eb54868a8dbf1f07) Thanks [@nandereck](https://github.com/nandereck)! - Uses useErrorPageAnalytics hook for 404 tracking
+
+## 2.2.0
+
+### Minor Changes
+
+- [#48](https://github.com/hashicorp/web-platform-packages/pull/48) [`4ce0701`](https://github.com/hashicorp/web-platform-packages/commit/4ce0701c8b5839ceeb22dd17624f4f56fcaddcc7) Thanks [@dstaley](https://github.com/dstaley)! - Use SVG browser logos
+
 ## 2.1.0
 
 ### Minor Changes

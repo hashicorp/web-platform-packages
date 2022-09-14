@@ -1,0 +1,50 @@
+.cellOptionContainer {
+  border: 1px solid var(--border-color);
+  min-height: 23px;
+  display: flex;
+  align-items: center;
+}
+
+.cellOptionButton {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 12px;
+  border-left: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  line-height: 1.5;
+}
+
+.cellOptionButton:hover {
+  text-decoration: underline;
+}
+
+.cellOptionButton:last-child {
+  border-right: 1px solid var(--accent-color);
+}
+
+.cellOptionsText {
+  padding: 0 8px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.checkboxCell {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(198, 198, 198);
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.checkboxInput {
+  width: 24px;
+  height: 24px;
+}

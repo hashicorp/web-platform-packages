@@ -1,5 +1,41 @@
 # @hashicorp/platform-analytics
 
+## 0.6.1
+
+### Patch Changes
+
+- [#86](https://github.com/hashicorp/web-platform-packages/pull/86) [`4bf17bb`](https://github.com/hashicorp/web-platform-packages/commit/4bf17bb91ed711eadc60d219eef7a3d9df623d77) Thanks [@nandereck](https://github.com/nandereck)! - Add useErrorPageAnalytics hook
+
+## 0.6.0
+
+### Minor Changes
+
+- [#84](https://github.com/hashicorp/web-platform-packages/pull/84) [`2c7fe1b`](https://github.com/hashicorp/web-platform-packages/commit/2c7fe1bb3f21946cfbd252bdd1f3156b97a6d33c) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - fix: include pathname in url generation
+
+## 0.5.1
+
+### Patch Changes
+
+- [#80](https://github.com/hashicorp/web-platform-packages/pull/80) [`79b0392`](https://github.com/hashicorp/web-platform-packages/commit/79b03920a32efefd5cdddcb41889dfa7e543e041) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - Change product intent search param key
+
+## 0.5.0
+
+### Minor Changes
+
+- [#72](https://github.com/hashicorp/web-platform-packages/pull/72) [`c584e5e`](https://github.com/hashicorp/web-platform-packages/commit/c584e5e8217e6f929d0e575e2fc6ce8dd27474cc) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add addCloudLinkHandler util
+
+### Patch Changes
+
+- [#73](https://github.com/hashicorp/web-platform-packages/pull/73) [`412cad2`](https://github.com/hashicorp/web-platform-packages/commit/412cad2d04c92719ac24d150ffe282ffa5aafb57) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - update utm allow list
+
+## 0.4.0
+
+### Minor Changes
+
+- [#57](https://github.com/hashicorp/web-platform-packages/pull/57) [`d9566d2`](https://github.com/hashicorp/web-platform-packages/commit/d9566d2940912e180631b67914210cf81f174278) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - Adds utmParamsCapture
+
+* [#63](https://github.com/hashicorp/web-platform-packages/pull/63) [`c3f6caf`](https://github.com/hashicorp/web-platform-packages/commit/c3f6caf1d2884bf6db98abe27a8c68276af60e85) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add getProductIntentFromURL util
+
 ## 0.3.1
 
 ### Patch Changes

@@ -2,8 +2,9 @@ import util from 'util'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withOptimizedImages from '@hashicorp/next-optimized-images'
 import withTMBase from 'next-transpile-modules'
-import { NextConfig } from 'next/dist/next-server/server/config'
+import { NextConfig } from 'next'
 import withGraphqlBasic from './plugins/with-graphql-basic'
+import withFramerMotionEsmodulesDisabled from './plugins/with-framer-motion-esmodules-disabled'
 import { getHashicorpPackages } from './get-hashicorp-packages'
 
 const debugLog = util.debuglog('nextjs-scripts')
@@ -33,6 +34,7 @@ function withHashicorp({
     const chain = [
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
       withGraphqlBasic(),
+      withFramerMotionEsmodulesDisabled(),
     ]
 
     // If nextOptimizedImages is true, add the plugin and set the necessary config value
@@ -47,7 +49,6 @@ function withHashicorp({
 
     nextConfig.future = {
       ...nextConfig.future,
-      strictPostcssConfiguration: true,
     }
 
     const hcPackages = getHashicorpPackages(process.cwd())

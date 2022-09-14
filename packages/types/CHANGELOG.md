@@ -1,5 +1,11 @@
 # @hashicorp/platform-types
 
+## 0.3.0
+
+### Minor Changes
+
+- [#58](https://github.com/hashicorp/web-platform-packages/pull/58) [`4f1447c`](https://github.com/hashicorp/web-platform-packages/commit/4f1447c1dc34bb467cda1f30c485a8fb8c1a915d) Thanks [@dstaley](https://github.com/dstaley)! - Allow imports from framer-motion across exports boundary
+
 ## 0.2.0
 
 ### Minor Changes

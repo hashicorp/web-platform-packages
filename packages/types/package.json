@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/platform-types",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Shared types for HashiCorp's web team",
   "types": "index.d.ts",
   "main": "",
@@ -15,5 +15,10 @@
   },
   "publishConfig": {
     "private": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/types"
   }
 }

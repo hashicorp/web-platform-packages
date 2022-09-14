@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-nextjs-plugin",
   "description": "Core plugin for HashiCorp next.js websites",
-  "version": "2.0.1",
+  "version": "3.1.0",
   "author": "HashiCorp",
   "scripts": {
     "build": "rm -rf ./dist && tsc"
@@ -16,13 +16,13 @@
     "postcss-normalize": "10.0.1"
   },
   "devDependencies": {
-    "@hashicorp/platform-types": "^0.2.0",
+    "@hashicorp/platform-types": "^0.3.0",
     "@types/postcss-normalize": "^9.0.1",
     "@types/postcss-preset-env": "^6.7.0",
     "@types/webpack": "^4.41.26"
   },
   "peerDependencies": {
-    "next": ">= 11.x"
+    "next": ">= 12.0.5"
   },
   "files": [
     "dist/**"
@@ -31,5 +31,10 @@
   "main": "index.js",
   "publishConfig": {
     "private": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/nextjs-plugin"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-cli",
   "description": "CLI for code generation, linting, formatting, etc for HashiCorp next.js websites",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "author": "HashiCorp",
   "bin": {
     "next-hashicorp": "next-hashicorp"
@@ -40,5 +40,10 @@
     "stylelint-value-no-unknown-custom-properties": "3.0.0",
     "ts-jest": "^26.4.4"
   },
-  "license": "MPL-2.0"
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/cli"
+  }
 }

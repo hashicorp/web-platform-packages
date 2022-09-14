@@ -1,0 +1,20 @@
+.textEditor {
+  min-width: 100%;
+}
+
+.editor {
+  position: relative;
+}
+
+.editorType {
+  position: absolute;
+  right: 0;
+  height: 38px;
+  padding: 0 8px;
+  color: #adaaaa;
+  font-size: 12px;
+  z-index: 5;
+  border-left: 1px solid #adaaaa;
+  display: flex;
+  align-items: center;
+}

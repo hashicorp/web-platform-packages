@@ -1,15 +1,15 @@
 {
   "name": "@hashicorp/platform-packer-plugins",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "HashiCorp",
   "license": "MPL-2.0",
   "publishConfig": {
     "private": false
   },
   "dependencies": {
+    "@vercel/fetch": "^6.2.0",
     "adm-zip": "^0.5.9",
-    "gray-matter": "^4.0.3",
-    "isomorphic-unfetch": "^3.1.0"
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.0"
@@ -17,5 +17,10 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc -p ."
   },
-  "main": "./dist/index.js"
+  "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hashicorp/web-platform-packages.git",
+    "directory": "packages/packer-plugins"
+  }
 }

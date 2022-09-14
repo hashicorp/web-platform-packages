@@ -1,7 +1,9 @@
-import fetch from 'isomorphic-unfetch'
+import createFetch from '@vercel/fetch'
 import { parseSourceZip } from './parse-source-zip'
 import { parseDocsZip } from './parse-docs-zip'
 import { RawPluginFile } from './types'
+
+const fetch = createFetch()
 
 interface Options {
   repo: string
