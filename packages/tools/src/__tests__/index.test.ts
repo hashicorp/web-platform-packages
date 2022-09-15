@@ -42,9 +42,11 @@ describe('hc-tools', () => {
     setCwdToFixture('tsconfig-paths-env')
 
     try {
-      execHCTools(['./scripts/my-script.ts', '--resolve-paths', 'false'])
+      execHCTools(['./scripts/my-script.ts', '--resolve-paths', 'false'], {
+        stdio: 'pipe',
+      })
     } catch (err) {
-      expect(err.message).toContain("Cannot find module 'lib/index'")
+      expect((err as any).message).toContain("Cannot find module 'lib/index'")
     }
   })
 
