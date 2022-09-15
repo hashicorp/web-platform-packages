@@ -7,6 +7,10 @@ import remarkMdx from 'remark-mdx'
 import remarkFrontmatter from 'remark-frontmatter'
 import is from 'unist-util-is'
 import visit from 'unist-util-visit'
+import fetch from 'node-fetch'
+
+import type { Node } from 'unist'
+import type { VFile } from 'vfile'
 
 const cwd = process.cwd()
 
@@ -39,6 +43,15 @@ export function isInternalUrl(
   // Check the domain name of the URL if it's not relative. If it matches the domain for the supplied product, then it's not internal
   try {
     const { hostname } = new URL(url)
+    if (
+      !product &&
+      (Object.values(PRODUCT_DOMAIN_MAP) as string[]).some((domain) =>
+        hostname.endsWith(domain)
+      )
+    ) {
+      return true
+    }
+
     if (product && hostname.endsWith(PRODUCT_DOMAIN_MAP[product])) return true
   } catch {
     // TODO: try and handle relative paths such as ./docker at some point
@@ -54,7 +67,7 @@ function loadRedirects() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const rawRedirects = require(require.resolve(path.join(cwd, 'redirects.js')))
 
-  const redirects = rawRedirects.map((redirect, i, arr) => {
+  const redirects = rawRedirects.map((redirect) => {
     const isExternalDestination = !redirect.destination.startsWith('/')
     const doesDestinationHaveTokens = redirect.destination.includes('/:')
 
@@ -103,9 +116,11 @@ export const checkAndApplyRedirect = (
   let matchedResult: pathToRegexp.Match = false
   let matchedRedirect
 
+  const [urlWithoutHash, hash] = url.split('#')
+
   redirects.some((redirect) => {
     if (!redirect.permanent) return
-    matchedResult = redirect.source(url)
+    matchedResult = redirect.source(url) || redirect.source(urlWithoutHash)
     if (matchedResult) {
       matchedRedirect = redirect
       return true
@@ -114,15 +129,23 @@ export const checkAndApplyRedirect = (
 
   if (matchedRedirect && matchedResult) {
     // If the matched destination has no tokens, we can just return it
-    if (typeof matchedRedirect.destination === 'string')
-      return matchedRedirect.destination
+    if (typeof matchedRedirect.destination === 'string') {
+      // include new hash
+      if (matchedRedirect.destination.includes('#')) {
+        return matchedRedirect.destination
+      }
+      // include old hash, if exists
+      return `${matchedRedirect.destination}${hash ? `#${hash}` : ''}`
+    }
 
     // TS is not cooperating, so having to use typecasting here
-    return matchedRedirect.destination(
+    const destinationUrl = matchedRedirect.destination(
       typeof (matchedResult as pathToRegexp.Match) !== 'boolean'
         ? (matchedResult as unknown as pathToRegexp.MatchResult).params
         : {}
     )
+
+    return `${destinationUrl}${hash ? `#${hash}` : ''}`
   }
 
   return false
@@ -132,21 +155,25 @@ export const checkAndApplyRedirect = (
  * Remark plugin which accepts a list of redirects and applies them to any matching links
  */
 const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
-  return function transformer(tree, file) {
-    return visit(tree, (node: Node) => {
-      if (!is(node, 'link') && !is(node, 'definition')) return [node]
+  return async function transformer(tree, file) {
+    return visit(tree, (node: Node & { url?: string }) => {
+      if (!is(node, 'link') && !is(node, 'definition')) return
 
       // Only check internal links
-      if (
-        node.url &&
-        !node.url.startsWith('#') &&
-        isInternalUrl(node.url, product)
-      ) {
+      if (node.url && !node.url.startsWith('#') && isInternalUrl(node.url)) {
         const urlToRedirect = node.url.startsWith('/')
           ? node.url
           : new URL(node.url).pathname
 
-        const redirectUrl = checkAndApplyRedirect(urlToRedirect, redirects)
+        let redirectUrl
+
+        if (isInternalUrl(node.url, product)) {
+          redirectUrl = checkAndApplyRedirect(urlToRedirect, redirects)
+        } else {
+          redirectUrl = fetch(node.url, { method: 'HEAD' }).then(
+            (res) => res.url
+          )
+        }
 
         if (redirectUrl) {
           const data = file.data
@@ -157,17 +184,53 @@ const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
             destination: redirectUrl,
           })
 
-          node.url = redirectUrl
+          if (!(redirectUrl instanceof Promise)) {
+            node.url = redirectUrl
+          }
         }
       }
-
-      return [node]
     })
   }
 }
 
-export default async function main(product) {
-  const contentFiles = []
+// from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
+}
+
+/**
+ * In order to preserve the structure of the content
+ */
+function applyRedirectToContent(content, { source, destination }) {
+  // matches definitions OR links
+  const pattern = new RegExp(
+    `(^\\[.*\\]: )${escapeRegExp(source)}((?:#.*)?$)|(\\]\\()${escapeRegExp(
+      source
+    )}((?:#.*)?\\))`,
+    'gim'
+  )
+
+  return content.replace(
+    pattern,
+    (_match, definitionPrefix, definitionSuffix, linkPrefix, linkSuffix) => {
+      if (definitionPrefix && definitionSuffix) {
+        return `${definitionPrefix}${destination}${definitionSuffix}`
+      }
+
+      if (linkPrefix && linkSuffix) {
+        return `${linkPrefix}${destination}${linkSuffix}`
+      }
+    }
+  )
+}
+
+interface Data {
+  internalRedirects: { source: string; destination: string }[]
+}
+type ParsedFile = Partial<VFile> & { data?: Data }
+
+async function main(product) {
+  const contentFiles: ParsedFile[] = []
 
   const dirPath = path.join(cwd, 'content')
 
@@ -201,19 +264,30 @@ export default async function main(product) {
     .use(rewriteInternalRedirectsPlugin, { product, redirects })
 
   for (let document of contentFiles) {
-    document = await processor.process(document)
+    document = (await processor.process(document)) as ParsedFile
 
-    if (document.data.internalRedirects) {
-      console.log('•', path.relative(cwd, document.path))
-      document.data.internalRedirects.forEach(({ source, destination }) => {
-        console.log('  -', `${source} -> ${destination}`)
-      })
+    if (document.data?.internalRedirects) {
+      console.log('•', path.relative(cwd, document.path as string))
+      await Promise.all(
+        document.data.internalRedirects.map(async ({ source, destination }) => {
+          const finalDestination = await destination
+          if (source === finalDestination) return
 
+          console.log('  -', `${source} -> ${finalDestination}`)
+
+          document.contents = await applyRedirectToContent(document.raw, {
+            source,
+            destination: finalDestination,
+          })
+        })
+      )
       if (process.env.DRY_RUN !== 'true') {
-        fs.writeFileSync(document.path, document.contents, {
+        fs.writeFileSync(document.path as string, document.contents as string, {
           encoding: 'utf-8',
         })
       }
     }
   }
 }
+
+main()
