@@ -170,8 +170,9 @@ const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
         if (isInternalUrl(node.url, product)) {
           redirectUrl = checkAndApplyRedirect(urlToRedirect, redirects)
         } else {
+          const [, hash] = node.url.split('#')
           redirectUrl = fetch(node.url, { method: 'HEAD' }).then(
-            (res) => res.url
+            (res) => `${res.url}${hash ? `#${hash}` : ''}`
           )
         }
 
@@ -213,7 +214,7 @@ function applyRedirectToContent(content, { source, destination }) {
   return content.replace(
     pattern,
     (_match, definitionPrefix, definitionSuffix, linkPrefix, linkSuffix) => {
-      if (definitionPrefix && definitionSuffix) {
+      if (definitionPrefix && typeof definitionSuffix !== 'undefined') {
         return `${definitionPrefix}${destination}${definitionSuffix}`
       }
 
@@ -263,7 +264,7 @@ export default async function main(product: string) {
     .use(remarkMdx)
     .use(rewriteInternalRedirectsPlugin, { product, redirects })
 
-  for (let document of contentFiles) {
+  for await (let document of contentFiles) {
     document = (await processor.process(document)) as ParsedFile
 
     if (document.data?.internalRedirects) {
