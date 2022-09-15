@@ -229,7 +229,7 @@ interface Data {
 }
 type ParsedFile = Partial<VFile> & { data?: Data }
 
-async function main(product) {
+export default async function main(product: string) {
   const contentFiles: ParsedFile[] = []
 
   const dirPath = path.join(cwd, 'content')
@@ -289,5 +289,3 @@ async function main(product) {
     }
   }
 }
-
-main()
