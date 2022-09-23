@@ -251,9 +251,9 @@ export default async function main(product: string) {
     })
   }
 
-  const redirects = []
-  if (product === 'tutorials') {
-    const redirects = loadRedirects()
+  let redirects = []
+  if (product !== 'tutorials') {
+    redirects = loadRedirects()
   }
 
   const processor = remark()
