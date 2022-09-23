@@ -233,7 +233,10 @@ type ParsedFile = Partial<VFile> & { data?: Data }
 export default async function main(product: string) {
   const contentFiles: ParsedFile[] = []
 
-  const dirPath = path.join(cwd, 'content')
+  let dirPath = path.join(cwd, 'content')
+  if (product === 'tutorials') {
+    dirPath = path.join(cwd, 'content', 'tutorials')
+  }
 
   for await (const entry of readdirp(dirPath, {
     directoryFilter: ['!partials'],
@@ -248,7 +251,10 @@ export default async function main(product: string) {
     })
   }
 
-  const redirects = loadRedirects()
+  const redirects = []
+  if (product === 'tutorials') {
+    const redirects = loadRedirects()
+  }
 
   const processor = remark()
     .data('settings', {
