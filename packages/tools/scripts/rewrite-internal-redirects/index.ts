@@ -172,7 +172,8 @@ const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
         } else {
           const [, hash] = node.url.split('#')
           redirectUrl = fetch(node.url, { method: 'HEAD' }).then(
-            (res) => `${res.url}${hash ? `#${hash}` : ''}`
+            (res) =>
+              `${res.url}${hash && !res.url.includes('#') ? `#${hash}` : ''}`
           )
         }
 
@@ -271,25 +272,33 @@ export default async function main(product: string) {
     .use(rewriteInternalRedirectsPlugin, { product, redirects })
 
   for await (let document of contentFiles) {
+    const raw = document.raw
     document = (await processor.process(document)) as ParsedFile
 
     if (document.data?.internalRedirects) {
       console.log('•', path.relative(cwd, document.path as string))
-      await Promise.all(
-        document.data.internalRedirects.map(async ({ source, destination }) => {
+
+      let content = raw
+
+      await document.data.internalRedirects.reduce(
+        async (previousPromise, { source, destination }) => {
+          await previousPromise
+
           const finalDestination = await destination
           if (source === finalDestination) return
 
           console.log('  -', `${source} -> ${finalDestination}`)
 
-          document.contents = await applyRedirectToContent(document.raw, {
+          content = await applyRedirectToContent(content, {
             source,
             destination: finalDestination,
           })
-        })
+        },
+        Promise.resolve()
       )
+
       if (process.env.DRY_RUN !== 'true') {
-        fs.writeFileSync(document.path as string, document.contents as string, {
+        fs.writeFileSync(document.path as string, content as string, {
           encoding: 'utf-8',
         })
       }
