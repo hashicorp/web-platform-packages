@@ -284,6 +284,7 @@ function aliasesToNodes(aliases, id) {
 // not a type that standard remark recognizes. we can't accommodate all
 // types of custom remark setups, so we simply fall back if it doesn't work
 function stringifyChildNodes(node) {
+  console.log('stringifyChildNodes', node)
   let text
   try {
     text = remark().use(stringify).stringify(node)
