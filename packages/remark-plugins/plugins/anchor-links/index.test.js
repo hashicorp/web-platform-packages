@@ -437,6 +437,20 @@ describe('anchor-links', () => {
       ]
       `)
     })
+
+    test('returns only text content', () => {
+      const headings = []
+      execute(
+        `## context.Context
+
+## \*component.Source
+
+## \*component.JobInfo`,
+        { headings }
+      )
+      expect(headings[1].title).toEqual('*component.Source')
+      expect(headings[2].title).toEqual('*component.JobInfo')
+    })
   })
 
   describe('lists starting with inline code', () => {
