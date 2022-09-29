@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-analytics",
   "description": "Utilities for collecting analytics from our applications",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "author": "HashiCorp",
   "dependencies": {
     "fathom-client": "^3.2.0",
