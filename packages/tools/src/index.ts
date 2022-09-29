@@ -71,6 +71,7 @@ async function main() {
         ...requireOptions,
         ...projectOptions,
         scriptName as string,
+        ...(rest as string[]),
       ],
       { stdio: 'inherit', env: { ...process.env, ...env.combinedEnv } }
     )
