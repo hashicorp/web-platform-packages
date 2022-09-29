@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.7.0
+
+### Minor Changes
+
+- [#90](https://github.com/hashicorp/web-platform-packages/pull/90) [`139cea1`](https://github.com/hashicorp/web-platform-packages/commit/139cea110a78b6449c20069bc911dbbb5e25e2b1) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - adds optional callback to handler
+
 ## 0.6.1
 
 ### Patch Changes

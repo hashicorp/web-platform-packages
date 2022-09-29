@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/platform-tools",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A collection of tools and utilities for use throughout our projects.",
   "main": "index.js",
   "bin": {
