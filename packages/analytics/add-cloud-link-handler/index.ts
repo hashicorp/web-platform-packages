@@ -44,7 +44,15 @@ export function addCloudLinkHandler(
             : ''
         }`
         callback && callback(destinationUrl)
-        location.href = destinationUrl
+        if (
+          linkElement.getAttribute('target') === '_blank' ||
+          event.ctrlKey ||
+          event.metaKey
+        ) {
+          window.open(destinationUrl, '_blank')
+        } else {
+          location.href = destinationUrl
+        }
       } catch (error) {
         location.href = linkElement.href
         console.error(error)
