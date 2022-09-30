@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.8.0
+
+### Minor Changes
+
+- [#96](https://github.com/hashicorp/web-platform-packages/pull/96) [`4db223f`](https://github.com/hashicorp/web-platform-packages/commit/4db223fdc485f4deffbfe38694a78fbb61467739) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add check for external link functionality
+
 ## 0.7.0
 
 ### Minor Changes
