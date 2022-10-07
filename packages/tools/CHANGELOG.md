@@ -1,5 +1,11 @@
 # @hashicorp/platform-tools
 
+## 0.7.0
+
+### Minor Changes
+
+- [#98](https://github.com/hashicorp/web-platform-packages/pull/98) [`71ca03c`](https://github.com/hashicorp/web-platform-packages/commit/71ca03ccf7ed0d6d17ffac8c661608176d47f79c) Thanks [@dstaley](https://github.com/dstaley)! - Add `capture-build-metrics` script to send Next build metrics to Datadog
+
 ## 0.6.0
 
 ### Minor Changes
