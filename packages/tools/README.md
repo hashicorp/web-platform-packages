@@ -60,3 +60,11 @@ $ hc-tools next-build-webpack-only
 ```
 
 Executes `next build` and short-circuits the process before static generation occurs. Helpful for more performant builds if all we care about is the compilation output (for bundle analysis, for example).
+
+### `capture-build-metrics`
+
+```shell
+$ hc-tools capture-build-metrics <appName>
+```
+
+Captures the build metrics emitted by Next during the build process and sends them to Datadog. `appName` should be the name of the repo.
