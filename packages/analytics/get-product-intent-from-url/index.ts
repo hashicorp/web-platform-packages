@@ -9,7 +9,7 @@ const products = [
   'vagrant',
 ] as const
 
-type Product = typeof products[number]
+type Product = typeof products[number] | 'hcp'
 
 /**
  * Based on a URL, return the first instance of a product name within
@@ -41,5 +41,13 @@ export const getProductIntentFromURL = (url?: string): Product | null => {
     .filter(([_, index]) => index > -1)
     .sort((a, b) => a[1] - b[1])
 
-  return productIntent.length ? productIntent[0][0] : null
+  if (productIntent.length) {
+    return productIntent[0][0]
+  }
+
+  if (fromUrl.includes('hcp')) {
+    return 'hcp'
+  }
+
+  return null
 }
