@@ -9,7 +9,7 @@ const products = [
   'vagrant',
 ] as const
 
-type Product = typeof products[number] | 'hcp'
+type Product = typeof products[number]
 
 /**
  * Based on a URL, return the first instance of a product name within
@@ -23,7 +23,9 @@ type Product = typeof products[number] | 'hcp'
  * @param {string} [url] defaults to window object if no URL is provided
  * @returns {string | null} A product name or null
  */
-export const getProductIntentFromURL = (url?: string): Product | null => {
+export const getProductIntentFromURL = (
+  url?: string
+): Product | 'hcp' | null => {
   if (!url && typeof window === 'undefined') {
     return null
   }
