@@ -12,7 +12,7 @@ const products = [
 type Product = typeof products[number]
 
 /**
- * Based on a URL, return the first instance of a product name within
+ * Based on a URL, return the first instance of a product name or HCP within
  * a URL else return null.
  * @example
  * // returns consul
