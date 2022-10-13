@@ -50,4 +50,15 @@ describe('getProductIntentFromURL', () => {
       )
     ).toBe('packer')
   })
+
+  it('handles HCP urls', () => {
+    expect(getProductIntentFromURL('https://developer.hashicorp.com/hcp')).toBe(
+      'hcp'
+    )
+    expect(
+      getProductIntentFromURL(
+        'https://developer.hashicorp.com/hcp/docs/terraform'
+      )
+    ).toBe('terraform')
+  })
 })
