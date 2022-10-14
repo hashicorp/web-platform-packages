@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.9.0
+
+### Minor Changes
+
+- [#100](https://github.com/hashicorp/web-platform-packages/pull/100) [`d6b3f48`](https://github.com/hashicorp/web-platform-packages/commit/d6b3f482d44b02a58c80cb0c077d7c00473c25a3) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add hcp product intent check
+
 ## 0.8.0
 
 ### Minor Changes
