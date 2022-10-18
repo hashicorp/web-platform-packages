@@ -198,7 +198,7 @@ const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
                 const newHost = newUrl.host
 
                 // Handle redirects from `/cloud` (terraform.io/cloud) to `cloud.hashicorp.com/products/terraform`
-                if (newHost !== PRODUCT_DOMAIN_MAP.terraform) {
+                if (newHost !== 'www.terraform.io') {
                   // Do we want to preserve hash across different domains?
                   return newUrl.toString()
                 }
