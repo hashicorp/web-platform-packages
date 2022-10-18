@@ -52,7 +52,17 @@ export function isInternalUrl(
       return true
     }
 
-    if (product && hostname.endsWith(PRODUCT_DOMAIN_MAP[product])) return true
+    if (product && hostname.endsWith(PRODUCT_DOMAIN_MAP[product])) {
+      // Don't match TF Registry for TF.
+      if (hostname.includes('registry.terraform.io')) {
+        return false
+      }
+      // Don't match TF Cloud for TF.
+      if (hostname.includes('app.terraform.io')) {
+        return false
+      }
+      return true
+    }
   } catch {
     // TODO: try and handle relative paths such as ./docker at some point
   }
@@ -153,6 +163,10 @@ export const checkAndApplyRedirect = (
 
 /**
  * Remark plugin which accepts a list of redirects and applies them to any matching links
+ *
+ * For terraform:
+ * - `redirects` will be ignored
+ * - Prepend the domain, execute the fetch, resolve, and grab the new path only
  */
 const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
   return async function transformer(tree, file) {
@@ -165,10 +179,34 @@ const rewriteInternalRedirectsPlugin = ({ product, redirects }) => {
           ? node.url
           : new URL(node.url).pathname
 
+        // don't transform links like `[https://terraform.io](https://terraform.io)`
+        if (urlToRedirect == '/' || urlToRedirect == '') {
+          console.log('...Skipping homepage URL')
+          return
+        }
+
         let redirectUrl
 
         if (isInternalUrl(node.url, product)) {
-          redirectUrl = checkAndApplyRedirect(urlToRedirect, redirects)
+          if (product === 'terraform') {
+            try {
+              const oldUrl = new URL(node.url, 'https://www.terraform.io')
+              // use `fetch` to follow any redirects
+              redirectUrl = fetch(oldUrl).then((res) => {
+                const [, oldHash] = node.url!.split('#')
+                const newUrl = new URL(res.url)
+                const newPath = newUrl.pathname
+                if (oldHash && !newUrl.hash) {
+                  newUrl.hash = oldHash
+                }
+                return newPath + newUrl.hash
+              })
+            } catch (err) {
+              console.error('Something went wrong:', err)
+            }
+          } else {
+            redirectUrl = checkAndApplyRedirect(urlToRedirect, redirects)
+          }
         } else {
           const [, hash] = node.url.split('#')
           redirectUrl = fetch(node.url, { method: 'HEAD' }).then(
@@ -231,10 +269,13 @@ interface Data {
 }
 type ParsedFile = Partial<VFile> & { data?: Data }
 
-export default async function main(product: string) {
+/**
+ * @example `npx hc-tools rewrite-internal-redirects terraform docs`
+ */
+export default async function main(product: string, dir = 'content') {
   const contentFiles: ParsedFile[] = []
 
-  let dirPath = path.join(cwd, 'content')
+  let dirPath = path.join(cwd, dir)
   if (product === 'tutorials') {
     dirPath = path.join(cwd, 'content', 'tutorials')
   }
@@ -253,7 +294,7 @@ export default async function main(product: string) {
   }
 
   let redirects = []
-  if (product !== 'tutorials') {
+  if (product !== 'tutorials' && product !== 'terraform') {
     redirects = loadRedirects()
   }
 
