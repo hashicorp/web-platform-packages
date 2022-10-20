@@ -53,14 +53,13 @@ export function isInternalUrl(
     }
 
     if (product && hostname.endsWith(PRODUCT_DOMAIN_MAP[product])) {
-      // Don't match TF Registry for TF.
-      if (hostname.includes('registry.terraform.io')) {
+      // terraform.io & www.terraform.io hostnames are considered "internal"
+      // install.terraform.io, registry.terraform.io, etc. are not "internal"
+      const validTerraformHostname = /^(www\.)?terraform.io/i
+      if (!validTerraformHostname.test(hostname)) {
         return false
       }
-      // Don't match TF Cloud for TF.
-      if (hostname.includes('app.terraform.io')) {
-        return false
-      }
+
       return true
     }
   } catch {
