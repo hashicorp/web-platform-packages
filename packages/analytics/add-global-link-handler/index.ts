@@ -13,7 +13,7 @@ const containsDestination = (str: string): boolean =>
     return str.indexOf(destination) >= 0
   })
 
-export function addAnonymousIdHandler() {
+export function addGlobalLinkHandler() {
   if (typeof window === 'undefined') return
 
   window.addEventListener('click', (event) => {

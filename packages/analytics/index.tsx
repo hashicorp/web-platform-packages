@@ -6,7 +6,7 @@ import {
   getUTMParamsCaptureState,
 } from './utm-params-capture'
 import { addCloudLinkHandler } from './add-cloud-link-handler'
-import { addAnonymousIdHandler } from './add-anonymous-id-handler'
+import { addGlobalLinkHandler } from './add-global-link-handler'
 
 export default usePageviewAnalytics
 export {
@@ -16,5 +16,5 @@ export {
   initializeUTMParamsCapture,
   getUTMParamsCaptureState,
   addCloudLinkHandler,
-  addAnonymousIdHandler,
+  addGlobalLinkHandler,
 }
