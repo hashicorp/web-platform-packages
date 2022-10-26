@@ -11,10 +11,20 @@ const destinations: string[] = [
   'https://nomadproject.io',
   'https://packer.io',
   'https://portal.cloud.hashicorp.com',
+  'https://registry.terraform.io',
   'https://terraform.io',
+  'https://vagrantup.com',
   'https://vaultproject.io',
   'https://waypointproject.io',
+  'https://www.boundaryproject.io',
+  'https://www.consul.io',
+  'https://www.hashicorp.com',
+  'https://www.nomadproject.io',
+  'https://www.packer.io',
+  'https://www.terraform.io',
   'https://www.vagrantup.com',
+  'https://www.vaultproject.io',
+  'https://www.waypointproject.io',
 ]
 
 const containsDestination = (str: string): boolean =>
