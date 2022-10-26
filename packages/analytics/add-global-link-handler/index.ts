@@ -1,11 +1,14 @@
 const destinations: string[] = [
-  'hashicorp.com',
-  'terraform.io',
-  'consul.io',
-  'vaultproject.io',
-  'waypointproject.io',
-  'packer.io',
-  'boundaryproject.io',
+  'https://app.terraform.io',
+  'https://boundaryproject.io',
+  'https://cloud.hashicorp.com',
+  'https://consul.io',
+  'https://hashicorp.com',
+  'https://packer.io',
+  'https://portal.cloud.hashicorp.com',
+  'https://terraform.io',
+  'https://vaultproject.io',
+  'https://waypointproject.io',
 ]
 
 const containsDestination = (str: string): boolean =>
@@ -13,22 +16,25 @@ const containsDestination = (str: string): boolean =>
     return str.indexOf(destination) >= 0
   })
 
-export function addGlobalLinkHandler() {
-  if (typeof window === 'undefined') return
+// Track if we've setup this handler already to prevent registering the handler
+// multiple times.
+let hasHandler = false
+
+export function addGlobalLinkHandler(
+  callback?: (destinationUrl: string) => void
+) {
+  if (typeof window === 'undefined' || hasHandler) return
 
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
-    if (
-      linkElement &&
-      containsDestination(linkElement.href) &&
-      isValidUrl(linkElement.href)
-    ) {
+    if (linkElement && containsDestination(linkElement.href)) {
       event.preventDefault()
       const url = new URL(linkElement.href)
       const ajs_uid = safeGetSegmentId()
       if (ajs_uid) {
         url.searchParams.append('ajs_uid', ajs_uid)
       }
+      callback && callback(url.href)
       if (
         linkElement.getAttribute('target') === '_blank' ||
         event.ctrlKey ||
@@ -40,14 +46,8 @@ export function addGlobalLinkHandler() {
       }
     }
   })
-}
 
-function isValidUrl(url: string): boolean {
-  try {
-    return Boolean(new URL(url))
-  } catch (e) {
-    return false
-  }
+  hasHandler = true
 }
 
 function safeGetSegmentId(): string | null {
