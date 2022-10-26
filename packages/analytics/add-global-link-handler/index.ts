@@ -6,6 +6,7 @@ const destinations: string[] = [
   'https://boundaryproject.io',
   'https://cloud.hashicorp.com',
   'https://consul.io',
+  'https://developer.hashicorp.com',
   'https://hashicorp.com',
   'https://packer.io',
   'https://portal.cloud.hashicorp.com',
