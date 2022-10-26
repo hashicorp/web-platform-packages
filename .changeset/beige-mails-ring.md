@@ -2,4 +2,4 @@
 '@hashicorp/platform-analytics': minor
 ---
 
-add addAnonymousIdHandler
+add addGlobalLinkHandler
