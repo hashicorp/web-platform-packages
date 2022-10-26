@@ -44,7 +44,7 @@ export function addGlobalLinkHandler(
       const url = new URL(linkElement.href)
 
       if (segmentAnonymousId) {
-        url.searchParams.set('ajs_uid', segmentAnonymousId)
+        url.searchParams.set('ajs_aid', segmentAnonymousId)
       }
 
       if (productIntent) {
