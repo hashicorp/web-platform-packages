@@ -31,8 +31,9 @@ export function addGlobalLinkHandler(
 
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
+
     if (linkElement && containsDestination(linkElement.href)) {
-      const segmentAnonymousId = safeGetSegmentId()
+      const segmentAnonymousId = getSafeSegmentId()
       const productIntent = getProductIntentFromURL()
       const utmParams = getUTMParamsCaptureState()
 
@@ -41,11 +42,11 @@ export function addGlobalLinkHandler(
       const url = new URL(linkElement.href)
 
       if (segmentAnonymousId) {
-        url.searchParams.append('ajs_uid', segmentAnonymousId)
+        url.searchParams.set('ajs_uid', segmentAnonymousId)
       }
 
       if (productIntent) {
-        url.searchParams.append('product_intent', productIntent)
+        url.searchParams.set('product_intent', productIntent)
       }
 
       if (Object.keys(utmParams).length > 0) {
@@ -71,7 +72,7 @@ export function addGlobalLinkHandler(
   hasHandler = true
 }
 
-function safeGetSegmentId(): string | null {
+function getSafeSegmentId(): string | null {
   if (
     typeof window !== undefined &&
     window.analytics &&
