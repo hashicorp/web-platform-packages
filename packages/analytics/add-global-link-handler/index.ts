@@ -8,11 +8,13 @@ const destinations: string[] = [
   'https://consul.io',
   'https://developer.hashicorp.com',
   'https://hashicorp.com',
+  'https://nomadproject.io',
   'https://packer.io',
   'https://portal.cloud.hashicorp.com',
   'https://terraform.io',
   'https://vaultproject.io',
   'https://waypointproject.io',
+  'https://www.vagrantup.com',
 ]
 
 const containsDestination = (str: string): boolean =>
@@ -33,7 +35,7 @@ export function addGlobalLinkHandler(
     const linkElement = (event.target as HTMLElement).closest('a')
 
     if (linkElement && containsDestination(linkElement.href)) {
-      const segmentAnonymousId = getSafeSegmentId()
+      const segmentAnonymousId = getSegmentAnonymousId()
       const productIntent = getProductIntentFromURL()
       const utmParams = getUTMParamsCaptureState()
 
@@ -72,7 +74,7 @@ export function addGlobalLinkHandler(
   hasHandler = true
 }
 
-function getSafeSegmentId(): string | null {
+function getSegmentAnonymousId(): string | null {
   if (
     typeof window !== undefined &&
     window.analytics &&
