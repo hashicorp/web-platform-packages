@@ -64,3 +64,42 @@ import { addCloudLinkHandler } from '@hashicorp/platform-analytics'
 
 addCloudLinkHandler()
 ```
+
+### `track(eventName: string, properties?: Record<sting, unknown>)`
+
+A helper method around `window.analytics.track()` to ensure it won't error if `window.analytics.track()` is unavailable.
+
+```ts
+import { track } from '@hashicorp/platform-analytics'
+
+track('my event', { properties: 'here' })
+```
+
+### `getSegmentId()`
+
+A helper method around `window.analytics.user().anonymousId()` to ensure it won't error if `window.analytics.user()` is unavailable.
+
+```ts
+import { getSegmentId } from '@hashicorp/platform-analytics'
+
+getSegmentId()
+```
+
+### `addDevAnalyticsLogger()`
+
+A small Segment Analytics Plugin that logs out calls to Segment's `window.analytics` tracking methods. Logs out the full event payload when `NODE_ENV !== 'production'`. Should only be called once, but it needs to be loaded after the `window.analytics` API is bootstrapped with the Segment Analytics snippet.
+
+Initialization:
+
+```ts
+import { addDevAnalyticsLogger } from '@hashicorp/platform-analytics'
+
+// call this once
+addDevAnalyticsLogger()
+```
+
+Calls to `track()`, for example, will output logs that look like this:
+
+```
+[track] Page Scrolled
+```
