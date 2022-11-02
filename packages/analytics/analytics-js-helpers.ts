@@ -8,7 +8,7 @@ export const isAnalyticsMethodAvailable = (
   method: keyof typeof window['analytics']
 ): boolean => {
   return (
-    typeof window !== undefined &&
+    typeof window !== 'undefined' &&
     window.analytics &&
     window.analytics[method] &&
     typeof window.analytics[method] === 'function'
