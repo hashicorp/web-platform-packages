@@ -1,6 +1,12 @@
 name: Canary Release
 
 on:
+  workflow_call:
+  secrets:
+    GITHUB_TOKEN:
+      required: true
+    NPM_TOKEN:
+      required: true
   pull_request:
     types:
       - opened
