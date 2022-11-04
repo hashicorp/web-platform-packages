@@ -1,0 +1,11 @@
+{
+  "name": "@hashicorp/platform-content-conformance",
+  "type": "module",
+  "dependencies": {
+    "find-up": "^6.3.0",
+    "globby": "^13.1.2",
+    "vfile": "^5.3.5",
+    "vfile-reporter": "^7.0.4",
+    "zod": "^3.19.1"
+  }
+}
