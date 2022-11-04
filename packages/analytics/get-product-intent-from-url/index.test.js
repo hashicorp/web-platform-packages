@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-const { getProductIntentFromURL } = require('./')
+import { getProductIntentFromURL } from '.'
 
 describe('getProductIntentFromURL', () => {
   let originalLocation
