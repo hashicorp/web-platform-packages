@@ -46,8 +46,6 @@ export async function loadConfig({
 
   const importedConfig = (await import(configImportPath)).default
 
-  console.log(importedConfig)
-
   // TODO: catch here and return meaningful error? Maybe use parseSafe instead
   const config = ContentConformanceConfig.parse(importedConfig)
 
