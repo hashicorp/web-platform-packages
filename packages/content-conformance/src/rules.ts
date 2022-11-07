@@ -13,7 +13,35 @@ const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
  * - Can be local to project being checked
  * - Can be external (remark-link plugins?)
  */
-export function loadRules() {}
+export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
+  // rules are an object?
+  // TODO: validate rule structure?
+
+  const loadedRules = []
+
+  for (const [ruleNameOrPath, ruleSettings] of Object.entries(rules)) {
+    let level
+    let ruleConfig
+
+    if (typeof ruleSettings === 'string') {
+      // just the rule level
+      level = ruleSettings
+    } else if (Array.isArray(ruleSettings)) {
+      level = ruleSettings[0]
+      ruleConfig = ruleSettings[1]
+    }
+
+    if (level === 'off') {
+      // don't load the rule if it's set to "off"
+      continue
+    }
+
+    loadedRules.push(loadRule(ruleNameOrPath, { ruleConfig, cwd }))
+  }
+
+  // TODO: how do we pass a rule's configuration along?
+  return Promise.all(loadedRules)
+}
 
 export async function loadRule(
   ruleNameOrPath: string,
