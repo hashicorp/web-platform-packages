@@ -1,6 +1,6 @@
 import url from 'url'
 import path from 'path'
-import { loadModuleFromFilePath } from './utils'
+import { loadModuleFromFilePath } from './utils.js'
 
 const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
