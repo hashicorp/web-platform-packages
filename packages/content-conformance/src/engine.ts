@@ -12,8 +12,13 @@ import type {
 } from './types.js'
 import { ContentConformanceConfig } from './config.js'
 
+interface ContentConformanceEngineOptions
+  extends Omit<ContentConformanceConfig, 'rules'> {
+  rules: ConformanceRuleBase[]
+}
+
 export class ContentConformanceEngine {
-  private opts: ContentConformanceConfig
+  private opts: Omit<ContentConformanceConfig, 'rules'>
 
   private contentFiles: ContentFile[] = []
 
@@ -21,9 +26,10 @@ export class ContentConformanceEngine {
 
   private rules: ConformanceRuleBase[] = []
 
-  constructor(opts: ContentConformanceConfig) {
+  constructor(opts: ContentConformanceEngineOptions) {
     console.log(opts)
     this.opts = opts
+    this.rules = opts.rules ?? []
   }
 
   async loadContentFiles() {
@@ -122,6 +128,10 @@ export class ContentConformanceEngine {
     }
 
     await Promise.all(promises)
+  }
+
+  get files() {
+    return [...this.contentFiles, ...this.dataFiles]
   }
 
   /**
