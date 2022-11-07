@@ -17,7 +17,7 @@ describe('getGeoInformation', () => {
     ;(Cookies.get as jest.Mock).mockReturnValueOnce('country=US,region=MN')
 
     expect(getGeoInformation()).toMatchInlineSnapshot(`
-      Object {
+      {
         "country": "US",
         "region": "MN",
       }
@@ -27,14 +27,14 @@ describe('getGeoInformation', () => {
   test('handles no cookie', () => {
     ;(Cookies.get as jest.Mock).mockReturnValueOnce('')
 
-    expect(getGeoInformation()).toMatchInlineSnapshot(`Object {}`)
+    expect(getGeoInformation()).toMatchInlineSnapshot(`{}`)
   })
 
   test('handles null', () => {
     ;(Cookies.get as jest.Mock).mockReturnValueOnce('country=US,region=null')
 
     expect(getGeoInformation()).toMatchInlineSnapshot(`
-      Object {
+      {
         "country": "US",
         "region": null,
       }
