@@ -14,6 +14,7 @@ import type { Node } from 'unist'
  * Notes:
  * - AST would get lazily parsed when first needed, re-used for subsequent visits
  * - To start, the system will not support writes, strictly read-only
+ * - Is memory going to be an issue if we're checking a large amount of files? (e.g. tutorials)
  */
 export class ContentFile extends VFile {
   __type = 'content' as const

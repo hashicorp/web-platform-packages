@@ -17,7 +17,7 @@ const ContentConformanceConfig = z.object({
   rules: z.record(ContentConformanceConfigRule).optional(),
 })
 
-type ContentConformanceConfig = z.infer<typeof ContentConformanceConfig>
+export type ContentConformanceConfig = z.infer<typeof ContentConformanceConfig>
 
 /**
  * Load a content-conformance.config.js file

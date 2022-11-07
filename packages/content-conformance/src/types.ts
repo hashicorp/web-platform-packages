@@ -1,6 +1,6 @@
 import type { VFile } from 'vfile'
 import type { Node } from 'unist'
-import { ContentFile } from './content-file'
+import { ContentFile } from './content-file.js'
 
 type ConformanceRuleType = 'content' | 'data' | 'structure'
 

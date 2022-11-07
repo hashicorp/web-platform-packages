@@ -1,40 +1,19 @@
 import fs from 'fs'
 import path from 'path'
-import { z } from 'zod'
 import { globbyStream } from 'globby'
-import { ContentFile } from './content-file'
+import type { Node } from 'unist'
+import { ContentFile } from './content-file.js'
 
 import type {
   ConformanceRuleBase,
   ConformanceRuleContext,
   ContentConformanceFile,
   DataFile,
-} from './types'
-import type { Node } from 'unist'
-
-const ContentConformanceRule = z.object({
-  type: z.enum(['content', 'data', 'structure']),
-  id: z.string(),
-  description: z.string(),
-  executor: z.object({
-    contentFile: z.function().optional(),
-    dataFile: z.function().optional(),
-    repository: z.function().optional(),
-  }),
-})
-
-const ContentConformanceEngineConfig = z.object({
-  root: z.string(),
-  contentFileGlobPattern: z.string(),
-  dataFileGlobPattern: z.string().optional(),
-})
-
-type ContentConformanceEngineConfig = z.infer<
-  typeof ContentConformanceEngineConfig
->
+} from './types.js'
+import { ContentConformanceConfig } from './config.js'
 
 export class ContentConformanceEngine {
-  private opts: ContentConformanceEngineConfig
+  private opts: ContentConformanceConfig
 
   private contentFiles: ContentFile[] = []
 
@@ -42,8 +21,7 @@ export class ContentConformanceEngine {
 
   private rules: ConformanceRuleBase[] = []
 
-  constructor(opts: ContentConformanceEngineConfig) {
-    // TODO: validate config with zod schema
+  constructor(opts: ContentConformanceConfig) {
     console.log(opts)
     this.opts = opts
   }
@@ -80,6 +58,11 @@ export class ContentConformanceEngine {
     }
   }
 
+  /**
+   * TODO: think about a way to parallelize the work here. Threads / works might be something to consider, but we rely on shared memory.
+   * Potentially segment out the files to be checked and instantiate the *File classes in each worker. Would need to aggregate the results of the reporter
+   * back into the main thread.
+   */
   async execute(): Promise<void> {
     // load files
     // TODO: will this scale? We're loading every file into memory

@@ -1,6 +1,13 @@
 {
   "name": "@hashicorp/platform-content-conformance",
   "type": "module",
+  "bin": {
+    "hc-content": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "postbuild": "chmod +x ./dist/cli.js"
+  },
   "dependencies": {
     "find-up": "^6.3.0",
     "globby": "^13.1.2",
