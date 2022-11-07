@@ -8,7 +8,7 @@
     "outDir": "./dist",
     "declaration": true
   },
-  "include": ["./src"],
+  "include": ["./src", "../../global.d.ts"],
   "exclude": [
     "base/generators/*/templates/*",
     "**/*.test.*",
