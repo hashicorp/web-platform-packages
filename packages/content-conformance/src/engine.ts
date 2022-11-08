@@ -80,7 +80,7 @@ export class ContentConformanceEngine {
   }
 
   /**
-   * TODO: think about a way to parallelize the work here. Threads / works might be something to consider, but we rely on shared memory.
+   * TODO: think about a way to parallelize the work here. Threads / workers might be something to consider, but we rely on shared memory.
    * Potentially segment out the files to be checked and instantiate the *File classes in each worker. Would need to aggregate the results of the reporter
    * back into the main thread.
    */

@@ -14,12 +14,13 @@ describe('ContentConformanceEngine', () => {
 
     await engine.loadContentFiles()
 
-    expect(engine.__contentFiles).toHaveLength(2)
+    expect(engine.__contentFiles).toHaveLength(3)
     expect(
       engine.__contentFiles.map((file) => file.path?.replace(opts.root, ''))
     ).toMatchInlineSnapshot(`
       [
         "content/index.mdx",
+        "content/no-h1.mdx",
         "content/nested/nested.mdx",
       ]
     `)
@@ -57,6 +58,7 @@ describe('ContentConformanceEngine', () => {
       "content/index.mdx
         1:1-1:8  warning  Level 1 headings are not allowed  no-h1
 
+      content/no-h1.mdx: no issues found
       content/nested/nested.mdx
         1:1-1:9  warning  Level 1 headings are not allowed  no-h1
 
