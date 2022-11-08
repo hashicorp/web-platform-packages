@@ -1,4 +1,5 @@
 import report from 'vfile-reporter'
+import path from 'path'
 
 import { ContentConformanceConfig, loadConfig } from './config.js'
 import { ContentConformanceEngine } from './engine.js'
@@ -7,6 +8,7 @@ import { ConformanceRuleBase } from './types.js'
 
 interface RunnerOptions {
   cwd?: string
+  files?: string[]
 }
 
 /**
@@ -24,6 +26,8 @@ export class ContentConformanceRunner {
   constructor(opts?: RunnerOptions) {
     this.opts = {
       cwd: opts?.cwd ?? process.cwd(),
+      // normalize the passed in filepaths here to ensure consistent equality checks against found paths
+      files: (opts?.files ?? []).map((filepath) => path.normalize(filepath)),
     }
   }
 
@@ -36,6 +40,7 @@ export class ContentConformanceRunner {
 
     this.engine = new ContentConformanceEngine({
       ...this.config,
+      files: this.opts.files,
       rules: this.rules,
     })
   }

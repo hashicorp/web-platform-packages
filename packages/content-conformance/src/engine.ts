@@ -15,10 +15,15 @@ import { ContentConformanceConfig } from './config.js'
 interface ContentConformanceEngineOptions
   extends Omit<ContentConformanceConfig, 'rules'> {
   rules: ConformanceRuleBase[]
+
+  /**
+   * Only load the specified files
+   */
+  files?: string[]
 }
 
 export class ContentConformanceEngine {
-  private opts: Omit<ContentConformanceConfig, 'rules'>
+  private opts: Omit<ContentConformanceEngineOptions, 'rules'>
 
   private contentFiles: ContentFile[] = []
 
@@ -27,8 +32,10 @@ export class ContentConformanceEngine {
   private rules: ConformanceRuleBase[] = []
 
   constructor(opts: ContentConformanceEngineOptions) {
+    const { rules, ...restOpts } = opts
     console.log(opts)
-    this.opts = opts
+
+    this.opts = restOpts
     this.rules = opts.rules ?? []
   }
 
@@ -40,6 +47,14 @@ export class ContentConformanceEngine {
         cwd: this.opts.root,
       }
     )) {
+      // If an array of filepaths are provided, only load the file if it matches one of the provided paths
+      if (
+        this.opts.files?.length &&
+        !this.opts.files.includes(String(filepath))
+      ) {
+        continue
+      }
+
       const fullPath = path.join(this.opts.root, String(filepath))
       const contents = await fs.promises.readFile(fullPath, 'utf-8')
 

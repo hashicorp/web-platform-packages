@@ -34,4 +34,44 @@ describe('ContentConformanceRunner', () => {
       ⚠ 2 warnings"
     `)
   })
+
+  test('accepts files filter', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      files: ['content/index.mdx'],
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "content/index.mdx
+        1:1-1:8  warning  Level 1 headings are not allowed  local-no-h1
+
+      ⚠ 1 warning"
+    `)
+  })
+
+  test('accepts files filter - normalized paths', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      files: ['./content/index.mdx'],
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "content/index.mdx
+        1:1-1:8  warning  Level 1 headings are not allowed  local-no-h1
+
+      ⚠ 1 warning"
+    `)
+  })
 })

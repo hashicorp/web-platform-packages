@@ -1,7 +1,7 @@
 import z from 'zod'
 import { findUp } from 'find-up'
-import url from 'url'
 import path from 'path'
+import { loadModuleFromFilePath } from './utils.js'
 
 const CONFIG_FILE_NAME = 'content-conformance.config.js'
 
@@ -38,13 +38,7 @@ export async function loadConfig({
     )
   }
 
-  // dynamic imports with a file URL are not supported in jest
-  const configImportPath =
-    process.env.NODE_ENV === 'test'
-      ? configPath
-      : url.pathToFileURL(configPath).href
-
-  const importedConfig = (await import(configImportPath)).default
+  const importedConfig = (await loadModuleFromFilePath(configPath)).default
 
   // TODO: catch here and return meaningful error? Maybe use parseSafe instead
   const config = ContentConformanceConfig.parse(importedConfig)
