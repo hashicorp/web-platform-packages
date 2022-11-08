@@ -24,10 +24,17 @@ export type ContentConformanceConfig = z.infer<typeof ContentConformanceConfig>
  */
 export async function loadConfig({
   cwd = process.cwd(),
+  pathToConfig,
 }: {
   cwd: string
+  pathToConfig?: string
 }): Promise<ContentConformanceConfig> {
-  const configPath = await findUp(CONFIG_FILE_NAME, { cwd })
+  let configPath
+  if (pathToConfig) {
+    configPath = path.resolve(cwd, pathToConfig)
+  } else {
+    configPath = await findUp(CONFIG_FILE_NAME, { cwd })
+  }
 
   if (!configPath) {
     throw new Error(

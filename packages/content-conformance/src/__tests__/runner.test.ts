@@ -74,4 +74,22 @@ describe('ContentConformanceRunner', () => {
       ⚠ 1 warning"
     `)
   })
+
+  test('accepts custom config path', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      config: './content-conformance-off.config.js',
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "content/index.mdx: no issues found
+      content/nested/nested.mdx: no issues found"
+    `)
+  })
 })

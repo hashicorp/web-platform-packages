@@ -8,6 +8,7 @@ import { ConformanceRuleBase } from './types.js'
 
 interface RunnerOptions {
   cwd?: string
+  config?: string
   files?: string[]
 }
 
@@ -15,7 +16,7 @@ interface RunnerOptions {
  * TODO: this will accept options that will eventually be passed as CLI args
  */
 export class ContentConformanceRunner {
-  private opts: Required<RunnerOptions>
+  private opts: RunnerOptions
 
   config?: ContentConformanceConfig
 
@@ -25,6 +26,7 @@ export class ContentConformanceRunner {
 
   constructor(opts?: RunnerOptions) {
     this.opts = {
+      config: opts?.config,
       cwd: opts?.cwd ?? process.cwd(),
       // normalize the passed in filepaths here to ensure consistent equality checks against found paths
       files: (opts?.files ?? []).map((filepath) => path.normalize(filepath)),
@@ -32,7 +34,10 @@ export class ContentConformanceRunner {
   }
 
   async init() {
-    this.config = await loadConfig({ cwd: this.opts.cwd })
+    this.config = await loadConfig({
+      cwd: this.opts.cwd!,
+      pathToConfig: this.opts.config,
+    })
 
     if (this.config.rules) {
       this.rules = await loadRules(this.config.rules, this.opts.cwd)
