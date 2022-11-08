@@ -19,16 +19,19 @@ import type { Node } from 'unist'
 export class ContentFile extends VFile {
   __type = 'content' as const
 
-  private tree?: Node
+  private tree?: Readonly<Node>
 
   private parseContent() {
     this.tree = remark().use(remarkMdx).parse(this)
   }
 
-  visit<V extends Node>(test: Test<V> | Test<any>[], visitor: Visitor<V>): void
-  visit(visitor: Visitor<Node>): void
-  visit<V extends Node>(
-    test: Test<V> | Visitor<Node>,
+  visit<V extends Readonly<Node>>(
+    test: Test<V> | Test<any>[],
+    visitor: Visitor<V>
+  ): void
+  visit(visitor: Visitor<Readonly<Node>>): void
+  visit<V extends Readonly<Node>>(
+    test: Test<V> | Visitor<Readonly<Node>>,
     visitor?: Visitor<V>
   ): void {
     /**

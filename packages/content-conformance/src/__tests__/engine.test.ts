@@ -7,6 +7,7 @@ describe('ContentConformanceEngine', () => {
     const opts = {
       root: getFixturePath('basic-with-content-files'),
       contentFileGlobPattern: 'content/**/*.mdx',
+      rules: [],
     }
 
     const engine = new ContentConformanceEngine(opts)
@@ -28,6 +29,7 @@ describe('ContentConformanceEngine', () => {
     const opts = {
       root: getFixturePath('basic-with-content-files'),
       contentFileGlobPattern: 'content/**/*.mdx',
+      rules: [],
     }
 
     const engine = new ContentConformanceEngine(opts)
