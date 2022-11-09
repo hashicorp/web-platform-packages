@@ -51,20 +51,18 @@ function withHashicorp({
       ...nextConfig.future,
     }
 
-    if (
-      nextConfig.experimental &&
-      (nextConfig.experimental as { transpileModules?: string[] })
-        .transpileModules
-    ) {
+    // Automatically determine hashicorp packages from directories in node_modules
+    const hcPackages = getHashicorpPackages(process.cwd())
+    if (nextConfig.experimental && nextConfig.experimental.transpilePackages) {
       debugLog(
         'Disabling next-transpile-modules in favor of experimental transpileModules.'
       )
+      nextConfig.experimental.transpilePackages = [
+        ...nextConfig.experimental.transpilePackages,
+        ...hcPackages,
+      ]
     } else {
-      const hcPackages = getHashicorpPackages(process.cwd())
-
       debugLog('detected @hashicorp dependencies: %s', hcPackages)
-
-      // Automatically determine hashicorp packages from directories in node_modules
       chain.unshift(withTMBase([...transpileModules, ...hcPackages]))
     }
 
