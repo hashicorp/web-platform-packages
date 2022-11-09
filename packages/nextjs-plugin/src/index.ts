@@ -51,12 +51,22 @@ function withHashicorp({
       ...nextConfig.future,
     }
 
-    const hcPackages = getHashicorpPackages(process.cwd())
+    if (
+      nextConfig.experimental &&
+      (nextConfig.experimental as { transpileModules?: string[] })
+        .transpileModules
+    ) {
+      debugLog(
+        'Disabling next-transpile-modules in favor of experimental transpileModules.'
+      )
+    } else {
+      const hcPackages = getHashicorpPackages(process.cwd())
 
-    debugLog('detected @hashicorp dependencies: %s', hcPackages)
+      debugLog('detected @hashicorp dependencies: %s', hcPackages)
 
-    // Automatically determine hashicorp packages from directories in node_modules
-    chain.unshift(withTMBase([...transpileModules, ...hcPackages]))
+      // Automatically determine hashicorp packages from directories in node_modules
+      chain.unshift(withTMBase([...transpileModules, ...hcPackages]))
+    }
 
     // Set dato token if a custom token is provided
     if (dato?.token) {
