@@ -1,9 +1,11 @@
 {
   "name": "@hashicorp/platform-content-conformance",
+  "version": "0.0.0",
   "type": "module",
   "bin": {
     "hc-content": "./dist/cli.js"
   },
+  "exports": "./dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "postbuild": "chmod +x ./dist/cli.js"
