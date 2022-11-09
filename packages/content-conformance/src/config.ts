@@ -5,9 +5,11 @@ import { loadModuleFromFilePath } from './utils.js'
 
 const CONFIG_FILE_NAME = 'content-conformance.config.js'
 
+const RuleLevels = z.enum(['off', 'warn', 'error'])
+
 const ContentConformanceConfigRule = z
   .string()
-  .or(z.tuple([z.string(), z.record(z.any())]))
+  .or(z.tuple([RuleLevels, z.record(z.any())]))
 
 const ContentConformanceConfig = z.object({
   root: z.string(),
@@ -16,6 +18,8 @@ const ContentConformanceConfig = z.object({
   presets: z.array(z.string()).optional(),
   rules: z.record(ContentConformanceConfigRule).optional(),
 })
+
+export type RuleLevels = z.infer<typeof RuleLevels>
 
 export type ContentConformanceConfig = z.infer<typeof ContentConformanceConfig>
 
