@@ -148,16 +148,4 @@ export class ContentConformanceEngine {
   get files() {
     return [...this.contentFiles, ...this.dataFiles]
   }
-
-  /**
-   * The below methods are for testing purposes, they should not be accessed directly
-   */
-
-  get __contentFiles() {
-    return this.contentFiles
-  }
-
-  __addRule(rule: ConformanceRuleBase) {
-    this.rules.push(rule)
-  }
 }

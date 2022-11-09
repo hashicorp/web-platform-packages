@@ -14,10 +14,9 @@ describe('ContentConformanceEngine', () => {
 
     await engine.loadContentFiles()
 
-    expect(engine.__contentFiles).toHaveLength(3)
-    expect(
-      engine.__contentFiles.map((file) => file.path?.replace(opts.root, ''))
-    ).toMatchInlineSnapshot(`
+    expect(engine.files).toHaveLength(3)
+    expect(engine.files.map((file) => file.path?.replace(opts.root, '')))
+      .toMatchInlineSnapshot(`
       [
         "content/index.mdx",
         "content/no-h1.mdx",
@@ -30,31 +29,30 @@ describe('ContentConformanceEngine', () => {
     const opts = {
       root: getFixturePath('basic-with-content-files'),
       contentFileGlobPattern: 'content/**/*.mdx',
-      rules: [],
+      rules: [
+        {
+          type: 'content' as const,
+          id: 'no-h1',
+          description: 'Do not allow use of level 1 headings',
+          executor: {
+            async contentFile(file, context) {
+              file.visit(['heading'], (node) => {
+                if (node.depth === 1) {
+                  context.report('Level 1 headings are not allowed', file, node)
+                }
+              })
+            },
+          },
+        },
+      ],
     }
 
     const engine = new ContentConformanceEngine(opts)
 
-    engine.__addRule({
-      type: 'content',
-      id: 'no-h1',
-      description: 'Do not allow use of level 1 headings',
-      executor: {
-        async contentFile(file, context) {
-          file.visit(['heading'], (node) => {
-            if (node.depth === 1) {
-              context.report('Level 1 headings are not allowed', file, node)
-            }
-          })
-        },
-      },
-    })
-
     await engine.execute()
 
     // @ts-expect-error -- conflicting versions of vfile are being pulled in
-    expect(report(engine.__contentFiles, { color: false }))
-      .toMatchInlineSnapshot(`
+    expect(report(engine.files, { color: false })).toMatchInlineSnapshot(`
       "content/index.mdx
         1:1-1:8  warning  Level 1 headings are not allowed  no-h1
 
