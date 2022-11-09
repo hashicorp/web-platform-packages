@@ -34,6 +34,8 @@ export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
       // don't load the rule if it's set to "off"
       continue
     }
+    // TODO: pass "warn" and "error" levels along so the reporter can know
+    // how to report a default warning or fatal error
 
     loadedRules.push(loadRule(ruleNameOrPath, { ruleConfig, cwd }))
   }
