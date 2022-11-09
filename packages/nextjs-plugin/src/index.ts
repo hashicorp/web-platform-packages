@@ -53,7 +53,7 @@ function withHashicorp({
 
     if (
       nextConfig.experimental &&
-      (nextConfig.experimental as { transpileModules?: boolean })
+      (nextConfig.experimental as { transpileModules?: string[] })
         .transpileModules
     ) {
       debugLog(
