@@ -53,12 +53,19 @@ function withHashicorp({
 
     // Automatically determine hashicorp packages from directories in node_modules
     const hcPackages = getHashicorpPackages(process.cwd())
-    if (nextConfig.experimental && nextConfig.experimental.transpilePackages) {
+    if (
+      nextConfig.experimental &&
+      (nextConfig.experimental as { transpilePackages?: string[] })
+        .transpilePackages
+    ) {
       debugLog(
         'Disabling next-transpile-modules in favor of experimental transpileModules.'
       )
-      nextConfig.experimental.transpilePackages = [
-        ...nextConfig.experimental.transpilePackages,
+      ;(
+        nextConfig.experimental as { transpilePackages: string[] }
+      ).transpilePackages = [
+        ...(nextConfig.experimental as { transpilePackages: string[] })
+          .transpilePackages,
         ...hcPackages,
       ]
     } else {
