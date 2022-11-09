@@ -4,9 +4,15 @@ A system to execute checks against HashiCorp's various types of content. Very si
 
 ## Installation
 
+```shell
+$ npm install @hashicorp/platform-content-conformance
+```
+
 ## Usage
 
 ### CLI
+
+_The CLI is in progress._
 
 ```shell
 $ hc-content [options] [path/to/file] [path/to/file]
@@ -80,7 +86,7 @@ export default {
 
 ### Using `remark-lint` rules
 
-_TK: fill out how to leverage existing remark-lint rules._
+_Coming soon._
 
 ## Internals
 
@@ -90,8 +96,16 @@ Files that are eligible to be checked are represented as `VFile`[https://github.
 
 ### Runner
 
+The runner is responsible for handling options, loading configuration, loading rules, and setting up the environment for the engine to execute. The runner can be called directly from JavaScript, or invoked via the CLI.
+
 ### Engine
+
+The engine is responsible for reading files and executing rules against the files.
 
 ### File
 
+All files that are checked are represented by `VFile` instances, with some additional information. The `ContentFile` primitive represents files that contain documentation content. Currently, our content files are authored with MDX. The `DataFile` primitive represents files that contain data used to render our pages. We are planning to handle JSON and YAML files.
+
 ### Rule
+
+This package ships with a number of rules, and they can also be defined within consuming projects. Rules can define a number of executor functions that will be run on the different file types. See [Rules](#rules) for more information.
