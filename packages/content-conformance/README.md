@@ -96,7 +96,7 @@ Files that are eligible to be checked are represented as `VFile`[https://github.
 
 ### Runner
 
-The runner is responsible for handling options, loading configuration, loading rules, and setting up the environment for the engine to execute. The runner can be called directly from JavaScript, or invoked via the CLI.
+The runner is responsible for handling options, loading configuration, loading rules, and setting up the environment for the engine to execute. The runner can be called directly from JavaScript, or invoked via the CLI. After calling the engine to execute the checks, the runner is responsible for reporting the results using its configured reporter.
 
 ### Engine
 
