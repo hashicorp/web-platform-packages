@@ -14,7 +14,6 @@ const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
  * - Can be external (remark-link plugins?)
  */
 export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
-  // rules are an object?
   // TODO: validate rule structure?
 
   const loadedRules = []
