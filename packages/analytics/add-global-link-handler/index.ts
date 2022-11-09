@@ -44,7 +44,13 @@ export function addGlobalLinkHandler(
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
 
-    if (linkElement && containsDestination(linkElement.href)) {
+    if (
+      linkElement &&
+      containsDestination(
+        (linkElement as HTMLAnchorElement).attributes.getNamedItem('href')!
+          .value
+      )
+    ) {
       const segmentAnonymousId = getSegmentAnonymousId()
       const productIntent = getProductIntentFromURL()
       const utmParams = getUTMParamsCaptureState()
