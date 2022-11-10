@@ -2,7 +2,7 @@ import { VFile } from 'vfile'
 import remark from 'remark'
 // @ts-expect-error - remark-mdx@1.6.22 has no types
 import remarkMdx from 'remark-mdx'
-import unistVisit from 'unist-util-visit'
+import { visit as unistVisit } from 'unist-util-visit'
 
 import type { Visitor } from 'unist-util-visit'
 import type { Test } from 'unist-util-is'
@@ -25,15 +25,9 @@ export class ContentFile extends VFile {
     this.tree = remark().use(remarkMdx).parse(this)
   }
 
-  visit<V extends Readonly<Node>>(
-    test: Test<V> | Test<any>[],
-    visitor: Visitor<V>
-  ): void
-  visit(visitor: Visitor<Readonly<Node>>): void
-  visit<V extends Readonly<Node>>(
-    test: Test<V> | Visitor<Readonly<Node>>,
-    visitor?: Visitor<V>
-  ): void {
+  visit(test: Test, visitor: Visitor): void
+  visit(visitor: Visitor): void
+  visit(test: Test | Visitor, visitor?: Visitor): void {
     /**
      * If the tree hasn't been parsed, do so lazily
      */
@@ -47,7 +41,7 @@ export class ContentFile extends VFile {
     if (typeof visitor === 'undefined' && typeof test === 'function') {
       unistVisit(this.tree!, test)
     } else if (typeof visitor !== 'undefined') {
-      unistVisit(this.tree!, test as Test<V>, visitor)
+      unistVisit(this.tree!, test as Test, visitor)
     }
   }
 }
