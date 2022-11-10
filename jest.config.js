@@ -27,6 +27,9 @@ module.exports = {
   transform: {
     '^.+\\.(j|t)sx?$': ['@swc/jest'],
   },
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   transformIgnorePatterns: [
     '<rootDir>/packages/.*/__tests__/__fixtures__/.*',
     '<rootDir>/packages/.*/__tests__/fixtures/.*.js',
