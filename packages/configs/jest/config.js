@@ -18,6 +18,13 @@ module.exports = async ({ nextDir, ...customConfig }) => {
     ...customConfig.moduleNameMapper,
   }
 
+  customConfig.transform = {
+    /* Load .svg imports as raw strings. Our mapping above means this only targets .svg?include imports. */
+    '\\.svg$': 'jest-raw-loader',
+
+    ...customConfig.transform,
+  }
+
   const config = await nextJest({ dir: nextDir })(customConfig)()
 
   config.transformIgnorePatterns = config.transformIgnorePatterns.map(
