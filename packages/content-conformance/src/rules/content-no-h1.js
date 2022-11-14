@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-anonymous-default-export
+/** @type {import('../types.js').ConformanceRuleBase} */
 export default {
   type: 'content',
   id: 'no-h1',
