@@ -22,3 +22,20 @@ module.exports = {
   // add additional configuration options here
 }
 ```
+
+### `jest/config.js`
+
+We expose a shared config built on Next.js's built-in jest configuration. To get started, add the following to your `jest.config.js`:
+
+```js
+const makeConfig = require('@hashicorp/platform-configs/jest/config.js')
+
+module.exports = makeConfig({
+  // The directory of your Next.js project, if applicable
+  nextDir: './',
+  // Any other custom jest config
+  ...customJestConfig,
+})
+```
+
+See the [Next.js docs](https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler) for more information.
