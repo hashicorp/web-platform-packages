@@ -23,7 +23,7 @@ module.exports = {
 }
 ```
 
-### jest/config.js`
+### `jest/config.js`
 
 We expose a shared config built on Next.js's built-in jest configuration. To get started, add the following to your `jest.config.js`:
 
