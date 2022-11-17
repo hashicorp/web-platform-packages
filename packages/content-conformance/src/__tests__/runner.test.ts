@@ -25,7 +25,8 @@ describe('ContentConformanceRunner', () => {
     await runner.run()
 
     expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/index.mdx
+      "content/has-frontmatter.mdx: no issues found
+      content/index.mdx
          1:1-1:8  warning  Level 1 headings are not allowed                     local-no-h1
 
       content/no-h1.mdx
@@ -91,7 +92,8 @@ describe('ContentConformanceRunner', () => {
     await runner.run()
 
     expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/index.mdx: no issues found
+      "content/has-frontmatter.mdx: no issues found
+      content/index.mdx: no issues found
       content/no-h1.mdx: no issues found
       content/nested/nested.mdx: no issues found"
     `)

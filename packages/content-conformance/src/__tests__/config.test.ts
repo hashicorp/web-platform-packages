@@ -11,7 +11,16 @@ describe('loadConfig', () => {
     })
 
     expect(config.root).toEqual(fixturePath)
-    expect(config.contentFileGlobPattern).toEqual('content/**/*.mdx')
+    expect(config).toMatchInlineSnapshot(`
+      {
+        "contentFileGlobPattern": "content/**/*.mdx",
+        "root": "/Users/kevin/repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files",
+        "rules": {
+          "./rules/local-no-h1": "error",
+          "./rules/must-have-h1": "error",
+        },
+      }
+    `)
   })
 
   test('throws when no config file is found', async () => {

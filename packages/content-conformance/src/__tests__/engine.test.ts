@@ -14,10 +14,11 @@ describe('ContentConformanceEngine', () => {
 
     await engine.loadContentFiles()
 
-    expect(engine.files).toHaveLength(3)
+    expect(engine.files).toHaveLength(4)
     expect(engine.files.map((file) => file.path?.replace(opts.root, '')))
       .toMatchInlineSnapshot(`
       [
+        "content/has-frontmatter.mdx",
         "content/index.mdx",
         "content/no-h1.mdx",
         "content/nested/nested.mdx",
@@ -65,7 +66,8 @@ describe('ContentConformanceEngine', () => {
 
     // @ts-expect-error -- conflicting versions of vfile are being pulled in
     expect(report(engine.files, { color: false })).toMatchInlineSnapshot(`
-      "content/index.mdx
+      "content/has-frontmatter.mdx: no issues found
+      content/index.mdx
             1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
         1:1-1:8  warning  Level 1 headings are not allowed         no-h1
 
