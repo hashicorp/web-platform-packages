@@ -1,5 +1,15 @@
 # @hashicorp/platform-analytics
 
+## 0.10.0
+
+### Minor Changes
+
+- [#104](https://github.com/hashicorp/web-platform-packages/pull/104) [`eae4733`](https://github.com/hashicorp/web-platform-packages/commit/eae4733754d1d7ba00bfcc26addb09954214d503) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds a few helper methods for working with segment's `window.analytics` API: `track()`, `getSegment()`, and `isAnalyticsMethodAvailable()`.
+
+### Patch Changes
+
+- [#106](https://github.com/hashicorp/web-platform-packages/pull/106) [`3b5a7ff`](https://github.com/hashicorp/web-platform-packages/commit/3b5a7ffd9cdb7b0a4f2514e066209bbe93f16fa9) Thanks [@BRKalow](https://github.com/BRKalow)! - Use proper typeof check
+
 ## 0.9.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-configs",
   "description": "Shared configuration files for HashiCorp projects",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "HashiCorp",
   "publishConfig": {
     "private": false
@@ -11,5 +11,11 @@
     "type": "git",
     "url": "https://github.com/hashicorp/web-platform-packages.git",
     "directory": "packages/configs"
+  },
+  "peerDependencies": {
+    "next": ">=12.0.0"
+  },
+  "dependencies": {
+    "jest-raw-loader": "^1.0.1"
   }
 }

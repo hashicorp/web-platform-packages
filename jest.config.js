@@ -1,3 +1,5 @@
+const makeConfig = require('./packages/configs/jest/config')
+
 const isRunningInEsmMode = !!process.env.TEST_ESM
 
 /**
@@ -7,10 +9,18 @@ const isRunningInEsmMode = !!process.env.TEST_ESM
  */
 const ESM_PACKAGES = ['content-conformance', 'remark-plugins']
 
+/**
+ * Override the base next jest-transformer to force it into ESM mode
+ */
 const esmConfig = {
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   transform: {
-    '^.+\\.(t)sx?$': ['@swc/jest', { module: { type: 'es6' } }],
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': [
+      require.resolve('next/dist/build/swc/jest-transformer.js'),
+      {
+        isEsmProject: true,
+      },
+    ],
   },
 }
 
@@ -21,12 +31,9 @@ const ignorePatternForModuleType = isRunningInEsmMode
   ? `<rootDir>/packages/(?!${ESM_PACKAGES.join('|')}).*/.*`
   : `<rootDir>/packages/(${ESM_PACKAGES.join('|')})/.*`
 
-module.exports = {
+module.exports = makeConfig({
   testEnvironment: 'node',
   verbose: true,
-  transform: {
-    '^.+\\.(j|t)sx?$': ['@swc/jest'],
-  },
   transformIgnorePatterns: [
     '<rootDir>/packages/.*/__tests__/__fixtures__/.*',
     '<rootDir>/packages/.*/__tests__/fixtures/.*.js',
@@ -40,4 +47,4 @@ module.exports = {
     '<rootDir>/packages/cli/__tests__/fixtures/prettier.js',
   ],
   ...(isRunningInEsmMode && esmConfig),
-}
+})
