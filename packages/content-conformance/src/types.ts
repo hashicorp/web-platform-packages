@@ -1,6 +1,7 @@
 import type { VFile } from 'vfile'
 import type { Node } from 'unist'
 import { ContentFile } from './content-file.js'
+import type { RuleLevels } from './config.js'
 
 type ConformanceRuleType = 'content' | 'data' | 'structure'
 
@@ -12,6 +13,13 @@ export interface ConformanceRuleBase {
   id: string
   description: string
   executor: ConformanceRuleExecutor
+}
+
+/**
+ * Loaded rules will get decorated with additional information from the conformance config file (level, rule config)
+ */
+export interface LoadedConformanceRule extends ConformanceRuleBase {
+  level: RuleLevels
 }
 
 export interface ConformanceRuleContent extends ConformanceRuleBase {

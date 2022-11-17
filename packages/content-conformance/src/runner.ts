@@ -4,7 +4,7 @@ import path from 'path'
 import { ContentConformanceConfig, loadConfig } from './config.js'
 import { ContentConformanceEngine } from './engine.js'
 import { loadRules } from './rules.js'
-import { ConformanceRuleBase } from './types.js'
+import type { LoadedConformanceRule } from './types.js'
 
 interface RunnerOptions {
   cwd?: string
@@ -20,7 +20,7 @@ export class ContentConformanceRunner {
 
   config?: ContentConformanceConfig
 
-  rules: ConformanceRuleBase[] = []
+  rules: LoadedConformanceRule[] = []
 
   engine?: ContentConformanceEngine
 

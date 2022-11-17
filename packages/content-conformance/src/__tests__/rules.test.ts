@@ -32,7 +32,7 @@ describe('loadRule', () => {
 
 describe('loadRules', () => {
   test('loads internal rules', async () => {
-    const rules = await loadRules({ 'content-no-h1': 'error' })
+    const rules = await loadRules({ ['content-no-h1' as string]: 'error' })
 
     expect(rules).toMatchInlineSnapshot(`
       [
@@ -43,6 +43,7 @@ describe('loadRules', () => {
             "dataFile": [Function],
           },
           "id": "no-h1",
+          "level": "error",
           "type": "content",
         },
       ]
@@ -50,16 +51,22 @@ describe('loadRules', () => {
   })
 
   test('does not load rules if level is set to "off"', async () => {
-    const rules = await loadRules({ 'content-no-h1': 'off' })
+    const rules = await loadRules({ ['content-no-h1' as string]: 'off' })
 
     expect(rules).toHaveLength(0)
+  })
+
+  test('sets rule severity from config', async () => {
+    const rules = await loadRules({ ['content-no-h1' as string]: 'warn' })
+
+    expect(rules[0].level).toEqual('warn')
   })
 
   test('loads local rules', async () => {
     const fixturePath = getFixturePath('basic-with-content-files')
 
     const rules = await loadRules(
-      { './rules/local-no-h1': 'error' },
+      { ['./rules/local-no-h1' as string]: 'error' },
       fixturePath
     )
 
@@ -72,6 +79,7 @@ describe('loadRules', () => {
             "dataFile": [Function],
           },
           "id": "local-no-h1",
+          "level": "error",
           "type": "content",
         },
       ]

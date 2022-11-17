@@ -1,6 +1,8 @@
 import url from 'url'
 import path from 'path'
 import { loadModuleFromFilePath } from './utils.js'
+import type { ConformanceRuleBase, LoadedConformanceRule } from './types.js'
+import type { ContentConformanceConfig, RuleLevels } from './config.js'
 
 const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
@@ -13,13 +15,16 @@ const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
  * - Can be local to project being checked
  * - Can be external (remark-link plugins?)
  */
-export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
+export async function loadRules(
+  rules: Pick<ContentConformanceConfig, 'rules'>,
+  cwd: string = process.cwd()
+): Promise<LoadedConformanceRule[]> {
   // TODO: validate rule structure?
 
   const loadedRules = []
 
   for (const [ruleNameOrPath, ruleSettings] of Object.entries(rules)) {
-    let level
+    let level: RuleLevels = 'error'
     let ruleConfig
 
     if (typeof ruleSettings === 'string') {
@@ -34,10 +39,17 @@ export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
       // don't load the rule if it's set to "off"
       continue
     }
-    // TODO: pass "warn" and "error" levels along so the reporter can know
-    // how to report a default warning or fatal error
 
-    loadedRules.push(loadRule(ruleNameOrPath, { ruleConfig, cwd }))
+    // Decorate the rule with the level provided in config
+    const promise: Promise<LoadedConformanceRule> = loadRule(ruleNameOrPath, {
+      ruleConfig,
+      cwd,
+    }).then((rule) => ({
+      ...rule,
+      level,
+    }))
+
+    loadedRules.push(promise)
   }
 
   // TODO: how do we pass a rule's configuration along?
@@ -53,7 +65,7 @@ export async function loadRule(
     ruleConfig?: unknown
     cwd?: string
   } = {}
-) {
+): Promise<ConformanceRuleBase> {
   let rule
 
   // internal rule
