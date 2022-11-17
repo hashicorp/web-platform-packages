@@ -1,4 +1,5 @@
-import { VFile } from 'vfile'
+import { VFile, type Compatible } from 'vfile'
+import { matter } from 'vfile-matter'
 import remark from 'remark'
 // @ts-expect-error - remark-mdx@1.6.22 has no types
 import remarkMdx from 'remark-mdx'
@@ -18,6 +19,17 @@ import type { Node } from 'unist'
  */
 export class ContentFile extends VFile {
   __type = 'content' as const
+
+  // data: Record<string, any>
+
+  constructor(value: Compatible) {
+    super(value)
+    // @ts-expect-error - this.content is required by vfile-matter
+    // at compile-time but not at run-time
+    matter(this, {
+      strip: true,
+    })
+  }
 
   private tree?: Readonly<Node>
 
@@ -43,6 +55,11 @@ export class ContentFile extends VFile {
     } else if (typeof visitor !== 'undefined') {
       unistVisit(this.tree!, test as Test, visitor)
     }
+  }
+
+  frontmatter(): Record<string, unknown> {
+    // @ts-expect-error - the matter property on data is injected by `vfile-matter`
+    return this.data.matter
   }
 }
 
