@@ -4,3 +4,5 @@ dist/
 .env
 
 !packages/nextjs-plugin/src/__fixtures__/**/node_modules
+
+.turbo/
