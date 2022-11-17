@@ -40,6 +40,7 @@ routes:
     })
 
     expect(() => {
+      // @ts-expect-error -- the type is marked as Readonly, but this validates runtime behavior as well
       file.contents().title = 'Home updated'
     }).toThrowErrorMatchingInlineSnapshot(`"Unable to modify object"`)
   })
