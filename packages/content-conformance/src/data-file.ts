@@ -35,7 +35,7 @@ export class DataFile extends VFile {
   /**
    * Get the contents of the file as a JavaScript object for checking. Parses the file from its raw format if not done so already.
    */
-  contents() {
+  contents(): Readonly<any> {
     if (!this.result) {
       this.parse()
     }
