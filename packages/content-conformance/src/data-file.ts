@@ -66,6 +66,6 @@ export class DataFile extends VFile {
   }
 }
 
-export function isContentFile(file: unknown): file is DataFile {
+export function isDataFile(file: unknown): file is DataFile {
   return (file as DataFile).__type === 'data'
 }
