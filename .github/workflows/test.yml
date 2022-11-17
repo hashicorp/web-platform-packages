@@ -20,5 +20,11 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
       - name: Install and build
         run: npm install
-      - name: Run Jest
+      - name: Cache Turbo
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache/turbo
+          key: turbo-cache
+      - name: Run tests
         run: npx turbo test
