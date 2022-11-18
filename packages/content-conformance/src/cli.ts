@@ -34,19 +34,18 @@ yargs(hideBin(process.argv)).command(
       files: argv.files,
     })
 
-    await runner
-      .init()
-      .then(() => {
-        console.log(
-          chalk.bold.greenBright(`Running content conformance checks on:`)
-        )
-        argv.files.forEach((file: string) => {
-          console.log(chalk.green(`- ${file}`))
-        })
-      })
-      .catch((error) => {
-        console.log(chalk.redBright(error.stack))
-      })
+		try {
+			await runner.init()
+
+			console.log(
+				chalk.bold.greenBright(`Running content conformance checks on:`)
+			)
+			argv.files.forEach((file: string) => {
+				console.log(chalk.green(`- ${file}`))
+			})
+		} catch (error) {
+			console.log(chalk.redBright(error.stack))
+		}
 
     console.log(chalk.cyanBright(`Config: ${runner.config}`))
   }
