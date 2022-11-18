@@ -126,10 +126,10 @@ module.exports = {
   rules: {
     // An odd rule that leads to odd code patterns, we are opting to disable it for our projects (https://app.asana.com/0/1100423001970639/1199667739287945/f)
     'no-prototype-builtins': 'off',
-    
+
     // Nested ternaries make code harder to understand (set to "warn" for backwards-compatibility)
     'no-nested-ternary': 'warn',
-    
+
     // Unneeded ternaries should be replaced with easier to understand expressions (set to "warn" for backwards-compatibility)
     'no-unneeded-ternary': 'warn',
 
