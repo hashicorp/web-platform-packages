@@ -7,10 +7,10 @@ import { ContentFile } from './content-file.js'
 import type {
   ConformanceRuleContext,
   ContentConformanceFile,
-  DataFile,
   LoadedConformanceRule,
 } from './types.js'
 import { ContentConformanceConfig } from './config.js'
+import { DataFile } from './data-file.js'
 
 interface ContentConformanceEngineOptions
   extends Omit<ContentConformanceConfig, 'rules'> {
@@ -37,6 +37,33 @@ export class ContentConformanceEngine {
 
     this.opts = restOpts
     this.rules = opts.rules ?? []
+  }
+
+  async loadDataFiles() {
+    if (!this.opts.dataFileGlobPattern) return
+
+    for await (const filepath of globbyStream(this.opts.dataFileGlobPattern, {
+      onlyFiles: true,
+      cwd: this.opts.root,
+    })) {
+      // If an array of filepaths are provided, only load the file if it matches one of the provided paths
+      if (
+        this.opts.files?.length &&
+        !this.opts.files.includes(String(filepath))
+      ) {
+        continue
+      }
+
+      const fullPath = path.join(this.opts.root, String(filepath))
+      const contents = await fs.promises.readFile(fullPath, 'utf-8')
+
+      const file = new DataFile({
+        cwd: this.opts.root,
+        path: String(filepath),
+        value: contents,
+      })
+      this.dataFiles.push(file)
+    }
   }
 
   async loadContentFiles() {
@@ -91,8 +118,7 @@ export class ContentConformanceEngine {
   async execute(): Promise<void> {
     // load files
     // TODO: will this scale? We're loading every file into memory
-    await this.loadContentFiles()
-    // await this.loadDataFiles()
+    await Promise.all([this.loadContentFiles(), this.loadDataFiles()])
 
     const promises = []
 

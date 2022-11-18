@@ -25,6 +25,28 @@ describe('ContentConformanceEngine', () => {
     `)
   })
 
+  test('it loads data files based on the provided glob', async () => {
+    const opts = {
+      root: getFixturePath('basic-with-content-files'),
+      contentFileGlobPattern: 'content/**/*.mdx',
+      dataFileGlobPattern: 'data/**/*.{json,yaml}',
+      rules: [],
+    }
+
+    const engine = new ContentConformanceEngine(opts)
+
+    await engine.loadDataFiles()
+
+    expect(engine.files).toHaveLength(2)
+    expect(engine.files.map((file) => file.path?.replace(opts.root, '')))
+      .toMatchInlineSnapshot(`
+      [
+        "data/nav-data.json",
+        "data/nav-data.yaml",
+      ]
+    `)
+  })
+
   test('it executes rules', async () => {
     const opts = {
       root: getFixturePath('basic-with-content-files'),
