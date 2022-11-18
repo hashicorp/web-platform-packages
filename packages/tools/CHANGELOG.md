@@ -1,5 +1,17 @@
 # @hashicorp/platform-tools
 
+## 0.7.0
+
+### Minor Changes
+
+- [#98](https://github.com/hashicorp/web-platform-packages/pull/98) [`71ca03c`](https://github.com/hashicorp/web-platform-packages/commit/71ca03ccf7ed0d6d17ffac8c661608176d47f79c) Thanks [@dstaley](https://github.com/dstaley)! - Add `capture-build-metrics` script to send Next build metrics to Datadog
+
+## 0.6.0
+
+### Minor Changes
+
+- [#95](https://github.com/hashicorp/web-platform-packages/pull/95) [`d389efd`](https://github.com/hashicorp/web-platform-packages/commit/d389efd63d8a14e1c31e7e578e640bf07c9fb415) Thanks [@BRKalow](https://github.com/BRKalow)! - Pass along arguments to the invoked script if it is locally defined.
+
 ## 0.5.0
 
 ### Minor Changes

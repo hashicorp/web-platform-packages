@@ -28,10 +28,13 @@ describe('hc-tools', () => {
   test('respects baseUrl and loads .env file', () => {
     setCwdToFixture('tsconfig-paths-env')
 
-    const result = execHCTools('./scripts/my-script.ts')
+    const result = execHCTools('./scripts/my-script.ts', 'argument-value')
 
     // loading a value from .env
     expect(result).toContain(`bar`)
+
+    // passes along arguments
+    expect(result).toContain('argument-value')
 
     // Importing a module dependent on baseUrl
     expect(result).toContain(`hello from lib`)

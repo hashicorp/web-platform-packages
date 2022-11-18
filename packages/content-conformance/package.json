@@ -1,0 +1,25 @@
+{
+  "name": "@hashicorp/platform-content-conformance",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "hc-content": "./dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "postbuild": "chmod +x ./dist/cli.js"
+  },
+  "dependencies": {
+    "find-up": "^6.3.0",
+    "globby": "^13.1.2",
+    "remark-mdx": "^1.6.22",
+    "unist-util-visit": "^4.1.1",
+    "vfile": "^5.3.5",
+    "vfile-reporter": "^7.0.4",
+    "yaml": "^2.1.3",
+    "zod": "^3.19.1"
+  }
+}

@@ -1,6 +1,12 @@
 name: Release
 
 on:
+  workflow_call:
+    secrets:
+      PUBLISH_GITHUB_TOKEN:
+        required: true
+      NPM_TOKEN:
+        required: true
   push:
     branches:
       - main

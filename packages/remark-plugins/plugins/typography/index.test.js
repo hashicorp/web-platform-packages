@@ -33,18 +33,18 @@ describe('type-styles', () => {
     const compiler = makeProcessor()
     const output = String(compiler.processSync(fileContents))
     expect(output).toMatchInlineSnapshot(`
-      "<p class=\\"g-type-long-body\\">hi there</p>
-      <h1 class=\\"g-type-display-2\\">Heading One</h1>
-      <h2 class=\\"g-type-display-3\\">Heading Two</h2>
-      <p class=\\"g-type-long-body\\">sadklfjhlskdjf</p>
-      <h3 class=\\"g-type-display-4\\">Heading Three</h3>
-      <h4 class=\\"g-type-display-5\\">Heading Four</h4>
-      <h5 class=\\"g-type-display-6\\">Heading Five</h5>
-      <h6 class=\\"g-type-label\\">Heading Six</h6>
-      <p class=\\"g-type-long-body\\">Foo bar baz wow <em>amaze</em></p>
+      "<p class="g-type-long-body">hi there</p>
+      <h1 class="g-type-display-2">Heading One</h1>
+      <h2 class="g-type-display-3">Heading Two</h2>
+      <p class="g-type-long-body">sadklfjhlskdjf</p>
+      <h3 class="g-type-display-4">Heading Three</h3>
+      <h4 class="g-type-display-5">Heading Four</h4>
+      <h5 class="g-type-display-6">Heading Five</h5>
+      <h6 class="g-type-label">Heading Six</h6>
+      <p class="g-type-long-body">Foo bar baz wow <em>amaze</em></p>
       <ul>
-      <li class=\\"g-type-long-body\\">foo</li>
-      <li class=\\"g-type-long-body\\">bar</li>
+      <li class="g-type-long-body">foo</li>
+      <li class="g-type-long-body">bar</li>
       </ul>"
     `)
   })
@@ -76,18 +76,18 @@ describe('type-styles', () => {
     const compiler = makeProcessor(options)
     const output = String(compiler.processSync(fileContents))
     expect(output).toMatchInlineSnapshot(`
-      "<p class=\\"custom-paragraph\\">hi there</p>
-      <h1 class=\\"custom-1\\">Heading One</h1>
-      <h2 class=\\"custom-2\\">Heading Two</h2>
-      <p class=\\"custom-paragraph\\">sadklfjhlskdjf</p>
-      <h3 class=\\"custom-3\\">Heading Three</h3>
-      <h4 class=\\"custom-4\\">Heading Four</h4>
-      <h5 class=\\"custom-5\\">Heading Five</h5>
-      <h6 class=\\"custom-6\\">Heading Six</h6>
-      <p class=\\"custom-paragraph\\">Foo bar baz wow <em>amaze</em></p>
+      "<p class="custom-paragraph">hi there</p>
+      <h1 class="custom-1">Heading One</h1>
+      <h2 class="custom-2">Heading Two</h2>
+      <p class="custom-paragraph">sadklfjhlskdjf</p>
+      <h3 class="custom-3">Heading Three</h3>
+      <h4 class="custom-4">Heading Four</h4>
+      <h5 class="custom-5">Heading Five</h5>
+      <h6 class="custom-6">Heading Six</h6>
+      <p class="custom-paragraph">Foo bar baz wow <em>amaze</em></p>
       <ul>
-      <li class=\\"custom-list-item\\">foo</li>
-      <li class=\\"custom-list-item\\">bar</li>
+      <li class="custom-list-item">foo</li>
+      <li class="custom-list-item">bar</li>
       </ul>"
     `)
   })
