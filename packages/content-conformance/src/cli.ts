@@ -7,6 +7,16 @@ import { ContentConformanceRunner } from './runner.js'
 /**
  * The CLI interface for our content conformance runner. Should remain a pass-through to ContentConformanceRunner if at all possible to keep the CLI and JS API in-sync
  */
+
+type ErrorWithMessage = {
+  message: string
+}
+
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message
+  return String(error)
+}
+
 yargs(hideBin(process.argv)).command(
   'content-check',
   'Content conformance runner',
@@ -22,7 +32,7 @@ yargs(hideBin(process.argv)).command(
       type: 'string',
     },
     files: {
-      description: 'Path to config file',
+      description: 'Path to content files',
       default: [],
       type: 'array',
     },
@@ -34,18 +44,22 @@ yargs(hideBin(process.argv)).command(
       files: argv.files,
     })
 
-		try {
-			await runner.init()
+    try {
+      await runner.init()
 
-			console.log(
-				chalk.bold.greenBright(`Running content conformance checks on:`)
-			)
-			argv.files.forEach((file: string) => {
-				console.log(chalk.green(`- ${file}`))
-			})
-		} catch (error) {
-			console.log(chalk.redBright(error.stack))
-		}
+      console.log(
+        chalk.bold.greenBright(`Running content conformance checks on:`)
+      )
+      argv.files.forEach((file: string) => {
+        console.log(chalk.green(`- ${file}`))
+      })
+    } catch (error) {
+      let stack = 'Unknown Error'
+      if (error instanceof Error) stack = error.stack ?? stack
+      else stack = String(error)
+
+      console.log(chalk.redBright(stack))
+    }
 
     console.log(chalk.cyanBright(`Config: ${runner.config}`))
   }
