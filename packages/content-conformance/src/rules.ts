@@ -1,5 +1,6 @@
 import url from 'url'
 import path from 'path'
+import { lintRule } from 'unified-lint-rule'
 import { loadModuleFromFilePath } from './utils.js'
 import type { ConformanceRuleBase, LoadedConformanceRule } from './types.js'
 import type { ContentConformanceConfig, RuleLevels } from './config.js'
@@ -129,4 +130,41 @@ export async function loadRule(
 
   // TODO: handle unable to load rule
   return rule
+}
+
+/**
+ * Converts a remark-lint rule created using `unified-lint-rule` into the rule format expected by our system.
+ */
+export function convertRemarkLintRule(
+  rule: ReturnType<typeof lintRule>,
+  level: RuleLevels,
+  ruleConfig?: $TSFixMe
+): LoadedConformanceRule | undefined {
+  /**
+   * remark-lint rules are effectively remark/unified plugins that accept a specific config/options format. Here we are unwrapping the plugin method by passing it the proper config.
+   */
+  // @ts-expect-error - I think the types are off here from the unified packages, this does work.
+  const ruleFn = rule([level, ruleConfig])
+
+  if (!ruleFn) {
+    console.warn(`unable to convert remark-lint rule: ${rule.name}`)
+    return
+  }
+
+  const convertedRule: LoadedConformanceRule = {
+    level,
+    type: 'content',
+    id: rule.name,
+    description: '',
+    executor: {
+      async contentFile(file) {
+        /**
+         * The rule function accepts a tree, a file, and a callback. By convention remark-lint rules already handle attaching messages, so there's nothing else we need to do here to handle proper reporting.
+         */
+        ruleFn(file.tree(), file, () => void 0)
+      },
+    },
+  }
+
+  return convertedRule
 }

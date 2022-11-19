@@ -11,7 +11,7 @@ type ConformanceRuleType = 'content' | 'data' | 'structure'
 export interface ConformanceRuleBase {
   type: ConformanceRuleType
   id: string
-  description: string
+  description?: string
   executor: ConformanceRuleExecutor
 }
 

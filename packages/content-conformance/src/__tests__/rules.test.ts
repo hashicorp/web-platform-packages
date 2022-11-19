@@ -1,5 +1,8 @@
 import path from 'path'
-import { loadRule, loadRules } from '../rules.js'
+import { lintRule } from 'unified-lint-rule'
+import { visit } from 'unist-util-visit'
+import { ContentFile } from '../content-file.js'
+import { convertRemarkLintRule, loadRule, loadRules } from '../rules.js'
 import { getFixturePath } from '../test/utils.js'
 
 describe('loadRule', () => {
@@ -83,6 +86,38 @@ describe('loadRules', () => {
           "type": "content",
         },
       ]
+    `)
+  })
+})
+
+describe('convertRemarkLintRule', () => {
+  test('converts a remark-lint style rule into a valid conformance rule object', () => {
+    const rule = lintRule(
+      {
+        origin: 'remark-lint:no-h1',
+        url: 'https://github.com/hashicorp/web-platform-packages',
+      },
+      (tree, file) => {
+        visit(tree, ['heading'], (node) => {
+          if (node.depth === 1) {
+            file.fail('Level 1 headings are not allowed', node)
+          }
+        })
+      }
+    )
+
+    const convertedRule = convertRemarkLintRule(rule, 'error')
+
+    expect(convertedRule).toMatchInlineSnapshot(`
+      {
+        "description": "",
+        "executor": {
+          "contentFile": [Function],
+        },
+        "id": "remark-lint:no-h1",
+        "level": "error",
+        "type": "content",
+      }
     `)
   })
 })
