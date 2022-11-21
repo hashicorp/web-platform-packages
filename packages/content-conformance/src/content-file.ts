@@ -21,8 +21,6 @@ import type { Node } from 'unist'
 export class ContentFile extends VFile {
   __type = 'content' as const
 
-  // data: Record<string, any>
-
   constructor(value: Compatible) {
     super(value)
     this.parseFrontmatter()
