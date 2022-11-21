@@ -7,16 +7,6 @@ import { ContentConformanceRunner } from './runner.js'
 /**
  * The CLI interface for our content conformance runner. Should remain a pass-through to ContentConformanceRunner if at all possible to keep the CLI and JS API in-sync
  */
-
-type ErrorWithMessage = {
-  message: string
-}
-
-function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message
-  return String(error)
-}
-
 yargs(hideBin(process.argv)).command(
   'content-check',
   'Content conformance runner',
@@ -55,7 +45,7 @@ yargs(hideBin(process.argv)).command(
       })
     } catch (error) {
       let stack = 'Unknown Error'
-      if (error instanceof Error) stack = error.stack ?? stack
+      if (error instanceof Error) stack = error?.stack ?? stack
       else stack = String(error)
 
       console.log(chalk.redBright(stack))
