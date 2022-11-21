@@ -27,7 +27,7 @@ yargs(hideBin(process.argv)).command(
       type: 'array',
     },
   },
-  async function (argv) {
+  async function (argv): Promise<void> {
     const runner = new ContentConformanceRunner({
       cwd: argv.cwd,
       config: argv.config,
@@ -38,10 +38,19 @@ yargs(hideBin(process.argv)).command(
       await runner.init()
 
       console.log(
-        chalk.bold.greenBright(`Running content conformance checks on:`)
+        chalk.bold.greenBright(`Running content conformance checks...`)
       )
+
+      if (!argv.files.length) return
+
+      console.log(
+        chalk.bold.green(
+          `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
+        )
+      )
+
       argv.files.forEach((file: string) => {
-        console.log(chalk.green(`- ${file}`))
+        console.log(chalk.whiteBright(`- ${file}`))
       })
     } catch (error) {
       let stack = 'Unknown Error'
