@@ -61,7 +61,7 @@ object:
       `)
     })
 
-    it('does not throw on invalid frontmatter', () => {
+    it('does not throw on invalid fences', () => {
       const file = new ContentFile(`---
 field: |
   This frontmatter is missing a single dash
@@ -77,6 +77,53 @@ field: |
         # Heading 1"
       `)
       expect(file.frontmatter()).toMatchInlineSnapshot(`{}`)
+    })
+
+    it('should attach a message for invalid frontmatter', () => {
+      const file = new ContentFile(`---
+description: |
+this is an invalid multi-line description.
+---
+
+# Heading 1`)
+      expect(file.value).toMatchInlineSnapshot(`
+        "---
+        description: |
+        this is an invalid multi-line description.
+        ---
+
+        # Heading 1"
+      `)
+      expect(file.frontmatter()).toMatchInlineSnapshot(`{}`)
+      expect(file.messages).toMatchInlineSnapshot(`
+        [
+          [1:1: Error parsing frontmatter: YAMLParseError: Implicit map keys need to be followed by map values at line 2, column 1:
+
+        description: |
+        this is an invalid multi-line description.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ],
+        ]
+      `)
+    })
+
+    it('should attach a message for empty fences', () => {
+      const file = new ContentFile(`---
+---
+
+# Heading 1`)
+      expect(file.value).toMatchInlineSnapshot(`
+        "---
+        ---
+
+        # Heading 1"
+      `)
+      expect(file.frontmatter()).toMatchInlineSnapshot(`{}`)
+      expect(file.messages).toMatchInlineSnapshot(`
+        [
+          [1:1: Error parsing frontmatter: TypeError: Cannot read properties of undefined (reading 'length')],
+        ]
+      `)
     })
   })
 })
