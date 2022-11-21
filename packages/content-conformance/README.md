@@ -104,7 +104,7 @@ The engine is responsible for reading files and executing rules against the file
 
 ### File
 
-All files that are checked are represented by `VFile` instances, with some additional information. The `ContentFile` primitive represents files that contain documentation content. Currently, our content files are authored with MDX. The `DataFile` primitive represents files that contain data used to render our pages. We are planning to handle JSON and YAML files.
+All files that are checked are represented by `VFile` instances, with some additional information. The `ContentFile` primitive represents files that contain documentation content. Currently, our content files are authored with MDX, with support for YAML frontmatter, out-of-the-box. The `DataFile` primitive represents files that contain data used to render our pages. We are planning to handle JSON and YAML files.
 
 ### Rule
 
