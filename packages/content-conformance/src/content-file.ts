@@ -25,8 +25,17 @@ export class ContentFile extends VFile {
 
   constructor(value: Compatible) {
     super(value)
-    const lineCounter = new YamlLineCounter()
+    this.parseFrontmatter()
+  }
 
+  private tree?: Readonly<Node>
+
+  private parseContent() {
+    this.tree = remark().use(remarkMdx).parse(this)
+  }
+
+  private parseFrontmatter() {
+    const lineCounter = new YamlLineCounter()
     // @ts-expect-error - this.content is required by vfile-matter
     // at compile-time but not at run-time
     matter(this, {
@@ -39,12 +48,6 @@ export class ContentFile extends VFile {
     if (lineCounter.lineStarts.length > 0) {
       this.value = `\n`.repeat(lineCounter.lineStarts.length + 2) + this.value
     }
-  }
-
-  private tree?: Readonly<Node>
-
-  private parseContent() {
-    this.tree = remark().use(remarkMdx).parse(this)
   }
 
   visit(test: Test, visitor: Visitor): void
