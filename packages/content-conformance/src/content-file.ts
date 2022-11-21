@@ -1,5 +1,6 @@
 import { VFile, type Compatible } from 'vfile'
 import { matter } from 'vfile-matter'
+import { LineCounter as YamlLineCounter } from 'yaml'
 import remark from 'remark'
 // @ts-expect-error - remark-mdx@1.6.22 has no types
 import remarkMdx from 'remark-mdx'
@@ -24,11 +25,20 @@ export class ContentFile extends VFile {
 
   constructor(value: Compatible) {
     super(value)
+    const lineCounter = new YamlLineCounter()
+
     // @ts-expect-error - this.content is required by vfile-matter
     // at compile-time but not at run-time
     matter(this, {
       strip: true,
+      yaml: { lineCounter },
     })
+
+    // if newlines are detected in frontmatter, prepend N+2 empty new lines
+    // so that content line number reporting remains accurate.
+    if (lineCounter.lineStarts.length > 0) {
+      this.value = `\n`.repeat(lineCounter.lineStarts.length + 2) + this.value
+    }
   }
 
   private tree?: Readonly<Node>

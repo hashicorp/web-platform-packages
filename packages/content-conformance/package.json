@@ -20,6 +20,7 @@
     "vfile": "^5.3.5",
     "vfile-matter": "^4.0.0",
     "vfile-reporter": "^7.0.4",
+    "yaml": "^2.1.3",
     "zod": "^3.19.1"
   }
 }

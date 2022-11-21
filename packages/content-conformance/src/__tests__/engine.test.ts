@@ -66,19 +66,21 @@ describe('ContentConformanceEngine', () => {
 
     // @ts-expect-error -- conflicting versions of vfile are being pulled in
     expect(report(engine.files, { color: false })).toMatchInlineSnapshot(`
-      "content/has-frontmatter.mdx: no issues found
+      "content/has-frontmatter.mdx
+        12:1-12:11  warning  Level 1 headings are not allowed         no-h1
+
       content/index.mdx
-            1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
-        1:1-1:8  warning  Level 1 headings are not allowed         no-h1
+               1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
+           1:1-1:8  warning  Level 1 headings are not allowed         no-h1
 
       content/no-h1.mdx
-            1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
+               1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
 
       content/nested/nested.mdx
-            1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
-        1:1-1:9  warning  Level 1 headings are not allowed         no-h1
+               1:1  warning  A "title" frontmatter field is required  required-frontmatter-fields
+           1:1-1:9  warning  Level 1 headings are not allowed         no-h1
 
-      ⚠ 5 warnings"
+      ⚠ 6 warnings"
     `)
   })
 })
