@@ -1,7 +1,7 @@
+import { jest } from '@jest/globals'
 import path from 'path'
 import { lintRule } from 'unified-lint-rule'
 import { visit } from 'unist-util-visit'
-import { ContentFile } from '../content-file.js'
 import { convertRemarkLintRule, loadRule, loadRules } from '../rules.js'
 import { getFixturePath } from '../test/utils.js'
 
@@ -10,26 +10,54 @@ describe('loadRule', () => {
     const fixturePath = getFixturePath('basic-with-content-files')
 
     const rule = await loadRule('./rules/local-no-h1.js', {
+      level: 'error',
       cwd: fixturePath,
     })
 
-    expect(rule.id).toBe('local-no-h1')
+    expect(rule!.id).toBe('local-no-h1')
   })
 
   test('loads local rules from a fully qualified path', async () => {
     const fixturePath = getFixturePath('basic-with-content-files')
 
     const rule = await loadRule(
-      path.join(fixturePath, './rules/local-no-h1.js')
+      path.join(fixturePath, './rules/local-no-h1.js'),
+      {
+        level: 'error',
+      }
     )
 
-    expect(rule.id).toBe('local-no-h1')
+    expect(rule!.id).toBe('local-no-h1')
   })
 
   test('loads internal rules from name', async () => {
-    const rule = await loadRule('content-no-h1')
+    const rule = await loadRule('content-no-h1', {
+      level: 'error',
+    })
 
-    expect(rule.id).toBe('no-h1')
+    expect(rule!.id).toBe('no-h1')
+  })
+
+  test('loads remark-lint rules', async () => {
+    const rule = await loadRule('remark-lint-no-inline-padding', {
+      level: 'error',
+    })
+
+    expect(rule!.id).toBe('remark-lint:no-inline-padding')
+  })
+
+  test('errors when remark-lint rule cannot be found', async () => {
+    const consoleSpy = jest.spyOn(console, 'error')
+
+    await loadRule('remark-lint-does-not-exist', {
+      level: 'error',
+    })
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /error loading remark-lint rule: remark-lint-does-not-exist/
+      )
+    )
   })
 })
 

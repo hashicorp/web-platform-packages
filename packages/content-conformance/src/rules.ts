@@ -40,34 +40,51 @@ export async function loadRules(
       // don't load the rule if it's set to "off"
       continue
     }
-
-    // Decorate the rule with the level provided in config
-    const promise: Promise<LoadedConformanceRule> = loadRule(ruleNameOrPath, {
-      ruleConfig,
-      cwd,
-    }).then((rule) => ({
-      ...rule,
-      level,
-    }))
-
-    loadedRules.push(promise)
+    loadedRules.push(
+      loadRule(ruleNameOrPath, {
+        level,
+        ruleConfig,
+        cwd,
+      })
+    )
   }
 
   // TODO: how do we pass a rule's configuration along?
-  return Promise.all(loadedRules)
+  return (await Promise.all(loadedRules)).filter(
+    Boolean
+  ) as LoadedConformanceRule[]
 }
 
 export async function loadRule(
   ruleNameOrPath: string,
   {
+    level,
     ruleConfig,
     cwd = process.cwd(),
   }: {
+    level: RuleLevels
     ruleConfig?: unknown
     cwd?: string
-  } = {}
-): Promise<ConformanceRuleBase> {
+  }
+): Promise<LoadedConformanceRule | undefined> {
   let rule
+
+  if (ruleNameOrPath.startsWith('remark-lint-')) {
+    try {
+      const { default: remarkLintRule } = await import(ruleNameOrPath)
+
+      rule = convertRemarkLintRule(remarkLintRule, level, ruleConfig)
+    } catch (error: any) {
+      if (error.message.includes('Cannot find module')) {
+        console.error(
+          `[content-conformance] error loading remark-lint rule: ${ruleNameOrPath}. Is it installed?
+
+  npm install --save-dev ${ruleNameOrPath}`
+        )
+      }
+      return
+    }
+  }
 
   // internal rule
   try {
@@ -127,6 +144,9 @@ export async function loadRule(
   } catch (err) {
     // local rule - relative not found
   }
+
+  // ensure the rule severity level gets included so we can reference it when reporting
+  rule.level = level
 
   // TODO: handle unable to load rule
   return rule

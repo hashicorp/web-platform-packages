@@ -22,5 +22,8 @@
     "vfile-reporter": "^7.0.4",
     "yaml": "^2.1.3",
     "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "remark-lint-no-inline-padding": "^4.1.1"
   }
 }
