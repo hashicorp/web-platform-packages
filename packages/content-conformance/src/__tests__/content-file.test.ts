@@ -16,7 +16,7 @@ describe('ContentFile', () => {
   })
 
   describe('with frontmatter', () => {
-    it('handles valid frontmatter', () => {
+    it('replaces valid frontmatter with empty newlines', () => {
       const file = new ContentFile(`---
 number: 1
 string: two
@@ -32,6 +32,16 @@ object:
 `)
       expect(file.value).toMatchInlineSnapshot(`
         "
+
+
+
+
+
+
+
+
+
+
         # Heading 1
         "
       `)
