@@ -69,6 +69,9 @@ export async function loadRule(
 ): Promise<LoadedConformanceRule | undefined> {
   let rule
 
+  /**
+   * If the rule name starts with remark-lint-, we assume it's a remark-lint rule and attempt to load the module and convert it to our rule format.
+   */
   if (ruleNameOrPath.startsWith('remark-lint-')) {
     try {
       const { default: remarkLintRule } = await import(ruleNameOrPath)
