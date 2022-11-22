@@ -5,16 +5,16 @@ import type { Node } from 'unist'
 import { ContentFile } from './content-file.js'
 
 import type {
-  ConformanceRuleBase,
   ConformanceRuleContext,
   ContentConformanceFile,
+  LoadedConformanceRule,
 } from './types.js'
 import { ContentConformanceConfig } from './config.js'
 import { DataFile } from './data-file.js'
 
 interface ContentConformanceEngineOptions
   extends Omit<ContentConformanceConfig, 'rules'> {
-  rules: ConformanceRuleBase[]
+  rules: LoadedConformanceRule[]
 
   /**
    * Only load the specified files
@@ -29,7 +29,7 @@ export class ContentConformanceEngine {
 
   private dataFiles: DataFile[] = []
 
-  private rules: ConformanceRuleBase[] = []
+  private rules: LoadedConformanceRule[] = []
 
   constructor(opts: ContentConformanceEngineOptions) {
     const { rules, ...restOpts } = opts
@@ -94,13 +94,17 @@ export class ContentConformanceEngine {
     }
   }
 
-  getContext(rule: ConformanceRuleBase): ConformanceRuleContext {
+  getContext(rule: LoadedConformanceRule): ConformanceRuleContext {
     return {
       contentFiles: this.contentFiles,
       dataFiles: this.dataFiles,
       report(message: string, file?: ContentConformanceFile, node?: Node) {
         if (file) {
-          file.message(message, node, rule.id)
+          const fileMessage = file.message(message, node, rule.id)
+
+          if (rule.level === 'error') {
+            fileMessage.fatal = true
+          }
         }
       },
     }
@@ -143,7 +147,7 @@ export class ContentConformanceEngine {
    * Execute a conformance rule against the provided file. Based on the file type, uses the contentFile or dataFile executor
    */
   async executeRule(
-    rule: ConformanceRuleBase,
+    rule: LoadedConformanceRule,
     file: ContentConformanceFile
   ): Promise<void> {
     const context = this.getContext(rule)

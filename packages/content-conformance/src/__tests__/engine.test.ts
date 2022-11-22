@@ -54,6 +54,7 @@ describe('ContentConformanceEngine', () => {
       contentFileGlobPattern: 'content/**/*.mdx',
       rules: [
         {
+          level: 'warn' as const,
           type: 'content' as const,
           id: 'no-h1',
           description: 'Do not allow use of level 1 headings',

@@ -26,18 +26,18 @@ describe('ContentConformanceRunner', () => {
 
     expect(await runner.report()).toMatchInlineSnapshot(`
       "content/has-frontmatter.mdx
-        12:1-12:11  warning  Level 1 headings are not allowed                     local-no-h1
+        12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
 
       content/index.mdx
-           1:1-1:8  warning  Level 1 headings are not allowed                     local-no-h1
+           1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
 
       content/no-h1.mdx
-          1:1-1:27  warning  Must have a level 1 heading at the top of the file.  must-have-h1
+          1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
 
       content/nested/nested.mdx
-           1:1-1:9  warning  Level 1 headings are not allowed                     local-no-h1
+           1:1-1:9  error  Level 1 headings are not allowed                     local-no-h1
 
-      ⚠ 4 warnings"
+      ✖ 4 errors"
     `)
   })
 
@@ -55,9 +55,9 @@ describe('ContentConformanceRunner', () => {
 
     expect(await runner.report()).toMatchInlineSnapshot(`
       "content/index.mdx
-        1:1-1:8  warning  Level 1 headings are not allowed  local-no-h1
+        1:1-1:8  error  Level 1 headings are not allowed  local-no-h1
 
-      ⚠ 1 warning"
+      ✖ 1 error"
     `)
   })
 
@@ -75,9 +75,9 @@ describe('ContentConformanceRunner', () => {
 
     expect(await runner.report()).toMatchInlineSnapshot(`
       "content/index.mdx
-        1:1-1:8  warning  Level 1 headings are not allowed  local-no-h1
+        1:1-1:8  error  Level 1 headings are not allowed  local-no-h1
 
-      ⚠ 1 warning"
+      ✖ 1 error"
     `)
   })
 
@@ -98,6 +98,35 @@ describe('ContentConformanceRunner', () => {
       content/index.mdx: no issues found
       content/no-h1.mdx: no issues found
       content/nested/nested.mdx: no issues found"
+    `)
+  })
+
+  test('reads rule severity level from config', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      config: './content-conformance-severity.config.js',
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "content/has-frontmatter.mdx
+        12:1-12:11  warning  Level 1 headings are not allowed                     local-no-h1
+
+      content/index.mdx
+           1:1-1:8  warning  Level 1 headings are not allowed                     local-no-h1
+
+      content/no-h1.mdx
+          1:1-1:27  error    Must have a level 1 heading at the top of the file.  must-have-h1
+
+      content/nested/nested.mdx
+           1:1-1:9  warning  Level 1 headings are not allowed                     local-no-h1
+
+      4 messages (✖ 1 error, ⚠ 3 warnings)"
     `)
   })
 })

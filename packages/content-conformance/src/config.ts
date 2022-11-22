@@ -7,9 +7,9 @@ const CONFIG_FILE_NAME = 'content-conformance.config.js'
 
 const RuleLevels = z.enum(['off', 'warn', 'error'])
 
-const ContentConformanceConfigRule = z
-  .string()
-  .or(z.tuple([RuleLevels, z.record(z.any())]))
+const ContentConformanceConfigRule = RuleLevels.or(
+  z.tuple([RuleLevels, z.record(z.any())])
+)
 
 const ContentConformanceConfig = z.object({
   root: z.string(),
@@ -22,6 +22,10 @@ const ContentConformanceConfig = z.object({
 export type RuleLevels = z.infer<typeof RuleLevels>
 
 export type ContentConformanceConfig = z.infer<typeof ContentConformanceConfig>
+
+export type ContentConformanceConfigRule = z.infer<
+  typeof ContentConformanceConfigRule
+>
 
 /**
  * Load a content-conformance.config.js file
