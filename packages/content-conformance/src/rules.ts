@@ -74,6 +74,8 @@ export async function loadRule(
       const { default: remarkLintRule } = await import(ruleNameOrPath)
 
       rule = convertRemarkLintRule(remarkLintRule, level, ruleConfig)
+
+      return rule
     } catch (error: any) {
       if (error.message.includes('Cannot find module')) {
         console.error(
