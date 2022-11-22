@@ -2,8 +2,12 @@ import url from 'url'
 import path from 'path'
 import { lintRule } from 'unified-lint-rule'
 import { loadModuleFromFilePath } from './utils.js'
-import type { ConformanceRuleBase, LoadedConformanceRule } from './types.js'
-import type { ContentConformanceConfig, RuleLevels } from './config.js'
+import type { LoadedConformanceRule } from './types.js'
+import type {
+  ContentConformanceConfig,
+  RuleConfig,
+  RuleLevels,
+} from './config.js'
 
 const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
@@ -63,7 +67,7 @@ export async function loadRule(
     cwd = process.cwd(),
   }: {
     level: RuleLevels
-    ruleConfig?: unknown
+    ruleConfig?: RuleConfig
     cwd?: string
   }
 ): Promise<LoadedConformanceRule | undefined> {
@@ -150,8 +154,9 @@ export async function loadRule(
     // local rule - relative not found
   }
 
-  // ensure the rule severity level gets included so we can reference it when reporting
+  // ensure the rule severity level and any rule config get included so we can reference it when reporting
   rule.level = level
+  rule.config = ruleConfig
 
   // TODO: handle unable to load rule
   return rule
@@ -163,7 +168,7 @@ export async function loadRule(
 export function convertRemarkLintRule(
   rule: ReturnType<typeof lintRule>,
   level: RuleLevels,
-  ruleConfig?: $TSFixMe
+  ruleConfig?: RuleConfig
 ): LoadedConformanceRule | undefined {
   /**
    * remark-lint rules are effectively remark/unified plugins that accept a specific config/options format. Here we are unwrapping the plugin method by passing it the proper config.

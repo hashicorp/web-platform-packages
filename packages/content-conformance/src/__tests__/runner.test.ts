@@ -129,4 +129,31 @@ describe('ContentConformanceRunner', () => {
       4 messages (✖ 1 error, ⚠ 3 warnings)"
     `)
   })
+
+  test('passes rule config via context', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      config: './content-conformance-rule-config.config.js',
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "content/has-frontmatter.mdx
+        12:1-12:11  error  Level 1 headings are not allowed, This came from config  with-config
+
+      content/index.mdx
+           1:1-1:8  error  Level 1 headings are not allowed, This came from config  with-config
+
+      content/no-h1.mdx: no issues found
+      content/nested/nested.mdx
+           1:1-1:9  error  Level 1 headings are not allowed, This came from config  with-config
+
+      ✖ 3 errors"
+    `)
+  })
 })
