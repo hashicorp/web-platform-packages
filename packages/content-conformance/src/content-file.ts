@@ -48,7 +48,9 @@ export class ContentFile extends VFile {
         this.value = `\n`.repeat(lineCounter.lineStarts.length + 2) + this.value
       }
     } catch (err) {
-      this.message(`Error parsing frontmatter: ${err}`)
+      const message = this.message(`Error parsing frontmatter: ${err}`)
+      message.fatal = true
+
       // Manually populate matter object to prevent
       // this.frontmatter from throwing
       this.data.matter = {}
