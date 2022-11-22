@@ -26,10 +26,10 @@ export class ContentFile extends VFile {
     this.parseFrontmatter()
   }
 
-  private tree?: Readonly<Node>
+  private _tree?: Readonly<Node>
 
   private parseContent() {
-    this.tree = remark().use(remarkMdx).parse(this)
+    this._tree = remark().use(remarkMdx).parse(this)
   }
 
   private parseFrontmatter() {
@@ -61,20 +61,24 @@ export class ContentFile extends VFile {
   visit(visitor: Visitor): void
   visit(test: Test | Visitor, visitor?: Visitor): void {
     /**
-     * If the tree hasn't been parsed, do so lazily
-     */
-    if (!this.tree) {
-      this.parseContent()
-    }
-
-    /**
      * Make TypeScript kind of happy by doing some loose type guarding. It's hard because the visit type definition accepts either a test and a visitor or just a visitor
      */
     if (typeof visitor === 'undefined' && typeof test === 'function') {
-      unistVisit(this.tree!, test)
+      unistVisit(this.tree(), test)
     } else if (typeof visitor !== 'undefined') {
-      unistVisit(this.tree!, test as Test, visitor)
+      unistVisit(this.tree(), test as Test, visitor)
     }
+  }
+
+  tree() {
+    /**
+     * If the tree hasn't been parsed, do so lazily
+     */
+    if (!this._tree) {
+      this.parseContent()
+    }
+
+    return this._tree!
   }
 
   frontmatter(): Record<string, unknown> {
