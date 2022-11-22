@@ -25,16 +25,19 @@ describe('ContentConformanceRunner', () => {
     await runner.run()
 
     expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/index.mdx
-         1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
+      "content/has-frontmatter.mdx
+        12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
+
+      content/index.mdx
+           1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
 
       content/no-h1.mdx
-        1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
+          1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
 
       content/nested/nested.mdx
-         1:1-1:9  error  Level 1 headings are not allowed                     local-no-h1
+           1:1-1:9  error  Level 1 headings are not allowed                     local-no-h1
 
-      ✖ 3 errors"
+      ✖ 4 errors"
     `)
   })
 
@@ -91,7 +94,8 @@ describe('ContentConformanceRunner', () => {
     await runner.run()
 
     expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/index.mdx: no issues found
+      "content/has-frontmatter.mdx: no issues found
+      content/index.mdx: no issues found
       content/no-h1.mdx: no issues found
       content/nested/nested.mdx: no issues found"
     `)
@@ -110,16 +114,19 @@ describe('ContentConformanceRunner', () => {
     await runner.run()
 
     expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/index.mdx
-         1:1-1:8  warning  Level 1 headings are not allowed                     local-no-h1
+      "content/has-frontmatter.mdx
+        12:1-12:11  warning  Level 1 headings are not allowed                     local-no-h1
+
+      content/index.mdx
+           1:1-1:8  warning  Level 1 headings are not allowed                     local-no-h1
 
       content/no-h1.mdx
-        1:1-1:27  error    Must have a level 1 heading at the top of the file.  must-have-h1
+          1:1-1:27  error    Must have a level 1 heading at the top of the file.  must-have-h1
 
       content/nested/nested.mdx
-         1:1-1:9  warning  Level 1 headings are not allowed                     local-no-h1
+           1:1-1:9  warning  Level 1 headings are not allowed                     local-no-h1
 
-      3 messages (✖ 1 error, ⚠ 2 warnings)"
+      4 messages (✖ 1 error, ⚠ 3 warnings)"
     `)
   })
 })

@@ -1,4 +1,6 @@
-import { VFile } from 'vfile'
+import { VFile, type Compatible } from 'vfile'
+import { matter } from 'vfile-matter'
+import { LineCounter as YamlLineCounter } from 'yaml'
 import remark from 'remark'
 // @ts-expect-error - remark-mdx@1.6.22 has no types
 import remarkMdx from 'remark-mdx'
@@ -19,10 +21,38 @@ import type { Node } from 'unist'
 export class ContentFile extends VFile {
   __type = 'content' as const
 
+  constructor(value: Compatible) {
+    super(value)
+    this.parseFrontmatter()
+  }
+
   private _tree?: Readonly<Node>
 
   private parseContent() {
     this._tree = remark().use(remarkMdx).parse(this)
+  }
+
+  private parseFrontmatter() {
+    try {
+      const lineCounter = new YamlLineCounter()
+      // @ts-expect-error - this.content is required by vfile-matter
+      // at compile-time but not at run-time
+      matter(this, {
+        strip: true,
+        yaml: { lineCounter },
+      })
+
+      // if newlines are detected in frontmatter, prepend N+2 empty new lines
+      // so that content line number reporting remains accurate.
+      if (lineCounter.lineStarts.length > 0) {
+        this.value = `\n`.repeat(lineCounter.lineStarts.length + 2) + this.value
+      }
+    } catch (err) {
+      this.message(`Error parsing frontmatter: ${err}`)
+      // Manually populate matter object to prevent
+      // this.frontmatter from throwing
+      this.data.matter = {}
+    }
   }
 
   visit(test: Test, visitor: Visitor): void
@@ -47,6 +77,11 @@ export class ContentFile extends VFile {
     }
 
     return this._tree!
+  }
+
+  frontmatter(): Record<string, unknown> {
+    // @ts-expect-error - the matter property on data is injected by `vfile-matter`
+    return this.data.matter
   }
 }
 
