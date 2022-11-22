@@ -86,7 +86,17 @@ export default {
 
 ### Using `remark-lint` rules
 
-_Coming soon._
+[remark-lint](https://github.com/remarkjs/remark-lint) rules are supported by default. To use a `remark-lint` rule, add it to your configuration and ensure the package is installed as a development dependency in your project.
+
+```js
+export default {
+  root: '.',
+  contentFileGlobPattern: 'content/**/*.mdx',
+  rules: {
+    'remark-lint-definition-case': 'error',
+  },
+}
+```
 
 ## Internals
 
