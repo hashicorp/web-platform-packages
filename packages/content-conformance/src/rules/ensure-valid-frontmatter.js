@@ -8,7 +8,7 @@ export default {
     async contentFile(file, context) {
       for (const key of context.config.requiredKeys) {
         if (!file.frontmatter()[key]) {
-          context.report(`Expected frontmatter to contain: ${key}`)
+          context.report(`Expected frontmatter to contain: ${key}`, file)
         }
       }
     },
