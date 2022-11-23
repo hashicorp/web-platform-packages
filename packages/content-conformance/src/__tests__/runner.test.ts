@@ -93,12 +93,7 @@ describe('ContentConformanceRunner', () => {
 
     await runner.run()
 
-    expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/has-frontmatter.mdx: no issues found
-      content/index.mdx: no issues found
-      content/no-h1.mdx: no issues found
-      content/nested/nested.mdx: no issues found"
-    `)
+    expect(await runner.report()).toMatchInlineSnapshot(`""`)
   })
 
   test('reads rule severity level from config', async () => {
@@ -149,7 +144,6 @@ describe('ContentConformanceRunner', () => {
       content/index.mdx
            1:1-1:8  error  Level 1 headings are not allowed, This came from config  with-config
 
-      content/no-h1.mdx: no issues found
       content/nested/nested.mdx
            1:1-1:9  error  Level 1 headings are not allowed, This came from config  with-config
 

@@ -3,7 +3,7 @@ import { findUp } from 'find-up'
 import path from 'path'
 import { loadModuleFromFilePath } from './utils.js'
 
-const CONFIG_FILE_NAME = 'content-conformance.config.js'
+const CONFIG_FILE_NAME = 'content-conformance.config.mjs'
 
 const RuleLevels = z.enum(['off', 'warn', 'error'])
 
