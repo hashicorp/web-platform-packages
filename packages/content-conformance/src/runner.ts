@@ -59,6 +59,6 @@ export class ContentConformanceRunner {
    */
   async report() {
     // @ts-expect-error -- need to sort out VFile types here
-    return report(this.engine?.files, { color: false })
+    return report(this.engine?.files, { color: false, quiet: true })
   }
 }

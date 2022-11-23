@@ -68,6 +68,7 @@ describe('loadRules', () => {
     expect(rules).toMatchInlineSnapshot(`
       [
         {
+          "config": undefined,
           "description": "Do not allow use of level 1 headings",
           "executor": {
             "contentFile": [Function],
@@ -104,12 +105,40 @@ describe('loadRules', () => {
     expect(rules).toMatchInlineSnapshot(`
       [
         {
+          "config": undefined,
           "description": "Do not allow use of level 1 headings",
           "executor": {
             "contentFile": [Function],
             "dataFile": [Function],
           },
           "id": "local-no-h1",
+          "level": "error",
+          "type": "content",
+        },
+      ]
+    `)
+  })
+
+  test('loads local rules and passes along config', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const rules = await loadRules(
+      { ['./rules/with-config' as string]: ['error', { foo: 'bar' }] },
+      fixturePath
+    )
+
+    expect(rules).toMatchInlineSnapshot(`
+      [
+        {
+          "config": {
+            "foo": "bar",
+          },
+          "description": "Shows how to use rule config off of the context",
+          "executor": {
+            "contentFile": [Function],
+            "dataFile": [Function],
+          },
+          "id": "with-config",
           "level": "error",
           "type": "content",
         },

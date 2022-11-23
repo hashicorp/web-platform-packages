@@ -11,7 +11,7 @@ export async function loadModuleFromFilePath(filepath: string) {
       : url.pathToFileURL(filepath).href
 
   // ESModules require the .js file extension to be loaded correctly by Node. Appending the extension if it's missing here
-  if (!fileImportPath.endsWith('.js')) {
+  if (!fileImportPath.endsWith('.js') && !fileImportPath.endsWith('.mjs')) {
     fileImportPath += '.js'
   }
 

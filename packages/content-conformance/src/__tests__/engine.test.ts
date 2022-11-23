@@ -69,6 +69,7 @@ describe('ContentConformanceEngine', () => {
           },
         },
         {
+          level: 'warn' as const,
           type: 'content' as const,
           id: 'required-frontmatter-fields',
           description: 'Must have required frontmatter fields',

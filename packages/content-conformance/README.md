@@ -56,6 +56,23 @@ export default {
 }
 ```
 
+### Configuring rules
+
+Rules can be specified with differing severity to control the check's failure state. The valid values are: `error`, `warn`, or `off`. By default, errors will cause a run to fail, while warnings will not. Rules can also be turned off. Individual rules may also accept a configuration object. This configuration object is made available via the rule context that is passed into the executor functions.
+
+```js
+export default {
+  root: '.',
+  contentFileGlobPattern: 'content/**/*.mdx',
+  rules: {
+    'with-config': [
+      'error',
+      { message: 'this will be available as context.config.message' },
+    ],
+  },
+}
+```
+
 ## Rules
 
 The core value of the conformance checker lies in the rules that you configure. The core package ships with a number of rules and presets that can be used, and custom rules can also be created in your project. A rule is a JavaScript module that exports a specific object format.
