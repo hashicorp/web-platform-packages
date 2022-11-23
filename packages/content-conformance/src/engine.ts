@@ -98,6 +98,7 @@ export class ContentConformanceEngine {
     return {
       contentFiles: this.contentFiles,
       dataFiles: this.dataFiles,
+      config: rule.config,
       report(message: string, file?: ContentConformanceFile, node?: Node) {
         if (file) {
           const fileMessage = file.message(message, node, rule.id)

@@ -19,7 +19,7 @@ $ hc-content [options] [path/to/file] [path/to/file]
 
 Options:
   --cwd
-  --config ./path/to/conformance.config.js
+  --config ./path/to/conformance.config.mjs
 ```
 
 ### JavaScript
@@ -44,7 +44,7 @@ main()
 
 ## Configuration
 
-On its own, the content conformance system does not know where the files to be checked are located, or what rules should be used. To configure the checker, we create a `content-conformance.config.js` file located in your project's root directory.
+On its own, the content conformance system does not know where the files to be checked are located, or what rules should be used. To configure the checker, we create a `content-conformance.config.mjs` file located in your project's root directory.
 
 ```js
 export default {
@@ -52,6 +52,23 @@ export default {
   contentFileGlobPattern: 'content/**/*.mdx',
   rules: {
     'no-h1': 'error',
+  },
+}
+```
+
+### Configuring rules
+
+Rules can be specified with differing severity to control the check's failure state. The valid values are: `error`, `warn`, or `off`. By default, errors will cause a run to fail, while warnings will not. Rules can also be turned off. Individual rules may also accept a configuration object. This configuration object is made available via the rule context that is passed into the executor functions.
+
+```js
+export default {
+  root: '.',
+  contentFileGlobPattern: 'content/**/*.mdx',
+  rules: {
+    'with-config': [
+      'error',
+      { message: 'this will be available as context.config.message' },
+    ],
   },
 }
 ```
