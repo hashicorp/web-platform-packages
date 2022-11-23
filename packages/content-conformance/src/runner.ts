@@ -12,11 +12,19 @@ interface RunnerOptions {
   files?: string[]
 }
 
+enum RunnerStatus {
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+  RUNNING = 'RUNNING',
+}
+
 /**
  * TODO: this will accept options that will eventually be passed as CLI args
  */
 export class ContentConformanceRunner {
   private opts: RunnerOptions
+
+  status?: keyof typeof RunnerStatus
 
   config?: ContentConformanceConfig
 
@@ -51,7 +59,15 @@ export class ContentConformanceRunner {
   }
 
   async run() {
-    return this.engine?.execute()
+    if (this.status === RunnerStatus.RUNNING) return
+
+    this.status = RunnerStatus.RUNNING
+    try {
+      await this.engine?.execute()
+      this.status = RunnerStatus.SUCCESS
+    } catch {
+      this.status = RunnerStatus.FAILURE
+    }
   }
 
   /**
