@@ -93,12 +93,7 @@ describe('ContentConformanceRunner', () => {
 
     await runner.run()
 
-    expect(await runner.report()).toMatchInlineSnapshot(`
-      "content/has-frontmatter.mdx: no issues found
-      content/index.mdx: no issues found
-      content/no-h1.mdx: no issues found
-      content/nested/nested.mdx: no issues found"
-    `)
+    expect(await runner.report()).toMatchInlineSnapshot(`""`)
   })
 
   test('reads rule severity level from config', async () => {
@@ -127,6 +122,32 @@ describe('ContentConformanceRunner', () => {
            1:1-1:9  warning  Level 1 headings are not allowed                     local-no-h1
 
       4 messages (✖ 1 error, ⚠ 3 warnings)"
+    `)
+  })
+
+  test('passes rule config via context', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      config: './content-conformance-rule-config.config.js',
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "content/has-frontmatter.mdx
+        12:1-12:11  error  Level 1 headings are not allowed, This came from config  with-config
+
+      content/index.mdx
+           1:1-1:8  error  Level 1 headings are not allowed, This came from config  with-config
+
+      content/nested/nested.mdx
+           1:1-1:9  error  Level 1 headings are not allowed, This came from config  with-config
+
+      ✖ 3 errors"
     `)
   })
 })
