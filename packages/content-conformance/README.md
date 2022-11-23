@@ -19,7 +19,7 @@ $ hc-content [options] [path/to/file] [path/to/file]
 
 Options:
   --cwd
-  --config ./path/to/conformance.config.js
+  --config ./path/to/conformance.config.mjs
 ```
 
 ### JavaScript
@@ -44,7 +44,7 @@ main()
 
 ## Configuration
 
-On its own, the content conformance system does not know where the files to be checked are located, or what rules should be used. To configure the checker, we create a `content-conformance.config.js` file located in your project's root directory.
+On its own, the content conformance system does not know where the files to be checked are located, or what rules should be used. To configure the checker, we create a `content-conformance.config.mjs` file located in your project's root directory.
 
 ```js
 export default {
