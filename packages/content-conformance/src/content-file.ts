@@ -10,6 +10,10 @@ import type { Visitor } from 'unist-util-visit'
 import type { Test } from 'unist-util-is'
 import type { Node } from 'unist'
 
+interface ContentFileOpts {
+  partialsDirectory?: string
+}
+
 /**
  * Represents a file with content that is processed by our content workflows (today: MDX)
  *
@@ -21,9 +25,16 @@ import type { Node } from 'unist'
 export class ContentFile extends VFile {
   __type = 'content' as const
 
-  constructor(value: Compatible) {
+  isPartial = false
+
+  constructor(value: Compatible, opts?: ContentFileOpts) {
     super(value)
     this.parseFrontmatter()
+
+    // If a partialsDirectory is provided, check if the file is in the directory
+    if (value?.path && opts?.partialsDirectory) {
+      this.isPartial = value.path.startsWith(opts.partialsDirectory)
+    }
   }
 
   private _tree?: Readonly<Node>

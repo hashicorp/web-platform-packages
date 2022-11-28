@@ -16,6 +16,7 @@ const ContentConformanceConfigRule = RuleLevels.or(
 const ContentConformanceConfig = z.object({
   root: z.string(),
   contentFileGlobPattern: z.string(),
+  partialsDirectory: z.string().optional(),
   dataFileGlobPattern: z.string().optional(),
   presets: z.array(z.string()).optional(),
   rules: z.record(ContentConformanceConfigRule).optional(),
@@ -63,6 +64,10 @@ export async function loadConfig({
   const config = ContentConformanceConfig.parse(importedConfig)
 
   config.root = resolveConfigRoot(config.root, cwd)
+
+  if (!config.partialsDirectory) {
+    config.partialsDirectory = 'content/partials'
+  }
 
   return config
 }
