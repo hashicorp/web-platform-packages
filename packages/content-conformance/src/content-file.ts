@@ -1,4 +1,4 @@
-import { VFile, type Compatible } from 'vfile'
+import { VFile, type Compatible, type Options } from 'vfile'
 import { matter } from 'vfile-matter'
 import { LineCounter as YamlLineCounter } from 'yaml'
 import remark from 'remark'
@@ -25,6 +25,9 @@ interface ContentFileOpts {
 export class ContentFile extends VFile {
   __type = 'content' as const
 
+  /**
+   * Determines if a file is a "partial" that is included in other content files. Rules can use this to change behavior.
+   */
   isPartial = false
 
   constructor(value: Compatible, opts?: ContentFileOpts) {
@@ -32,8 +35,10 @@ export class ContentFile extends VFile {
     this.parseFrontmatter()
 
     // If a partialsDirectory is provided, check if the file is in the directory
-    if (value?.path && opts?.partialsDirectory) {
-      this.isPartial = value.path.startsWith(opts.partialsDirectory)
+    if ((value as Options)?.path && opts?.partialsDirectory) {
+      this.isPartial = String((value as Options).path).startsWith(
+        opts.partialsDirectory
+      )
     }
   }
 
