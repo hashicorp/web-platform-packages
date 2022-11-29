@@ -18,6 +18,7 @@ describe('loadConfig', () => {
         "./rules/must-have-h1": "error",
       }
     `)
+    expect(config.partialsDirectory).toEqual('content/partials')
   })
 
   test('throws when no config file is found', async () => {
@@ -30,7 +31,7 @@ describe('loadConfig', () => {
     ).rejects.toThrowError('Config file not found')
   })
 
-  test('throws when no config file is found', async () => {
+  test('throws when an invalid config file is found', async () => {
     const fixturePath = getFixturePath('invalid-config')
 
     await expect(
