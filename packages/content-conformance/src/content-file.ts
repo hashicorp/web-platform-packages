@@ -1,4 +1,4 @@
-import { VFile, type Compatible } from 'vfile'
+import { VFile, type Compatible, type Options } from 'vfile'
 import { matter } from 'vfile-matter'
 import { LineCounter as YamlLineCounter } from 'yaml'
 import remark from 'remark'
@@ -9,6 +9,10 @@ import { visit as unistVisit } from 'unist-util-visit'
 import type { Visitor } from 'unist-util-visit'
 import type { Test } from 'unist-util-is'
 import type { Node } from 'unist'
+
+interface ContentFileOpts {
+  partialsDirectory?: string
+}
 
 /**
  * Represents a file with content that is processed by our content workflows (today: MDX)
@@ -21,9 +25,21 @@ import type { Node } from 'unist'
 export class ContentFile extends VFile {
   __type = 'content' as const
 
-  constructor(value: Compatible) {
+  /**
+   * Determines if a file is a "partial" that is included in other content files. Rules can use this to change behavior.
+   */
+  isPartial = false
+
+  constructor(value: Compatible, opts?: ContentFileOpts) {
     super(value)
     this.parseFrontmatter()
+
+    // If a partialsDirectory is provided, check if the file is in the directory
+    if ((value as Options)?.path && opts?.partialsDirectory) {
+      this.isPartial = String((value as Options).path).startsWith(
+        opts.partialsDirectory
+      )
+    }
   }
 
   private _tree?: Readonly<Node>

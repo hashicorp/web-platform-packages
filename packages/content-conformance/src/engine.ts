@@ -85,11 +85,15 @@ export class ContentConformanceEngine {
       const fullPath = path.join(this.opts.root, String(filepath))
       const contents = await fs.promises.readFile(fullPath, 'utf-8')
 
-      const file = new ContentFile({
-        cwd: this.opts.root,
-        path: String(filepath),
-        value: contents,
-      })
+      const file = new ContentFile(
+        {
+          cwd: this.opts.root,
+          path: String(filepath),
+          value: contents,
+        },
+        { partialsDirectory: this.opts.partialsDirectory }
+      )
+
       this.contentFiles.push(file)
     }
   }
