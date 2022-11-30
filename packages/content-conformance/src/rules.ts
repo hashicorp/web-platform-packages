@@ -1,6 +1,13 @@
 import url from 'url'
 import path from 'path'
+import { lintRule } from 'unified-lint-rule'
 import { loadModuleFromFilePath } from './utils.js'
+import type { LoadedConformanceRule } from './types.js'
+import type {
+  ContentConformanceConfig,
+  RuleConfig,
+  RuleLevels,
+} from './config.js'
 
 const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
@@ -13,13 +20,16 @@ const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
  * - Can be local to project being checked
  * - Can be external (remark-link plugins?)
  */
-export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
+export async function loadRules(
+  rules: Pick<ContentConformanceConfig, 'rules'>,
+  cwd: string = process.cwd()
+): Promise<LoadedConformanceRule[]> {
   // TODO: validate rule structure?
 
   const loadedRules = []
 
   for (const [ruleNameOrPath, ruleSettings] of Object.entries(rules)) {
-    let level
+    let level: RuleLevels = 'error'
     let ruleConfig
 
     if (typeof ruleSettings === 'string') {
@@ -34,27 +44,56 @@ export async function loadRules(rules: $TSFixMe, cwd: string = process.cwd()) {
       // don't load the rule if it's set to "off"
       continue
     }
-    // TODO: pass "warn" and "error" levels along so the reporter can know
-    // how to report a default warning or fatal error
-
-    loadedRules.push(loadRule(ruleNameOrPath, { ruleConfig, cwd }))
+    loadedRules.push(
+      loadRule(ruleNameOrPath, {
+        level,
+        ruleConfig,
+        cwd,
+      })
+    )
   }
 
   // TODO: how do we pass a rule's configuration along?
-  return Promise.all(loadedRules)
+  return (await Promise.all(loadedRules)).filter(
+    Boolean
+  ) as LoadedConformanceRule[]
 }
 
 export async function loadRule(
   ruleNameOrPath: string,
   {
+    level,
     ruleConfig,
     cwd = process.cwd(),
   }: {
-    ruleConfig?: unknown
+    level: RuleLevels
+    ruleConfig?: RuleConfig
     cwd?: string
-  } = {}
-) {
+  }
+): Promise<LoadedConformanceRule | undefined> {
   let rule
+
+  /**
+   * If the rule name starts with remark-lint-, we assume it's a remark-lint rule and attempt to load the module and convert it to our rule format.
+   */
+  if (ruleNameOrPath.startsWith('remark-lint-')) {
+    try {
+      const { default: remarkLintRule } = await import(ruleNameOrPath)
+
+      rule = convertRemarkLintRule(remarkLintRule, level, ruleConfig)
+
+      return rule
+    } catch (error: any) {
+      if (error.message.includes('Cannot find module')) {
+        console.error(
+          `[content-conformance] error loading remark-lint rule: ${ruleNameOrPath}. Is it installed?
+
+  npm install --save-dev ${ruleNameOrPath}`
+        )
+      }
+      return
+    }
+  }
 
   // internal rule
   try {
@@ -115,6 +154,47 @@ export async function loadRule(
     // local rule - relative not found
   }
 
+  // ensure the rule severity level and any rule config get included so we can reference it when reporting
+  rule.level = level
+  rule.config = ruleConfig
+
   // TODO: handle unable to load rule
   return rule
+}
+
+/**
+ * Converts a remark-lint rule created using `unified-lint-rule` into the rule format expected by our system.
+ */
+export function convertRemarkLintRule(
+  rule: ReturnType<typeof lintRule>,
+  level: RuleLevels,
+  ruleConfig?: RuleConfig
+): LoadedConformanceRule | undefined {
+  /**
+   * remark-lint rules are effectively remark/unified plugins that accept a specific config/options format. Here we are unwrapping the plugin method by passing it the proper config.
+   */
+  // @ts-expect-error - I think the types are off here from the unified packages, this does work.
+  const ruleFn = rule([level, ruleConfig])
+
+  if (!ruleFn) {
+    console.warn(`unable to convert remark-lint rule: ${rule.name}`)
+    return
+  }
+
+  const convertedRule: LoadedConformanceRule = {
+    level,
+    type: 'content',
+    id: rule.name,
+    description: '',
+    executor: {
+      async contentFile(file) {
+        /**
+         * The rule function accepts a tree, a file, and a callback. By convention remark-lint rules already handle attaching messages, so there's nothing else we need to do here to handle proper reporting.
+         */
+        ruleFn(file.tree(), file, () => void 0)
+      },
+    },
+  }
+
+  return convertedRule
 }
