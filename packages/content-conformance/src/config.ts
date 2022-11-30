@@ -5,6 +5,10 @@ import { loadModuleFromFilePath } from './utils.js'
 
 const CONFIG_FILE_NAME = 'content-conformance.config.mjs'
 
+const CONFIG_DEFAULTS = {
+  partialsDirectory: 'content/partials',
+}
+
 const RuleLevels = z.enum(['off', 'warn', 'error'])
 
 const RuleConfig = z.record(z.any())
@@ -65,11 +69,15 @@ export async function loadConfig({
 
   config.root = resolveConfigRoot(config.root, cwd)
 
-  if (!config.partialsDirectory) {
-    config.partialsDirectory = 'content/partials'
-  }
+  applyConfigDefaults(config)
 
   return config
+}
+
+function applyConfigDefaults(config: ContentConformanceConfig) {
+  if (!config.partialsDirectory) {
+    config.partialsDirectory = CONFIG_DEFAULTS.partialsDirectory
+  }
 }
 
 function resolveConfigRoot(rootValue: string, cwd: string) {
