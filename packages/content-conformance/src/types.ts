@@ -65,3 +65,9 @@ export interface ConformanceRuleExecutor {
   dataFile?(file: DataFile, context: ConformanceRuleContext): Promise<void>
   repository?(context: ConformanceRuleContent): Promise<void>
 }
+
+export enum RunnerStatus {
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+  RUNNING = 'RUNNING',
+}

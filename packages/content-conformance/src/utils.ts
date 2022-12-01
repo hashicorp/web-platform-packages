@@ -1,4 +1,6 @@
 import url from 'url'
+import { Statistics } from 'vfile-reporter/lib/index.js'
+import { RunnerStatus } from './types.js'
 
 /**
  * Helper method to handle loading an ESModule from a filepath.
@@ -16,4 +18,18 @@ export async function loadModuleFromFilePath(filepath: string) {
   }
 
   return import(fileImportPath)
+}
+
+export function getStatisticsStatus(
+  statistics: Statistics,
+  warnThreshold?: number
+) {
+  if (
+    statistics.fatal > 0 ||
+    (warnThreshold && statistics.warn >= warnThreshold)
+  ) {
+    return RunnerStatus.FAILURE
+  }
+
+  return RunnerStatus.SUCCESS
 }
