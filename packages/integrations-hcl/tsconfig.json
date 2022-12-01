@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "skipLibCheck": true
+  },
+  "include": ["./lib", "./schemas", "./index.ts"],
+  "exclude": [
+    "node_modules",
+    "**/__fixtures__/**/*",
+    "**/__tests__/**/*",
+    "./dist/**"
+  ]
+}
