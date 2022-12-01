@@ -1,5 +1,5 @@
 {
-  "name": "integrations-hcl",
+  "name": "@hashicorp/integrations-hcl",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
