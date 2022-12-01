@@ -1,18 +1,22 @@
 import report from 'vfile-reporter'
-import { statistics } from 'vfile-statistics'
+import { statistics, Statistics } from 'vfile-statistics'
 import path from 'path'
 
 import { ContentConformanceConfig, loadConfig } from './config.js'
 import { ContentConformanceEngine } from './engine.js'
 import { loadRules } from './rules.js'
-import { getStatisticsStatus } from './utils.js'
 import type { LoadedConformanceRule } from './types.js'
-import { RunnerStatus } from './types.js'
 
 interface RunnerOptions {
   cwd?: string
   config?: string
   files?: string[]
+}
+
+export enum RunnerStatus {
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+  RUNNING = 'RUNNING',
 }
 
 /**
@@ -55,6 +59,17 @@ export class ContentConformanceRunner {
     })
   }
 
+  getStatisticsStatus(statistics: Statistics, warnThreshold?: number) {
+    if (
+      statistics.fatal > 0 ||
+      (warnThreshold && statistics.warn >= warnThreshold)
+    ) {
+      return RunnerStatus.FAILURE
+    }
+
+    return RunnerStatus.SUCCESS
+  }
+
   /**
    * TODO: Determine best ways to surface warnThreshold to user & default warnThreshold
    */
@@ -75,7 +90,7 @@ export class ContentConformanceRunner {
      * check vFile-statistics for fatal messages, optionally pass in a warning count threshold
      * getStatisticsStatus(statistics, warnThreshold)
      */
-    this.status = getStatisticsStatus(_statistics)
+    this.status = this.getStatisticsStatus(_statistics)
   }
 
   /**
