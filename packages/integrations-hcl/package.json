@@ -1,9 +1,11 @@
 {
   "name": "@hashicorp/integrations-hcl",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {},
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hashicorp/web-platform-packages.git"

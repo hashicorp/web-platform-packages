@@ -1,5 +1,5 @@
 ---
-'@hashicorp/integrations-hcl': major
+'@hashicorp/integrations-hcl': minor
 ---
 
 Initial release
