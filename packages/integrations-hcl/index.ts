@@ -46,7 +46,7 @@ export default async function LoadFilesystemIntegration(
     apiIntegration.subdirectory || ''
   }`
   const metadataFilePath = `${repoRootDirectory}/metadata.hcl`
-  console.log(process.cwd()) // /Users/kevin/repos/web-platform-packages
+
   const fileContent = fs.readFileSync(metadataFilePath, 'utf8')
   const hclConfig = new HCL(fileContent, MetadataHCLSchema)
   if (!hclConfig.result.data) {
