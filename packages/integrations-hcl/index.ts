@@ -46,7 +46,7 @@ export default async function LoadFilesystemIntegration(
   // Parse out & validate the metadata.hcl file
   const repoRootDirectory = path.join(
     config.repo_path,
-    apiIntegration.subdirectory
+    apiIntegration.subdirectory || ''
   )
   const metadataFilePath = path.join(repoRootDirectory, 'metadata.hcl')
 
