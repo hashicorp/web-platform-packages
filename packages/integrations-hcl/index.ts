@@ -61,8 +61,7 @@ export default async function LoadFilesystemIntegration(
   let readmeContent: string | null = null
   if (hclIntegration.docs[0].process_docs) {
     const readmeFile = path.join(
-      config.repo_path,
-      apiIntegration.subdirectory || '',
+      repoRootDirectory,
       hclIntegration.docs[0].readme_location
     )
     readmeContent = fs.readFileSync(readmeFile, 'utf8')
