@@ -1,4 +1,7 @@
+import path from 'path'
 import url from 'url'
+
+const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
 /**
  * Helper method to handle loading an ESModule from a filepath.
@@ -16,4 +19,11 @@ export async function loadModuleFromFilePath(filepath: string) {
   }
 
   return import(fileImportPath)
+}
+
+/**
+ * Returns the path to a file in this package, relative to the package root.
+ */
+export function getPackageFilePath(filepath: string) {
+  return path.join(path.dirname(currentFilePath), filepath)
 }
