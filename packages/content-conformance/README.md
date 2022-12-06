@@ -89,7 +89,7 @@ export default {
 
 When using a preset, any properties defined in the consuming configuration will take precedence over the preset. Individual rule configuration from a preset is completely overwritten if present in the consuming configuration. In the above case, if `base-mdx` contains configuration for the `my-rule` rule, it would be replaced with `off`.
 
-Available presets can be found in the [./configs](./configs) directory.
+Available presets can be found in the [./src/configs](./src/configs) directory.
 
 ## Rules
 
