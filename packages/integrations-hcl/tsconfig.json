@@ -4,7 +4,9 @@
     "esModuleInterop": true,
     "outDir": "./dist",
     "declaration": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    // fix error TS1056: Accessors are only available when targeting ECMAScript 5 and higher.
+    "target": "ESNext"
   },
   "include": ["./lib", "./schemas", "./index.ts"],
   "exclude": [
