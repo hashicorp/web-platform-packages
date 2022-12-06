@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as fs from 'fs'
 
-import { fetchIntegration, Product } from './lib/api-client'
+import { IntegrationsAPI } from './lib/generated'
 
 import HCL from './lib/hcl'
 import MetadataHCLSchema from './schemas/metadata.hcl'
@@ -32,12 +32,18 @@ type Config = z.infer<typeof Config>
 export default async function LoadFilesystemIntegration(
   config: Config
 ): Promise<Integration> {
+  // Create the API client
+  const client = new IntegrationsAPI({
+    BASE: process.env.INPUT_INTEGRATIONS_API_BASE_URL,
+  })
+
   // Fetch the Integration from the API that we're looking to update
-  const identifier = config.identifier.split('/')
-  const integrationFetchResult = await fetchIntegration(
-    identifier[0] as Product,
-    identifier[1]
-  )
+  const [productSlug, integrationSlug] = config.identifier.split('/')
+  const integrationFetchResult =
+    await client.integrations.getProductsIntegrations1(
+      productSlug,
+      integrationSlug
+    )
   if (integrationFetchResult.meta.status_code != 200) {
     throw new Error(`Integration '${config.identifier}' not found.`)
   }
@@ -78,6 +84,7 @@ export default async function LoadFilesystemIntegration(
   // Return Integration with all defaults set
   return {
     id: apiIntegration.id,
+    // @ts-expect-error - we can ignore this Enum vs. String mismatch
     product: apiIntegration.product.slug,
     identifier: hclIntegration.identifier,
     name: hclIntegration.name,
