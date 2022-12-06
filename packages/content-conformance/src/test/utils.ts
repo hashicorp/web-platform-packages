@@ -82,7 +82,16 @@ export function testRule(
       }
     }
 
-    expect(() =>
+    // Handle the case where messages is empty, indicating we aren't expecting any messages to be reported.
+    if (testCase.messages.length === 0 && file.messages.length > 0) {
+      const err = new Error(`Expected no reported messages, but found:
+${file.messages.map(({ reason }) => `\t- ${reason}`).join('\n')}`)
+      err.stack = undefined
+
+      throw err
+    }
+
+    expect(() => {
       testCase.messages.every((message: string | RegExp) => {
         const match = file.messages.some((msg) => {
           if (typeof message === 'string') {
@@ -105,7 +114,7 @@ to contain message matching:
           throw err
         }
       })
-    ).not.toThrow()
+    }).not.toThrow()
   }
 
   for (const testCase of testCases) {
