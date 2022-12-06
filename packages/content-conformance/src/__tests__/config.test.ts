@@ -59,6 +59,17 @@ describe('loadConfig', () => {
     expect(config).toMatchObject(configPreset)
   })
 
+  test('it loads config presets without a local config file', async () => {
+    const fixturePath = getFixturePath('no-config-file')
+
+    const config = await loadConfig({
+      cwd: fixturePath,
+      pathToConfigOrPresetName: 'base-mdx',
+    })
+
+    expect(config.contentFileGlobPattern).toEqual('content/**/*.mdx')
+  })
+
   test('throws when no config file is found', async () => {
     const fixturePath = getFixturePath('no-config-file')
 

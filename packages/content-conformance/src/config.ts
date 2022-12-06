@@ -55,15 +55,14 @@ export async function loadConfig({
     configPath = path.resolve(cwd, pathToConfigOrPresetName)
   } else {
     configPath = await findUp(CONFIG_FILE_NAME, { cwd })
-  }
-
-  if (!configPath) {
-    throw new Error(
-      `[content-conformance] Config file not found: ${path.join(
-        cwd,
-        CONFIG_FILE_NAME
-      )}`
-    )
+    if (!configPath) {
+      throw new Error(
+        `[content-conformance] Config file not found: ${path.join(
+          cwd,
+          CONFIG_FILE_NAME
+        )}`
+      )
+    }
   }
 
   // If a config path is provided, but the resolved path doesn't exist, try and load an included preset in `./configs/`
