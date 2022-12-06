@@ -89,6 +89,8 @@ export default {
 
 When using a preset, any properties defined in the consuming configuration will take precedence over the preset. Individual rule configuration from a preset is completely overwritten if present in the consuming configuration. In the above case, if `base-mdx` contains configuration for the `my-rule` rule, it would be replaced with `off`.
 
+Available presets can be found in the `[./configs](./configs) directory.
+
 ## Rules
 
 The core value of the conformance checker lies in the rules that you configure. The core package ships with a number of rules and presets that can be used, and custom rules can also be created in your project. A rule is a JavaScript module that exports a specific object format.
