@@ -27,7 +27,7 @@ yargs(hideBin(process.argv)).command(
       type: 'array',
     },
   },
-  async function (argv): Promise<void> {
+  async (argv): Promise<void> => {
     const runner = new ContentConformanceRunner({
       cwd: argv.cwd,
       config: argv.config,
@@ -35,11 +35,8 @@ yargs(hideBin(process.argv)).command(
     })
 
     try {
+      console.log('Configuring content conformance runner...')
       await runner.init()
-
-      console.log(
-        chalk.bold.greenBright(`Running content conformance checks...`)
-      )
 
       if (!argv.files.length) return
 
@@ -52,6 +49,8 @@ yargs(hideBin(process.argv)).command(
       argv.files.forEach((file: string) => {
         console.log(chalk.whiteBright(`- ${file}`))
       })
+
+      console.log(chalk.cyanBright(`Config: ${runner.config}`))
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
@@ -60,6 +59,22 @@ yargs(hideBin(process.argv)).command(
       console.log(chalk.redBright(stack))
     }
 
-    console.log(chalk.cyanBright(`Config: ${runner.config}`))
+    try {
+      console.log('Running content conformance checks...')
+      await runner.run()
+
+      console.log(
+        chalk.bold.greenBright(`Check status: ${runner.status?.toLowerCase()}`)
+      )
+    } catch (error) {
+      let stack = 'Unknown Error'
+      if (error instanceof Error) stack = error?.stack ?? stack
+      else stack = String(error)
+
+      console.log(
+        chalk.redBright(`Check status: ${runner.status?.toLowerCase()}`)
+      )
+      console.log(chalk.redBright(stack))
+    }
   }
 ).argv
