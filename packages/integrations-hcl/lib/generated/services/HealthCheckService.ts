@@ -15,7 +15,7 @@ export class HealthCheckService {
    * @returns any OK
    * @throws ApiError
    */
-  public get(): CancelablePromise<{
+  public healthCheck(): CancelablePromise<{
     meta: Meta200
   }> {
     return this.httpRequest.request({

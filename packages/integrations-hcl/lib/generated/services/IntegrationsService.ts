@@ -19,7 +19,7 @@ export class IntegrationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrations(
+  public fetchIntegrations(
     product: string,
     limit?: string,
     after?: string
@@ -48,7 +48,7 @@ export class IntegrationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public postProductsIntegrations(
+  public createIntegration(
     product: string,
     requestBody?: {
       id?: string
@@ -92,7 +92,7 @@ export class IntegrationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrations1(
+  public fetchIntegration(
     product: string,
     integration: string
   ): CancelablePromise<{
@@ -121,7 +121,7 @@ export class IntegrationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public patchProductsIntegrations(
+  public updateIntegration(
     product: string,
     integration: string,
     requestBody?: {
@@ -166,7 +166,7 @@ export class IntegrationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsIntegrations(
+  public deleteIntegration(
     product: string,
     integration: string
   ): CancelablePromise<{

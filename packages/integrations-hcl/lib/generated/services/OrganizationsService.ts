@@ -18,7 +18,7 @@ export class OrganizationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getOrganizations(
+  public fetchOrganizations(
     limit?: string,
     after?: string
   ): CancelablePromise<{
@@ -42,7 +42,7 @@ export class OrganizationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public postOrganizations(requestBody?: { slug: string }): CancelablePromise<{
+  public createOrganization(requestBody?: { slug: string }): CancelablePromise<{
     meta: Meta200
     result: Organization
   }> {
@@ -65,7 +65,7 @@ export class OrganizationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getOrganizations1(organization: string): CancelablePromise<{
+  public fetchOrganization(organization: string): CancelablePromise<{
     meta: Meta200
     result: Organization
   }> {
@@ -88,7 +88,7 @@ export class OrganizationsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteOrganizations(organization: string): CancelablePromise<{
+  public deleteOrganization(organization: string): CancelablePromise<{
     meta: Meta200
   }> {
     return this.httpRequest.request({

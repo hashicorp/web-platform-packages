@@ -47,7 +47,7 @@ export class FlagsService {
    * @returns any OK
    * @throws ApiError
    */
-  public fetchAllFlags(
+  public fetchFlags(
     limit?: string,
     after?: string
   ): CancelablePromise<{

@@ -22,7 +22,7 @@ export class VariableGroupsService {
    * @returns any Created
    * @throws ApiError
    */
-  public postProductsIntegrationsReleasesComponentsVariableGroups(
+  public createVariableGroup(
     product: string,
     integration: string,
     release: string,
@@ -36,7 +36,7 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups',
       path: {
         product: product,
         integration: integration,
@@ -62,7 +62,7 @@ export class VariableGroupsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleasesComponentsVariableGroups(
+  public fetchVariableGroups(
     product: string,
     integration: string,
     release: string,
@@ -73,7 +73,7 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups',
       path: {
         product: product,
         integration: integration,
@@ -94,7 +94,7 @@ export class VariableGroupsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleasesComponentsVariableGroups1(
+  public fetchVariableGroup(
     product: string,
     integration: string,
     release: string,
@@ -106,7 +106,7 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}',
       path: {
         product: product,
         integration: integration,
@@ -131,7 +131,7 @@ export class VariableGroupsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsIntegrationsReleasesComponentsVariableGroups(
+  public deleteVariableGroup(
     product: string,
     integration: string,
     release: string,
@@ -142,7 +142,7 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}',
       path: {
         product: product,
         integration: integration,

@@ -20,7 +20,7 @@ export class ComponentsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsComponents(
+  public fetchComponents(
     product: string,
     limit?: string,
     after?: string
@@ -49,7 +49,7 @@ export class ComponentsService {
    * @returns any OK
    * @throws ApiError
    */
-  public postProductsComponents(
+  public createComponent(
     product: string,
     requestBody?: {
       id: string
@@ -84,7 +84,7 @@ export class ComponentsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsComponents1(
+  public fetchComponent(
     product: string,
     component: string
   ): CancelablePromise<{
@@ -113,7 +113,7 @@ export class ComponentsService {
    * @returns any OK
    * @throws ApiError
    */
-  public patchProductsComponents(
+  public updateComponent(
     product: string,
     component: string,
     requestBody?: {
@@ -149,7 +149,7 @@ export class ComponentsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsComponents(
+  public deleteComponent(
     product: string,
     component: string
   ): CancelablePromise<{

@@ -12,12 +12,14 @@ export class IntegrationReleaseComponentsService {
    * Get all components for a specific integration release
    * @param product
    * @param integration
+   * @param release
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleasesComponents(
+  public fetchReleaseComponents(
     product: string,
-    integration: string
+    integration: string,
+    release: string
   ): CancelablePromise<{
     meta: {
       status_code: 200
@@ -53,6 +55,7 @@ export class IntegrationReleaseComponentsService {
       path: {
         product: product,
         integration: integration,
+        release: release,
       },
     })
   }
@@ -62,13 +65,15 @@ export class IntegrationReleaseComponentsService {
    * Create a new component for a specific integration release.
    * @param product
    * @param integration
+   * @param release
    * @param requestBody
    * @returns any OK
    * @throws ApiError
    */
-  public postProductsIntegrationsReleasesComponents(
+  public createReleaseComponent(
     product: string,
     integration: string,
+    release: string,
     requestBody?: {
       component_id: string
       readme?: string
@@ -108,6 +113,7 @@ export class IntegrationReleaseComponentsService {
       path: {
         product: product,
         integration: integration,
+        release: release,
       },
       body: requestBody,
       mediaType: 'application/json',
@@ -122,13 +128,15 @@ export class IntegrationReleaseComponentsService {
    * Get a specific component for a specific integration release
    * @param product
    * @param integration
+   * @param release
    * @param component
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleasesComponents1(
+  public fetchReleaseComponent(
     product: string,
     integration: string,
+    release: string,
     component: string
   ): CancelablePromise<{
     meta: {
@@ -165,6 +173,7 @@ export class IntegrationReleaseComponentsService {
       path: {
         product: product,
         integration: integration,
+        release: release,
         component: component,
       },
       errors: {
@@ -178,14 +187,16 @@ export class IntegrationReleaseComponentsService {
    * Update a specific component for a specific integration release.
    * @param product
    * @param integration
+   * @param release
    * @param component
    * @param requestBody Patch Body
    * @returns any OK
    * @throws ApiError
    */
-  public patchProductsIntegrationsReleasesComponents(
+  public updateReleaseComponent(
     product: string,
     integration: string,
+    release: string,
     component: string,
     requestBody: {
       readme: string | null
@@ -225,6 +236,7 @@ export class IntegrationReleaseComponentsService {
       path: {
         product: product,
         integration: integration,
+        release: release,
         component: component,
       },
       body: requestBody,
@@ -240,13 +252,15 @@ export class IntegrationReleaseComponentsService {
    * Delete a specific component for a specific integration release.
    * @param product
    * @param integration
+   * @param release
    * @param component
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsIntegrationsReleasesComponents(
+  public deleteReleaseComponent(
     product: string,
     integration: string,
+    release: string,
     component: string
   ): CancelablePromise<{
     meta: {
@@ -283,6 +297,7 @@ export class IntegrationReleaseComponentsService {
       path: {
         product: product,
         integration: integration,
+        release: release,
         component: component,
       },
       errors: {

@@ -18,7 +18,7 @@ export class NotifyReleaseService {
    * @returns any OK
    * @throws ApiError
    */
-  public postProductsIntegrationsNotifyRelease(
+  public notifyRelease(
     product: string,
     integration: string,
     requestBody?: {

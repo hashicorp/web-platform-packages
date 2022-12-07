@@ -19,7 +19,7 @@ export class IntegrationReleasesService {
    * @returns any OK
    * @throws ApiError
    */
-  public postProductsIntegrationsReleases(
+  public createRelease(
     product: string,
     integration: string,
     requestBody?: {
@@ -55,7 +55,7 @@ export class IntegrationReleasesService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleases(
+  public fetchRelease(
     product: string,
     integration: string,
     release: string
@@ -87,7 +87,7 @@ export class IntegrationReleasesService {
    * @returns any OK
    * @throws ApiError
    */
-  public patchProductsIntegrationsReleases(
+  public updateRelease(
     product: string,
     integration: string,
     release: string,
@@ -124,7 +124,7 @@ export class IntegrationReleasesService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsIntegrationsReleases(
+  public deleteRelease(
     product: string,
     integration: string,
     release: string

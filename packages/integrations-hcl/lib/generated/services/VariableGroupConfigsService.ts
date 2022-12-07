@@ -19,7 +19,7 @@ export class VariableGroupConfigsService {
    * @returns any Created
    * @throws ApiError
    */
-  public postProductsVariableGroupConfigs(
+  public createVariableGroupConfig(
     product: string,
     requestBody?: {
       id: string
@@ -34,7 +34,7 @@ export class VariableGroupConfigsService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/variable_group_configs',
+      url: '/products/{product}/variable-group-configs',
       path: {
         product: product,
       },
@@ -56,7 +56,7 @@ export class VariableGroupConfigsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsVariableGroupConfigs(
+  public fetchVariableGroupConfigs(
     product: string,
     limit?: string,
     after?: string
@@ -66,7 +66,7 @@ export class VariableGroupConfigsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/variable_group_configs',
+      url: '/products/{product}/variable-group-configs',
       path: {
         product: product,
       },
@@ -85,7 +85,7 @@ export class VariableGroupConfigsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsVariableGroupConfigs1(
+  public fetchVariableGroupConfig(
     product: string,
     variableGroupConfig: string
   ): CancelablePromise<{
@@ -94,7 +94,7 @@ export class VariableGroupConfigsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/variable_group_configs/{variable_group_config}',
+      url: '/products/{product}/variable-group-configs/{variable_group_config}',
       path: {
         product: product,
         variable_group_config: variableGroupConfig,
@@ -114,7 +114,7 @@ export class VariableGroupConfigsService {
    * @returns any OK
    * @throws ApiError
    */
-  public patchProductsVariableGroupConfigs(
+  public updateVariableGroupConfig(
     product: string,
     variableGroupConfig: string,
     requestBody?: {
@@ -129,7 +129,7 @@ export class VariableGroupConfigsService {
   }> {
     return this.httpRequest.request({
       method: 'PATCH',
-      url: '/products/{product}/variable_group_configs/{variable_group_config}',
+      url: '/products/{product}/variable-group-configs/{variable_group_config}',
       path: {
         product: product,
         variable_group_config: variableGroupConfig,
@@ -151,7 +151,7 @@ export class VariableGroupConfigsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsVariableGroupConfigs(
+  public deleteVariableGroupConfig(
     product: string,
     variableGroupConfig: string
   ): CancelablePromise<{
@@ -159,7 +159,7 @@ export class VariableGroupConfigsService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/variable_group_configs/{variable_group_config}',
+      url: '/products/{product}/variable-group-configs/{variable_group_config}',
       path: {
         product: product,
         variable_group_config: variableGroupConfig,

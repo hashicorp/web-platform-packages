@@ -16,7 +16,7 @@ export class ProductsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProducts(): CancelablePromise<{
+  public fetchProducts(): CancelablePromise<{
     meta: Meta200
     result: Array<Product>
   }> {
@@ -33,7 +33,7 @@ export class ProductsService {
    * @returns any OK
    * @throws ApiError
    */
-  public postProducts(requestBody?: {
+  public createProduct(requestBody?: {
     id: string
     slug: string
     name: string
@@ -60,7 +60,7 @@ export class ProductsService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProducts1(product: string): CancelablePromise<{
+  public fetchProduct(product: string): CancelablePromise<{
     meta: Meta200
     result: Product
   }> {
@@ -84,7 +84,7 @@ export class ProductsService {
    * @returns any OK
    * @throws ApiError
    */
-  public patchProducts(
+  public updateProduct(
     product: string,
     requestBody?: {
       slug?: string
@@ -116,7 +116,7 @@ export class ProductsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProducts(product: string): CancelablePromise<{
+  public deleteProduct(product: string): CancelablePromise<{
     meta: Meta200
   }> {
     return this.httpRequest.request({

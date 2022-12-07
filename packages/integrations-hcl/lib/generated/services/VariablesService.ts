@@ -23,7 +23,7 @@ export class VariablesService {
    * @returns any Created
    * @throws ApiError
    */
-  public postProductsIntegrationsReleasesComponentsVariableGroupsVariables(
+  public createVariable(
     product: string,
     integration: string,
     release: string,
@@ -42,7 +42,7 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}/variables',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
       path: {
         product: product,
         integration: integration,
@@ -73,7 +73,7 @@ export class VariablesService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleasesComponentsVariableGroupsVariables(
+  public fetchVariables(
     product: string,
     integration: string,
     release: string,
@@ -94,7 +94,7 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: ' /products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}/variables',
+      url: ' /products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
       path: {
         product: product,
         integration: integration,
@@ -123,7 +123,7 @@ export class VariablesService {
    * @returns any OK
    * @throws ApiError
    */
-  public getProductsIntegrationsReleasesComponentsVariableGroupsVariables1(
+  public fetchVariable(
     product: string,
     integration: string,
     release: string,
@@ -136,7 +136,7 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: ' /products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}/variables/{variable}',
+      url: ' /products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
       path: {
         product: product,
         integration: integration,
@@ -159,16 +159,18 @@ export class VariablesService {
    * @param release
    * @param component
    * @param variableGroup
+   * @param variable
    * @param requestBody
    * @returns any OK
    * @throws ApiError
    */
-  public patchProductsIntegrationsReleasesComponentsVariableGroupsVariables(
+  public updateVariable(
     product: string,
     integration: string,
     release: string,
     component: string,
     variableGroup: string,
+    variable: string,
     requestBody?: {
       description?: string | null
       type?: string | null
@@ -181,13 +183,14 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'PATCH',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}/variables/{variable}',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
       path: {
         product: product,
         integration: integration,
         release: release,
         component: component,
         variable_group: variableGroup,
+        variable: variable,
       },
       body: requestBody,
       mediaType: 'application/json',
@@ -210,7 +213,7 @@ export class VariablesService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsIntegrationsReleasesComponentsVariableGroupsVariables(
+  public deleteVariable(
     product: string,
     integration: string,
     release: string,
@@ -222,7 +225,7 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable_groups/{variable_group}/variables/{variable}',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
       path: {
         product: product,
         integration: integration,

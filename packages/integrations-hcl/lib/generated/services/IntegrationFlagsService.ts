@@ -19,7 +19,7 @@ export class IntegrationFlagsService {
    * @returns any OK
    * @throws ApiError
    */
-  public postProductsIntegrationsFlags(
+  public createIntegrationFlag(
     product: string,
     integration: string,
     flag: string
@@ -51,7 +51,7 @@ export class IntegrationFlagsService {
    * @returns any OK
    * @throws ApiError
    */
-  public deleteProductsIntegrationsFlags(
+  public deleteIntegrationFlag(
     product: string,
     integration: string,
     flag: string
