@@ -1,6 +1,9 @@
 import path from 'path'
 import url from 'url'
 
+/**
+ * This is used to derive the current directory, as __dirname is not available in a native ESM environment.
+ */
 const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
 /**
