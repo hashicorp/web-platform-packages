@@ -36,7 +36,7 @@ export class ContentConformanceRunner {
   async init() {
     this.config = await loadConfig({
       cwd: this.opts.cwd!,
-      pathToConfig: this.opts.config,
+      pathToConfigOrPresetName: this.opts.config,
     })
 
     if (this.config.rules) {
