@@ -82,15 +82,14 @@ export class ContentConformanceRunner {
     this.status = RunnerStatus.RUNNING
     try {
       await this.engine?.execute()
+      /**
+       * check vFile-statistics for fatal messages, optionally pass in a warning count threshold
+       * getStatisticsStatus(statistics, warnThreshold)
+       */
+      this.status = this.getStatisticsStatus(_statistics)
     } catch {
       this.status = RunnerStatus.FAILURE
     }
-
-    /**
-     * check vFile-statistics for fatal messages, optionally pass in a warning count threshold
-     * getStatisticsStatus(statistics, warnThreshold)
-     */
-    this.status = this.getStatisticsStatus(_statistics)
   }
 
   /**
