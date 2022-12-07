@@ -1,3 +1,4 @@
+import { statistics, Statistics } from 'vfile-statistics'
 import path from 'path'
 
 import { ContentConformanceConfig, loadConfig } from './config.js'
@@ -14,11 +15,19 @@ interface RunnerOptions {
   reporter?: Reporter
 }
 
+export enum RunnerStatus {
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+  RUNNING = 'RUNNING',
+}
+
 /**
  * TODO: this will accept options that will eventually be passed as CLI args
  */
 export class ContentConformanceRunner {
   private opts: RunnerOptions
+
+  status?: keyof typeof RunnerStatus
 
   config?: ContentConformanceConfig
 
@@ -39,7 +48,7 @@ export class ContentConformanceRunner {
   async init() {
     this.config = await loadConfig({
       cwd: this.opts.cwd!,
-      pathToConfig: this.opts.config,
+      pathToConfigOrPresetName: this.opts.config,
     })
 
     if (this.config.rules) {
@@ -53,8 +62,37 @@ export class ContentConformanceRunner {
     })
   }
 
+  getStatisticsStatus(statistics: Statistics, warnThreshold?: number) {
+    if (
+      statistics.fatal > 0 ||
+      (warnThreshold && statistics.warn >= warnThreshold)
+    ) {
+      return RunnerStatus.FAILURE
+    }
+
+    return RunnerStatus.SUCCESS
+  }
+
+  /**
+   * TODO: Determine best ways to surface warnThreshold to user & default warnThreshold
+   */
   async run() {
-    return this.engine?.execute()
+    if (this.status === RunnerStatus.RUNNING) return null
+
+    // @ts-expect-error -- need to sort out VFile types here as well
+    const _statistics = statistics(this.engine?.files)
+
+    this.status = RunnerStatus.RUNNING
+    try {
+      await this.engine?.execute()
+      /**
+       * check vFile-statistics for fatal messages, optionally pass in a warning count threshold
+       * getStatisticsStatus(statistics, warnThreshold)
+       */
+      this.status = this.getStatisticsStatus(_statistics)
+    } catch {
+      this.status = RunnerStatus.FAILURE
+    }
   }
 
   /**
