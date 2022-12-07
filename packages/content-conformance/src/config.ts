@@ -107,22 +107,28 @@ async function resolveConfigPreset(
   { cwd }: { cwd: string }
 ) {
   if ('preset' in config) {
-    const loadedPreset = await loadConfig({
-      cwd,
-      pathToConfigOrPresetName: config.preset,
-      shouldValidateConfig: false,
-    })
+    try {
+      const loadedPreset = await loadConfig({
+        cwd,
+        pathToConfigOrPresetName: config.preset,
+        shouldValidateConfig: false,
+      })
 
-    const configWithPreset = {
-      ...loadedPreset,
-      ...config,
-      rules: {
-        ...loadedPreset.rules,
-        ...config.rules,
-      },
+      const configWithPreset = {
+        ...loadedPreset,
+        ...config,
+        rules: {
+          ...loadedPreset.rules,
+          ...config.rules,
+        },
+      }
+
+      return configWithPreset
+    } catch (error) {
+      throw new Error(
+        `[content-conformance] error loading preset ${config.preset}: ${error}`
+      )
     }
-
-    return configWithPreset
   }
 
   return config
