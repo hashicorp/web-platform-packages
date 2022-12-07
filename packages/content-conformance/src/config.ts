@@ -1,7 +1,8 @@
 import z from 'zod'
 import { findUp } from 'find-up'
 import path from 'path'
-import { loadModuleFromFilePath } from './utils.js'
+import fs from 'fs'
+import { loadModuleFromFilePath, getPackageFilePath } from './utils.js'
 
 const CONFIG_FILE_NAME = 'content-conformance.config.mjs'
 
@@ -19,6 +20,7 @@ const ContentConformanceConfigRule = RuleLevels.or(
 
 const ContentConformanceConfig = z.object({
   root: z.string(),
+  preset: z.string().optional(),
   contentFileGlobPattern: z.string(),
   partialsDirectory: z.string().optional(),
   dataFileGlobPattern: z.string().optional(),
@@ -41,35 +43,48 @@ export type ContentConformanceConfigRule = z.infer<
  */
 export async function loadConfig({
   cwd = process.cwd(),
-  pathToConfig,
+  pathToConfigOrPresetName,
+  shouldValidateConfig = true,
 }: {
   cwd: string
-  pathToConfig?: string
+  pathToConfigOrPresetName?: string
+  shouldValidateConfig?: boolean
 }): Promise<ContentConformanceConfig> {
   let configPath
-  if (pathToConfig) {
-    configPath = path.resolve(cwd, pathToConfig)
+  if (pathToConfigOrPresetName) {
+    configPath = path.resolve(cwd, pathToConfigOrPresetName)
   } else {
     configPath = await findUp(CONFIG_FILE_NAME, { cwd })
+    if (!configPath) {
+      throw new Error(
+        `[content-conformance] Config file not found: ${path.join(
+          cwd,
+          CONFIG_FILE_NAME
+        )}`
+      )
+    }
   }
 
-  if (!configPath) {
-    throw new Error(
-      `[content-conformance] Config file not found: ${path.join(
-        cwd,
-        CONFIG_FILE_NAME
-      )}`
-    )
+  // If a config path is provided, but the resolved path doesn't exist, try and load an included preset in `./configs/`
+  if (!fs.existsSync(configPath) && pathToConfigOrPresetName) {
+    configPath = getPackageFilePath(`configs/${pathToConfigOrPresetName}.js`)
   }
 
   const importedConfig = (await loadModuleFromFilePath(configPath)).default
 
-  // TODO: catch here and return meaningful error? Maybe use parseSafe instead
-  const config = ContentConformanceConfig.parse(importedConfig)
+  // If the config has specified a preset, load it and merge the configs
+  let config = await resolveConfigPreset(importedConfig, { cwd })
+
+  if (shouldValidateConfig) {
+    // TODO: catch here and return meaningful error? Maybe use parseSafe instead
+    config = ContentConformanceConfig.parse(config)
+  }
 
   config.root = resolveConfigRoot(config.root, cwd)
 
   applyConfigDefaults(config)
+
+  console.log(`[content-conformance] loaded config from ${configPath}`)
 
   return config
 }
@@ -82,4 +97,39 @@ function applyConfigDefaults(config: ContentConformanceConfig) {
 
 function resolveConfigRoot(rootValue: string, cwd: string) {
   return path.resolve(cwd, rootValue)
+}
+
+/**
+ * Attempts to load a preset, if `config.preset` is defined, and merge them. The loaded config takes precedence over the preset.
+ */
+async function resolveConfigPreset(
+  config: ContentConformanceConfig,
+  { cwd }: { cwd: string }
+) {
+  if ('preset' in config) {
+    try {
+      const loadedPreset = await loadConfig({
+        cwd,
+        pathToConfigOrPresetName: config.preset,
+        shouldValidateConfig: false,
+      })
+
+      const configWithPreset = {
+        ...loadedPreset,
+        ...config,
+        rules: {
+          ...loadedPreset.rules,
+          ...config.rules,
+        },
+      }
+
+      return configWithPreset
+    } catch (error) {
+      throw new Error(
+        `[content-conformance] error loading preset ${config.preset}: ${error}`
+      )
+    }
+  }
+
+  return config
 }
