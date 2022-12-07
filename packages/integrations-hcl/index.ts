@@ -39,11 +39,10 @@ export default async function LoadFilesystemIntegration(
 
   // Fetch the Integration from the API that we're looking to update
   const [productSlug, integrationSlug] = config.identifier.split('/')
-  const integrationFetchResult =
-    await client.integrations.getProductsIntegrations1(
-      productSlug,
-      integrationSlug
-    )
+  const integrationFetchResult = await client.integrations.fetchIntegration(
+    productSlug,
+    integrationSlug
+  )
   if (integrationFetchResult.meta.status_code != 200) {
     throw new Error(`Integration '${config.identifier}' not found.`)
   }
