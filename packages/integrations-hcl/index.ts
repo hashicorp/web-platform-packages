@@ -1,10 +1,11 @@
 import * as path from 'path'
 import * as fs from 'fs'
 
-import { IntegrationsAPI } from './lib/generated'
+import { IntegrationsAPI, VariableGroupConfig } from './lib/generated'
 
 import HCL from './lib/hcl'
 import MetadataHCLSchema from './schemas/metadata.hcl'
+import { getVariablesSchema } from './schemas/variables.hcl'
 import { Component, Docs, Integration, License } from './schemas/integration'
 
 import { z } from 'zod'
@@ -16,19 +17,6 @@ const Config = z.object({
 })
 type Config = z.infer<typeof Config>
 
-/**
- * @usage
- * ```typescript
- * async function consumeIntegrationRelease() {
- *   const fsIntegration = await LoadFilesystemIntegration({
- *     identifier: process.env.INPUT_INTEGRATION_IDENTIFIER,
- *     repo_path: process.env.INPUT_INTEGRATION_REPO_PATH,
- *     version: process.env.INPUT_INTEGRATION_VERSION,
- *   })
- * // ...
- * ```
- *
- */
 export default async function LoadFilesystemIntegration(
   config: Config
 ): Promise<Integration> {
@@ -39,13 +27,13 @@ export default async function LoadFilesystemIntegration(
 
   // Fetch the Integration from the API that we're looking to update
   const [productSlug, integrationSlug] = config.identifier.split('/')
-  const integrationFetchResult = await client.integrations.fetchIntegration(
-    productSlug,
-    integrationSlug
-  )
-  if (integrationFetchResult.meta.status_code != 200) {
-    throw new Error(`Integration '${config.identifier}' not found.`)
-  }
+  const integrationFetchResult = await client.integrations
+    .fetchIntegration(productSlug, integrationSlug)
+    .catch((err) => {
+      console.error(err)
+      throw new Error(`Integration '${config.identifier}' not found.`)
+    })
+
   const apiIntegration = integrationFetchResult.result
 
   // Parse out & validate the metadata.hcl file
@@ -72,11 +60,23 @@ export default async function LoadFilesystemIntegration(
     readmeContent = fs.readFileSync(readmeFile, 'utf8')
   }
 
+  // Load the Products VariableGroupConfigs so we can load any component variables
+  const variableGroupConfigs = await client.variableGroupConfigs
+    .fetchVariableGroupConfigs(apiIntegration.product.slug, '100')
+    .catch((err) => {
+      console.error(err)
+      throw new Error(`Failed to load 'variable_group' configs`)
+    })
+
   // Calculate each Component object
   const allComponents: Array<Component> = []
   for (let i = 0; i < hclIntegration.components.length; i++) {
     allComponents.push(
-      await loadComponent(repoRootDirectory, hclIntegration.components[i])
+      await loadComponent(
+        repoRootDirectory,
+        hclIntegration.components[i],
+        variableGroupConfigs.result
+      )
     )
   }
 
@@ -102,7 +102,8 @@ export default async function LoadFilesystemIntegration(
 
 async function loadComponent(
   repoRootDirectory: string,
-  componentSlug: string
+  componentSlug: string,
+  variableGroupConfigs: Array<VariableGroupConfig>
 ): Promise<Component> {
   const componentReadmeFile = `${repoRootDirectory}/components/${componentSlug}/README.md`
   let readmeContent: string | null = null
@@ -111,8 +112,49 @@ async function loadComponent(
   } catch (err) {
     // No issue, there's just no README, which is OK!
   }
+
+  // Go through each VariableGroupConfig to try see if we need to load them
+  const variableGroups /**@todo Type Me */ = []
+
+  for (let i = 0; i < variableGroupConfigs.length; i++) {
+    const variableGroupConfig = variableGroupConfigs[i]
+    const variableGroupFile = `${repoRootDirectory}/components/${componentSlug}/${variableGroupConfig.filename}`
+    if (fs.existsSync(variableGroupFile)) {
+      // Load & Validate the Variable Files (parameters.hcl, outputs.hcl, etc.)
+      const fileContent = fs.readFileSync(variableGroupFile, 'utf8')
+      const hclConfig = new HCL(
+        fileContent,
+        getVariablesSchema(variableGroupConfig.stanza)
+      )
+      if (!hclConfig.result.data) {
+        throw new Error(hclConfig.result.error.message)
+      }
+
+      // Map the HCL File variable configuration to the Variable defaults
+      const variables /** @todo Type Me */ = hclConfig.result.data[
+        variableGroupConfig.stanza
+      ].map((v) => {
+        return {
+          key: v.key,
+          description: v.description ? v.description : null,
+          type: v.type ? v.type : null,
+          required: typeof v.required != 'undefined' ? v.required : null,
+          default_value: v.default_value ? v.default_value : null,
+        }
+      })
+      variableGroups.push({
+        variable_group_config_id: variableGroupConfig.id,
+        variables,
+      })
+    } else {
+      console.warn(`Variable Group File '${variableGroupFile}' not found.`)
+    }
+  }
+
   return {
     slug: componentSlug,
     readme: readmeContent,
+    // @ts-expect-error - TODO: Type Me
+    variable_groups: variableGroups,
   }
 }
