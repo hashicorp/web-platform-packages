@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "skipLibCheck": true,
+    // fix error TS1056: Accessors are only available when targeting ECMAScript 5 and higher.
+    "target": "ESNext"
+  },
+  "include": ["./lib", "./schemas", "./index.ts"],
+  "exclude": [
+    "node_modules",
+    "**/__fixtures__/**/*",
+    "**/__tests__/**/*",
+    "./dist/**"
+  ]
+}
