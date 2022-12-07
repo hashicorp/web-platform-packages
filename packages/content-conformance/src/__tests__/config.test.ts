@@ -70,6 +70,18 @@ describe('loadConfig', () => {
     expect(config.contentFileGlobPattern).toEqual('content/**/*.mdx')
   })
 
+  test('throws when invalid preset is specified', async () => {
+    const fixturePath = getFixturePath('invalid-config')
+
+    await expect(
+      loadConfig({
+        cwd: fixturePath,
+        pathToConfigOrPresetName:
+          'content-conformance-invalid-preset.config.js',
+      })
+    ).rejects.toThrowError('error loading preset')
+  })
+
   test('throws when no config file is found', async () => {
     const fixturePath = getFixturePath('no-config-file')
 
