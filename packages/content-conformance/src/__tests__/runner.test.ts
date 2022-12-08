@@ -150,4 +150,71 @@ describe('ContentConformanceRunner', () => {
       ✖ 3 errors"
     `)
   })
+
+  test('json reporter', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      reporter: 'json',
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    // parsing the JSON so we can inspect the format
+    const parsedReport = JSON.parse(await runner.report())
+
+    expect(parsedReport).toHaveLength(4)
+
+    expect(
+      parsedReport.map(({ path, messages }) => ({
+        path,
+        messages: messages.map(({ reason, ruleId }) => ({
+          reason,
+          ruleId,
+        })),
+      }))
+    ).toMatchInlineSnapshot(`
+      [
+        {
+          "messages": [
+            {
+              "reason": "Level 1 headings are not allowed",
+              "ruleId": "local-no-h1",
+            },
+          ],
+          "path": "content/has-frontmatter.mdx",
+        },
+        {
+          "messages": [
+            {
+              "reason": "Level 1 headings are not allowed",
+              "ruleId": "local-no-h1",
+            },
+          ],
+          "path": "content/index.mdx",
+        },
+        {
+          "messages": [
+            {
+              "reason": "Must have a level 1 heading at the top of the file.",
+              "ruleId": "must-have-h1",
+            },
+          ],
+          "path": "content/no-h1.mdx",
+        },
+        {
+          "messages": [
+            {
+              "reason": "Level 1 headings are not allowed",
+              "ruleId": "local-no-h1",
+            },
+          ],
+          "path": "content/nested/nested.mdx",
+        },
+      ]
+    `)
+  })
 })

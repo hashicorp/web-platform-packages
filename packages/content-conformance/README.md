@@ -42,6 +42,13 @@ async function main() {
 main()
 ```
 
+#### Options
+
+- `cwd` (string) - Specify the working directory where the content checks will be run. Defaults to `process.cwd()`.
+- `config` (string) - Specify a path to a custom configuration file. If not provided, defaults to `{cwd}/content-conformance.config.mjs`.
+- `files` (string[]) - Specify a list of filenames to match against when running checks. Acts as a filter. If not specified, all files matching the patterns provided in your configuration will be checked.
+- `reporter` (string) - Specify the reporter type to use when calling `runner.report()`. Can be `text`, `json`, or `markdown`. Defaults to `text`.
+
 ## Configuration
 
 On its own, the content conformance system does not know where the files to be checked are located, or what rules should be used. To configure the checker, we create a `content-conformance.config.mjs` file located in your project's root directory.
