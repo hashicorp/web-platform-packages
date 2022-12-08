@@ -94,7 +94,7 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: ' /products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
+      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
       path: {
         product: product,
         integration: integration,

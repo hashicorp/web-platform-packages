@@ -44,8 +44,28 @@ export class IntegrationReleaseComponentsService {
         id: string
         created_at: string
         updated_at: string
-        variable_group_config_id: string
         integration_release_component_id: string
+        variable_group_config: {
+          id: string
+          created_at: string
+          updated_at: string
+          product_id: string
+          name: string
+          filename: string
+          stanza: string
+          display_order: number
+        }
+        variables: Array<{
+          id: string
+          created_at: string
+          updated_at: string
+          variable_group_id: string
+          key: string
+          description: string | null
+          type: string | null
+          required: boolean | null
+          default_value: string | null
+        }>
       }>
     }>
   }> {
@@ -83,7 +103,7 @@ export class IntegrationReleaseComponentsService {
       status_code: 200
       status_text: 'OK'
     }
-    result: Array<{
+    result: {
       id: string
       created_at: string
       updated_at: string
@@ -102,10 +122,30 @@ export class IntegrationReleaseComponentsService {
         id: string
         created_at: string
         updated_at: string
-        variable_group_config_id: string
         integration_release_component_id: string
+        variable_group_config: {
+          id: string
+          created_at: string
+          updated_at: string
+          product_id: string
+          name: string
+          filename: string
+          stanza: string
+          display_order: number
+        }
+        variables: Array<{
+          id: string
+          created_at: string
+          updated_at: string
+          variable_group_id: string
+          key: string
+          description: string | null
+          type: string | null
+          required: boolean | null
+          default_value: string | null
+        }>
       }>
-    }>
+    }
   }> {
     return this.httpRequest.request({
       method: 'POST',
@@ -162,8 +202,28 @@ export class IntegrationReleaseComponentsService {
         id: string
         created_at: string
         updated_at: string
-        variable_group_config_id: string
         integration_release_component_id: string
+        variable_group_config: {
+          id: string
+          created_at: string
+          updated_at: string
+          product_id: string
+          name: string
+          filename: string
+          stanza: string
+          display_order: number
+        }
+        variables: Array<{
+          id: string
+          created_at: string
+          updated_at: string
+          variable_group_id: string
+          key: string
+          description: string | null
+          type: string | null
+          required: boolean | null
+          default_value: string | null
+        }>
       }>
     }
   }> {
@@ -225,8 +285,28 @@ export class IntegrationReleaseComponentsService {
         id: string
         created_at: string
         updated_at: string
-        variable_group_config_id: string
         integration_release_component_id: string
+        variable_group_config: {
+          id: string
+          created_at: string
+          updated_at: string
+          product_id: string
+          name: string
+          filename: string
+          stanza: string
+          display_order: number
+        }
+        variables: Array<{
+          id: string
+          created_at: string
+          updated_at: string
+          variable_group_id: string
+          key: string
+          description: string | null
+          type: string | null
+          required: boolean | null
+          default_value: string | null
+        }>
       }>
     }
   }> {
@@ -286,8 +366,28 @@ export class IntegrationReleaseComponentsService {
         id: string
         created_at: string
         updated_at: string
-        variable_group_config_id: string
         integration_release_component_id: string
+        variable_group_config: {
+          id: string
+          created_at: string
+          updated_at: string
+          product_id: string
+          name: string
+          filename: string
+          stanza: string
+          display_order: number
+        }
+        variables: Array<{
+          id: string
+          created_at: string
+          updated_at: string
+          variable_group_id: string
+          key: string
+          description: string | null
+          type: string | null
+          required: boolean | null
+          default_value: string | null
+        }>
       }>
     }
   }> {
