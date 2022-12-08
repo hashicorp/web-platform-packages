@@ -1,0 +1,30 @@
+{
+  "name": "@hashicorp/integrations-hcl",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hashicorp/web-platform-packages.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hashicorp/web-platform-packages/issues"
+  },
+  "homepage": "https://github.com/hashicorp/web-platform-packages#readme",
+  "dependencies": {
+    "@vercel/fetch": "^6.2.0",
+    "hcl2-parser": "^1.0.3",
+    "node-fetch": "^2.6.7",
+    "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "nock": "^13.2.9",
+    "typescript": "^4.9.3"
+  }
+}
