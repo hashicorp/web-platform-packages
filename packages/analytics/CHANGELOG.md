@@ -1,5 +1,33 @@
 # @hashicorp/platform-analytics
 
+## 0.10.0
+
+### Minor Changes
+
+- [#104](https://github.com/hashicorp/web-platform-packages/pull/104) [`eae4733`](https://github.com/hashicorp/web-platform-packages/commit/eae4733754d1d7ba00bfcc26addb09954214d503) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds a few helper methods for working with segment's `window.analytics` API: `track()`, `getSegment()`, and `isAnalyticsMethodAvailable()`.
+
+### Patch Changes
+
+- [#106](https://github.com/hashicorp/web-platform-packages/pull/106) [`3b5a7ff`](https://github.com/hashicorp/web-platform-packages/commit/3b5a7ffd9cdb7b0a4f2514e066209bbe93f16fa9) Thanks [@BRKalow](https://github.com/BRKalow)! - Use proper typeof check
+
+## 0.9.0
+
+### Minor Changes
+
+- [#100](https://github.com/hashicorp/web-platform-packages/pull/100) [`d6b3f48`](https://github.com/hashicorp/web-platform-packages/commit/d6b3f482d44b02a58c80cb0c077d7c00473c25a3) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add hcp product intent check
+
+## 0.8.0
+
+### Minor Changes
+
+- [#96](https://github.com/hashicorp/web-platform-packages/pull/96) [`4db223f`](https://github.com/hashicorp/web-platform-packages/commit/4db223fdc485f4deffbfe38694a78fbb61467739) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add check for external link functionality
+
+## 0.7.0
+
+### Minor Changes
+
+- [#90](https://github.com/hashicorp/web-platform-packages/pull/90) [`139cea1`](https://github.com/hashicorp/web-platform-packages/commit/139cea110a78b6449c20069bc911dbbb5e25e2b1) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - adds optional callback to handler
+
 ## 0.6.1
 
 ### Patch Changes

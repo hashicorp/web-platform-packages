@@ -68,3 +68,11 @@ $ hc-tools rewrite-internal-redirects <product>
 ```
 
 Detects and rewrites links which point at redirects defined in a `redirects.js` file in the current working directory. Redirects are assumed to be defined for a Next.js application.
+
+### `capture-build-metrics`
+
+```shell
+$ hc-tools capture-build-metrics <appName>
+```
+
+Captures the build metrics emitted by Next during the build process and sends them to Datadog. `appName` should be the name of the repo.

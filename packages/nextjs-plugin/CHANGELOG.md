@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 4.0.0
+
+### Major Changes
+
+- [#112](https://github.com/hashicorp/web-platform-packages/pull/112) [`5210854`](https://github.com/hashicorp/web-platform-packages/commit/5210854f24e94b7b5b0ea148c5d87605b28e8950) Thanks [@dstaley](https://github.com/dstaley)! - Add support for Next v13
+
 ## 3.1.0
 
 ### Minor Changes

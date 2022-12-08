@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-const { getProductIntentFromURL } = require('./')
+import { getProductIntentFromURL } from '.'
 
 describe('getProductIntentFromURL', () => {
   let originalLocation
@@ -49,5 +49,16 @@ describe('getProductIntentFromURL', () => {
         'https://learn.hashicorp.com/collections/packer/cloud-production'
       )
     ).toBe('packer')
+  })
+
+  it('handles HCP urls', () => {
+    expect(getProductIntentFromURL('https://developer.hashicorp.com/hcp')).toBe(
+      'hcp'
+    )
+    expect(
+      getProductIntentFromURL(
+        'https://developer.hashicorp.com/hcp/docs/terraform'
+      )
+    ).toBe('terraform')
   })
 })

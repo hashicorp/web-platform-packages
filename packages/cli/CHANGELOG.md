@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.4.0
+
+### Minor Changes
+
+- [#92](https://github.com/hashicorp/web-platform-packages/pull/92) [`0f67c05`](https://github.com/hashicorp/web-platform-packages/commit/0f67c05fc1c8f8cc1af2c26510883d5985be613d) Thanks [@BRKalow](https://github.com/BRKalow)! - Updates eslint-config-next to the latest version.
+
 ## 2.3.0
 
 ### Minor Changes
