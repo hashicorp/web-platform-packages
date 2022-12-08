@@ -61,6 +61,14 @@ $ hc-tools next-build-webpack-only
 
 Executes `next build` and short-circuits the process before static generation occurs. Helpful for more performant builds if all we care about is the compilation output (for bundle analysis, for example).
 
+### `rewrite-internal-redirects`
+
+```shell
+$ hc-tools rewrite-internal-redirects <product>
+```
+
+Detects and rewrites links which point at redirects defined in a `redirects.js` file in the current working directory. Redirects are assumed to be defined for a Next.js application.
+
 ### `capture-build-metrics`
 
 ```shell

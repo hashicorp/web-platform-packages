@@ -104,6 +104,7 @@ async function main() {
   await script(...rest)
 }
 
-main().catch(() => {
+main().catch((err) => {
+  console.error(`encountered an error:`, err)
   process.exit(1)
 })
