@@ -5,7 +5,7 @@ import { ContentFile } from '../content-file.js'
 import { DataFile } from '../data-file.js'
 import { ConformanceRuleBase, ConformanceRuleContext } from '../types.js'
 
-const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
+export const currentFilePath = url.fileURLToPath(new URL(import.meta.url))
 
 export function getFixturePath(fixtureName: string) {
   return path.join(
