@@ -217,4 +217,53 @@ describe('ContentConformanceRunner', () => {
       ]
     `)
   })
+
+  test('markdown reporter', async () => {
+    const fixturePath = getFixturePath('basic-with-content-files')
+
+    const runner = new ContentConformanceRunner({
+      cwd: fixturePath,
+      reporter: 'markdown',
+    })
+
+    await runner.init()
+
+    await runner.run()
+
+    expect(await runner.report()).toMatchInlineSnapshot(`
+      "### 📄 Content Checks
+
+      Updated: Date
+
+      <details><summary> Found 4 error(s)</summary>
+
+      #### \`content/has-frontmatter.mdx\`
+
+      | Position | Description | Rule |
+      |---|---|---|
+      |\`12:1-12:11\`|Level 1 headings are not allowed|[\`local-no-h1\`](#TODO)|
+
+      #### \`content/index.mdx\`
+
+      | Position | Description | Rule |
+      |---|---|---|
+      |\`1:1-1:8\`|Level 1 headings are not allowed|[\`local-no-h1\`](#TODO)|
+
+      #### \`content/no-h1.mdx\`
+
+      | Position | Description | Rule |
+      |---|---|---|
+      |\`1:1-1:27\`|Must have a level 1 heading at the top of the file.|[\`must-have-h1\`](#TODO)|
+
+      #### \`content/nested/nested.mdx\`
+
+      | Position | Description | Rule |
+      |---|---|---|
+      |\`1:1-1:9\`|Level 1 headings are not allowed|[\`local-no-h1\`](#TODO)|
+
+      _Looking for more information? Check out the [content checks README](#TODO)_
+
+      </details>"
+    `)
+  })
 })

@@ -19,6 +19,7 @@
     "remark": "12.0.1",
     "remark-mdx": "^1.6.22",
     "unified-lint-rule": "^2.1.1",
+    "unist-util-stringify-position": "^3.0.2",
     "unist-util-visit": "^4.1.1",
     "vfile": "^5.3.6",
     "vfile-matter": "^4.0.0",

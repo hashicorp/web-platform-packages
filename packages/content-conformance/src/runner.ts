@@ -107,8 +107,10 @@ export class ContentConformanceRunner {
 
     switch (this.opts.reporter) {
       case 'markdown': {
-        // TODO: used for constructing a GitHub markdown comment
-        throw new Error('not implemented!')
+        const report = (await import('./reporters/markdown-reporter.js'))
+          .markdownReporter
+
+        return report(this.engine.files)
       }
       case 'json': {
         const report = (await import('vfile-reporter-json')).default
