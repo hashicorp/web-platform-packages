@@ -24,7 +24,7 @@ export default async function LoadFilesystemIntegration(
   const client = new IntegrationsAPI({
     BASE: process.env.INPUT_INTEGRATIONS_API_BASE_URL,
   })
-
+  console.log('Loading Integration from Filesystem: ', config)
   // Fetch the Integration from the API that we're looking to update
   const [productSlug, integrationSlug] = config.identifier.split('/')
   const integrationFetchResult = await client.integrations
@@ -35,13 +35,17 @@ export default async function LoadFilesystemIntegration(
     })
 
   const apiIntegration = integrationFetchResult.result
+  console.log({ apiIntegration })
 
   // Parse out & validate the metadata.hcl file
   const repoRootDirectory = path.join(
     config.repo_path,
     apiIntegration.subdirectory || ''
   )
+  console.log({ repoRootDirectory })
+
   const metadataFilePath = path.join(repoRootDirectory, 'metadata.hcl')
+  console.log({ metadataFilePath })
 
   const fileContent = fs.readFileSync(metadataFilePath, 'utf8')
   const hclConfig = new HCL(fileContent, MetadataHCLSchema)
@@ -53,11 +57,15 @@ export default async function LoadFilesystemIntegration(
   // Read the README
   let readmeContent: string | null = null
   if (hclIntegration.docs[0].process_docs) {
+    console.log('...processing docs...')
     const readmeFile = path.join(
       repoRootDirectory,
       hclIntegration.docs[0].readme_location
     )
+    console.log({ readmeFile })
     readmeContent = fs.readFileSync(readmeFile, 'utf8')
+  } else {
+    console.log('...process_docs is false, skipping README processing...')
   }
 
   // Load the Products VariableGroupConfigs so we can load any component variables
@@ -106,6 +114,7 @@ async function loadComponent(
   variableGroupConfigs: Array<VariableGroupConfig>
 ): Promise<Component> {
   const componentReadmeFile = `${repoRootDirectory}/components/${componentSlug}/README.md`
+  console.log({ componentReadmeFile })
   let readmeContent: string | null = null
   try {
     readmeContent = fs.readFileSync(componentReadmeFile, 'utf8')
