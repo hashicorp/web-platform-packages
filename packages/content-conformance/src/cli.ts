@@ -34,9 +34,11 @@ yargs(hideBin(process.argv)).command(
 
     try {
       console.log('Configuring content conformance runner...')
+      console.log('')
 
       await runner.init()
 
+      console.log('')
       console.log(
         chalk.bold.green(
           `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
@@ -44,27 +46,31 @@ yargs(hideBin(process.argv)).command(
       )
 
       argv.files.forEach((file: string) => {
-        console.log(chalk.whiteBright(`- ${file}`), '\n')
+        console.log(chalk.whiteBright(`- ${file}`))
       })
 
+      console.log('')
       console.log('Running content conformance checks...')
+      console.log('')
+
       await runner.run()
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
       else stack = String(error)
 
+      console.log('')
       console.log(chalk.redBright(stack))
     }
 
     try {
       const report = await runner.report()
+
       console.log('')
       console.log(
         chalk.green('Status: '),
         chalk.bold.green(runner.status?.toLowerCase())
       )
-      console.log('')
       console.log(chalk.bold(report))
     } catch (error) {
       let stack = 'Unknown Error'
@@ -74,6 +80,7 @@ yargs(hideBin(process.argv)).command(
       console.log(
         chalk.redBright(`Check status: ${runner.status?.toLowerCase()}`)
       )
+      console.log('')
       console.log(chalk.redBright(stack))
     }
   }

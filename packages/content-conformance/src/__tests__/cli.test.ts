@@ -29,6 +29,7 @@ describe('Content-conformance CLI', () => {
 
     expect(res).toMatchInlineSnapshot(`
 "Configuring content conformance runner...
+
 [content-conformance] loaded config from /Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files/content-conformance.config.mjs
 {
   root: '/Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files',
@@ -54,13 +55,68 @@ describe('Content-conformance CLI', () => {
   partialsDirectory: 'content/partials',
   files: [ 'has-frontmatter.mdx' ]
 }
+
 Included file:
-- ./has-frontmatter.mdx 
+- ./has-frontmatter.mdx
 
 Running content conformance checks...
 
+
 Status:  success
 
+"
+`)
+  })
+
+  test('Successful run with multiple content files and default config', () => {
+    const res = execCli(
+      'content-check',
+      '--cwd',
+      `${baseFixturePath}`,
+      '--files',
+      './has-frontmatter.mdx',
+      './index.mdx',
+      './no-h1.mdx'
+    )
+
+    expect(res).toMatchInlineSnapshot(`
+"Configuring content conformance runner...
+
+[content-conformance] loaded config from /Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files/content-conformance.config.mjs
+{
+  root: '/Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files',
+  contentFileGlobPattern: 'content/**/*.mdx',
+  rules: [
+    {
+      type: 'content',
+      id: 'local-no-h1',
+      description: 'Do not allow use of level 1 headings',
+      executor: [Object],
+      level: 'error',
+      config: undefined
+    },
+    {
+      type: 'content',
+      id: 'must-have-h1',
+      description: 'Each content file must contain an H1 the top.',
+      executor: [Object],
+      level: 'error',
+      config: undefined
+    }
+  ],
+  partialsDirectory: 'content/partials',
+  files: [ 'has-frontmatter.mdx', 'index.mdx', 'no-h1.mdx' ]
+}
+
+Included files:
+- ./has-frontmatter.mdx
+- ./index.mdx
+- ./no-h1.mdx
+
+Running content conformance checks...
+
+
+Status:  success
 
 "
 `)
@@ -71,6 +127,7 @@ Status:  success
 
     expect(res).toMatchInlineSnapshot(`
 "Configuring content conformance runner...
+
 [content-conformance] loaded config from /Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files/content-conformance.config.mjs
 {
   root: '/Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files',
@@ -96,11 +153,13 @@ Status:  success
   partialsDirectory: 'content/partials',
   files: []
 }
+
 Included file:
+
 Running content conformance checks...
 
-Status:  success
 
+Status:  success
 content/has-frontmatter.mdx
   12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
 
@@ -131,6 +190,7 @@ content/nested/nested.mdx
 
     expect(res).toMatchInlineSnapshot(`
 "Configuring content conformance runner...
+
 [content-conformance] loaded config from /Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files/content-conformance-severity.config.js
 {
   root: '/Users/nickayres/Repos/web-platform-packages/packages/content-conformance/src/__tests__/__fixtures__/basic-with-content-files',
@@ -156,13 +216,14 @@ content/nested/nested.mdx
   partialsDirectory: 'content/partials',
   files: [ 'no-h1.mdx' ]
 }
+
 Included file:
-- ./no-h1.mdx 
+- ./no-h1.mdx
 
 Running content conformance checks...
 
-Status:  success
 
+Status:  success
 
 "
 `)
