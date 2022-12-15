@@ -62,7 +62,6 @@ Included file:
 Running content conformance checks...
 
 Status:  success
-
 "
 `)
   })
@@ -115,7 +114,6 @@ Included files:
 Running content conformance checks...
 
 Status:  success
-
 "
 `)
   })
@@ -218,7 +216,6 @@ Included file:
 Running content conformance checks...
 
 Status:  success
-
 "
 `)
   })

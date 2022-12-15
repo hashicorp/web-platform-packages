@@ -71,7 +71,8 @@ yargs(hideBin(process.argv)).command(
         chalk.green('Status: '),
         chalk.bold.green(runner.status?.toLowerCase())
       )
-      console.log(chalk.bold(report))
+
+      if (report.length) console.log(chalk.bold(report))
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
