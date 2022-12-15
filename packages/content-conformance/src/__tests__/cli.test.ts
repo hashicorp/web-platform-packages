@@ -61,7 +61,6 @@ Included file:
 
 Running content conformance checks...
 
-
 Status:  success
 
 "
@@ -115,7 +114,6 @@ Included files:
 
 Running content conformance checks...
 
-
 Status:  success
 
 "
@@ -154,10 +152,7 @@ Status:  success
   files: []
 }
 
-Included file:
-
 Running content conformance checks...
-
 
 Status:  success
 content/has-frontmatter.mdx
@@ -221,7 +216,6 @@ Included file:
 - ./no-h1.mdx
 
 Running content conformance checks...
-
 
 Status:  success
 

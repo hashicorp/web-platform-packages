@@ -38,16 +38,17 @@ yargs(hideBin(process.argv)).command(
 
       await runner.init()
 
-      console.log('')
-      console.log(
-        chalk.bold.green(
-          `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
+      if (argv.files.length) {
+        console.log('')
+        console.log(
+          chalk.bold.green(
+            `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
+          )
         )
-      )
-
-      argv.files.forEach((file: string) => {
-        console.log(chalk.whiteBright(`- ${file}`))
-      })
+        argv.files.forEach((file: string) => {
+          console.log(chalk.whiteBright(`- ${file}`))
+        })
+      }
 
       console.log('')
       console.log('Running content conformance checks...')
@@ -66,7 +67,6 @@ yargs(hideBin(process.argv)).command(
     try {
       const report = await runner.report()
 
-      console.log('')
       console.log(
         chalk.green('Status: '),
         chalk.bold.green(runner.status?.toLowerCase())
