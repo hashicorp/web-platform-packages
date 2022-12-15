@@ -19,7 +19,13 @@ function execCli(...args: string[]) {
 
 describe('Content-conformance CLI', () => {
   test('Successful run with content file and default config', () => {
-    const res = execCli('content-check', '--cwd', `${baseFixturePath}`)
+    const res = execCli(
+      'content-check',
+      '--cwd',
+      `${baseFixturePath}`,
+      '--files',
+      './has-frontmatter.mdx'
+    )
 
     expect(res).toMatchInlineSnapshot(`
 "Configuring content conformance runner...
@@ -46,26 +52,16 @@ describe('Content-conformance CLI', () => {
     }
   ],
   partialsDirectory: 'content/partials',
-  files: []
+  files: [ 'has-frontmatter.mdx' ]
 }
 Included file:
+- ./has-frontmatter.mdx 
+
 Running content conformance checks...
 
 Status:  success
 
-content/has-frontmatter.mdx
-  12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
 
-content/index.mdx
-     1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
-
-content/no-h1.mdx
-    1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
-
-content/nested/nested.mdx
-     1:1-1:9  error  Level 1 headings are not allowed                     local-no-h1
-
-✖ 4 errors
 "
 `)
   })
