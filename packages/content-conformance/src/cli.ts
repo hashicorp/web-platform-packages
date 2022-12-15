@@ -13,12 +13,10 @@ yargs(hideBin(process.argv)).command(
   {
     cwd: {
       description: 'Current working directory',
-      default: undefined,
       type: 'string',
     },
     config: {
       description: 'Path to config file',
-      default: undefined,
       type: 'string',
     },
     files: {
@@ -36,9 +34,8 @@ yargs(hideBin(process.argv)).command(
 
     try {
       console.log('Configuring content conformance runner...')
-      await runner.init()
 
-      if (!argv.files.length) return
+      await runner.init()
 
       console.log(
         chalk.bold.green(
@@ -47,10 +44,11 @@ yargs(hideBin(process.argv)).command(
       )
 
       argv.files.forEach((file: string) => {
-        console.log(chalk.whiteBright(`- ${file}`))
+        console.log(chalk.whiteBright(`- ${file}`), '\n')
       })
 
-      console.log(chalk.cyanBright(`Config: ${runner.config}`))
+      console.log('Running content conformance checks...')
+      await runner.run()
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
@@ -60,12 +58,14 @@ yargs(hideBin(process.argv)).command(
     }
 
     try {
-      console.log('Running content conformance checks...')
-      await runner.run()
-
+      const report = await runner.report()
+      console.log('')
       console.log(
-        chalk.bold.greenBright(`Check status: ${runner.status?.toLowerCase()}`)
+        chalk.green('Status: '),
+        chalk.bold.green(runner.status?.toLowerCase())
       )
+      console.log('')
+      console.log(chalk.bold(report))
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
