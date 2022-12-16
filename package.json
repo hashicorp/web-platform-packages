@@ -44,9 +44,9 @@
     "release": "npm run build && changeset publish",
     "release:canary": "npm run build && changeset publish --tag canary",
     "test:esm": "TEST_ESM=true NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:esm:watch": "npm run test:esm --watch",
+    "test:esm:watch": "npm run test:esm -- --watch",
     "test:cjs": "jest",
-    "test:cjs:watch": "npm run test:cjs --watch",
+    "test:cjs:watch": "npm run test:cjs -- --watch",
     "test": "npm run test:cjs && npm run test:esm",
     "prepare": "simple-git-hooks"
   },
