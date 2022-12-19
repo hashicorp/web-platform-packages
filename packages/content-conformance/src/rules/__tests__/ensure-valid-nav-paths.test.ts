@@ -60,7 +60,6 @@ describe('ensure-valid-nav-paths', () => {
           'NavData path (upgrading) is missing a corresponding file in the content directory',
         ],
         contentFiles: [
-          // { path: 'content/docs/upgrading/index.mdx' },
           { path: 'content/docs/upgrading/compatibility.mdx' },
           { path: 'content/docs/upgrading/version-guides/index.mdx' },
           { path: 'content/docs/upgrading/version-guides/0.10.0.mdx' },
