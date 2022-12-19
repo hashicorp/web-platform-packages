@@ -8,5 +8,6 @@ export default {
       { requiredKeys: ['page_title', 'description'] },
     ],
     'ensure-valid-nav-data': 'error',
+    'ensure-valid-nav-paths': 'error',
   },
 }
