@@ -1,6 +1,8 @@
 import flat from 'flat'
 
-// Recursively traverse json nav data, and validate node paths against flat list of files from context
+// flatten navData json object and visit all paths (keys that end with ".path")
+//
+// ensure a <path>.mdx or <path>/index.mdx exists, but not both
 function visitor(navData, filePaths, report) {
   // flatten nav data file
   const flatNodes = flat(navData)
