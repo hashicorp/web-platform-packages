@@ -79,16 +79,16 @@ export class ContentConformanceRunner {
   async run() {
     if (this.status === RunnerStatus.RUNNING) return null
 
-    // @ts-expect-error -- need to sort out VFile types here as well
-    const _statistics = statistics(this.engine?.files)
-
     this.status = RunnerStatus.RUNNING
     try {
       await this.engine?.execute()
+
       /**
        * check vFile-statistics for fatal messages, optionally pass in a warning count threshold
        * getStatisticsStatus(statistics, warnThreshold)
        */
+      // @ts-expect-error -- need to sort out VFile types here as well
+      const _statistics = statistics(this.engine?.files)
       this.status = this.getStatisticsStatus(_statistics)
     } catch {
       this.status = RunnerStatus.FAILURE
