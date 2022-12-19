@@ -52,10 +52,10 @@ export function markdownReporter(files: VFile[] /* sha?: string */) {
 
   // Footnote
   // TODO: link to a README
-  lines.push(
-    '_Looking for more information? Check out the [content checks README](#TODO)_',
-    ''
-  )
+//  lines.push(
+//    '_Looking for more information? Check out the [content checks README](#TODO)_',
+//    ''
+//  )
 
   // Details footer
   lines.push('</details>')
