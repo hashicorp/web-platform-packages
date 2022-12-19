@@ -1,4 +1,5 @@
 import report from 'vfile-reporter'
+import { ContentFile } from '../content-file'
 import { ContentConformanceEngine } from '../engine'
 import { getFixturePath } from '../test/utils'
 
@@ -105,6 +106,42 @@ describe('ContentConformanceEngine', () => {
            1:1-1:9  warning  Level 1 headings are not allowed         no-h1
 
       ⚠ 6 warnings"
+    `)
+  })
+
+  // This snapshot test is mostly for visibility into the context
+  test('context accumulates content files', async () => {
+    const filePaths: Set<ContentFile> = new Set()
+    const opts = {
+      root: getFixturePath('basic-with-content-files'),
+      contentFileGlobPattern: 'content/**/*.mdx',
+      rules: [
+        {
+          level: 'warn' as const,
+          type: 'content' as const,
+          id: 'fake-rule-for-visiting-all-files',
+          description: 'This is a fake rule for testing purposes',
+          executor: {
+            async contentFile(file, context) {
+              // accumulate files for assertion
+              context.contentFiles.forEach((f) => filePaths.add(f.path))
+            },
+          },
+        },
+      ],
+    }
+
+    const engine = new ContentConformanceEngine(opts)
+
+    await engine.execute()
+
+    expect(filePaths).toMatchInlineSnapshot(`
+      Set {
+        "content/has-frontmatter.mdx",
+        "content/index.mdx",
+        "content/no-h1.mdx",
+        "content/nested/nested.mdx",
+      }
     `)
   })
 })
