@@ -44,7 +44,7 @@ export function markdownReporter(files: VFile[] /* sha?: string */) {
       columns.push(message.reason)
 
       // TODO: link to descriptive page for the rule
-      columns.push(`[\`${message.ruleId}\`](#TODO)`)
+      columns.push(`\`${message.ruleId}\``)
 
       lines.push(`|${columns.join('|')}|`, '')
     })
