@@ -26,7 +26,7 @@ function visitor(navData, filePaths, report, folder) {
           ` ` +
           `A nav data path (${p}) was found, but is missing a corresponding file in the website content directory.` +
           ` ` +
-          `Please ensure that a (${folder}${namedFile}) or (${folder}${indexFile}) file exist.`
+          `Please ensure that a (${folder}${namedFile}) or (${folder}${indexFile}) file exists.`
       )
     }
 

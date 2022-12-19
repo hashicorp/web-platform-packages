@@ -79,7 +79,7 @@ describe('ensure-valid-nav-paths', () => {
           ]),
         },
         messages: [
-          'Failed to ensure valid nav paths exist. A nav data path (upgrading) was found, but is missing a corresponding file in the website content directory. Please ensure that a (content/docs/upgrading.mdx) or (content/docs/upgrading/index.mdx) file exist.',
+          'Failed to ensure valid nav paths exist. A nav data path (upgrading) was found, but is missing a corresponding file in the website content directory. Please ensure that a (content/docs/upgrading.mdx) or (content/docs/upgrading/index.mdx) file exists.',
         ],
         contentFiles: [
           { path: 'content/docs/upgrading/compatibility.mdx' },
