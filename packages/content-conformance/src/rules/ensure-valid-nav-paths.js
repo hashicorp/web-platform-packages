@@ -3,7 +3,7 @@ import flat from 'flat'
 // flatten navData json object and visit all paths (keys that end with ".path")
 //
 // ensure a <path>.mdx or <path>/index.mdx exists, but not both
-function visitor(navData, filePaths, report) {
+function visitor(navData, filePaths, report, folder) {
   // flatten nav data file
   const flatNodes = flat(navData)
   // get all the paths from the nav data file
@@ -22,13 +22,21 @@ function visitor(navData, filePaths, report) {
 
     if (!namedFileExists && !indexFileExists) {
       report(
-        `NavData path (${p}) is missing a corresponding file in the content directory`
+        `Failed to ensure valid nav paths exist.` +
+          ` ` +
+          `A nav data path (${p}) was found, but is missing a corresponding file in the website content directory.` +
+          ` ` +
+          `Please ensure that a (${folder}${namedFile}) or (${folder}${indexFile}) file exist.`
       )
     }
 
     if (namedFileExists && indexFileExists) {
       report(
-        `NavData path (${p}) should not have both a named file and an index file in the content directory`
+        `Failed to ensure valid nav paths exist.` +
+          ` ` +
+          `Both a named file (${folder}${namedFile}) and an index file (${folder}${indexFile}) were detected for a single nav data path (${p}) in the website content directory` +
+          ` ` +
+          `Please ensure only one exists.`
       )
     }
   })
@@ -54,16 +62,23 @@ export default {
 
       const report = (message) => context.report(message, file)
 
+      // for error logging purposes
+      let contentDirMatch
+      let subpathMatch
+
       // get all the paths of files in the {contentDir} directory under the {subpath}
       const fsPaths = context.contentFiles.map((e) => {
         let pathParts = e.path.split('/')
         // drop the first segment, (contentDir)
+        contentDirMatch ??= pathParts[0]
         pathParts = pathParts.slice(1)
 
         let path = pathParts.join('/')
         if (!subpathRE.test(path)) {
           return false
         }
+
+        subpathMatch ??= path.match(subpathRE)[0]
 
         // drop the subpath because navData paths
         // are relative to the subpath, which is part of the
@@ -72,7 +87,7 @@ export default {
         return path
       })
 
-      visitor(navData, fsPaths, report)
+      visitor(navData, fsPaths, report, contentDirMatch + '/' + subpathMatch)
     },
   },
 }
