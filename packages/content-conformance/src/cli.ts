@@ -13,12 +13,10 @@ yargs(hideBin(process.argv)).command(
   {
     cwd: {
       description: 'Current working directory',
-      default: undefined,
       type: 'string',
     },
     config: {
       description: 'Path to config file',
-      default: undefined,
       type: 'string',
     },
     files: {
@@ -36,36 +34,47 @@ yargs(hideBin(process.argv)).command(
 
     try {
       console.log('Configuring content conformance runner...')
+
       await runner.init()
 
-      if (!argv.files.length) return
-
-      console.log(
-        chalk.bold.green(
-          `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
+      if (argv.files.length) {
+        console.log('')
+        console.log(
+          chalk.bold.green(
+            `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
+          )
         )
-      )
+        argv.files.forEach((file: string) => {
+          console.log(chalk.whiteBright(`- ${file}`))
+        })
+      }
 
-      argv.files.forEach((file: string) => {
-        console.log(chalk.whiteBright(`- ${file}`))
-      })
+      console.log('')
+      console.log('Running content conformance checks...')
+      console.log('')
 
-      console.log(chalk.cyanBright(`Config: ${runner.config}`))
+      await runner.run()
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
       else stack = String(error)
 
+      console.log('')
       console.log(chalk.redBright(stack))
     }
 
     try {
-      console.log('Running content conformance checks...')
-      await runner.run()
+      const report = await runner.report()
 
       console.log(
-        chalk.bold.greenBright(`Check status: ${runner.status?.toLowerCase()}`)
+        chalk.bold('Status: '),
+        chalk.bold.green(runner.status?.toLowerCase())
       )
+
+      if (report.length) {
+        console.log('')
+        console.log(chalk.red(report))
+      }
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack
@@ -74,6 +83,7 @@ yargs(hideBin(process.argv)).command(
       console.log(
         chalk.redBright(`Check status: ${runner.status?.toLowerCase()}`)
       )
+      console.log('')
       console.log(chalk.redBright(stack))
     }
   }

@@ -33,8 +33,6 @@ export class ContentConformanceEngine {
 
   constructor(opts: ContentConformanceEngineOptions) {
     const { rules, ...restOpts } = opts
-    console.log(opts)
-
     this.opts = restOpts
     this.rules = opts.rules ?? []
   }
