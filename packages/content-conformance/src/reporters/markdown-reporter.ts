@@ -2,16 +2,13 @@ import { stringifyPosition } from 'unist-util-stringify-position'
 import { VFile } from 'vfile'
 import { statistics, VFileMessage } from 'vfile-statistics'
 
-export function markdownReporter(files: VFile[] /* sha?: string */) {
+export function markdownReporter(files: VFile[]) {
   // @ts-expect-error - something is wrong with the VFile type used in vfile-statistics
   const stats = statistics(files)
 
   const lines = ['### 📄 Content Checks', '']
 
   // commit & timestamp
-
-  // TODO: the sha isn't available to the reporter yet
-  // lines.push(`Latest commit: ${sha} (updated: ${new Date().toUTCString()})`, '')
 
   // Make the timestamp generic so we can snapshot the output
   const updatedTimestamp =
@@ -52,10 +49,10 @@ export function markdownReporter(files: VFile[] /* sha?: string */) {
 
   // Footnote
   // TODO: link to a README
-//  lines.push(
-//    '_Looking for more information? Check out the [content checks README](#TODO)_',
-//    ''
-//  )
+  //  lines.push(
+  //    '_Looking for more information? Check out the [content checks README](#TODO)_',
+  //    ''
+  //  )
 
   // Details footer
   lines.push('</details>')
