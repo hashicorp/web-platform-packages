@@ -235,7 +235,7 @@ describe('ContentConformanceRunner', () => {
 
       Updated: Date
 
-      <details><summary> Found 4 error(s)</summary>
+      <details><summary>Found 4 error(s)</summary>
 
       #### \`content/has-frontmatter.mdx\`
 

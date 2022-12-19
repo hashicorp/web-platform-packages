@@ -16,7 +16,7 @@ export function markdownReporter(files: VFile[]) {
   lines.push(`Updated: ${updatedTimestamp}`, '')
 
   // <details> header
-  lines.push(`<details><summary> Found ${stats.fatal} error(s)</summary>`, '')
+  lines.push(`<details><summary>Found ${stats.fatal} error(s)</summary>`, '')
 
   // Each file has section led by a heading, and a table with each violation
   files.forEach((file: VFile) => {
