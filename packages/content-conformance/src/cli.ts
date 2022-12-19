@@ -34,7 +34,6 @@ yargs(hideBin(process.argv)).command(
 
     try {
       console.log('Configuring content conformance runner...')
-      console.log('')
 
       await runner.init()
 
@@ -68,11 +67,14 @@ yargs(hideBin(process.argv)).command(
       const report = await runner.report()
 
       console.log(
-        chalk.green('Status: '),
+        chalk.bold('Status: '),
         chalk.bold.green(runner.status?.toLowerCase())
       )
 
-      if (report.length) console.log(chalk.bold(report))
+      if (report.length) {
+        console.log('')
+        console.log(chalk.red(report))
+      }
     } catch (error) {
       let stack = 'Unknown Error'
       if (error instanceof Error) stack = error?.stack ?? stack

@@ -84,8 +84,6 @@ export async function loadConfig({
 
   applyConfigDefaults(config)
 
-  console.log(`[content-conformance] loaded config from ${configPath}`)
-
   return config
 }
 
