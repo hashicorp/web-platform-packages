@@ -38,7 +38,7 @@ function visitor(navData, filePaths, report) {
 export default {
   id: 'ensure-valid-nav-paths',
   type: 'data',
-  description: 'TODO.',
+  description: 'Ensures docs nav data paths have a corresponding content file.',
   executor: {
     async dataFile(file, context) {
       // by convention, nav data files are those that end in nav-data.json
