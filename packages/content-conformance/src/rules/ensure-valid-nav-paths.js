@@ -15,7 +15,7 @@ function visitor(navData, filePaths, report) {
 
   navDataPaths.forEach((p) => {
     const namedFile = `${p}.mdx`
-    const indexFile = `${p}/index.mdx`
+    const indexFile = p ? `${p}/index.mdx` : `index.mdx`
 
     const namedFileExists = filePaths.includes(namedFile)
     const indexFileExists = filePaths.includes(indexFile)
@@ -47,6 +47,9 @@ export default {
       }
 
       const subpath = file.basename.split('-nav-data.json')[0]
+      // ex. /cloud.docs.agents/i
+      const subpathRE = new RegExp(`^${subpath.replaceAll('-', '.')}/`, 'i')
+
       const navData = file.contents()
 
       const report = (message) => context.report(message, file)
@@ -56,15 +59,17 @@ export default {
         let pathParts = e.path.split('/')
         // drop the first segment, (contentDir)
         pathParts = pathParts.slice(1)
-        // only keep the paths that are under the {subpath}
-        if (pathParts[0] !== subpath) {
+
+        let path = pathParts.join('/')
+        if (!subpathRE.test(path)) {
           return false
         }
+
         // drop the subpath because navData paths
         // are relative to the subpath, which is part of the
         // filename: {subpath}-nav-data.json
-        pathParts = pathParts.slice(1)
-        return pathParts.join('/')
+        path = path.replace(subpathRE, '')
+        return path
       })
 
       visitor(navData, fsPaths, report)

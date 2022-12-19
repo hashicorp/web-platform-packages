@@ -35,6 +35,28 @@ describe('ensure-valid-nav-paths', () => {
       },
     ])
   })
+  test('validates nav node paths with non 1:1 subpath mappings', () => {
+    testRule(ensureValidNavPaths, [
+      {
+        fixture: {
+          path: 'cloud-docs-agents-nav-data.json',
+          value: JSON.stringify([
+            {
+              heading: 'Terraform Cloud Agents',
+            },
+            { title: 'Overview', path: '' },
+            { title: 'Requirements', path: 'requirements' },
+          ]),
+        },
+        /* no messages signals successful rule validation */
+        messages: [],
+        contentFiles: [
+          { path: 'docs/cloud-docs/agents/index.mdx' },
+          { path: 'docs/cloud-docs/agents/requirements.mdx' },
+        ],
+      },
+    ])
+  })
   test('reports when nav nodes are missing an associated content file', () => {
     testRule(ensureValidNavPaths, [
       {
