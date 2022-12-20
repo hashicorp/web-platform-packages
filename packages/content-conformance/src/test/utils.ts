@@ -68,7 +68,7 @@ export function testRule(
   testCases: {
     fixture: VFileCompatible
     messages: (string | RegExp)[]
-    contentFiles: VFileCompatible[]
+    contentFiles?: VFileCompatible[]
   }[]
 ) {
   function test(testCase: typeof testCases[number]) {

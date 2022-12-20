@@ -140,6 +140,15 @@ export default {
 }
 ```
 
+### Rule Messages
+
+Writing meaningful, actionable rule messages is important to ensure contributors can address issues on their own. Messages passed to `context.report()` should be written in an [active voice](https://writing.wisc.edu/handbook/style/ccs_activevoice). For example:
+
+```js
+❌ 'Expected frontmatter to contain: description'
+✅ 'Document does not have a `description` key in its frontmatter. Add a `description` key at the top of the document.'
+```
+
 ## Internals
 
 At its core, the content conformance checker handles loading a number of different file types and running rules against those files. Rule violations are tracked by file, and after execution rules can be passed to a reporter method to present the results.
