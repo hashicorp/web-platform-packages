@@ -114,7 +114,7 @@ export default {
 
         if (!paths.includes(normalizedFilePathWithoutBasePath)) {
           context.report(
-            `The file at path ${file.path} is not present in the nav data file at ${navDataPath}. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
+            `This file is not present in the nav data file at ${navDataPath}. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
             file
           )
         }

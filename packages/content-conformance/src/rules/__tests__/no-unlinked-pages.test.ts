@@ -66,7 +66,7 @@ describe('no-unlinked-pages', () => {
           path: 'content/docs/foo/bar.mdx',
         },
         messages: [
-          `The file at path content/docs/foo/bar.mdx is not present in the nav data file at data/docs-nav-data.json. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
+          `This file is not present in the nav data file at data/docs-nav-data.json. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
         ],
         dataFiles: [
           {
@@ -137,7 +137,7 @@ describe('no-unlinked-pages', () => {
           path: 'content/docs/foo/bar.mdx',
         },
         messages: [
-          `The file at path content/docs/foo/bar.mdx is not present in the nav data file at data/docs-nav-data.json. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
+          `This file is not present in the nav data file at data/docs-nav-data.json. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
         ],
         dataFiles: [
           {
