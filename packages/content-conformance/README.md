@@ -170,7 +170,3 @@ All files that are checked are represented by `VFile` instances, with some addit
 ### Rule
 
 This package ships with a number of rules, and they can also be defined within consuming projects. Rules can define a number of executor functions that will be run on the different file types. See [Rules](#rules) for more information.
-
-```
-
-```
