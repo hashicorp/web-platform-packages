@@ -14,6 +14,9 @@ const productSlugs = [
 
 let flattenedNavData = []
 
+/**
+ * Transform detected nav data files into a flat list of paths. Also exposes a pattern derived from the nav-data file name to determine if a path should be represented in a specific nav data file.
+ */
 function getFlattenedNavData(dataFiles) {
   let result = []
 
