@@ -13,10 +13,25 @@ export function getHashicorpPackages(
 ): string[] {
   let results: string[] = []
 
+  const packageJsonPath = path.join(directory, 'package.json')
+
+  // If we're searching the root directory, check package.json for explicit dependencies. This helps with the case where we are running in a monorepo with dependency hoisting.
+  if (!isRecursive && fs.existsSync(packageJsonPath)) {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+
+    if (packageJson.dependencies) {
+      results = results.concat(
+        Object.keys(packageJson.dependencies).filter((pkg) =>
+          pkg.startsWith('@hashicorp/')
+        )
+      )
+    }
+  }
+
   const dirToSearch = path.join(directory, 'node_modules', '@hashicorp')
 
   if (!fs.existsSync(dirToSearch)) {
-    return []
+    return results
   }
 
   // grab all packages in the nested node_modules/@hashicorp directory
