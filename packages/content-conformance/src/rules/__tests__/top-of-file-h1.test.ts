@@ -3,7 +3,7 @@ import topOfFileH1 from '../top-of-file-h1'
 
 const fixturePath = getFixturePath('basic-with-content-files')
 
-describe('must-have-h1', () => {
+describe('top-of-file-h1', () => {
   test('Content with level 2 heading', () => {
     testRule(topOfFileH1, [
       {
