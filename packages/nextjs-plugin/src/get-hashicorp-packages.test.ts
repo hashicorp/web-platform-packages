@@ -31,4 +31,24 @@ describe('getHashicorpPackages', () => {
       ]
     `)
   })
+
+  test('traverses up to the monorepo root', () => {
+    expect(
+      getHashicorpPackages(
+        path.join(
+          path.dirname(currentFilePath),
+          '__fixtures__',
+          'monorepo',
+          'apps',
+          'site'
+        )
+      )
+    ).toMatchInlineSnapshot(`
+      [
+        "@hashicorp/platform-analytics",
+        "@hashicorp/react-button",
+        "@hashicorp/react-button/node_modules/@hashicorp/platform-product-meta",
+      ]
+    `)
+  })
 })

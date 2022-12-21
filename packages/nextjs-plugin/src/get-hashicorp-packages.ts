@@ -1,6 +1,25 @@
 import path from 'path'
 import fs from 'fs'
 
+function findUp(filename: string, start = process.cwd()) {
+  let result
+  const root = path.parse(start).root
+  let currentDir = start
+
+  while (!result || currentDir !== root) {
+    const maybePath = path.join(currentDir, filename)
+
+    if (fs.existsSync(maybePath)) {
+      result = maybePath
+      break
+    } else {
+      currentDir = path.resolve(currentDir, '..')
+    }
+  }
+
+  return result
+}
+
 /**
  * Recursively finds all hashicorp packages that are installed in the current directory.
  *
@@ -25,6 +44,27 @@ export function getHashicorpPackages(
           pkg.startsWith('@hashicorp/')
         )
       )
+    }
+  }
+
+  // Traverse up to the root of the monorepo to ensure we detect any transitive dependencies of hoisted packages
+  if (!isRecursive) {
+    const monorepoRoot = findUp('package-lock.json', directory)
+
+    if (monorepoRoot) {
+      const rootMonorepoDir = path.dirname(monorepoRoot)
+
+      // Ensure we aren't double-dipping in the same directory
+      if (rootMonorepoDir !== directory) {
+        results = results.concat(
+          getHashicorpPackages(rootMonorepoDir, true).map((packageDir) =>
+            path.relative(
+              path.join(rootMonorepoDir, 'node_modules'),
+              packageDir
+            )
+          )
+        )
+      }
     }
   }
 
