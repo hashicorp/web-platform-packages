@@ -8,8 +8,7 @@ export default {
     async contentFile(file, context) {
       file.visit(['root'], (node) => {
         const firstNode = node.children[0]
-        const contentFileName = file.history[0].split('/').pop()
-        const reportMessage = `${contentFileName} is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.`
+        const reportMessage = `- ${file.path} \nThe file listed above is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.`
 
         if (firstNode.type === 'heading') {
           if (firstNode.depth > 1) {

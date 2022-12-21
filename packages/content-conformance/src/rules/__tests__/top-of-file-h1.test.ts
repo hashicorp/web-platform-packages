@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { testRule, getFixturePath } from '../../test/utils'
 import topOfFileH1 from '../top-of-file-h1'
 
@@ -12,7 +13,7 @@ describe('top-of-file-h1', () => {
           value: `## Level 2 heading`,
         },
         messages: [
-          `level-2-heading.mdx is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.`,
+          `- level-2-heading.mdx \nThe file listed above is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.`,
         ],
       },
     ])
@@ -30,7 +31,7 @@ describe('top-of-file-h1', () => {
           `,
         },
         messages: [
-          'no-h1.mdx is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.',
+          '- no-h1.mdx \nThe file listed above is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.',
         ],
       },
     ])
@@ -42,6 +43,18 @@ describe('top-of-file-h1', () => {
         fixture: {
           path: `has-h1.mdx`,
           value: `# Has level 1 heading`,
+        },
+        messages: [],
+      },
+    ])
+  })
+
+  test('Content with path to content file with H1', () => {
+    testRule(topOfFileH1, [
+      {
+        fixture: {
+          path: `${fixturePath}/content/index.mdx`,
+          value: String(fs.readFileSync(`${fixturePath}/content/index.mdx`)),
         },
         messages: [],
       },
