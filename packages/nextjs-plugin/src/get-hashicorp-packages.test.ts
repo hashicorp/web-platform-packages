@@ -8,7 +8,7 @@ describe('getHashicorpPackages', () => {
   test('gets all nested @hashicorp packages', () => {
     expect(
       getHashicorpPackages(
-        path.join(path.dirname(currentFilePath), '__fixtures__')
+        path.join(path.dirname(currentFilePath), '__fixtures__', 'basic')
       )
     ).toMatchInlineSnapshot(`
       [
@@ -16,6 +16,18 @@ describe('getHashicorpPackages', () => {
         "@hashicorp/react-package",
         "@hashicorp/react-package/node_modules/@hashicorp/react-nested",
         "@hashicorp/versioned-docs",
+      ]
+    `)
+  })
+
+  test('includes packages from package.json dependencies', () => {
+    expect(
+      getHashicorpPackages(
+        path.join(path.dirname(currentFilePath), '__fixtures__', 'package-json')
+      )
+    ).toMatchInlineSnapshot(`
+      [
+        "@hashicorp/platform-analytics",
       ]
     `)
   })
