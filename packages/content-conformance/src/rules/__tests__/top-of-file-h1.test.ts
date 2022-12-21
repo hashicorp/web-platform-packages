@@ -13,7 +13,7 @@ describe('top-of-file-h1', () => {
           value: `## Level 2 heading`,
         },
         messages: [
-          `- level-2-heading.mdx \nThe file listed above is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.`,
+          `Expected file to start with a level 1 heading. A level 1 heading is important to for accessibility and layout consistency. Add a level 1 heading at the top of the document.`,
         ],
       },
     ])
@@ -31,7 +31,7 @@ describe('top-of-file-h1', () => {
           `,
         },
         messages: [
-          '- no-h1.mdx \nThe file listed above is missing a level 1 heading at the top of the file. Please add a level 1 heading to the top of the file and try again.',
+          'Expected file to start with a level 1 heading. A level 1 heading is important to for accessibility and layout consistency. Add a level 1 heading at the top of the document.',
         ],
       },
     ])
