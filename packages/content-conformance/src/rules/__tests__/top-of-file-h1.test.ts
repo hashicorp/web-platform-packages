@@ -13,7 +13,7 @@ describe('top-of-file-h1', () => {
           value: `## Level 2 heading`,
         },
         messages: [
-          `Expected file to start with a level 1 heading. A level 1 heading is important to for accessibility and layout consistency. Add a level 1 heading at the top of the document.`,
+          `Expected file to start with a level 1 heading. A level 1 heading is important for accessibility and layout consistency. Add a level 1 heading at the top of the document.`,
         ],
       },
     ])
@@ -31,7 +31,7 @@ describe('top-of-file-h1', () => {
           `,
         },
         messages: [
-          'Expected file to start with a level 1 heading. A level 1 heading is important to for accessibility and layout consistency. Add a level 1 heading at the top of the document.',
+          'Expected file to start with a level 1 heading. A level 1 heading is important for accessibility and layout consistency. Add a level 1 heading at the top of the document.',
         ],
       },
     ])

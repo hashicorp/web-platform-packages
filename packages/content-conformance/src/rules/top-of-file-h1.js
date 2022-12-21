@@ -8,7 +8,7 @@ export default {
     async contentFile(file, context) {
       file.visit(['root'], (node) => {
         const firstNode = node.children[0]
-        const reportMessage = `Expected file to start with a level 1 heading. A level 1 heading is important to for accessibility and layout consistency. Add a level 1 heading at the top of the document.`
+        const reportMessage = `Expected file to start with a level 1 heading. A level 1 heading is important for accessibility and layout consistency. Add a level 1 heading at the top of the document.`
 
         if (firstNode.type === 'heading') {
           if (firstNode.depth > 1) {
