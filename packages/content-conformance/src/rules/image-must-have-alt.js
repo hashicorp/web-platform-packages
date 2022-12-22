@@ -9,7 +9,9 @@ export default {
       file.visit(['image'], (node) => {
         if (!node.alt) {
           context.report(
-            'Expected image to include alt text. Alt text is important because it allows people to understand the content of an image even if they cannot see it. Please add alt text to this image.',
+            `Warning: Found MDX image with undefined alternate text. Even if an image is decorative, it's important for alt to be set to an empty string. Please define alt text the syntax "![Some alt text.](/some-image.jpg)". Image details: ${JSON.stringify(
+              { url: node.url, alt: node.alt, title: node.title }
+            )}`,
             file,
             node
           )
