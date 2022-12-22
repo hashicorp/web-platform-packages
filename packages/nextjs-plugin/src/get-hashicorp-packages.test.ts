@@ -8,7 +8,7 @@ describe('getHashicorpPackages', () => {
   test('gets all nested @hashicorp packages', () => {
     expect(
       getHashicorpPackages(
-        path.join(path.dirname(currentFilePath), '__fixtures__')
+        path.join(path.dirname(currentFilePath), '__fixtures__', 'basic')
       )
     ).toMatchInlineSnapshot(`
       [
@@ -16,6 +16,38 @@ describe('getHashicorpPackages', () => {
         "@hashicorp/react-package",
         "@hashicorp/react-package/node_modules/@hashicorp/react-nested",
         "@hashicorp/versioned-docs",
+      ]
+    `)
+  })
+
+  test('includes packages from package.json dependencies', () => {
+    expect(
+      getHashicorpPackages(
+        path.join(path.dirname(currentFilePath), '__fixtures__', 'package-json')
+      )
+    ).toMatchInlineSnapshot(`
+      [
+        "@hashicorp/platform-analytics",
+      ]
+    `)
+  })
+
+  test('traverses up to the monorepo root', () => {
+    expect(
+      getHashicorpPackages(
+        path.join(
+          path.dirname(currentFilePath),
+          '__fixtures__',
+          'monorepo',
+          'apps',
+          'site'
+        )
+      )
+    ).toMatchInlineSnapshot(`
+      [
+        "@hashicorp/platform-analytics",
+        "@hashicorp/react-button",
+        "@hashicorp/react-button/node_modules/@hashicorp/platform-product-meta",
       ]
     `)
   })
