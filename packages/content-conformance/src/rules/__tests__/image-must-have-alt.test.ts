@@ -2,7 +2,7 @@ import { testRule } from '../../test/utils'
 
 import imageMustHaveAlt from '../image-must-have-alt'
 
-describe('no-link-in-heading', () => {
+describe('image-must-have-alt', () => {
   test('Image with alt text', () => {
     testRule(imageMustHaveAlt, [
       {
