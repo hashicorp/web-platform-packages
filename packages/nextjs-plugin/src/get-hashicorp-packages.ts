@@ -6,7 +6,12 @@ function findUp(filename: string, start = process.cwd()) {
   const root = path.parse(start).root
   let currentDir = start
 
-  while (!result || currentDir !== root) {
+  while (!result) {
+    // If we traverse all the way up to the root dir without finding a package-lock, abort
+    if (currentDir === root) {
+      break
+    }
+
     const maybePath = path.join(currentDir, filename)
 
     if (fs.existsSync(maybePath)) {
