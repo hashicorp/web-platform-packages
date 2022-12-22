@@ -1,5 +1,7 @@
 import flat from 'flat'
 
+const trailingIndexPattern = /\/?index/
+
 const productSlugs = [
   'packer',
   'terraform',
@@ -56,7 +58,10 @@ function getFlattenedNavData(dataFiles) {
         // /waypoint/docs -> ''
         // docs -> ''
         // /waypoint/docs/foo/bar -> foo/bar
-        return value.replace(normalizeNavDataPathPattern, '')
+        // index -> ''
+        return value
+          .replace(normalizeNavDataPathPattern, '')
+          .replace(trailingIndexPattern, '')
       })
 
     result.push({
@@ -112,7 +117,14 @@ export default {
           ''
         )
 
-        if (!paths.includes(normalizedFilePathWithoutBasePath)) {
+        const isRootIndexPath =
+          normalizedFilePathWithoutBasePath === 'index' ||
+          normalizedFilePathWithoutBasePath === ''
+
+        if (
+          !paths.includes(normalizedFilePathWithoutBasePath) &&
+          !isRootIndexPath
+        ) {
           context.report(
             `This file is not present in the nav data file at ${navDataPath}. Either add a path that maps to this file in the nav data or remove the file. If you want the page to exist but not be linked in the navigation, add a \`hidden\` property to the associated nav node.`,
             file

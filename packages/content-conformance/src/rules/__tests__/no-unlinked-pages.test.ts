@@ -31,6 +31,52 @@ describe('no-unlinked-pages', () => {
     ])
   })
 
+  test('index route', () => {
+    testRule(noUnlinkedPages, [
+      {
+        fixture: {
+          path: 'content/docs/index.mdx',
+        },
+        /* no messages signals successful rule validation */
+        messages: [],
+        dataFiles: [
+          {
+            path: 'data/docs-nav-data.json',
+            value: JSON.stringify([
+              {
+                title: 'Docs',
+                routes: [
+                  {
+                    title: 'Overview',
+                    path: 'index',
+                  },
+                ],
+              },
+            ]),
+          },
+        ],
+      },
+    ])
+  })
+
+  test('root index route not required', () => {
+    testRule(noUnlinkedPages, [
+      {
+        fixture: {
+          path: 'content/docs/index.mdx',
+        },
+        /* no messages signals successful rule validation */
+        messages: [],
+        dataFiles: [
+          {
+            path: 'data/docs-nav-data.json',
+            value: JSON.stringify([]),
+          },
+        ],
+      },
+    ])
+  })
+
   test('nested path', () => {
     testRule(noUnlinkedPages, [
       {
