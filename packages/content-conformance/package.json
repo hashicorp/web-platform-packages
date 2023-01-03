@@ -33,7 +33,7 @@
     "zod": "^3.19.1"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.13",
+    "@types/yargs": "^17.0.17",
     "remark-lint-no-inline-padding": "^4.1.1"
   }
 }
