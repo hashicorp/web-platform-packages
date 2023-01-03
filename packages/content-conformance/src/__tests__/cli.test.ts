@@ -24,7 +24,8 @@ describe('Content-conformance CLI', () => {
     )
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+"[ 'content-check' ]
+Configuring content conformance runner...
 
 Included file:
 - ./content/has-frontmatter.mdx
@@ -53,7 +54,8 @@ content/has-frontmatter.mdx
     )
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+"[ 'content-check' ]
+Configuring content conformance runner...
 
 Included files:
 - ./content/has-frontmatter.mdx
@@ -82,7 +84,8 @@ content/no-h1.mdx
     const res = execCli('content-check', '--cwd', `${fixturePath}`)
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+"[ 'content-check' ]
+Configuring content conformance runner...
 
 Running content conformance checks...
 
@@ -117,7 +120,8 @@ content/nested/nested.mdx
     )
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+"[ 'content-check' ]
+Configuring content conformance runner...
 
 Included file:
 - ./content/index.mdx

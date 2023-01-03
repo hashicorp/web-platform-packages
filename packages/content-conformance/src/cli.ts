@@ -29,6 +29,7 @@ yargs(hideBin(process.argv)).command(
     const runner = new ContentConformanceRunner({
       cwd: argv.cwd,
       config: argv.config,
+      // @ts-expect-error -- sort out yargs types here
       files: argv.files,
     })
 
@@ -44,6 +45,7 @@ yargs(hideBin(process.argv)).command(
             `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
           )
         )
+        // @ts-expect-error -- sort out yargs types here
         argv.files.forEach((file: string) => {
           console.log(chalk.whiteBright(`- ${file}`))
         })

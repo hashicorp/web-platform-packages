@@ -17,9 +17,7 @@ describe('image-must-have-alt', () => {
       {
         fixture: '![](/img/new-waypoint-install-ui.png)',
         messages: [
-          `Warning: Found MDX image with undefined alternate text. Even if an image is decorative, it's important for alt to be set to an empty string. Please define alt text the syntax "![Some alt text.](/some-image.jpg)". Image details: ${JSON.stringify(
-            { url: '/img/new-waypoint-install-ui.png', alt: null, title: null }
-          )}`,
+          `The image with url /img/new-waypoint-install-ui.png is missing alternate text. Providing alt text on an image is important for accessibility. Add alt text on the image with the following syntax "![My alt text.](url)"`,
         ],
       },
     ])

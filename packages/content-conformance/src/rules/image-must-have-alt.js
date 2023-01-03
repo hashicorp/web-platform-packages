@@ -9,9 +9,7 @@ export default {
       file.visit(['image'], (node) => {
         if (!node.alt) {
           context.report(
-            `Warning: Found MDX image with undefined alternate text. Even if an image is decorative, it's important for alt to be set to an empty string. Please define alt text the syntax "![Some alt text.](/some-image.jpg)". Image details: ${JSON.stringify(
-              { url: node.url, alt: node.alt, title: node.title }
-            )}`,
+            `The image with url ${node.url} is missing alternate text. Providing alt text on an image is important for accessibility. Add alt text on the image with the following syntax "![My alt text.](url)"`,
             file,
             node
           )
