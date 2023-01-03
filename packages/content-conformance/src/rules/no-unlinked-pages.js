@@ -1,6 +1,6 @@
 import flat from 'flat'
 
-const trailingIndexPattern = /\/?index/
+const trailingIndexPattern = /\/?index$/
 
 const productSlugs = [
   'packer',

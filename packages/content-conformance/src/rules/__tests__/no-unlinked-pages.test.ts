@@ -31,6 +31,39 @@ describe('no-unlinked-pages', () => {
     ])
   })
 
+  test('a file name with index in it', () => {
+    testRule(noUnlinkedPages, [
+      {
+        fixture: {
+          path: 'content/docs/foo/index-fn.mdx',
+        },
+        /* no messages signals successful rule validation */
+        messages: [],
+        dataFiles: [
+          {
+            path: 'data/docs-nav-data.json',
+            value: JSON.stringify([
+              {
+                title: 'Docs',
+                routes: [
+                  {
+                    title: 'Foo',
+                    routes: [
+                      {
+                        title: 'index-fn',
+                        path: 'foo/index-fn',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ]),
+          },
+        ],
+      },
+    ])
+  })
+
   test('index route', () => {
     testRule(noUnlinkedPages, [
       {
