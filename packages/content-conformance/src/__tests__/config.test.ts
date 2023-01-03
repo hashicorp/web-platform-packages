@@ -40,7 +40,7 @@ describe('loadConfig', () => {
       pathToConfigOrPresetName: 'base-docs',
     })
 
-    expect(config.contentFileGlobPattern).toEqual('content/**/*.mdx')
+    expect(config.contentFileGlobPattern).toEqual('{content,docs}/**/*.mdx')
   })
 
   test('it loads config presets - via "preset"', async () => {
