@@ -1,6 +1,6 @@
 export default {
   preset: 'base-mdx',
-  contentFileGlobPattern: 'content/**/*.mdx',
+  contentFileGlobPattern: '{content,docs}/**/*.mdx',
   dataFileGlobPattern: 'data/*-nav-data.json',
   rules: {
     'ensure-valid-frontmatter': [

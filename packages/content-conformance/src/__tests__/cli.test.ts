@@ -16,10 +16,8 @@ function execCli(...args: string[]) {
 describe('Content-conformance CLI', () => {
   test('Successful run with content file and default config', () => {
     const res = execCli(
-      'content-check',
       '--cwd',
       `${fixturePath}`,
-      '--files',
       './content/has-frontmatter.mdx'
     )
 
@@ -43,10 +41,8 @@ content/has-frontmatter.mdx
 
   test('Successful run with multiple content files and default config', () => {
     const res = execCli(
-      'content-check',
       '--cwd',
       `${fixturePath}`,
-      '--files',
       './content/has-frontmatter.mdx',
       './content/index.mdx',
       './content/no-h1.mdx'
@@ -79,7 +75,7 @@ content/no-h1.mdx
   })
 
   test('Accepts glob pattern when no content file specified', () => {
-    const res = execCli('content-check', '--cwd', `${fixturePath}`)
+    const res = execCli('--cwd', `${fixturePath}`)
 
     expect(res).toMatchInlineSnapshot(`
 "Configuring content conformance runner...
@@ -107,10 +103,8 @@ content/nested/nested.mdx
 
   test('Accepts specified config file', () => {
     const res = execCli(
-      'content-check',
       '--cwd',
       `${fixturePath}`,
-      '--files',
       `./content/index.mdx`,
       '--config',
       './content-conformance.config.mjs'
