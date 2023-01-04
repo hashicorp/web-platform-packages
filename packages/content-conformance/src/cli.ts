@@ -8,7 +8,7 @@ import { ContentConformanceRunner } from './runner.js'
  * The CLI interface for our content conformance runner. Should remain a pass-through to ContentConformanceRunner if at all possible to keep the CLI and JS API in-sync
  */
 yargs(hideBin(process.argv)).command(
-  'content-check',
+  ['$0', 'content-check'],
   'Content conformance runner',
   {
     cwd: {
@@ -19,17 +19,13 @@ yargs(hideBin(process.argv)).command(
       description: 'Path to config file',
       type: 'string',
     },
-    files: {
-      description: 'Path to content files',
-      default: [],
-      type: 'array',
-    },
   },
   async (argv): Promise<void> => {
+    const [...files] = argv._ as string[]
     const runner = new ContentConformanceRunner({
       cwd: argv.cwd,
       config: argv.config,
-      files: argv.files,
+      files: files,
     })
 
     try {
@@ -37,14 +33,13 @@ yargs(hideBin(process.argv)).command(
 
       await runner.init()
 
-      if (argv.files.length) {
+      if (files.length) {
         console.log('')
         console.log(
-          chalk.bold.green(
-            `Included ${argv.files.length > 1 ? 'files' : 'file'}:`
-          )
+          chalk.bold.green(`Included ${files.length > 1 ? 'files' : 'file'}:`)
         )
-        argv.files.forEach((file: string) => {
+
+        files.forEach((file: string) => {
           console.log(chalk.whiteBright(`- ${file}`))
         })
       }
