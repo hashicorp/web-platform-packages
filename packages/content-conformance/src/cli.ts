@@ -21,7 +21,7 @@ yargs(hideBin(process.argv)).command(
     },
   },
   async (argv): Promise<void> => {
-    const [...files] = <string[]>argv._
+    const [...files] = argv._ as string[]
     const runner = new ContentConformanceRunner({
       cwd: argv.cwd,
       config: argv.config,
