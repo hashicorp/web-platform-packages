@@ -29,7 +29,7 @@ async function main() {
       default: true,
       type: 'boolean',
     })
-    .processSync()
+    .parseSync()
 
   const [scriptName, ...rest] = argv._
 
