@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 4.1.0
+
+### Minor Changes
+
+- [#144](https://github.com/hashicorp/web-platform-packages/pull/144) [`7404a8a`](https://github.com/hashicorp/web-platform-packages/commit/7404a8a3993c6b8a6f0fd9041a461366c5838a3f) Thanks [@BRKalow](https://github.com/BRKalow)! - Support detecting installed @hashicorp/ packages in a monorepo.
+
 ## 4.0.0
 
 ### Major Changes

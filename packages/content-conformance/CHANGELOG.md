@@ -1,5 +1,21 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.3
+
+### Patch Changes
+
+- [#139](https://github.com/hashicorp/web-platform-packages/pull/139) [`cf7a69b`](https://github.com/hashicorp/web-platform-packages/commit/cf7a69b6db8d607a9e1b73464f191828cbb61c64) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds `no-link-in-heading` rule.
+
+* [#134](https://github.com/hashicorp/web-platform-packages/pull/134) [`a7a9eec`](https://github.com/hashicorp/web-platform-packages/commit/a7a9eec6e6afbf5535ce33ba643cd0dcd09ceea3) Thanks [@BRKalow](https://github.com/BRKalow)! - Add the `markdownReporter` to build markdown for a PR comment.
+
+- [#146](https://github.com/hashicorp/web-platform-packages/pull/146) [`b0af50e`](https://github.com/hashicorp/web-platform-packages/commit/b0af50e1a5172bc3a0b3584e71c4e97ed7942e75) Thanks [@BRKalow](https://github.com/BRKalow)! - Support docs/\*\*/\*.mdx to handle terraform repos.
+
+* [#132](https://github.com/hashicorp/web-platform-packages/pull/132) [`83bd668`](https://github.com/hashicorp/web-platform-packages/commit/83bd668b5a005b42a8a48d24e0961f40d0ae8222) Thanks [@BRKalow](https://github.com/BRKalow)! - Add dataFileGlobPattern to the base-docs preset.
+
+- [#138](https://github.com/hashicorp/web-platform-packages/pull/138) [`b49e7f3`](https://github.com/hashicorp/web-platform-packages/commit/b49e7f3b81311d42f75ad7276b0f91d9a65420c2) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - Adds the `ensure-valid-nav-paths` data file rule to the `base-mdx` present
+
+  - See https://github.com/hashicorp/web-platform-packages/pull/137 for more details
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.5.0
+
+### Minor Changes
+
+- [#148](https://github.com/hashicorp/web-platform-packages/pull/148) [`c402acb`](https://github.com/hashicorp/web-platform-packages/commit/c402acbfd3e734f75adaf5eb6adb8fc09f774315) Thanks [@dstaley](https://github.com/dstaley)! - Update eslint-related dependencies
+
 ## 2.4.0
 
 ### Minor Changes
