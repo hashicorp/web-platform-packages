@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.4
+
+### Patch Changes
+
+- [#149](https://github.com/hashicorp/web-platform-packages/pull/149) [`8cd41a2`](https://github.com/hashicorp/web-platform-packages/commit/8cd41a210d84ed2aec1b13ca0f49ac43a38c0e07) Thanks [@nayres](https://github.com/nayres)! - Export all from runner.ts to allow access to RunnerStatus enum.
+
 ## 0.0.3
 
 ### Patch Changes
