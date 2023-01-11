@@ -2,7 +2,8 @@
 import path from 'path'
 import fs from 'fs'
 import { execFileSync } from 'child_process'
-import yargs from 'yargs'
+import yargs from 'yargs/yargs'
+import { hideBin } from 'yargs/helpers'
 import { register } from 'ts-node'
 import { loadEnvConfig } from '@next/env'
 import { doesFileExist } from './util'
@@ -16,7 +17,7 @@ register({
 })
 
 async function main() {
-  const argv = yargs
+  const argv = yargs(hideBin(process.argv))
     .option('project', {
       alias: 'p',
       description: 'If specified, loads the tsconfig from the specified path',
@@ -27,7 +28,8 @@ async function main() {
         'Controls whether or not to resolve paths based on local tsconfig settings',
       default: true,
       type: 'boolean',
-    }).argv
+    })
+    .processSync()
 
   const [scriptName, ...rest] = argv._
 
