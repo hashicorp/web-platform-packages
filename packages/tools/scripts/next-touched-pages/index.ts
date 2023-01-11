@@ -157,7 +157,7 @@ export default async function main() {
     }
 
     changedFiles.forEach((f) => {
-      const affectedPages = sourceToPageMap[f]
+      const affectedPages = sourceToPageMap[f] ?? []
       affectedPages.forEach((p) => {
         changedPages.add(p)
       })
