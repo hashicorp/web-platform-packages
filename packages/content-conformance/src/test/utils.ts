@@ -20,11 +20,12 @@ export function getFixturePath(fixtureName: string) {
 function makeTestFileAndContext(
   rule: ConformanceRuleBase,
   fixture: VFileCompatible,
-  contentFiles: VFileCompatible[] = []
+  contentFiles: VFileCompatible[] = [],
+  dataFiles: VFileCompatible[] = []
 ) {
   let file
   const context: ConformanceRuleContext = {
-    dataFiles: [],
+    dataFiles: dataFiles.map((e) => new DataFile(e)),
     contentFiles: contentFiles.map((e) => new ContentFile(e)),
     report: () => {
       void 0
@@ -69,13 +70,15 @@ export function testRule(
     fixture: VFileCompatible
     messages: (string | RegExp)[]
     contentFiles?: VFileCompatible[]
+    dataFiles?: VFileCompatible[]
   }[]
 ) {
   function test(testCase: typeof testCases[number]) {
     const [file, context] = makeTestFileAndContext(
       rule,
       testCase.fixture,
-      testCase.contentFiles
+      testCase.contentFiles,
+      testCase.dataFiles
     )
 
     switch (rule.type) {
