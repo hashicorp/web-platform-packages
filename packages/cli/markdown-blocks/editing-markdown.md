@@ -13,7 +13,6 @@ This file can be standard Markdown and also supports [YAML frontmatter](https://
 title: 'My Title'
 description: "A thorough, yet succinct description of the page's contents"
 ---
-
 ```
 
 The significant keys in the YAML frontmatter are:
@@ -31,7 +30,7 @@ There is currently a small bug with new page creation - if you create a new page
 
 There are several custom markdown plugins that are available by default that enhance [standard markdown](https://commonmark.org/) to fit our use cases. This set of plugins introduces a couple instances of custom syntax, and a couple specific pitfalls that are not present by default with markdown, detailed below:
 
-- > **Warning**: We are deprecating the current [paragraph alerts](https://github.com/hashicorp/remark-plugins/tree/master/plugins/paragraph-custom-alerts#paragraph-custom-alerts), in favor of the newer [MDX Inline Alert](#inline-alerts) components. The legacy paragraph alerts are represented by the symbols `~>`, `->`, `=>`, or `!>`. 
+- > **Warning**: We are deprecating the current [paragraph alerts](https://github.com/hashicorp/remark-plugins/tree/master/plugins/paragraph-custom-alerts#paragraph-custom-alerts), in favor of the newer [MDX Inline Alert](#inline-alerts) components. The legacy paragraph alerts are represented by the symbols `~>`, `->`, `=>`, or `!>`.
 - If you see `@include '/some/path.mdx'`, this is a [markdown include](https://github.com/hashicorp/remark-plugins/tree/master/plugins/include-markdown#include-markdown-plugin). It's worth noting as well that all includes resolve from `website/content/partials` by default, and that changes to partials will not live-reload the website.
 - If you see `# Headline ((#slug))`, this is an example of an [anchor link alias](https://github.com/hashicorp/remark-plugins/tree/je.anchor-link-adjustments/plugins/anchor-links#anchor-link-aliases). It adds an extra permalink to a headline for compatibility and is removed from the output.
 - Due to [automatically generated permalinks](https://github.com/hashicorp/remark-plugins/tree/je.anchor-link-adjustments/plugins/anchor-links#anchor-links), any text changes to _headlines_ or _list items that begin with inline code_ can and will break existing permalinks. Be very cautious when changing either of these two text items.
@@ -66,27 +65,27 @@ There are custom MDX components available to author alert data. [See the full do
 ### Tip
 
 <Tip>
-	To provide general information to the user regarding the current context or
-	relevant actions.
+  To provide general information to the user regarding the current context or
+  relevant actions.
 </Tip>
 
 ### Highlight
 
 <Highlight>
-	To provide general or promotional information to the user prominently.
+  To provide general or promotional information to the user prominently.
 </Highlight>
 
 ### Note
 
 <Note>
-	To help users avoid an issue. Provide guidance and actions if possible.
+  To help users avoid an issue. Provide guidance and actions if possible.
 </Note>
 
 ### Warning
 
 <Warning>
-	To indicate critical issues that need immediate action or help users
-	understand something critical.
+  To indicate critical issues that need immediate action or help users
+  understand something critical.
 </Warning>
 
 ## Title override prop
@@ -100,7 +99,7 @@ The `Tabs` component creates tabbed content of any type, but is often used for c
 
 ![Tabs Component](https://p176.p0.n0.cdn.getcloudapp.com/items/WnubALZ4/Screen%20Recording%202020-06-11%20at%2006.03%20PM.gif?v=1de81ea720a8cc8ade83ca64fb0b9edd)
 
-> Please refer to the [Swingset](https://react-components.vercel.app/?component=Tabs) documention for the latest examples and API reference.
+> Please refer to the [Swingset](https://react-components.vercel.app/?component=Tabs) documentation for the latest examples and API reference.
 
 It can be used as such within a markdown file:
 
