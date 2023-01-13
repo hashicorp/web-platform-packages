@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.5
+
+### Patch Changes
+
+- [#142](https://github.com/hashicorp/web-platform-packages/pull/142) [`014d80b`](https://github.com/hashicorp/web-platform-packages/commit/014d80bc45046d5ceaefdc131f4cca70110ca888) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds `no-unlinked-pages` rule.
+
 ## 0.0.4
 
 ### Patch Changes
