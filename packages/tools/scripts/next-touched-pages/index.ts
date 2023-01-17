@@ -115,40 +115,54 @@ function unprefixSource(s: string): string {
   return s.replaceAll('webpack://_N_E/./', '')
 }
 
+function transformManifest(
+  manifest: BuildManifest
+): Record<string, { pages: string[]; sources: string[] }> {
+  const map: Record<string, { pages: string[]; sources: string[] }> = {}
+  Object.entries(manifest.pages).forEach(([page, chunks]) => {
+    chunks.forEach((chunk) => {
+      if (chunk in map) {
+        map[chunk].pages.push(page)
+      } else {
+        map[chunk] = { pages: [page], sources: [] }
+      }
+    })
+  })
+
+  return map
+}
+
 async function generateSourceToPageMap(
   buildDir: string
 ): Promise<Record<string, string[]>> {
   const manifest = await readBuildManifest(buildDir)
 
-  const promises: Promise<{ page: string; unprefixedPath: string }[]>[] = []
-  Object.entries(manifest.pages).map(([page, chunks]) => {
-    return chunks.map((chunk) => {
-      promises.push(
-        getPathToSourcemapForChunk(buildDir, chunk)
-          .then((p) => {
-            return getSourcesForSourcemap(p)
-          })
-          .then((sources) => {
-            return sources.map((s) => {
-              return {
-                page,
-                unprefixedPath: unprefixSource(s),
-              }
-            })
-          })
-      )
-    })
+  const mapping = transformManifest(manifest)
+
+  const promises: Promise<void>[] = []
+  Object.keys(mapping).forEach((chunk) => {
+    promises.push(
+      getPathToSourcemapForChunk(buildDir, chunk)
+        .then((p) => {
+          return getSourcesForSourcemap(p)
+        })
+        .then((sources) => {
+          mapping[chunk].sources = sources.map(unprefixSource)
+        })
+    )
   })
 
-  const results = await Promise.all(promises)
+  await Promise.all(promises)
 
   const sourceToPageMap: Record<string, string[]> = {}
-  results.flat(2).forEach(({ page, unprefixedPath }) => {
-    if (unprefixedPath in sourceToPageMap) {
-      sourceToPageMap[unprefixedPath].push(page)
-    } else {
-      sourceToPageMap[unprefixedPath] = [page]
-    }
+  Object.entries(mapping).forEach(([, { pages, sources }]) => {
+    sources.forEach((source) => {
+      if (source in sourceToPageMap) {
+        sourceToPageMap[source].push(...pages)
+      } else {
+        sourceToPageMap[source] = [...pages]
+      }
+    })
   })
 
   return sourceToPageMap
@@ -205,7 +219,6 @@ export default async function main() {
   try {
     const buildDir = '.next'
     const sourceToPageMap = await generateSourceToPageMap(buildDir)
-
     const changedPages = new Set<string>()
 
     let changedFiles: string[] = []
