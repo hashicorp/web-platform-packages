@@ -57,7 +57,11 @@ const PRODUCT_SLUG_PATH_PATTERN = new RegExp(
   `^/(${Object.keys(PRODUCT_SLUGS_TO_HOST_NAMES).join('|')})`
 )
 
-/** @type {import('../types.js').ConformanceRuleBase} */
+/**
+ * Configurable via a contentType config option (`"docs" | "tutorials"`). Assumed to be `"docs"` unless otherwise specified.
+ *
+ * @type {import('../types.js').ConformanceRuleBase}
+ * */
 export default {
   id: 'ensure-valid-link-format',
   type: 'content',
@@ -148,7 +152,7 @@ export default {
         }
 
         // if we're running in the context of tutorials, check for specific old link formats
-        if (context.config?.isTutorials) {
+        if (context.config?.contentType === 'tutorials') {
           // Check if old search link (starts with "/search")
           if (
             pathname.startsWith('/search') &&

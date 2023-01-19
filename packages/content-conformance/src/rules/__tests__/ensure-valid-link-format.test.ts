@@ -146,7 +146,7 @@ describe('ensure-valid-link-format', () => {
           messages: [/Old tutorial page link/],
         },
       ],
-      { isTutorials: true }
+      { contentType: 'tutorials' }
     )
   })
 })
