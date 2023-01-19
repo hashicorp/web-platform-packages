@@ -11,5 +11,6 @@ export default {
     'ensure-valid-nav-paths': 'error',
     'no-link-in-heading': 'error',
     'no-unlinked-pages': 'error',
+    'ensure-valid-link-format': 'error',
   },
 }
