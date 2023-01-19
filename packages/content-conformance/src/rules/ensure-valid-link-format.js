@@ -44,6 +44,15 @@ const PRODUCT_SLUGS_TO_BASE_PATHS = {
   waypoint: ['commands', 'docs', 'plugins', 'downloads'],
 }
 
+const KNOWN_DOCS_BASE_PATHS = Array.from(
+  // this ensures the values are unique
+  new Set(
+    Object.values(PRODUCT_SLUGS_TO_BASE_PATHS)
+      .flat()
+      .map((basePath) => `/${basePath}`)
+  )
+)
+
 const PRODUCT_SLUG_PATH_PATTERN = new RegExp(
   `^/(${Object.keys(PRODUCT_SLUGS_TO_HOST_NAMES).join('|')})`
 )
@@ -122,7 +131,15 @@ export default {
         }
 
         // handle product-relative paths
-        if (isRelativePath && !pathname.match(PRODUCT_SLUG_PATH_PATTERN)) {
+        if (
+          isRelativePath &&
+          // ignore any paths starting with /{productSlug}
+          !pathname.match(PRODUCT_SLUG_PATH_PATTERN) &&
+          // check paths that start with a known docs base path
+          KNOWN_DOCS_BASE_PATHS.some((basePath) =>
+            pathname.startsWith(basePath)
+          )
+        ) {
           context.report(
             `Unexpected product-relative link: \`${node.url}\`. Ensure that relative links are fully-qualified Developer paths: \`/{productSlug}${pathname}\``,
             file,

@@ -21,6 +21,22 @@ describe('ensure-valid-link-format', () => {
         fixture: `[I am a valid collection link](/boundary/tutorials/foo)`,
         messages: [],
       },
+      {
+        fixture: `[I am a valid WAF collection link](/well-architected-framework/foo)`,
+        messages: [],
+      },
+      {
+        fixture: `[I am a valid onboarding collection link](/onboarding/foo)`,
+        messages: [],
+      },
+      {
+        fixture: `[I am a valid WAF tutorial link](/well-architected-framework/foo/bar)`,
+        messages: [],
+      },
+      {
+        fixture: `[I am a valid onboarding tutorial link](/onboarding/foo/bar)`,
+        messages: [],
+      },
     ])
   })
 
