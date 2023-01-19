@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "author": "HashiCorp",
   "dependencies": {
-    "rivet-graphql": "^0.5.0-canary-20230119003206"
+    "rivet-graphql": "^0.5.0-canary-20230119004945"
   },
   "license": "MPL-2.0",
   "main": "index.ts",
