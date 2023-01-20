@@ -37,6 +37,11 @@ describe('ensure-valid-link-format', () => {
         fixture: `[I am a valid onboarding tutorial link](/onboarding/foo/bar)`,
         messages: [],
       },
+      {
+        fixture: `[I am a valid link to an .io domain](https://waypointproject.io/)
+        [I am a valid link to another .io domain](https://terraform.io)`,
+        messages: [],
+      },
     ])
   })
 

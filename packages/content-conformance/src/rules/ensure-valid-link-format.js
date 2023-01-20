@@ -97,11 +97,9 @@ export default {
         if (dotIoLinkProductSlug) {
           const devDotBasePaths =
             PRODUCT_SLUGS_TO_BASE_PATHS[dotIoLinkProductSlug]
-          const isDevDotBasePath =
-            pathname === '/' ||
-            devDotBasePaths.some((devDotBasePath) => {
-              return pathname.startsWith(`/${devDotBasePath}`)
-            })
+          const isDevDotBasePath = devDotBasePaths.some((devDotBasePath) => {
+            return pathname.startsWith(`/${devDotBasePath}`)
+          })
           if (isDevDotBasePath) {
             context.report(
               `Unexpected link to documentation on \`${
