@@ -93,6 +93,7 @@ export default {
             hostname === `www.${PRODUCT_SLUGS_TO_HOST_NAMES[productSlug]}`
           )
         })
+
         if (dotIoLinkProductSlug) {
           const devDotBasePaths =
             PRODUCT_SLUGS_TO_BASE_PATHS[dotIoLinkProductSlug]
