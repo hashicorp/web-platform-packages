@@ -55,9 +55,14 @@ export function addGlobalLinkHandler(
       const productIntent = getProductIntentFromURL()
       const utmParams = getUTMParamsCaptureState()
 
-      event.preventDefault()
-
       const url = new URL(linkElement.href)
+
+      // Safegaurd against absolute URLs that are on the same domain origin
+      if (window.location.origin === url.origin) {
+        return
+      }
+
+      event.preventDefault()
 
       if (segmentAnonymousId) {
         url.searchParams.set('ajs_aid', segmentAnonymousId)
