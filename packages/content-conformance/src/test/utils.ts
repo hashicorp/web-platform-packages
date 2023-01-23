@@ -21,7 +21,8 @@ function makeTestFileAndContext(
   rule: ConformanceRuleBase,
   fixture: VFileCompatible,
   contentFiles: VFileCompatible[] = [],
-  dataFiles: VFileCompatible[] = []
+  dataFiles: VFileCompatible[] = [],
+  config?: Record<string, any>
 ) {
   let file
   const context: ConformanceRuleContext = {
@@ -30,6 +31,7 @@ function makeTestFileAndContext(
     report: () => {
       void 0
     },
+    config,
   }
 
   switch (rule.type) {
@@ -71,14 +73,16 @@ export function testRule(
     messages: (string | RegExp)[]
     contentFiles?: VFileCompatible[]
     dataFiles?: VFileCompatible[]
-  }[]
+  }[],
+  config?: Record<string, any>
 ) {
   function test(testCase: typeof testCases[number]) {
     const [file, context] = makeTestFileAndContext(
       rule,
       testCase.fixture,
       testCase.contentFiles,
-      testCase.dataFiles
+      testCase.dataFiles,
+      config
     )
 
     switch (rule.type) {
