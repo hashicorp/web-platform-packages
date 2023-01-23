@@ -131,7 +131,15 @@ describe('ensure-valid-link-format', () => {
   test('errors for folder-relative links', () => {
     testRule(ensureValidLinkFormat, [
       {
-        fixture: `[folder-relative link](./foo/bar)`,
+        fixture: `[dot-slash folder-relative link](./foo/bar)`,
+        messages: [/Unexpected folder-relative link/],
+      },
+      {
+        fixture: `[dot-dot-slash folder-relative link](../foo/bar)`,
+        messages: [/Unexpected folder-relative link/],
+      },
+      {
+        fixture: `[no-dots folder-relative link](foo/bar)`,
         messages: [/Unexpected folder-relative link/],
       },
     ])
