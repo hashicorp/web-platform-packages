@@ -7,6 +7,7 @@ export {
   getUTMParamsCaptureState,
 } from './utm-params-capture'
 export { addCloudLinkHandler } from './add-cloud-link-handler'
+export { addGlobalLinkHandler } from './add-global-link-handler'
 
 export { addDevAnalyticsLogger } from './analytics-event-logger'
 
