@@ -46,6 +46,15 @@ describe('ensure-valid-link-format', () => {
         [I am a valid link to another .io domain](https://terraform.io)`,
         messages: [],
       },
+      {
+        fixture: `[I am a valid link to an .io domain](https://waypointproject.io/not/a/docs/path/)
+        [I am a valid link to another .io domain](https://terraform.io/not/a/docs/path)`,
+        messages: [],
+      },
+      {
+        fixture: `[I am a valid external link](https://github.com/hashicorp/web-platform-packages)`,
+        messages: [],
+      },
     ])
   })
 
