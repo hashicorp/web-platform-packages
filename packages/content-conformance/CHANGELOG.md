@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.6
+
+### Patch Changes
+
+- [#155](https://github.com/hashicorp/web-platform-packages/pull/155) [`cf6f9d3`](https://github.com/hashicorp/web-platform-packages/commit/cf6f9d33ab64464539625bbf5b71c28c4901d8da) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds `ensure-valid-link-format` rule.
+
 ## 0.0.5
 
 ### Patch Changes

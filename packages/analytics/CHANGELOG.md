@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.11.0
+
+### Minor Changes
+
+- [#103](https://github.com/hashicorp/web-platform-packages/pull/103) [`ce88545`](https://github.com/hashicorp/web-platform-packages/commit/ce885452222ddb0f5521fbbc49d73c22ceb89dda) Thanks [@alexcarpenter](https://github.com/alexcarpenter)! - add addGlobalLinkHandler
+
 ## 0.10.0
 
 ### Minor Changes
