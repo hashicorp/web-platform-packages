@@ -6,6 +6,10 @@ describe('ensure-valid-link-format', () => {
   test('does nothing for valid developer links', () => {
     testRule(ensureValidLinkFormat, [
       {
+        fixture: `[I am a valid link](/non/product/path)`,
+        messages: [],
+      },
+      {
         fixture: `[I am a valid link](/waypoint/docs/foo/bar)`,
         messages: [],
       },
