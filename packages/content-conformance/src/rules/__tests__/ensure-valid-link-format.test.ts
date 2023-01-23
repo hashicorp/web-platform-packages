@@ -55,6 +55,10 @@ describe('ensure-valid-link-format', () => {
         fixture: `[I am a valid external link](https://github.com/hashicorp/web-platform-packages)`,
         messages: [],
       },
+      {
+        fixture: `[I am a valid anchor link](#foo-bar-baz)`,
+        messages: [],
+      },
     ])
   })
 

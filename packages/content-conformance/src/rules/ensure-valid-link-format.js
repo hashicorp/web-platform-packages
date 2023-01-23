@@ -73,12 +73,14 @@ export default {
         const urlObject = new URL(node.url, TEST_URL_ORIGIN)
         const { hostname, pathname, search = '', hash = '', origin } = urlObject
         const isRelativePath = origin === TEST_URL_ORIGIN
+        const isAnchorLink = node.url.startsWith('#')
 
         // Error if we detect folder-relative links
         if (
-          node.url.startsWith('.') ||
-          // Handles folder-relative links such as "some/nested/folder". These can be problematic when trying to validate the correct destination. It's easier for us to enforce that all links are full paths.
-          (!node.url.startsWith('/') && isRelativePath)
+          !isAnchorLink &&
+          (node.url.startsWith('.') ||
+            // Handles folder-relative links such as "some/nested/folder". These can be problematic when trying to validate the correct destination. It's easier for us to enforce that all links are full paths.
+            (!node.url.startsWith('/') && isRelativePath))
         ) {
           context.report(
             `Unexpected folder-relative link found: ${node.url}. Ensure this link is an absolute Developer path.`,
