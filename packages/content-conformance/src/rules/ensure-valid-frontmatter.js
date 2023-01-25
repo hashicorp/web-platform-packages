@@ -13,7 +13,10 @@ export default {
 
       for (const key of context.config.requiredKeys) {
         if (!file.frontmatter()[key]) {
-          context.report(`Expected frontmatter to contain: ${key}`, file)
+          context.report(
+            `Document does not have a \`${key}\` key in its frontmatter. Add a \`${key}\` key at the top of the document.`,
+            file
+          )
         }
       }
     },
