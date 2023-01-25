@@ -4,6 +4,7 @@ import { hideBin } from 'yargs/helpers'
 import chalk from 'chalk'
 import { ContentConformanceRunner } from './runner.js'
 
+// Disable colored output when running in a test environment so we can snapshot the CLI output without the color codes.
 if (process.env.NODE_ENV === 'test') {
   chalk.level = 0
 }
