@@ -14,6 +14,7 @@ const Config = z.object({
   identifier: z.string(),
   repo_path: z.string(),
   version: z.string(),
+  organization_id: z.string(),
 })
 type Config = z.infer<typeof Config>
 
@@ -27,8 +28,15 @@ export default async function LoadFilesystemIntegration(
 
   // Fetch the Integration from the API that we're looking to update
   const [productSlug, integrationSlug] = config.identifier.split('/')
+  const organization = await client.organizations.fetchOrganization(
+    config.organization_id
+  )
+  if (organization.meta.status_code != 200) {
+    throw new Error(`Organization '${config.organization_id}' not found.`)
+  }
+
   const integrationFetchResult = await client.integrations
-    .fetchIntegration(productSlug, integrationSlug)
+    .fetchIntegration(productSlug, organization.result.id, integrationSlug)
     .catch((err) => {
       console.error(err)
       throw new Error(`Integration '${config.identifier}' not found.`)

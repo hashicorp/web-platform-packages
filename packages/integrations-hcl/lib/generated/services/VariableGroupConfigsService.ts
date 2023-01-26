@@ -30,7 +30,7 @@ export class VariableGroupConfigsService {
     }
   ): CancelablePromise<{
     meta: Meta201
-    result: Array<VariableGroupConfig>
+    result: VariableGroupConfig
   }> {
     return this.httpRequest.request({
       method: 'POST',
