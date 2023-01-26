@@ -15,6 +15,7 @@ export class VariableGroupsService {
    * Create a Variable Group
    * Create a Variable Group
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -24,6 +25,7 @@ export class VariableGroupsService {
    */
   public createVariableGroup(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -36,9 +38,10 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -56,6 +59,7 @@ export class VariableGroupsService {
    * Fetch all Variable Groups
    * Fetch all Variable Groups
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -64,6 +68,7 @@ export class VariableGroupsService {
    */
   public fetchVariableGroups(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string
@@ -73,9 +78,10 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -87,6 +93,7 @@ export class VariableGroupsService {
    * Fetch a specific Variable Group
    * Fetch a specific Variable Group
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -96,6 +103,7 @@ export class VariableGroupsService {
    */
   public fetchVariableGroup(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -106,9 +114,10 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -124,6 +133,7 @@ export class VariableGroupsService {
    * Delete a specific Variable Group
    * Delete a specific Variable Group
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -133,6 +143,7 @@ export class VariableGroupsService {
    */
   public deleteVariableGroup(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -142,9 +153,10 @@ export class VariableGroupsService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
