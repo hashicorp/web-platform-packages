@@ -173,16 +173,21 @@ async function generateSourceToPageMap(
   return sourceToPageMap
 }
 
-async function getGitChangedFiles(baseBranch: string): Promise<string[]> {
-  const { stdout } = await asyncExec(
-    `git --no-pager diff --name-only '${baseBranch}'`
-  )
-  return stdout.split(os.EOL)
-}
-
 async function getGitBranch(): Promise<string> {
   const { stdout } = await asyncExec(`git branch --show-current`)
   return stdout.trim()
+}
+
+async function getGitChangedFiles(baseBranch: string): Promise<string[]> {
+  const branch = await getGitBranch()
+  const { stdout: mergeBaseStdOut } = await asyncExec(
+    `git merge-base ${branch} ${baseBranch}`
+  )
+  const mergeBase = mergeBaseStdOut.trim()
+  const { stdout } = await asyncExec(
+    `git --no-pager diff --name-only '${branch}' '${mergeBase}'`
+  )
+  return stdout.split(os.EOL)
 }
 
 export function getListOfUrls(
