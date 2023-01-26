@@ -7,6 +7,7 @@
     "hc-tools": "./dist/index.js"
   },
   "dependencies": {
+    "@actions/core": "^1.10.0",
     "@datadog/datadog-api-client": "^1.4.0",
     "@next/env": "^12.1.4",
     "@types/yargs": "^17.0.19",
