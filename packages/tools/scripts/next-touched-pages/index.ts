@@ -17,7 +17,6 @@ interface BuildManifest {
 
 interface Configuration {
   paths?: Record<string, string[]>
-  buildUrl?: (branch: string) => string
 }
 
 const css = /\/\*+[\s\S]*?sourceMappingURL\s*=([\s\S]*?)\*\//
@@ -189,24 +188,22 @@ async function getGitBranch(): Promise<string> {
 export function getListOfUrls(
   page: string,
   {
-    base,
+    hostname,
     dynamicPathsConfig,
-    urlBuilderConfig,
   }: {
-    base?: string
+    hostname?: string
     dynamicPathsConfig?: Record<string, string[]>
-    urlBuilderConfig?: (branch: string) => string
   }
 ): string {
   if (dynamicPathsConfig && page in dynamicPathsConfig) {
     const paths = dynamicPathsConfig[page]
-    if (base) {
+    if (hostname) {
       return paths
         .map(
           (p, i) =>
-            `<li><a href="${
-              urlBuilderConfig ? urlBuilderConfig(base) : base
-            }${p}"><code>${p}</code> #${i + 1}</a></li>`
+            `<li><a href="https://${hostname}${p}"><code>${p}</code> #${
+              i + 1
+            }</a></li>`
         )
         .join('')
     } else {
@@ -223,13 +220,15 @@ export function generateCommentMarkdown(
   changedPages: string[],
   {
     baseBranch,
+    baseBranchDeployUrl,
     branch,
-    urlBuilderConfig,
+    deployUrl,
     dynamicPathsConfig,
   }: {
     baseBranch?: string
+    baseBranchDeployUrl?: string
     branch?: string
-    urlBuilderConfig?: (branch: string) => string
+    deployUrl?: string
     dynamicPathsConfig?: Record<string, string[]>
   }
 ): string {
@@ -244,14 +243,12 @@ export function generateCommentMarkdown(
       ...changedPages.map((p) => [
         `<code>${p}</code>`,
         getListOfUrls(p, {
-          base: baseBranch,
+          hostname: baseBranchDeployUrl,
           dynamicPathsConfig,
-          urlBuilderConfig,
         }),
         getListOfUrls(p, {
-          base: branch,
+          hostname: deployUrl,
           dynamicPathsConfig,
-          urlBuilderConfig,
         }),
       ]),
     ])
@@ -307,6 +304,16 @@ export default async function main() {
       type: 'string',
       conflicts: ['files'],
     })
+    .option('base-branch-deploy-url', {
+      description: 'Deploy URL of the base branch provided with --base-branch',
+      type: 'string',
+      default: '',
+    })
+    .option('deploy-url', {
+      description: 'Deploy URL of the current branch',
+      type: 'string',
+      default: '',
+    })
     .option('format', {
       alias: 'f',
       description: 'format of output',
@@ -353,8 +360,9 @@ export default async function main() {
       case 'comment-markdown':
         await printCommentMarkdown(sortedChangedPages, {
           branch,
+          deployUrl: argv.deployUrl,
           baseBranch: argv.baseBranch,
-          urlBuilderConfig: config.buildUrl,
+          baseBranchDeployUrl: argv.baseBranchDeployUrl,
           dynamicPathsConfig: config.paths,
         })
         break
