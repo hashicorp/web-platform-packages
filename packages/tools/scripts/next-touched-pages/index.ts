@@ -178,7 +178,7 @@ async function getGitChangedFiles(
   branch: string
 ): Promise<string[]> {
   const { stdout: mergeBaseStdOut } = await asyncExec(
-    `git merge-base ${branch} ${baseBranch}`
+    `git merge-base origin/${branch} ${baseBranch}`
   )
   const mergeBase = mergeBaseStdOut.trim()
   const { stdout } = await asyncExec(
