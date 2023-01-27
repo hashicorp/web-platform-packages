@@ -173,13 +173,10 @@ async function generateSourceToPageMap(
   return sourceToPageMap
 }
 
-async function getGitBranch(): Promise<string> {
-  const { stdout } = await asyncExec(`git branch --show-current`)
-  return stdout.trim()
-}
-
-async function getGitChangedFiles(baseBranch: string): Promise<string[]> {
-  const branch = await getGitBranch()
+async function getGitChangedFiles(
+  baseBranch: string,
+  branch: string
+): Promise<string[]> {
   const { stdout: mergeBaseStdOut } = await asyncExec(
     `git merge-base ${branch} ${baseBranch}`
   )
@@ -307,6 +304,11 @@ export default async function main() {
       type: 'array',
       conflicts: ['base-branch'],
     })
+    .option('branch', {
+      description: 'the current branch',
+      type: 'string',
+      default: '',
+    })
     .option('base-branch', {
       alias: 'b',
       description: 'base branch to compare against',
@@ -341,7 +343,10 @@ export default async function main() {
     if (argv.paths) {
       changedFiles = argv.paths as string[]
     } else if (argv.baseBranch) {
-      const gitChangedFiles = await getGitChangedFiles(argv.baseBranch)
+      const gitChangedFiles = await getGitChangedFiles(
+        argv.baseBranch,
+        argv.branch
+      )
       changedFiles = gitChangedFiles
     }
 
@@ -354,7 +359,6 @@ export default async function main() {
 
     const sortedChangedPages = Array.from(changedPages).sort()
 
-    const branch = await getGitBranch()
     const config = await loadConfig()
 
     switch (argv.format) {
@@ -368,7 +372,7 @@ export default async function main() {
         break
       case 'comment-markdown':
         await printCommentMarkdown(sortedChangedPages, {
-          branch,
+          branch: argv.branch,
           deployUrl: argv.deployUrl,
           baseBranch: argv.baseBranch,
           baseBranchDeployUrl: argv.baseBranchDeployUrl,
