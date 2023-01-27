@@ -206,7 +206,7 @@ export function getListOfUrls(
       return paths
         .map(
           (p, i) =>
-            `<li><a href="https://${hostname}${p}"><code>${p}</code> #${
+            `<li><a href="https://${hostname}${p}"><code>${page}</code> #${
               i + 1
             }</a></li>`
         )
@@ -216,6 +216,10 @@ export function getListOfUrls(
         .map((p, i) => `<li><code>${p}</code> #${i + 1}</li>`)
         .join('')
     }
+  }
+
+  if (hostname && !page.includes('[')) {
+    return `<li><a href="https://${hostname}${page}"><code>${page}</code></a></li>`
   }
 
   return `<li><code>${page}</code></li>`
