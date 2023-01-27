@@ -182,7 +182,7 @@ async function getGitChangedFiles(
   )
   const mergeBase = mergeBaseStdOut.trim()
   const { stdout } = await asyncExec(
-    `git --no-pager diff --name-only '${branch}' '${mergeBase}'`
+    `git --no-pager diff --name-only 'origin/${branch}' '${mergeBase}'`
   )
   return stdout.split(os.EOL)
 }
