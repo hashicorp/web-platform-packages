@@ -13,7 +13,8 @@
     "imagemin-optipng": "8.0.0",
     "imagemin-svgo": "8.0.0",
     "next-transpile-modules": "^10.0.0",
-    "postcss-normalize": "10.0.1"
+    "postcss-normalize": "10.0.1",
+    "svgo-loader": "^4.0.0"
   },
   "devDependencies": {
     "@hashicorp/platform-types": "^0.3.0",
