@@ -11,7 +11,7 @@ export class IntegrationsService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
   /**
-   * Get Integrations
+   * Fetch All Integrations
    * Fetch all integration for a specific product
    * @param product
    * @param limit
@@ -44,12 +44,14 @@ export class IntegrationsService {
    * Create Integration
    * Create an integration
    * @param product
+   * @param organization
    * @param requestBody
    * @returns any OK
    * @throws ApiError
    */
   public createIntegration(
     product: string,
+    organization: string,
     requestBody?: {
       id?: string
       slug: string
@@ -71,9 +73,10 @@ export class IntegrationsService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations',
+      url: '/products/{product}/organizations/{organization}/integrations',
       path: {
         product: product,
+        organization: organization,
       },
       body: requestBody,
       mediaType: 'application/json',
@@ -88,12 +91,14 @@ export class IntegrationsService {
    * Get Integration
    * Fetch a specific integration
    * @param product
+   * @param organization
    * @param integration
    * @returns any OK
    * @throws ApiError
    */
   public fetchIntegration(
     product: string,
+    organization: string,
     integration: string
   ): CancelablePromise<{
     meta: Meta200
@@ -101,9 +106,10 @@ export class IntegrationsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
       },
       errors: {
@@ -116,6 +122,7 @@ export class IntegrationsService {
    * Update Integration
    * Update a specific integration
    * @param product
+   * @param organization
    * @param integration
    * @param requestBody
    * @returns any OK
@@ -123,6 +130,7 @@ export class IntegrationsService {
    */
   public updateIntegration(
     product: string,
+    organization: string,
     integration: string,
     requestBody?: {
       slug?: string
@@ -144,9 +152,10 @@ export class IntegrationsService {
   }> {
     return this.httpRequest.request({
       method: 'PATCH',
-      url: '/products/{product}/integrations/{integration}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
       },
       body: requestBody,
@@ -162,21 +171,24 @@ export class IntegrationsService {
    * Delete Integration
    * Delete a specific integration
    * @param product
+   * @param organization
    * @param integration
    * @returns any OK
    * @throws ApiError
    */
   public deleteIntegration(
     product: string,
+    organization: string,
     integration: string
   ): CancelablePromise<{
     meta: Meta200
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
       },
     })

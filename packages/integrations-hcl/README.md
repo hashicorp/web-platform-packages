@@ -17,7 +17,11 @@ npx -p openapi-typescript-codegen openapi \
   --input ../integrations-api/src/spec/api-docs.json \
   --output ./packages/integrations-hcl/lib/generated \
   --client node \
-  --name IntegrationsAPI
+  --name IntegrationsAPI \
+  --request ./packages/integrations-hcl/lib/generated/request.ts.template
+
+# Ensure generated files match out prettier config
+npx prettier --write ./packages/integrations-hcl/lib/generated
 ```
 
 Usage:
