@@ -14,6 +14,7 @@ export class IntegrationReleasesService {
    * Create Integration Release
    * Create a release for an integration
    * @param product
+   * @param organization
    * @param integration
    * @param requestBody
    * @returns any OK
@@ -21,6 +22,7 @@ export class IntegrationReleasesService {
    */
   public createRelease(
     product: string,
+    organization: string,
     integration: string,
     requestBody?: {
       version: string
@@ -32,9 +34,10 @@ export class IntegrationReleasesService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/releases',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
       },
       body: requestBody,
@@ -50,6 +53,7 @@ export class IntegrationReleasesService {
    * Fetch an integration release
    * Fetch a release for an integration
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @returns any OK
@@ -57,6 +61,7 @@ export class IntegrationReleasesService {
    */
   public fetchRelease(
     product: string,
+    organization: string,
     integration: string,
     release: string
   ): CancelablePromise<{
@@ -65,9 +70,10 @@ export class IntegrationReleasesService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
       },
@@ -81,6 +87,7 @@ export class IntegrationReleasesService {
    * Update an integration release
    * Update a release for an integration
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param requestBody
@@ -89,6 +96,7 @@ export class IntegrationReleasesService {
    */
   public updateRelease(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     requestBody?: {
@@ -100,9 +108,10 @@ export class IntegrationReleasesService {
   }> {
     return this.httpRequest.request({
       method: 'PATCH',
-      url: '/products/{product}/integrations/{integration}/releases/{release}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
       },
@@ -119,6 +128,7 @@ export class IntegrationReleasesService {
    * Delete an integration release
    * Delete a release for an integration
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @returns any OK
@@ -126,6 +136,7 @@ export class IntegrationReleasesService {
    */
   public deleteRelease(
     product: string,
+    organization: string,
     integration: string,
     release: string
   ): CancelablePromise<{
@@ -133,9 +144,10 @@ export class IntegrationReleasesService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/releases/{release}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
       },
