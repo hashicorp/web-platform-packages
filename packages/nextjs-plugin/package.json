@@ -12,7 +12,6 @@
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
     "imagemin-svgo": "8.0.0",
-    "next-transpile-modules": "^10.0.0",
     "postcss-normalize": "10.0.1",
     "svgo-loader": "^4.0.0"
   },

@@ -7,10 +7,12 @@ jest.mock('@hashicorp/next-optimized-images', () =>
 
 beforeEach(() => {
   jest.clearAllMocks()
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  process.env.__NEXT_VERSION = require('next/package.json').version
 })
 
 test('dato token default', () => {
-  console.log(withHashicorp({ dato: { token: 'foo' } })())
   expect(
     withHashicorp({ dato: { token: 'foo' } })().env?.HASHI_DATO_TOKEN
   ).toBe('foo')
@@ -164,4 +166,19 @@ test('nextOptimizedImages false - does not integrate next-optimized-images plugi
 
   expect(config?.images?.disableStaticImages).toBeUndefined()
   expect(nextOptimizedImages).not.toHaveBeenCalled()
+})
+
+test('transpileModules deprecated warning', () => {
+  const warnSpy = jest.spyOn(console, 'warn')
+  warnSpy.mockImplementationOnce(() => null)
+
+  process.env.__NEXT_VERSION = '13.1.0'
+
+  const config = withHashicorp({ transpileModules: ['@hashicorp/react-foo'] })()
+
+  expect(config.transpilePackages).toContain('@hashicorp/react-foo')
+
+  expect(warnSpy).toHaveBeenCalledWith(
+    `[hashicorp] our unique config value transpileModules is deprecated, use nextConfig.transpilePackages instead.`
+  )
 })
