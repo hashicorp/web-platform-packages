@@ -26,13 +26,30 @@ export default async function LoadFilesystemIntegration(
   })
 
   // Fetch the Integration from the API that we're looking to update
-  const [productSlug, integrationSlug] = config.identifier.split('/')
-  const integrationFetchResult = await client.integrations
-    .fetchIntegration(productSlug, integrationSlug)
-    .catch((err) => {
-      console.error(err)
-      throw new Error(`Integration '${config.identifier}' not found.`)
-    })
+  const [productSlug, organizationSlug, integrationSlug] =
+    config.identifier.split('/')
+
+  const organization = await client.organizations.fetchOrganization(
+    organizationSlug
+  )
+
+  if (organization.meta.status_code != 200) {
+    throw new Error(
+      `Organization not found for integration identifier: '${config.identifier}'`
+    )
+  }
+
+  const integrationFetchResult = await client.integrations.fetchIntegration(
+    productSlug,
+    organization.result.id,
+    integrationSlug
+  )
+
+  if (integrationFetchResult.meta.status_code !== 200) {
+    throw new Error(
+      `Integration not found for integration identifier: '${config.identifier}'`
+    )
+  }
 
   const apiIntegration = integrationFetchResult.result
 
@@ -61,12 +78,17 @@ export default async function LoadFilesystemIntegration(
   }
 
   // Load the Products VariableGroupConfigs so we can load any component variables
-  const variableGroupConfigs = await client.variableGroupConfigs
-    .fetchVariableGroupConfigs(apiIntegration.product.slug, '100')
-    .catch((err) => {
-      console.error(err)
-      throw new Error(`Failed to load 'variable_group' configs`)
-    })
+  const variableGroupConfigs =
+    await client.variableGroupConfigs.fetchVariableGroupConfigs(
+      apiIntegration.product.slug,
+      '100'
+    )
+
+  if (variableGroupConfigs.meta.status_code !== 200) {
+    throw new Error(
+      `Failed to load 'variable_group' configs for product: '${apiIntegration.product.slug}'`
+    )
+  }
 
   // Calculate each Component object
   const allComponents: Array<Component> = []
