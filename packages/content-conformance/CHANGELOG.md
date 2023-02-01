@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.7
+
+### Patch Changes
+
+- [#159](https://github.com/hashicorp/web-platform-packages/pull/159) [`d99438d`](https://github.com/hashicorp/web-platform-packages/commit/d99438dccbede772bf3bccfd08bd141d4278bfac) Thanks [@BRKalow](https://github.com/BRKalow)! - Adjust CLI output, improve erorr message for frontmatter rule"
+
 ## 0.0.6
 
 ### Patch Changes
