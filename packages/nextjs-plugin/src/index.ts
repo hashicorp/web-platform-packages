@@ -155,9 +155,9 @@ function withHashicorp({
  * @param minimumVersion Minimum semver version, can include or omit the minor or patch version
  */
 function isNextVersionAtLeast(minimumVersion: string) {
-  const [major, minor = 0, patch = 0] = (
-    process.env.__NEXT_VERSION as string
-  ).split('.')
+  const [major, minor = 0, patch = 0] =
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    (require('next/package.json').version as string).split('.')
   const [minMajor, minMinor = 0, minPatch = 0] = minimumVersion.split('.')
 
   if (major >= minMajor && minor >= minMinor && patch >= minPatch) {
