@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.6.0
+
+### Minor Changes
+
+- [#158](https://github.com/hashicorp/web-platform-packages/pull/158) [`ef2b0f5`](https://github.com/hashicorp/web-platform-packages/commit/ef2b0f5b303b7752ae95ae217ea887119462c9fa) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds a new docs section on validating content with our content checks.
+
 ## 2.5.1
 
 ### Patch Changes
