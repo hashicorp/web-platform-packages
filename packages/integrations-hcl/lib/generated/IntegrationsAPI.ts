@@ -44,7 +44,7 @@ export class IntegrationsAPI {
   ) {
     this.request = new HttpRequest({
       BASE: config?.BASE ?? 'http://localhost:5000',
-      VERSION: config?.VERSION ?? '1.0.0',
+      VERSION: config?.VERSION ?? '0.8.0',
       WITH_CREDENTIALS: config?.WITH_CREDENTIALS ?? false,
       CREDENTIALS: config?.CREDENTIALS ?? 'include',
       TOKEN: config?.TOKEN,
