@@ -15,7 +15,6 @@ describe('getHashicorpPackages', () => {
         "@hashicorp/react-button",
         "@hashicorp/react-package",
         "@hashicorp/react-package/node_modules/@hashicorp/react-nested",
-        "@hashicorp/versioned-docs",
       ]
     `)
   })
