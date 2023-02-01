@@ -84,8 +84,7 @@ export function getHashicorpPackages(
     if (
       (dir !== 'react-global-styles' && dir.startsWith('react-')) ||
       dir.startsWith('platform-') ||
-      dir === 'nextjs-scripts' ||
-      dir === 'versioned-docs'
+      dir === 'flight-icons'
     )
       results.push(path.join(dirToSearch, dir))
 
