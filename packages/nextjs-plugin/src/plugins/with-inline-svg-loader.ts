@@ -1,6 +1,4 @@
 import { NextConfig } from 'next'
-// @ts-expect-error -- There are no types for this package
-import loader from 'svgo-loader'
 
 export function withInlineSvgLoader() {
   return function withInlineSvgLoaderInternal(
@@ -17,7 +15,7 @@ export function withInlineSvgLoader() {
           type: 'asset/source',
           use: [
             {
-              loader,
+              loader: 'svgo-loader',
               options: {
                 plugins: [
                   {
