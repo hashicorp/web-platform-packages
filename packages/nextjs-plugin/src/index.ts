@@ -56,10 +56,17 @@ function withHashicorp({
       chain.unshift(withInlineSvgLoader())
     }
 
-    if (transpileModules && isNextVersionAtLeast('13.1.0')) {
-      console.warn(
-        '[hashicorp] our unique config value transpileModules is deprecated, use nextConfig.transpilePackages instead.'
-      )
+    if (transpileModules) {
+      if (isNextVersionAtLeast('13.1.0')) {
+        console.warn(
+          '[hashicorp] our unique config value transpileModules is deprecated, use nextConfig.transpilePackages instead.'
+        )
+      } else {
+        console.error(
+          '[hashicorp] transpileModules usage detected on next <13.1.0. This is no longer supported. Upgrade next and use nextConfig.transpilePackages instead.'
+        )
+      }
+
       nextConfig.transpilePackages = [
         ...transpileModules,
         ...(nextConfig?.transpilePackages ?? []),
