@@ -56,7 +56,7 @@ function withHashicorp({
       chain.unshift(withInlineSvgLoader())
     }
 
-    if (transpileModules) {
+    if (transpileModules.length > 0) {
       if (isNextVersionAtLeast('13.1.0')) {
         console.warn(
           '[hashicorp] our unique config value transpileModules is deprecated, use nextConfig.transpilePackages instead.'
