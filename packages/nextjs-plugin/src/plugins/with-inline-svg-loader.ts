@@ -19,12 +19,13 @@ export function withInlineSvgLoader() {
               options: {
                 plugins: [
                   {
-                    name: 'removeViewBox',
-                    active: false,
-                  },
-                  {
-                    name: 'collapseGroups',
-                    active: false,
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                        collapseGroups: false,
+                      },
+                    },
                   },
                 ],
               },
