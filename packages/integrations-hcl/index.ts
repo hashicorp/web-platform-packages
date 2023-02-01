@@ -29,6 +29,14 @@ export default async function LoadFilesystemIntegration(
   const [productSlug, organizationSlug, integrationSlug] =
     config.identifier.split('/')
 
+  // Throw if the identifier is invalid
+  if (!productSlug || !organizationSlug || !integrationSlug) {
+    throw new Error(
+      `Invalid integration identifier: '${config.identifier}'.` +
+        ` The expected format is 'productSlug/organizationSlug/integrationSlug'`
+    )
+  }
+
   const organization = await client.organizations.fetchOrganization(
     organizationSlug
   )
