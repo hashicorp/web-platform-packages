@@ -44,14 +44,8 @@ export class ContentConformanceEngine {
       onlyFiles: true,
       cwd: this.opts.root,
     })) {
-      // If an array of filepaths are provided, only load the file if it matches one of the provided paths
-      if (
-        this.opts.files?.length &&
-        !this.opts.files.includes(String(filepath))
-      ) {
-        continue
-      }
-
+      // Note that we do not filter based on this.opts.files here, as we do in `loadContentFiles()`. This is because data file rules often are dependent on content files, and so we want to make sure that no issues slip through.
+      // TODO: consider a way to configure certain files as "global" to make this more explicit
       const fullPath = path.join(this.opts.root, String(filepath))
       const contents = await fs.promises.readFile(fullPath, 'utf-8')
 
