@@ -121,7 +121,7 @@ export class ContentConformanceEngine {
     }
 
     for (const file of this.dataFiles) {
-      // Note that we do not filter based on this.opts.files here, as we do in `loadContentFiles()`. This is because data file rules often are dependent on content files, and so we want to make sure that no issues slip through.
+      // Note that we do not filter based on this.opts.files here, as we do above for content files. This is because data file rules often are dependent on content files, and so we want to make sure that no issues slip through.
       // TODO: consider a way to configure certain files as "global" to make this more explicit
       promises.push(this.checkFile(file))
     }
