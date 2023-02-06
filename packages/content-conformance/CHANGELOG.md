@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.8
+
+### Patch Changes
+
+- [#164](https://github.com/hashicorp/web-platform-packages/pull/164) [`9357caa`](https://github.com/hashicorp/web-platform-packages/commit/9357caa68b96a6f9e1a429c6efed99276d9d10a4) Thanks [@BRKalow](https://github.com/BRKalow)! - Remove file filtering for data files in the engine. Ensures data files are always checked.
+
 ## 0.0.7
 
 ### Patch Changes
