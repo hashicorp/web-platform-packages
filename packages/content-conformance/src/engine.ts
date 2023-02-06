@@ -44,14 +44,6 @@ export class ContentConformanceEngine {
       onlyFiles: true,
       cwd: this.opts.root,
     })) {
-      // If an array of filepaths are provided, only load the file if it matches one of the provided paths
-      if (
-        this.opts.files?.length &&
-        !this.opts.files.includes(String(filepath))
-      ) {
-        continue
-      }
-
       const fullPath = path.join(this.opts.root, String(filepath))
       const contents = await fs.promises.readFile(fullPath, 'utf-8')
 
@@ -72,14 +64,6 @@ export class ContentConformanceEngine {
         cwd: this.opts.root,
       }
     )) {
-      // If an array of filepaths are provided, only load the file if it matches one of the provided paths
-      if (
-        this.opts.files?.length &&
-        !this.opts.files.includes(String(filepath))
-      ) {
-        continue
-      }
-
       const fullPath = path.join(this.opts.root, String(filepath))
       const contents = await fs.promises.readFile(fullPath, 'utf-8')
 
@@ -126,10 +110,19 @@ export class ContentConformanceEngine {
     const promises = []
 
     for (const file of this.contentFiles) {
+      // If an array of filepaths are provided, only check the file if it matches one of the provided paths
+      if (
+        this.opts.files?.length &&
+        !this.opts.files.includes(String(file.path))
+      ) {
+        continue
+      }
       promises.push(this.checkFile(file))
     }
 
     for (const file of this.dataFiles) {
+      // Note that we do not filter based on this.opts.files here, as we do above for content files. This is because data file rules often are dependent on content files, and so we want to make sure that no issues slip through.
+      // TODO: consider a way to configure certain files as "global" to make this more explicit
       promises.push(this.checkFile(file))
     }
 
