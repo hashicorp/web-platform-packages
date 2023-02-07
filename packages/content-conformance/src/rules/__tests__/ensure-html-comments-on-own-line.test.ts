@@ -16,7 +16,17 @@ describe('no-nested-html-comments', () => {
       {
         fixture: `* <!-- html-comment -->`,
         messages: [
-          'Detected an HTML comment that is likely nested. You may be using this in a bullet point or other markdown primitive, which is not permitted. Please ensure HTML comments are on their own line, without any indentation.',
+          'Detected an HTML comment that is likely nested. You may be using this in a bullet point or other markdown primitive, which is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
+        ],
+      },
+    ])
+    testRule(rule, [
+      {
+        fixture: `<Component>
+<!-- html-comment -->
+</Component>`,
+        messages: [
+          'Detected an HTML comment that is nested within a JSX Tag. This is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
         ],
       },
     ])
@@ -27,7 +37,7 @@ describe('no-nested-html-comments', () => {
       {
         fixture: ` <!-- html-comment -->`,
         messages: [
-          'Detected an HTML comment that is indented. This is not permitted. Please ensure HTML comments are on their own line, without any indentation.',
+          'Detected an HTML comment that is indented. This is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
         ],
       },
     ])
@@ -38,7 +48,7 @@ describe('no-nested-html-comments', () => {
       {
         fixture: `    <!-- html-comment -->`,
         messages: [
-          'Detected an HTML comment in a code block. This is not permitted. Please ensure HTML comments are on their own line, without any indentation.',
+          'Detected an HTML comment in a code block. This is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
         ],
       },
     ])

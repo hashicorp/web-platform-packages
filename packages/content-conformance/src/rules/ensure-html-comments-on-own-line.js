@@ -7,12 +7,12 @@ export default {
   executor: {
     async contentFile(file, context) {
       file.visit('jsx', (node) => {
-        // is HTML comment
+        // is HTML comment or JSX tag with HTML comment
         if (node.value.includes('<!--')) {
-          // // if child of another node
+          // if child of another node
           if (node.position.start.column != 1) {
             context.report(
-              'Detected an HTML comment that is likely nested. You may be using this in a bullet point or other markdown primitive, which is not permitted. Please ensure HTML comments are on their own line, without any indentation.',
+              'Detected an HTML comment that is likely nested. You may be using this in a bullet point or other markdown primitive, which is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
               file,
               node
             )
@@ -21,7 +21,16 @@ export default {
           // if leading whitespace
           if (node.value.match(/^\s/i)) {
             context.report(
-              'Detected an HTML comment that is indented. This is not permitted. Please ensure HTML comments are on their own line, without any indentation.',
+              'Detected an HTML comment that is indented. This is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
+              file,
+              node
+            )
+          }
+
+          // likely nested in JSX tag
+          if (!node.value.startsWith('<!')) {
+            context.report(
+              'Detected an HTML comment that is nested within a JSX Tag. This is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
               file,
               node
             )
@@ -33,7 +42,7 @@ export default {
       file.visit('code', (node) => {
         if (node.value.includes('<!--')) {
           context.report(
-            'Detected an HTML comment in a code block. This is not permitted. Please ensure HTML comments are on their own line, without any indentation.',
+            'Detected an HTML comment in a code block. This is not permitted. Please ensure HTML comments are on their own line, without any indentation or nesting.',
             file,
             node
           )
