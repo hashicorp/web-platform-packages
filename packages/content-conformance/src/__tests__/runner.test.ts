@@ -241,25 +241,25 @@ describe('ContentConformanceRunner', () => {
 
       | Position | Description | Rule |
       |---|---|---|
-      |\`12:1-12:11\`|Level 1 headings are not allowed|\`local-no-h1\`|
+      | \`12:1-12:11\` | Level 1 headings are not allowed | \`local-no-h1\` |
 
       #### \`content/index.mdx\`
 
       | Position | Description | Rule |
       |---|---|---|
-      |\`1:1-1:8\`|Level 1 headings are not allowed|\`local-no-h1\`|
+      | \`1:1-1:8\` | Level 1 headings are not allowed | \`local-no-h1\` |
 
       #### \`content/no-h1.mdx\`
 
       | Position | Description | Rule |
       |---|---|---|
-      |\`1:1-1:27\`|Must have a level 1 heading at the top of the file.|\`must-have-h1\`|
+      | \`1:1-1:27\` | Must have a level 1 heading at the top of the file. | \`must-have-h1\` |
 
       #### \`content/nested/nested.mdx\`
 
       | Position | Description | Rule |
       |---|---|---|
-      |\`1:1-1:9\`|Level 1 headings are not allowed|\`local-no-h1\`|
+      | \`1:1-1:9\` | Level 1 headings are not allowed | \`local-no-h1\` |
 
       </details>"
     `)

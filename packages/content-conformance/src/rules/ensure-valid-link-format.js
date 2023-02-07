@@ -36,6 +36,7 @@ const PRODUCT_SLUGS_TO_BASE_PATHS = {
     'plugin/log',
     'plugin/mux',
     'plugin/sdkv2',
+    'plugin/testing',
     'registry',
     'downloads',
   ],
