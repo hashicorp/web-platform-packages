@@ -31,6 +31,7 @@ export function markdownReporter(files: VFile[]) {
     // Table row for each message
     file.messages.forEach((message: VFileMessage) => {
       if (!message.ruleId) {
+        // Messages without an explicit rule ID are a result of errors while the file is being parsed.
         parseErrors.push(`\`\`\`
 ${message.reason}
 \`\`\``)
