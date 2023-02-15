@@ -10,6 +10,7 @@ export { addCloudLinkHandler } from './add-cloud-link-handler'
 export { addGlobalLinkHandler } from './add-global-link-handler'
 
 export { addDevAnalyticsLogger } from './analytics-event-logger'
+export { segmentPreloadScript } from './segment-preload-script'
 
 export * from './analytics-js-helpers'
 
