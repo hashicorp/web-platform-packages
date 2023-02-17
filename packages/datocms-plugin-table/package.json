@@ -8,7 +8,7 @@
     "datocms-plugin"
   ],
   "datoCmsPlugin": {
-    "title": "Advanced Table Editor",
+    "title": "Advanced Table Editor Test",
     "previewImage": "docs/demo.mp4",
     "coverImage": "docs/cover.png",
     "entryPoint": "build/index.html"
