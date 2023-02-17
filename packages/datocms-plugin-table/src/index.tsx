@@ -10,7 +10,7 @@ connect({
       {
         id: 'table',
         type: 'editor',
-        name: 'Advanced Table Editor Test',
+        name: 'Advanced Table Editor',
         fieldTypes: ['json'],
       },
     ]
