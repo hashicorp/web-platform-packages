@@ -1,5 +1,11 @@
 # datocms-plugin-complex-table-editor
 
+## 0.1.2
+
+### Patch Changes
+
+- [#171](https://github.com/hashicorp/web-platform-packages/pull/171) [`f352212`](https://github.com/hashicorp/web-platform-packages/commit/f352212bd69dd502cd48a8c667d9373fbe408573) Thanks [@pbortnick](https://github.com/pbortnick)! - fix: DatoCMS Table Plugin checkbox cells
+
 ## 0.1.1
 
 ### Patch Changes

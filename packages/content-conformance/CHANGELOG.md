@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.9
+
+### Patch Changes
+
+- [#167](https://github.com/hashicorp/web-platform-packages/pull/167) [`7282f08`](https://github.com/hashicorp/web-platform-packages/commit/7282f08b44fa9321ae46d28ad3009fe75da03c65) Thanks [@BRKalow](https://github.com/BRKalow)! - Fix markdown reporter so it outputs properly formatted markdown
+
 ## 0.0.8
 
 ### Patch Changes
