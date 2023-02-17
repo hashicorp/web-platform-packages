@@ -2,8 +2,7 @@
  * This script is provided by Segment
  * - @see https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/#step-2-add-the-segment-snippet
  *
- * It has been modified to “preload” the window.analytics API so we can buffer
- * tracking calls before segment fully loads.
+ * It has been modified to “preload” the window.analytics API without loading the full `analytics.js` segment script so we can buffer tracking calls before segment fully loads.
  *
  * This has also been modified to use the HashiCorp proxy, artemis.hashicorp.com, instead of cdn.segment.com.
  */
