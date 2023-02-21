@@ -51,12 +51,12 @@ export default function FieldExtension({ ctx }: Props) {
     return <Canvas ctx={ctx}>Invalid value!</Canvas>
   }
 
-  const handleUpdate = (value: Value | null) => {
+  const handleUpdate = (updatedValue: Value | null) => {
     pendingChange.current = true
-    setValue(value)
+    setValue(updatedValue)
     ctx.setFieldValue(
       ctx.fieldPath,
-      value === null ? null : JSON.stringify(value, null, 2)
+      updatedValue === null ? null : JSON.stringify(updatedValue, null, 2)
     )
   }
 

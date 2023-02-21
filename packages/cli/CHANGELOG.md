@@ -1,5 +1,17 @@
 # @hashicorp/platform-cli
 
+## 2.6.0
+
+### Minor Changes
+
+- [#158](https://github.com/hashicorp/web-platform-packages/pull/158) [`ef2b0f5`](https://github.com/hashicorp/web-platform-packages/commit/ef2b0f5b303b7752ae95ae217ea887119462c9fa) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds a new docs section on validating content with our content checks.
+
+## 2.5.1
+
+### Patch Changes
+
+- [#152](https://github.com/hashicorp/web-platform-packages/pull/152) [`da5c5f5`](https://github.com/hashicorp/web-platform-packages/commit/da5c5f555acb8a509071a0b825f02615108a479d) Thanks [@kendallstrautman](https://github.com/kendallstrautman)! - Update generated docs for MDX Inline Alerts
+
 ## 2.5.0
 
 ### Minor Changes

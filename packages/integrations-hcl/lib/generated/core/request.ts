@@ -265,25 +265,27 @@ const catchErrorCodes = (
   options: ApiRequestOptions,
   result: ApiResult
 ): void => {
-  const errors: Record<number, string> = {
-    400: 'Bad Request',
-    401: 'Unauthorized',
-    403: 'Forbidden',
-    404: 'Not Found',
-    500: 'Internal Server Error',
-    502: 'Bad Gateway',
-    503: 'Service Unavailable',
-    ...options.errors,
-  }
-
-  const error = errors[result.status]
-  if (error) {
-    throw new ApiError(options, result, error)
-  }
-
-  if (!result.ok) {
-    throw new ApiError(options, result, 'Generic Error')
-  }
+  /**
+   * THIS LOGIC HAS BEEN COMMENTED OUT BECAUSE
+   * WE DO NOT WANT NON-2XX RESPONSES TO THROW
+   */
+  // const errors: Record<number, string> = {
+  //     400: 'Bad Request',
+  //     401: 'Unauthorized',
+  //     403: 'Forbidden',
+  //     404: 'Not Found',
+  //     500: 'Internal Server Error',
+  //     502: 'Bad Gateway',
+  //     503: 'Service Unavailable',
+  //     ...options.errors,
+  // }
+  // const error = errors[result.status];
+  // if (error) {
+  //     throw new ApiError(options, result, error);
+  // }
+  // if (!result.ok) {
+  //     throw new ApiError(options, result, 'Generic Error');
+  // }
 }
 
 /**

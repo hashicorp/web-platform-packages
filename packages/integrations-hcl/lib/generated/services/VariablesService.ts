@@ -15,6 +15,7 @@ export class VariablesService {
    * Create a Variable
    * Create a Variable
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -25,6 +26,7 @@ export class VariablesService {
    */
   public createVariable(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -42,9 +44,10 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -63,6 +66,7 @@ export class VariablesService {
    * Fetch all Variables
    * Fetch all Variables
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -75,6 +79,7 @@ export class VariablesService {
    */
   public fetchVariables(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -94,9 +99,10 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -115,6 +121,7 @@ export class VariablesService {
    * Fetch a specific Variable
    * Fetch a specific Variable
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -125,6 +132,7 @@ export class VariablesService {
    */
   public fetchVariable(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -136,9 +144,10 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: ' /products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
+      url: ' /products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -155,6 +164,7 @@ export class VariablesService {
    * Update a Variable
    * Update a Variable
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -166,6 +176,7 @@ export class VariablesService {
    */
   public updateVariable(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -183,9 +194,10 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'PATCH',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -205,6 +217,7 @@ export class VariablesService {
    * Delete a Variable
    * Delete a Variable
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -215,6 +228,7 @@ export class VariablesService {
    */
   public deleteVariable(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -225,9 +239,10 @@ export class VariablesService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}/variable-groups/{variable_group}/variables/{variable}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,

@@ -10,5 +10,7 @@ export default {
     'ensure-valid-nav-data': 'error',
     'ensure-valid-nav-paths': 'error',
     'no-link-in-heading': 'error',
+    'no-unlinked-pages': 'error',
+    'ensure-valid-link-format': ['error', { contentType: 'docs' }],
   },
 }

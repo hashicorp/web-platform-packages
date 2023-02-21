@@ -21,7 +21,7 @@ jobs:
     if: contains( github.event.pull_request.labels.*.name, 'release:canary')
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 

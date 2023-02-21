@@ -34,11 +34,7 @@ export default function EditableCell({
             <input
               type="checkbox"
               onChange={(e) => {
-                onCellUpdate(
-                  index,
-                  id as string,
-                  e.target.value === 'on' ? true : false
-                )
+                onCellUpdate(index, id as string, e.target.checked)
               }}
               defaultChecked={!!value}
               className={s.checkboxInput}
