@@ -32,10 +32,11 @@ export default function FieldExtension({ ctx }: Props) {
   const rawValue = get(ctx.formValues, ctx.fieldPath) as string | null
   const [value, setValue] = useState<InnerValue>(toInnerValue(rawValue))
   const pendingChange = useRef(false)
-
+  console.log({ pendingChange })
   useDeepCompareEffect(() => {
     const newValue = toInnerValue(rawValue)
     if (deepEqual(newValue, value)) {
+      console.log('deepEqual')
       return
     }
 
@@ -43,6 +44,8 @@ export default function FieldExtension({ ctx }: Props) {
       pendingChange.current = false
       return
     }
+
+    console.log({ setting: newValue })
 
     setValue(newValue)
   }, [rawValue, value])
@@ -52,6 +55,7 @@ export default function FieldExtension({ ctx }: Props) {
   }
 
   const handleUpdate = (updatedValue: Value | null) => {
+    console.log({ updatedValue: updatedValue?.table })
     pendingChange.current = true
     setValue(updatedValue)
     ctx.setFieldValue(
@@ -75,6 +79,8 @@ export default function FieldExtension({ ctx }: Props) {
 
     handleUpdate(exitValue)
   }
+
+  // console.log({value: value?.table.data})
 
   return (
     <Canvas ctx={ctx}>

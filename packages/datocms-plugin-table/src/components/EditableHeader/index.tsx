@@ -34,6 +34,7 @@ export default function EditableHeader({
   columns,
   onColumnRename,
   onAddColumn,
+  onMoveColumn,
   onRemoveColumn,
 }: Props) {
   const ctx = useCtx()
@@ -58,6 +59,8 @@ export default function EditableHeader({
     }
   }
 
+  const columnIndex = columns.findIndex((c) => c.id === id)
+
   return (
     <>
       <Dropdown
@@ -69,14 +72,25 @@ export default function EditableHeader({
         )}
       >
         <DropdownMenu
-          alignment={
-            columns.findIndex((c) => c.id === id) >= columns.length / 2
-              ? 'right'
-              : 'left'
-          }
+          alignment={columnIndex >= columns.length / 2 ? 'right' : 'left'}
         >
           {panel === 'root' && (
             <>
+              <DropdownOption
+                onClick={onMoveColumn.bind(null, id!, false)}
+                disabled={columnIndex === columns.length - 1}
+              >
+                <FontAwesomeIcon icon={faLongArrowAltRight} />
+                Move column to the right
+              </DropdownOption>
+              <DropdownOption
+                onClick={onMoveColumn.bind(null, id!, true)}
+                disabled={columnIndex === 0}
+              >
+                <FontAwesomeIcon icon={faLongArrowAltLeft} />
+                Move column to the left
+              </DropdownOption>
+              <DropdownSeparator />
               <DropdownOption
                 closeMenuOnClick={false}
                 onClick={() => {

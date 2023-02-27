@@ -41,11 +41,38 @@ type Props = {
   onOpenInFullScreen?: () => void
 }
 
+function orderedKeys<T extends { [k: string]: unknown }>(
+  object: T,
+  columns: string[]
+): T {
+  return Object.fromEntries(
+    Object.entries(object).sort(
+      ([key1], [key2]) => columns.indexOf(key1) - columns.indexOf(key2)
+    )
+  ) as T
+}
+
+function moveItemInArray<T>(
+  arr: T[],
+  fromIndex: number,
+  toTheLeft: boolean
+): T[] {
+  const newArray = [...arr]
+  const toIndex = toTheLeft ? fromIndex - 1 : fromIndex + 1
+
+  var element = newArray[fromIndex]
+  newArray.splice(fromIndex, 1)
+  newArray.splice(toIndex, 0, element)
+
+  return newArray
+}
+
 export default function TableEditor({
   value,
   onChange,
   onOpenInFullScreen,
 }: Props) {
+  console.log({ value: value?.table.data })
   const { collapsibleRows, hasColumnHeaders, table } = value
   const [collapsedRows, setCollapsedRows] = useState<Array<number>>([])
 
@@ -92,10 +119,17 @@ export default function TableEditor({
         data: table.data.map((row, i) =>
           i !== index
             ? row
-            : {
-                ...row,
-                [isBlankColumnHeader(column) ? '' : column]: cellValue,
-              }
+            : // : {
+              //     ...row,
+              //     [isBlankColumnHeader(column) ? '' : column]: cellValue,
+              //   }
+              orderedKeys(
+                {
+                  ...row,
+                  [isBlankColumnHeader(column) ? '' : column]: cellValue,
+                },
+                table.columns
+              )
         ),
       },
     })
@@ -103,17 +137,25 @@ export default function TableEditor({
 
   const onColumnRename: Actions['onColumnRename'] = (oldColumn, newColumn) => {
     const updatedColumn = isBlankColumnHeader(newColumn) ? '' : newColumn
+    const newColumns = table.columns.map((c) =>
+      c === oldColumn ? updatedColumn : c
+    )
     onChange({
       ...value,
       table: {
-        columns: table.columns.map((c) =>
-          c === oldColumn ? updatedColumn : c
+        columns: newColumns,
+        data: table.data.map((row, i) =>
+          orderedKeys(
+            {
+              ...omit(row, [oldColumn]),
+              [updatedColumn]:
+                newColumn === ''
+                  ? { heading: '', content: '' }
+                  : row[oldColumn],
+            },
+            newColumns
+          )
         ),
-        data: table.data.map((row, i) => ({
-          ...omit(row, [oldColumn]),
-          [updatedColumn]:
-            newColumn === '' ? { heading: '', content: '' } : row[oldColumn],
-        })),
       },
     })
   }
@@ -155,17 +197,36 @@ export default function TableEditor({
       ...value,
       table: {
         columns: newColumns,
-        data: table.data.map((row, i) => {
+        data: table.data.map((row) => {
           const rowType =
             cellTypes.find(({ isOfType }) =>
               Object.values(row).some((val) => isOfType(val))
             ) || cellTypes[0]
 
-          return {
-            ...row,
-            [columnName]: rowType.defaultVal,
-          }
+          return orderedKeys(
+            {
+              ...row,
+              [columnName]: rowType.defaultVal,
+            },
+            newColumns
+          )
         }),
+      },
+    })
+  }
+
+  const onMoveColumn: Actions['onMoveColumn'] = (column, toTheLeft) => {
+    const newColumns = moveItemInArray(
+      table.columns,
+      table.columns.indexOf(column),
+      toTheLeft
+    )
+
+    onChange({
+      ...value,
+      table: {
+        columns: newColumns,
+        data: table.data.map((row, i) => orderedKeys(row, newColumns)),
       },
     })
   }
@@ -183,6 +244,16 @@ export default function TableEditor({
       table: {
         ...table,
         data: newData,
+      },
+    })
+  }
+
+  const onMoveRow: Actions['onMoveRow'] = (row, toTheBottom) => {
+    onChange({
+      ...value,
+      table: {
+        ...table,
+        data: moveItemInArray(table.data, row, !toTheBottom),
       },
     })
   }
@@ -254,6 +325,7 @@ export default function TableEditor({
         onColumnRename,
         onAddColumn,
         onAddRow,
+        onMoveColumn,
         onRemoveColumn,
         onRemoveRow,
         onChangeRowType,
@@ -264,6 +336,12 @@ export default function TableEditor({
 
   const tbodyRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLDivElement>(null)
+
+  // function handleCloseDropdown(event) {
+  //   if (event.key === "Escape") {
+
+  //   }
+  // }
 
   useEffect(() => {
     if (!tbodyRef.current) {
@@ -281,9 +359,11 @@ export default function TableEditor({
     }
 
     tbody.addEventListener('scroll', handler)
+    // tbody.addEventListener('keydown', handleCloseDropdown)
 
     return () => {
       tbody.removeEventListener('scroll', handler)
+      // tbody.addEventListener('keydown', handleCloseDropdown)
     }
   }, [])
 

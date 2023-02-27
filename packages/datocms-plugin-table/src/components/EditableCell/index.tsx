@@ -26,6 +26,8 @@ export default function EditableCell({
   const currentCellType =
     cellTypes.find(({ isOfType }) => isOfType(value)) || cellTypes[0]
 
+  // console.log(currentCellType, value)
+
   function getCellInput() {
     switch (currentCellType.name) {
       case 'checkbox':

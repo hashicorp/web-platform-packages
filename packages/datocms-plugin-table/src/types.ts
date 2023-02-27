@@ -30,9 +30,11 @@ export type Actions = {
     value: string[][]
   ) => void
   onAddColumn: (column: string, toTheLeft: boolean) => void
+  onMoveColumn: (column: string, toTheLeft: boolean) => void
   onRemoveColumn: (column: string) => void
   onColumnRename: (column: string, newColumn: string) => void
   onAddRow: (row: number, toTheBottom: boolean) => void
+  onMoveRow: (row: number, toTheBottom: boolean) => void
   onRemoveRow: (row: number) => void
   onChangeRowType: (row: number, cellType: CellTypeInfo) => void
   onChangeRowCollapse: (row: number) => void
