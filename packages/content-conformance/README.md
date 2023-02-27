@@ -126,6 +126,78 @@ export default {
   - `contentFile` (function) Called when a `ContentFile` is visited.
   - `dataFile` (function) Called when a `DataFile` is visited.
 
+### Writing an executor
+
+A rule executor contains the logic for the conformance rule. Each executor type is run once for each file of the provided `type` (`content`, or `data`), or once for the entire project if the type is `structure`.
+
+Each executor has access to two arguments:
+
+- `file` (`ContentFile` | `DataFile`) The file being checked by the rule.
+- `context` (object) An object containing global information and a `report()` method (see `ConformanceRuleContext` in [types.ts](./src/types.ts)).
+
+#### `context.report()`
+
+An executor should contain logic related to the rule to determine if the given file is in violation. If a violation is detected, the executor should call `context.report()`:
+
+```js
+{
+  async contentFile(file, context) {
+    if (hasViolation) {
+      context.report('This rule was broken', file)
+    }
+  }
+}
+```
+
+The `context.report()` method accepts three arguments:
+
+- `message` (string) The message that will be used in generated output.
+- `file` (object) The file that the report is associated with.
+- `node` (object) The node that the violation is associated with. Allows positional information to be displayed in the report. (optional)
+
+#### `ContentFile` visitors
+
+When defining a `contentFile` executor, the `file` argument exposes a `visit()` method. This allows the rule to interact with the Abstract Syntax Tree (AST) generated from the source file. It allows checks to be written against specific parts of a content file with minimal boilerplate or extra processing. Usage of `file.visit()` is very similar to [`unist-util-visit`](https://www.npmjs.com/package/unist-util-visit).
+
+```js
+{
+  async contentFile(file, context) {
+    file.visit(['link'], node => {
+      const hasViolation = node.url.includes('example.com')
+      if (hasViolation) {
+        context.report(`Link to example.com detected: ${node.url}`, file, node)
+      }
+    })
+  }
+}
+```
+
+#### `ContentFile` frontmatter
+
+The frontmatter of a content file can be accessed using the `file.frontmatter()` method:
+
+```js
+{
+  async contentFile(file, context) {
+    console.log(file.frontmatter())
+  }
+}
+```
+
+Internally, the underlying `ContentFile` class ensures that the source file is only parsed into its AST representation once.
+
+#### `DataFile` contents
+
+To access the contents of a data file, use the `.contents()` method:
+
+```js
+{
+  async dataFile(file, context) {
+    console.log(file.contents())
+  }
+}
+```
+
 ### Using `remark-lint` rules
 
 [remark-lint](https://github.com/remarkjs/remark-lint) rules are supported by default. To use a `remark-lint` rule, add it to your configuration and ensure the package is installed as a development dependency in your project.
@@ -165,7 +237,7 @@ The engine is responsible for reading files and executing rules against the file
 
 ### File
 
-All files that are checked are represented by `VFile` instances, with some additional information. The `ContentFile` primitive represents files that contain documentation content. Currently, our content files are authored with MDX, with support for YAML frontmatter, out-of-the-box. The `DataFile` primitive represents files that contain data used to render our pages. We are planning to handle JSON and YAML files.
+All files that are checked are represented by `VFile` instances, with some additional information. The `ContentFile` primitive represents files that contain documentation content. Currently, our content files are authored with MDX, with support for YAML frontmatter, out-of-the-box. The `DataFile` primitive represents files that contain data used to render our pages. Currently, JSON and YAML files are supported.
 
 ### Rule
 

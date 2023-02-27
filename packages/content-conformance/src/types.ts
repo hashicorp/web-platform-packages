@@ -35,6 +35,11 @@ export interface ConformanceRuleData extends ConformanceRuleBase {
   type: 'data'
 }
 
+export type Rule =
+  | ConformanceRuleContent
+  | ConformanceRuleStructure
+  | ConformanceRuleData
+
 /**
  * Represents a file with data. Potentially JSON, YAML, or some other serializable data type. Docs nav data is an example of this
  */
