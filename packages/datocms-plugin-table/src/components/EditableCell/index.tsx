@@ -1,7 +1,8 @@
 import { Column as TableColumn, Row as TableRow } from 'react-table'
 import { Actions, CellValue, cellTypes, RichTextProps, Row } from '../../types'
 import { isBlankColumnHeader } from '../../utils/constants'
-import TextEditor from '../TextEditor'
+import HeadingEditor from '../HeadingEditor'
+import ContentEditor from '../ContentEditor'
 import s from './style.module.css'
 
 type Props = Actions & {
@@ -9,7 +10,6 @@ type Props = Actions & {
   row: TableRow<Row>
   column: TableColumn<Row>
   onCellUpdate: (index: number, column: string, value: CellValue) => void
-  k: string
 }
 
 export default function EditableCell({
@@ -27,8 +27,6 @@ export default function EditableCell({
   const currentCellType =
     cellTypes.find(({ isOfType }) => isOfType(value)) || cellTypes[0]
 
-  // console.log(currentCellType, value)
-
   function getCellInput() {
     switch (currentCellType.name) {
       case 'checkbox':
@@ -40,20 +38,28 @@ export default function EditableCell({
                 onCellUpdate(index, id as string, e.target.checked)
               }}
               defaultChecked={!!value}
-              value="checkbox"
               className={s.checkboxInput}
             />
           </div>
         )
       case 'rich text':
         return (
-          <TextEditor
-            id={`row-${index}-column-${id}`}
-            onChange={(val: any) => {
-              onCellUpdate(index, id as string, val as CellValue)
-            }}
-            value={value as RichTextProps}
-          />
+          <div className={s.textEditor}>
+            <HeadingEditor
+              id={`${index}${id?.replace(/ |_/g, '')}Heading`}
+              onChange={(val: any) => {
+                onCellUpdate(index, id as string, val as CellValue)
+              }}
+              value={value as RichTextProps}
+            />
+            <ContentEditor
+              id={`${index}${id?.replace(/ |_/g, '')}Content`}
+              onChange={(val: any) => {
+                onCellUpdate(index, id as string, val as CellValue)
+              }}
+              value={value as RichTextProps}
+            />
+          </div>
         )
       default:
         return <></>

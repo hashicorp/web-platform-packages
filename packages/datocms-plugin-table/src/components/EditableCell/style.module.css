@@ -13,14 +13,14 @@
   border-left: 1px solid var(--accent-color);
   color: var(--accent-color);
   line-height: 1.5;
-}
-
-.cellOptionButton:hover {
-  text-decoration: underline;
-}
-
-.cellOptionButton:last-child {
-  border-right: 1px solid var(--accent-color);
+  
+  &:hover {
+    text-decoration: underline;
+  }
+  
+  &:last-child {
+    border-right: 1px solid var(--accent-color);
+  }
 }
 
 .cellOptionsText {
@@ -47,4 +47,8 @@
 .checkboxInput {
   width: 24px;
   height: 24px;
+}
+
+.textEditor {
+  min-width: 100%;
 }

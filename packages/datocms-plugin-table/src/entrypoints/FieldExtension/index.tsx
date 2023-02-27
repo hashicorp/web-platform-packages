@@ -76,8 +76,6 @@ export default function FieldExtension({ ctx }: Props) {
     handleUpdate(exitValue)
   }
 
-  // console.log({value: value?.table.data})
-
   return (
     <Canvas ctx={ctx}>
       {value === null ? (

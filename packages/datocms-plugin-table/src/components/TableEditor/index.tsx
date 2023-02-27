@@ -118,11 +118,7 @@ export default function TableEditor({
         data: table.data.map((row, i) =>
           i !== index
             ? row
-            : // : {
-              //     ...row,
-              //     [isBlankColumnHeader(column) ? '' : column]: cellValue,
-              //   }
-              orderedKeys(
+            : orderedKeys(
                 {
                   ...row,
                   [isBlankColumnHeader(column) ? '' : column]: cellValue,
@@ -231,11 +227,10 @@ export default function TableEditor({
   }
 
   const onAddRow: Actions['onAddRow'] = (row, toTheBottom) => {
-    const newRow = [...table.columns].reduce<Row>(
+    const newRow = table.columns.reduce<Row>(
       (acc, column) => ({ ...acc, [column]: { heading: '', content: '' } }),
       {}
     )
-    console.log({ newRow })
 
     const newData = [...table.data]
     newData.splice(row + (toTheBottom ? 1 : 0), 0, newRow)
@@ -260,9 +255,32 @@ export default function TableEditor({
   }
 
   const onRemoveRow: Actions['onRemoveRow'] = (row) => {
-    console.log({ row })
     const newData = [...table.data]
     newData.splice(row, 1)
+
+    onChange({
+      ...value,
+      table: {
+        ...table,
+        data: newData,
+      },
+    })
+  }
+
+  const onChangeRowType: Actions['onChangeRowType'] = (row, cellType) => {
+    const newData = [...table.data]
+    const rowData = newData[row]
+    Object.keys(rowData).forEach((key, i) => {
+      if (
+        !isBlankColumnHeader(key) &&
+        key !== '' &&
+        !cellType.isOfType(rowData[key])
+      ) {
+        rowData[key] = cellType.defaultVal
+      }
+    })
+
+    newData[row] = rowData
 
     onChange({
       ...value,
@@ -313,30 +331,6 @@ export default function TableEditor({
     })
   }
 
-  const onChangeRowType: Actions['onChangeRowType'] = (row, cellType) => {
-    const newData = [...table.data]
-    const rowData = newData[row]
-    Object.keys(rowData).forEach((key, i) => {
-      if (
-        !isBlankColumnHeader(key) &&
-        key !== '' &&
-        !cellType.isOfType(rowData[key])
-      ) {
-        rowData[key] = cellType.defaultVal
-      }
-    })
-
-    newData[row] = rowData
-
-    onChange({
-      ...value,
-      table: {
-        ...table,
-        data: newData,
-      },
-    })
-  }
-
   const onChangeRowCollapse: Actions['onChangeRowCollapse'] = (row) => {
     let newCollapsibleRows = [...collapsibleRows]
     if (newCollapsibleRows.includes(row)) {
@@ -362,9 +356,6 @@ export default function TableEditor({
       {
         columns: tableColumns,
         data: table.data,
-        // initialState: {
-
-        // },
         defaultColumn,
         onCellUpdate,
         onColumnRename,
@@ -468,7 +459,7 @@ export default function TableEditor({
             ref={theadRef}
             style={{ overflowX: 'hidden' }}
           >
-            {headerGroups.map((headerGroup, hgI) => (
+            {headerGroups.map((headerGroup) => (
               <div {...headerGroup.getHeaderGroupProps()} className={s.tr}>
                 {headerGroup.headers.map((column) => (
                   <div {...column.getHeaderProps()} className={s.th}>
@@ -514,11 +505,10 @@ export default function TableEditor({
                   >
                     <DropdownMenu>
                       {cellTypes.map(
-                        (type, ctI) =>
+                        (type) =>
                           !checkRowType(row.original, type.isOfType) && (
                             <DropdownOption
                               onClick={onChangeRowType.bind(null, i, type)}
-                              key={`cell-${ctI}`}
                             >
                               &nbsp;Make all cells {type.name} type
                             </DropdownOption>
@@ -579,7 +569,7 @@ export default function TableEditor({
                     </button>
                   )}
                 </div>
-                {row.cells.map((cell, rcI) => {
+                {row.cells.map((cell) => {
                   return (
                     <div {...cell.getCellProps()} className={s.td}>
                       {cell.render('Cell')}
