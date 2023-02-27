@@ -1,3 +1,7 @@
+.textEditor {
+  min-width: 100%;
+}
+
 .editor {
   position: relative;
 }

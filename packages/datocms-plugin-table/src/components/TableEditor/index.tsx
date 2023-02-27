@@ -291,46 +291,6 @@ export default function TableEditor({
     })
   }
 
-  const onMultipleCellUpdate: Actions['onMultipleCellUpdate'] = (
-    index,
-    id,
-    val
-  ) => {
-    let currentRow = index
-    let currentCol = table.columns.indexOf(id)
-
-    const newData = [...table.data]
-
-    const newRow = table.columns.reduce<Row>(
-      (acc, column) => ({ ...acc, [column]: { heading: '', content: '' } }),
-      {}
-    )
-
-    for (const row of val) {
-      if (currentRow === newData.length) {
-        newData.push({ ...newRow })
-      }
-
-      for (const cellValue of row) {
-        if (currentCol < table.columns.length) {
-          newData[currentRow][table.columns[currentCol]] = cellValue
-          currentCol += 1
-        }
-      }
-
-      currentRow += 1
-      currentCol = table.columns.indexOf(id)
-    }
-
-    onChange({
-      ...value,
-      table: {
-        ...table,
-        data: newData,
-      },
-    })
-  }
-
   const onChangeRowCollapse: Actions['onChangeRowCollapse'] = (row) => {
     let newCollapsibleRows = [...collapsibleRows]
     if (newCollapsibleRows.includes(row)) {
@@ -365,7 +325,6 @@ export default function TableEditor({
         onRemoveColumn,
         onRemoveRow,
         onChangeRowType,
-        onMultipleCellUpdate,
       } as TableOptions<Row>,
       useResizeColumns,
       useFlexLayout

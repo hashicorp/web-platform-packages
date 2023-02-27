@@ -1,7 +1,7 @@
 import { Column as TableColumn, Row as TableRow } from 'react-table'
 import { Actions, CellValue, cellTypes, RichTextProps, Row } from '../../types'
 import { isBlankColumnHeader } from '../../utils/constants'
-import HeadingEditor from '../HeadingEditor'
+import TextEditor from '../TextEditor'
 import ContentEditor from '../ContentEditor'
 import s from './style.module.css'
 
@@ -44,22 +44,13 @@ export default function EditableCell({
         )
       case 'rich text':
         return (
-          <div className={s.textEditor}>
-            <HeadingEditor
-              id={`${index}${id?.replace(/ |_/g, '')}Heading`}
-              onChange={(val: any) => {
-                onCellUpdate(index, id as string, val as CellValue)
-              }}
-              value={value as RichTextProps}
-            />
-            <ContentEditor
-              id={`${index}${id?.replace(/ |_/g, '')}Content`}
-              onChange={(val: any) => {
-                onCellUpdate(index, id as string, val as CellValue)
-              }}
-              value={value as RichTextProps}
-            />
-          </div>
+          <TextEditor
+            id={`${index}${id?.replace(/ |_/g, '')}`}
+            onChange={(val: any) => {
+              onCellUpdate(index, id as string, val as CellValue)
+            }}
+            value={value as RichTextProps}
+          />
         )
       default:
         return <></>
