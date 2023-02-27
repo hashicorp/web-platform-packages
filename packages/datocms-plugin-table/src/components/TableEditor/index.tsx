@@ -72,7 +72,6 @@ export default function TableEditor({
   onChange,
   onOpenInFullScreen,
 }: Props) {
-  console.log({ value: value?.table.data })
   const { collapsibleRows, hasColumnHeaders, table } = value
   const [collapsedRows, setCollapsedRows] = useState<Array<number>>([])
 
@@ -232,13 +231,15 @@ export default function TableEditor({
   }
 
   const onAddRow: Actions['onAddRow'] = (row, toTheBottom) => {
-    const newRow = table.columns.reduce<Row>(
+    const newRow = [...table.columns].reduce<Row>(
       (acc, column) => ({ ...acc, [column]: { heading: '', content: '' } }),
       {}
     )
+    console.log({ newRow })
 
     const newData = [...table.data]
     newData.splice(row + (toTheBottom ? 1 : 0), 0, newRow)
+
     onChange({
       ...value,
       table: {
@@ -259,8 +260,49 @@ export default function TableEditor({
   }
 
   const onRemoveRow: Actions['onRemoveRow'] = (row) => {
+    console.log({ row })
     const newData = [...table.data]
     newData.splice(row, 1)
+
+    onChange({
+      ...value,
+      table: {
+        ...table,
+        data: newData,
+      },
+    })
+  }
+
+  const onMultipleCellUpdate: Actions['onMultipleCellUpdate'] = (
+    index,
+    id,
+    val
+  ) => {
+    let currentRow = index
+    let currentCol = table.columns.indexOf(id)
+
+    const newData = [...table.data]
+
+    const newRow = table.columns.reduce<Row>(
+      (acc, column) => ({ ...acc, [column]: { heading: '', content: '' } }),
+      {}
+    )
+
+    for (const row of val) {
+      if (currentRow === newData.length) {
+        newData.push({ ...newRow })
+      }
+
+      for (const cellValue of row) {
+        if (currentCol < table.columns.length) {
+          newData[currentRow][table.columns[currentCol]] = cellValue
+          currentCol += 1
+        }
+      }
+
+      currentRow += 1
+      currentCol = table.columns.indexOf(id)
+    }
 
     onChange({
       ...value,
@@ -320,6 +362,9 @@ export default function TableEditor({
       {
         columns: tableColumns,
         data: table.data,
+        // initialState: {
+
+        // },
         defaultColumn,
         onCellUpdate,
         onColumnRename,
@@ -329,6 +374,7 @@ export default function TableEditor({
         onRemoveColumn,
         onRemoveRow,
         onChangeRowType,
+        onMultipleCellUpdate,
       } as TableOptions<Row>,
       useResizeColumns,
       useFlexLayout
@@ -336,12 +382,6 @@ export default function TableEditor({
 
   const tbodyRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLDivElement>(null)
-
-  // function handleCloseDropdown(event) {
-  //   if (event.key === "Escape") {
-
-  //   }
-  // }
 
   useEffect(() => {
     if (!tbodyRef.current) {
@@ -359,11 +399,9 @@ export default function TableEditor({
     }
 
     tbody.addEventListener('scroll', handler)
-    // tbody.addEventListener('keydown', handleCloseDropdown)
 
     return () => {
       tbody.removeEventListener('scroll', handler)
-      // tbody.addEventListener('keydown', handleCloseDropdown)
     }
   }, [])
 
@@ -430,7 +468,7 @@ export default function TableEditor({
             ref={theadRef}
             style={{ overflowX: 'hidden' }}
           >
-            {headerGroups.map((headerGroup) => (
+            {headerGroups.map((headerGroup, hgI) => (
               <div {...headerGroup.getHeaderGroupProps()} className={s.tr}>
                 {headerGroup.headers.map((column) => (
                   <div {...column.getHeaderProps()} className={s.th}>
@@ -476,10 +514,11 @@ export default function TableEditor({
                   >
                     <DropdownMenu>
                       {cellTypes.map(
-                        (type) =>
+                        (type, ctI) =>
                           !checkRowType(row.original, type.isOfType) && (
                             <DropdownOption
                               onClick={onChangeRowType.bind(null, i, type)}
+                              key={`cell-${ctI}`}
                             >
                               &nbsp;Make all cells {type.name} type
                             </DropdownOption>
@@ -496,17 +535,33 @@ export default function TableEditor({
                           : 'collapsible'}
                       </DropdownOption>
                       <DropdownSeparator />
+                      <DropdownOption
+                        onClick={onMoveRow.bind(null, i, false)}
+                        disabled={i === 0}
+                      >
+                        <FontAwesomeIcon icon={faLongArrowAltUp} />
+                        Move row up
+                      </DropdownOption>
+                      <DropdownOption
+                        onClick={onMoveRow.bind(null, i, true)}
+                        disabled={i === rows.length - 1}
+                      >
+                        <FontAwesomeIcon icon={faLongArrowAltDown} />
+                        Move row down
+                      </DropdownOption>
+                      <DropdownSeparator />
                       <DropdownOption onClick={onAddRow.bind(null, i, false)}>
-                        <FontAwesomeIcon icon={faLongArrowAltUp} /> Add row
-                        above
+                        <FontAwesomeIcon icon={faLongArrowAltUp} />
+                        Add row above
                       </DropdownOption>
                       <DropdownOption onClick={onAddRow.bind(null, i, true)}>
-                        <FontAwesomeIcon icon={faLongArrowAltDown} /> Add row
-                        below
+                        <FontAwesomeIcon icon={faLongArrowAltDown} />
+                        Add row below
                       </DropdownOption>
                       <DropdownSeparator />
                       <DropdownOption red onClick={onRemoveRow.bind(null, i)}>
-                        <FontAwesomeIcon icon={faTrashAlt} /> Remove row
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                        Remove row
                       </DropdownOption>
                     </DropdownMenu>
                   </Dropdown>
@@ -524,7 +579,7 @@ export default function TableEditor({
                     </button>
                   )}
                 </div>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, rcI) => {
                   return (
                     <div {...cell.getCellProps()} className={s.td}>
                       {cell.render('Cell')}

@@ -9,6 +9,7 @@ type Props = Actions & {
   row: TableRow<Row>
   column: TableColumn<Row>
   onCellUpdate: (index: number, column: string, value: CellValue) => void
+  k: string
 }
 
 export default function EditableCell({
@@ -39,6 +40,7 @@ export default function EditableCell({
                 onCellUpdate(index, id as string, e.target.checked)
               }}
               defaultChecked={!!value}
+              value="checkbox"
               className={s.checkboxInput}
             />
           </div>
@@ -46,6 +48,7 @@ export default function EditableCell({
       case 'rich text':
         return (
           <TextEditor
+            id={`row-${index}-column-${id}`}
             onChange={(val: any) => {
               onCellUpdate(index, id as string, val as CellValue)
             }}

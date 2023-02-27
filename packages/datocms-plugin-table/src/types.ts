@@ -1,5 +1,11 @@
 import { dequal } from 'dequal'
 
+export type BaseValue = {
+  collapsibleRows: Array<number>
+  hasColumnHeaders: boolean
+  table: TableProps
+}
+
 export type Value = {
   collapsibleRows: Array<number>
   hasColumnHeaders: boolean
@@ -27,7 +33,7 @@ export type Actions = {
   onMultipleCellUpdate: (
     index: number,
     column: string,
-    value: string[][]
+    value: CellValue[][]
   ) => void
   onAddColumn: (column: string, toTheLeft: boolean) => void
   onMoveColumn: (column: string, toTheLeft: boolean) => void
