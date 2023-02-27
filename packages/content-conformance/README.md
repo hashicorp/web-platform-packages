@@ -12,8 +12,6 @@ $ npm install @hashicorp/platform-content-conformance
 
 ### CLI
 
-_The CLI is in progress._
-
 ```shell
 $ hc-content [options] [path/to/file] [path/to/file]
 
