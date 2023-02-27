@@ -1,6 +1,4 @@
-/**
- * @jest-environment jsdom
- */
+/** @jest-environment jsdom */
 import Cookies from 'js-cookie'
 import { getGeoInformation, __test__resetGeoInformation } from '..'
 
