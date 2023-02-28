@@ -22,21 +22,18 @@ describe('Content-conformance CLI', () => {
     )
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+      "
+      Running content conformance checks...
 
-Included file:
-- ./content/has-frontmatter.mdx
+      Checking file: ./content/has-frontmatter.mdx
+      Status:  failure
 
-Running content conformance checks...
+      content/has-frontmatter.mdx
+        12:1-12:11  error  Level 1 headings are not allowed  local-no-h1
 
-Status:  failure
-
-content/has-frontmatter.mdx
-  12:1-12:11  error  Level 1 headings are not allowed  local-no-h1
-
-✖ 1 error
-"
-`)
+      ✖ 1 error
+      "
+    `)
   })
 
   test('Successful run with multiple content files and default config', () => {
@@ -49,56 +46,51 @@ content/has-frontmatter.mdx
     )
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+      "
+      Running content conformance checks...
 
-Included files:
-- ./content/has-frontmatter.mdx
-- ./content/index.mdx
-- ./content/no-h1.mdx
+      Checking files: ./content/has-frontmatter.mdx, ./content/index.mdx, ./content/no-h1.mdx
+      Status:  failure
 
-Running content conformance checks...
+      content/has-frontmatter.mdx
+        12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
 
-Status:  failure
+      content/index.mdx
+           1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
 
-content/has-frontmatter.mdx
-  12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
+      content/no-h1.mdx
+          1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
 
-content/index.mdx
-     1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
-
-content/no-h1.mdx
-    1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
-
-✖ 3 errors
-"
-`)
+      ✖ 3 errors
+      "
+    `)
   })
 
   test('Accepts glob pattern when no content file specified', () => {
     const res = execCli('--cwd', `${fixturePath}`)
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+      "
+      Running content conformance checks...
 
-Running content conformance checks...
+      Checking files matching: content/**/*.mdx
+      Status:  failure
 
-Status:  failure
+      content/has-frontmatter.mdx
+        12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
 
-content/has-frontmatter.mdx
-  12:1-12:11  error  Level 1 headings are not allowed                     local-no-h1
+      content/index.mdx
+           1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
 
-content/index.mdx
-     1:1-1:8  error  Level 1 headings are not allowed                     local-no-h1
+      content/no-h1.mdx
+          1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
 
-content/no-h1.mdx
-    1:1-1:27  error  Must have a level 1 heading at the top of the file.  must-have-h1
+      content/nested/nested.mdx
+           1:1-1:9  error  Level 1 headings are not allowed                     local-no-h1
 
-content/nested/nested.mdx
-     1:1-1:9  error  Level 1 headings are not allowed                     local-no-h1
-
-✖ 4 errors
-"
-`)
+      ✖ 4 errors
+      "
+    `)
   })
 
   test('Accepts specified config file', () => {
@@ -111,20 +103,17 @@ content/nested/nested.mdx
     )
 
     expect(res).toMatchInlineSnapshot(`
-"Configuring content conformance runner...
+      "
+      Running content conformance checks...
 
-Included file:
-- ./content/index.mdx
+      Checking file: ./content/index.mdx
+      Status:  failure
 
-Running content conformance checks...
+      content/index.mdx
+        1:1-1:8  error  Level 1 headings are not allowed  local-no-h1
 
-Status:  failure
-
-content/index.mdx
-  1:1-1:8  error  Level 1 headings are not allowed  local-no-h1
-
-✖ 1 error
-"
-`)
+      ✖ 1 error
+      "
+    `)
   })
 })

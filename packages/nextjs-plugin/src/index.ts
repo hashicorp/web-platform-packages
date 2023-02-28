@@ -51,6 +51,10 @@ function withHashicorp({
       ...nextConfig.future,
     }
 
+    if (process.env.SOURCEMAPS === 'true') {
+      nextConfig.productionBrowserSourceMaps = true
+    }
+
     // Automatically determine hashicorp packages from directories in node_modules
     const hcPackages = getHashicorpPackages(process.cwd())
     if (

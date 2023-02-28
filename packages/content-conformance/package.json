@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/platform-content-conformance",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "type": "module",
   "bin": {
     "hc-content": "./dist/cli.js"

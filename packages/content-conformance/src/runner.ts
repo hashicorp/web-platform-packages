@@ -122,7 +122,11 @@ export class ContentConformanceRunner {
         const report = (await import('vfile-reporter')).default
 
         // @ts-expect-error -- need to sort out VFile types here
-        return report(this.engine.files, { color: false, quiet: true })
+        return report(this.engine.files, {
+          // no color when running tests so the output can be snapshot
+          color: process.env.NODE_ENV === 'test' ? false : null,
+          quiet: true,
+        })
       }
     }
   }

@@ -4,6 +4,11 @@ import { hideBin } from 'yargs/helpers'
 import chalk from 'chalk'
 import { ContentConformanceRunner } from './runner.js'
 
+// Disable colored output when running in a test environment so we can snapshot the CLI output without the color codes.
+if (process.env.NODE_ENV === 'test') {
+  chalk.level = 0
+}
+
 /**
  * The CLI interface for our content conformance runner. Should remain a pass-through to ContentConformanceRunner if at all possible to keep the CLI and JS API in-sync
  */
@@ -29,24 +34,30 @@ yargs(hideBin(process.argv)).command(
     })
 
     try {
-      console.log('Configuring content conformance runner...')
-
       await runner.init()
 
+      console.log('')
+      console.log(`Running content conformance checks...`)
+      console.log('')
+
       if (files.length) {
-        console.log('')
         console.log(
-          chalk.bold.green(`Included ${files.length > 1 ? 'files' : 'file'}:`)
+          `${chalk.bold(
+            `Checking ${files.length > 1 ? 'files' : 'file'}:`
+          )} ${chalk.dim(files.join(', '))}`
         )
-
-        files.forEach((file: string) => {
-          console.log(chalk.whiteBright(`- ${file}`))
-        })
+      } else {
+        console.log(
+          `${chalk.bold('Checking files matching:')} ${chalk.dim(
+            [
+              runner.config?.contentFileGlobPattern,
+              runner.config?.dataFileGlobPattern,
+            ]
+              .filter(Boolean)
+              .join(', ')
+          )}`
+        )
       }
-
-      console.log('')
-      console.log('Running content conformance checks...')
-      console.log('')
 
       await runner.run()
     } catch (error) {
@@ -61,14 +72,16 @@ yargs(hideBin(process.argv)).command(
     try {
       const report = await runner.report()
 
+      const color = runner.status === 'SUCCESS' ? 'green' : 'red'
+
       console.log(
         chalk.bold('Status: '),
-        chalk.bold.green(runner.status?.toLowerCase())
+        chalk.bold[color](runner.status?.toLowerCase())
       )
 
       if (report.length) {
         console.log('')
-        console.log(chalk.red(report))
+        console.log(report)
       }
     } catch (error) {
       let stack = 'Unknown Error'

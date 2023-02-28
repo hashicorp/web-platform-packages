@@ -14,6 +14,7 @@ export class IntegrationFlagsService {
    * Create Integration Flag
    * Add a flag to an integration
    * @param product
+   * @param organization
    * @param integration
    * @param flag
    * @returns any OK
@@ -21,6 +22,7 @@ export class IntegrationFlagsService {
    */
   public createIntegrationFlag(
     product: string,
+    organization: string,
     integration: string,
     flag: string
   ): CancelablePromise<{
@@ -29,9 +31,10 @@ export class IntegrationFlagsService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/flags/{flag}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/flags/{flag}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         flag: flag,
       },
@@ -46,6 +49,7 @@ export class IntegrationFlagsService {
    * Delete Integration Flag
    * Delete a flag from an integration
    * @param product
+   * @param organization
    * @param integration
    * @param flag
    * @returns any OK
@@ -53,6 +57,7 @@ export class IntegrationFlagsService {
    */
   public deleteIntegrationFlag(
     product: string,
+    organization: string,
     integration: string,
     flag: string
   ): CancelablePromise<{
@@ -60,9 +65,10 @@ export class IntegrationFlagsService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/flags/{flag}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/flags/{flag}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         flag: flag,
       },

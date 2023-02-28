@@ -1,5 +1,29 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.9
+
+### Patch Changes
+
+- [#167](https://github.com/hashicorp/web-platform-packages/pull/167) [`7282f08`](https://github.com/hashicorp/web-platform-packages/commit/7282f08b44fa9321ae46d28ad3009fe75da03c65) Thanks [@BRKalow](https://github.com/BRKalow)! - Fix markdown reporter so it outputs properly formatted markdown
+
+## 0.0.8
+
+### Patch Changes
+
+- [#164](https://github.com/hashicorp/web-platform-packages/pull/164) [`9357caa`](https://github.com/hashicorp/web-platform-packages/commit/9357caa68b96a6f9e1a429c6efed99276d9d10a4) Thanks [@BRKalow](https://github.com/BRKalow)! - Remove file filtering for data files in the engine. Ensures data files are always checked.
+
+## 0.0.7
+
+### Patch Changes
+
+- [#159](https://github.com/hashicorp/web-platform-packages/pull/159) [`d99438d`](https://github.com/hashicorp/web-platform-packages/commit/d99438dccbede772bf3bccfd08bd141d4278bfac) Thanks [@BRKalow](https://github.com/BRKalow)! - Adjust CLI output, improve erorr message for frontmatter rule"
+
+## 0.0.6
+
+### Patch Changes
+
+- [#155](https://github.com/hashicorp/web-platform-packages/pull/155) [`cf6f9d3`](https://github.com/hashicorp/web-platform-packages/commit/cf6f9d33ab64464539625bbf5b71c28c4901d8da) Thanks [@BRKalow](https://github.com/BRKalow)! - Adds `ensure-valid-link-format` rule.
+
 ## 0.0.5
 
 ### Patch Changes

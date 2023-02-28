@@ -13,6 +13,7 @@ export class NotifyReleaseService {
    * Notify Release
    * Notify consumption scripts that an integration release has occurred
    * @param product
+   * @param organization
    * @param integration
    * @param requestBody
    * @returns any OK
@@ -20,6 +21,7 @@ export class NotifyReleaseService {
    */
   public notifyRelease(
     product: string,
+    organization: string,
     integration: string,
     requestBody?: {
       version: string
@@ -30,9 +32,10 @@ export class NotifyReleaseService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/notify-release',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/notify-release',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
       },
       body: requestBody,

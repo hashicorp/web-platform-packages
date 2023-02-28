@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 4.2.0
+
+### Minor Changes
+
+- [#151](https://github.com/hashicorp/web-platform-packages/pull/151) [`9e971ba`](https://github.com/hashicorp/web-platform-packages/commit/9e971ba2ec48f014aadad25c69811910e4cc4c95) Thanks [@dstaley](https://github.com/dstaley)! - Add support for emitting sourcemaps via SOURCEMAP=true environment variable
+
 ## 4.1.0
 
 ### Minor Changes

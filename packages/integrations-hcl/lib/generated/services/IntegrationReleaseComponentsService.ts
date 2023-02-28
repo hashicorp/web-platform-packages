@@ -11,6 +11,7 @@ export class IntegrationReleaseComponentsService {
    * Get Integration Release Components
    * Get all components for a specific integration release
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @returns any OK
@@ -18,6 +19,7 @@ export class IntegrationReleaseComponentsService {
    */
   public fetchReleaseComponents(
     product: string,
+    organization: string,
     integration: string,
     release: string
   ): CancelablePromise<{
@@ -71,9 +73,10 @@ export class IntegrationReleaseComponentsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
       },
@@ -84,6 +87,7 @@ export class IntegrationReleaseComponentsService {
    * Create Integration Release Component
    * Create a new component for a specific integration release.
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param requestBody
@@ -92,6 +96,7 @@ export class IntegrationReleaseComponentsService {
    */
   public createReleaseComponent(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     requestBody?: {
@@ -149,9 +154,10 @@ export class IntegrationReleaseComponentsService {
   }> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
       },
@@ -167,6 +173,7 @@ export class IntegrationReleaseComponentsService {
    * Get Integration Release Component
    * Get a specific component for a specific integration release
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -175,6 +182,7 @@ export class IntegrationReleaseComponentsService {
    */
   public fetchReleaseComponent(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string
@@ -229,9 +237,10 @@ export class IntegrationReleaseComponentsService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -246,6 +255,7 @@ export class IntegrationReleaseComponentsService {
    * Update Integration Release Component
    * Update a specific component for a specific integration release.
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -255,6 +265,7 @@ export class IntegrationReleaseComponentsService {
    */
   public updateReleaseComponent(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string,
@@ -312,9 +323,10 @@ export class IntegrationReleaseComponentsService {
   }> {
     return this.httpRequest.request({
       method: 'PATCH',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
@@ -331,6 +343,7 @@ export class IntegrationReleaseComponentsService {
    * Update Integration Release Component
    * Delete a specific component for a specific integration release.
    * @param product
+   * @param organization
    * @param integration
    * @param release
    * @param component
@@ -339,6 +352,7 @@ export class IntegrationReleaseComponentsService {
    */
   public deleteReleaseComponent(
     product: string,
+    organization: string,
     integration: string,
     release: string,
     component: string
@@ -393,9 +407,10 @@ export class IntegrationReleaseComponentsService {
   }> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/products/{product}/integrations/{integration}/releases/{release}/components/{component}',
+      url: '/products/{product}/organizations/{organization}/integrations/{integration}/releases/{release}/components/{component}',
       path: {
         product: product,
+        organization: organization,
         integration: integration,
         release: release,
         component: component,
