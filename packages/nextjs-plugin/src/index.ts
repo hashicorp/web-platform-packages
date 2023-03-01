@@ -47,10 +47,6 @@ function withHashicorp({
       }
     }
 
-    nextConfig.future = {
-      ...nextConfig.future,
-    }
-
     if (process.env.SOURCEMAPS === 'true') {
       nextConfig.productionBrowserSourceMaps = true
     }
