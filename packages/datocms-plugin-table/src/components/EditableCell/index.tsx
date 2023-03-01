@@ -2,7 +2,6 @@ import { Column as TableColumn, Row as TableRow } from 'react-table'
 import { Actions, CellValue, cellTypes, RichTextProps, Row } from '../../types'
 import { isBlankColumnHeader } from '../../utils/constants'
 import TextEditor from '../TextEditor'
-import ContentEditor from '../ContentEditor'
 import s from './style.module.css'
 
 type Props = Actions & {

@@ -244,16 +244,6 @@ export default function TableEditor({
     })
   }
 
-  const onMoveRow: Actions['onMoveRow'] = (row, toTheBottom) => {
-    onChange({
-      ...value,
-      table: {
-        ...table,
-        data: moveItemInArray(table.data, row, !toTheBottom),
-      },
-    })
-  }
-
   const onRemoveRow: Actions['onRemoveRow'] = (row) => {
     const newData = [...table.data]
     newData.splice(row, 1)
@@ -482,21 +472,6 @@ export default function TableEditor({
                         {rowIsCollapsible(i)
                           ? 'not collapsible'
                           : 'collapsible'}
-                      </DropdownOption>
-                      <DropdownSeparator />
-                      <DropdownOption
-                        onClick={onMoveRow.bind(null, i, false)}
-                        disabled={i === 0}
-                      >
-                        <FontAwesomeIcon icon={faLongArrowAltUp} />
-                        Move row up
-                      </DropdownOption>
-                      <DropdownOption
-                        onClick={onMoveRow.bind(null, i, true)}
-                        disabled={i === rows.length - 1}
-                      >
-                        <FontAwesomeIcon icon={faLongArrowAltDown} />
-                        Move row down
                       </DropdownOption>
                       <DropdownSeparator />
                       <DropdownOption onClick={onAddRow.bind(null, i, false)}>
