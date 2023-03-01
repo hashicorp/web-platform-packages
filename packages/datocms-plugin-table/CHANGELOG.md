@@ -1,5 +1,11 @@
 # datocms-plugin-complex-table-editor
 
+## 0.1.3
+
+### Patch Changes
+
+- [#176](https://github.com/hashicorp/web-platform-packages/pull/176) [`a1732f5`](https://github.com/hashicorp/web-platform-packages/commit/a1732f53bfe0f620f4bbd19ddf01be0b8cda3034) Thanks [@pbortnick](https://github.com/pbortnick)! - bug fix: table plugin
+
 ## 0.1.2
 
 ### Patch Changes
