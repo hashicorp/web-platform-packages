@@ -234,7 +234,6 @@ export default function TableEditor({
 
     const newData = [...table.data]
     newData.splice(row + (toTheBottom ? 1 : 0), 0, newRow)
-
     onChange({
       ...value,
       table: {
@@ -475,17 +474,16 @@ export default function TableEditor({
                       </DropdownOption>
                       <DropdownSeparator />
                       <DropdownOption onClick={onAddRow.bind(null, i, false)}>
-                        <FontAwesomeIcon icon={faLongArrowAltUp} />
-                        Add row above
+                        <FontAwesomeIcon icon={faLongArrowAltUp} /> Add row
+                        above
                       </DropdownOption>
                       <DropdownOption onClick={onAddRow.bind(null, i, true)}>
-                        <FontAwesomeIcon icon={faLongArrowAltDown} />
-                        Add row below
+                        <FontAwesomeIcon icon={faLongArrowAltDown} /> Add row
+                        below
                       </DropdownOption>
                       <DropdownSeparator />
                       <DropdownOption red onClick={onRemoveRow.bind(null, i)}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                        Remove row
+                        <FontAwesomeIcon icon={faTrashAlt} /> Remove row
                       </DropdownOption>
                     </DropdownMenu>
                   </Dropdown>

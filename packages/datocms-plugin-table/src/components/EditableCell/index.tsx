@@ -44,6 +44,8 @@ export default function EditableCell({
       case 'rich text':
         return (
           <TextEditor
+            // creates a unique id for each tinymce react editor that resolves rendering issues
+            // when adding/deleting a row
             id={`${index}${id?.replace(/ |_/g, '')}`}
             onChange={(val: any) => {
               onCellUpdate(index, id as string, val as CellValue)

@@ -1,11 +1,5 @@
 import { dequal } from 'dequal'
 
-export type BaseValue = {
-  collapsibleRows: Array<number>
-  hasColumnHeaders: boolean
-  table: TableProps
-}
-
 export type Value = {
   collapsibleRows: Array<number>
   hasColumnHeaders: boolean

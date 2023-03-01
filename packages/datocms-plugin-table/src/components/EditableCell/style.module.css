@@ -13,14 +13,14 @@
   border-left: 1px solid var(--accent-color);
   color: var(--accent-color);
   line-height: 1.5;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-  
-  &:last-child {
-    border-right: 1px solid var(--accent-color);
-  }
+}
+
+.cellOptionButton:hover {
+  text-decoration: underline;
+}
+
+.cellOptionButton:last-child {
+  border-right: 1px solid var(--accent-color);
 }
 
 .cellOptionsText {
