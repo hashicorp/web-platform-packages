@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-complex-table-editor",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/hashicorp/web-platform-packages/tree/main/packages/datocms-plugin-table",
   "description": "A table editor that includes boolean and rich text editable cells",
   "author": "HashiCorp",
