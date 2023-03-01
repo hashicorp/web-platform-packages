@@ -458,7 +458,7 @@ export default function TableEditor({
                             <DropdownOption
                               onClick={onChangeRowType.bind(null, i, type)}
                             >
-                              &nbsp;Make all cells {type.name} type
+                              &nbsp;Convert all cells in row to {type.name}
                             </DropdownOption>
                           )
                       )}
