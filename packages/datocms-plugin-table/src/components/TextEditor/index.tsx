@@ -18,11 +18,12 @@ require('tinymce/plugins/paste')
 // require('tinymce/plugins/autoresize')
 
 interface TextEditorProps {
+  id: string
   onChange: (x: RichTextProps) => void
   value: RichTextProps
 }
 
-export default function TextEditor({ onChange, value }: TextEditorProps) {
+export default function TextEditor({ onChange, value, id }: TextEditorProps) {
   const [currentValue, setCurrentValue] = useState(value)
 
   function handleChange(key: 'heading' | 'content', data: string) {
@@ -52,7 +53,9 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
           <span>Heading</span>
         </div>
         <ReactEditor
+          id={`${id}Heading`}
           onFocusOut={saveChange}
+          initialValue={value.heading ? value.heading : '<p />'}
           value={currentValue.heading ? currentValue.heading : '<p />'}
           init={{
             ...editorInitProps,
@@ -69,6 +72,8 @@ export default function TextEditor({ onChange, value }: TextEditorProps) {
         </div>
         <ReactEditor
           onFocusOut={saveChange}
+          id={`${id}Content`}
+          initialValue={value.content ? value.content : '<p />'}
           value={currentValue.content ? currentValue.content : '<p />'}
           init={{
             ...editorInitProps,
