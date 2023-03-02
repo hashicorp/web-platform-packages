@@ -34,11 +34,7 @@ export default function EditableCell({
             <input
               type="checkbox"
               onChange={(e) => {
-                onCellUpdate(
-                  index,
-                  id as string,
-                  e.target.value === 'on' ? true : false
-                )
+                onCellUpdate(index, id as string, e.target.checked)
               }}
               defaultChecked={!!value}
               className={s.checkboxInput}
@@ -48,6 +44,9 @@ export default function EditableCell({
       case 'rich text':
         return (
           <TextEditor
+            // creates a unique id for each tinymce react editor that resolves rendering issues
+            // when adding/deleting a row
+            id={`${index}${id?.replace(/ |_/g, '')}`}
             onChange={(val: any) => {
               onCellUpdate(index, id as string, val as CellValue)
             }}

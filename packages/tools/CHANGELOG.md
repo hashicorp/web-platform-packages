@@ -1,5 +1,11 @@
 # @hashicorp/platform-tools
 
+## 0.8.0
+
+### Minor Changes
+
+- [#151](https://github.com/hashicorp/web-platform-packages/pull/151) [`87150e4`](https://github.com/hashicorp/web-platform-packages/commit/87150e4dd689384ee44e7e2a2bd64ea0a9cfa10f) Thanks [@dstaley](https://github.com/dstaley)! - Add next-touched-pages script
+
 ## 0.7.0
 
 ### Minor Changes

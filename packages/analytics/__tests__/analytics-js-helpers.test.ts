@@ -1,6 +1,4 @@
-/**
- * @jest-environment jsdom
- */
+/** @jest-environment jsdom */
 import { jest } from '@jest/globals'
 import {
   getSegmentId,

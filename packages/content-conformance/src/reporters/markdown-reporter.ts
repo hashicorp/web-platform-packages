@@ -18,18 +18,26 @@ export function markdownReporter(files: VFile[]) {
   // <details> header
   lines.push(`<details><summary>Found ${stats.fatal} error(s)</summary>`, '')
 
+  const filesToReport = files.filter((f) => f.messages.length > 0)
+
   // Each file has section led by a heading, and a table with each violation
-  files.forEach((file: VFile) => {
-    // Heading and Table heading
-    lines.push(
-      `#### \`${file.path}\``,
-      '',
-      '| Position | Description | Rule |',
-      '|---|---|---|'
-    )
+  filesToReport.forEach((file: VFile) => {
+    // Heading
+    lines.push(`#### \`${file.path}\``, '')
+
+    const parseErrors: string[] = []
+    const tableRows: string[] = []
 
     // Table row for each message
     file.messages.forEach((message: VFileMessage) => {
+      if (!message.ruleId) {
+        // Messages without an explicit rule ID are a result of errors while the file is being parsed.
+        parseErrors.push(`\`\`\`
+${message.reason}
+\`\`\``)
+        return
+      }
+
       const columns = []
 
       if (message.position) {
@@ -43,8 +51,17 @@ export function markdownReporter(files: VFile[]) {
       // TODO: link to descriptive page for the rule
       columns.push(`\`${message.ruleId}\``)
 
-      lines.push(`|${columns.join('|')}|`, '')
+      tableRows.push(`| ${columns.join(' | ')} |`)
     })
+
+    // Global parse errors
+    if (parseErrors.length > 0) {
+      lines.push(...parseErrors, '')
+    }
+
+    // Table
+    lines.push('| Position | Description | Rule |', '|---|---|---|')
+    lines.push(...tableRows, '')
   })
 
   // Footnote
