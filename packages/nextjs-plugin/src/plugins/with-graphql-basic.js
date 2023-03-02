@@ -7,7 +7,8 @@ module.exports = function withGraphQlBasic() {
       webpack(config, options) {
         config.module.rules.push({
           test: /\.(graphql|gql)$/,
-          use: [{ loader: 'raw-loader' }],
+          // see: https://webpack.js.org/guides/asset-modules/
+          type: 'asset/source',
         })
 
         if (typeof nextConfig.webpack === 'function') {
