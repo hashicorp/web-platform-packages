@@ -153,6 +153,9 @@ The `context.report()` method accepts three arguments:
 - `file` (object) The file that the report is associated with.
 - `node` (object) The node that the violation is associated with. Allows positional information to be displayed in the report. (optional)
 
+> **Note**
+> An individual rule does not have a concept of severity in its implementation. That is handled in the [configuration file](#configuring-rules).
+
 #### `ContentFile` visitors
 
 When defining a `contentFile` executor, the `file` argument exposes a `visit()` method. This allows the rule to interact with the Abstract Syntax Tree (AST) generated from the source file. It allows checks to be written against specific parts of a content file with minimal boilerplate or extra processing. Usage of `file.visit()` is very similar to [`unist-util-visit`](https://www.npmjs.com/package/unist-util-visit).
