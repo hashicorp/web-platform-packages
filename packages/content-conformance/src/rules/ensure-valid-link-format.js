@@ -1,6 +1,5 @@
 const TEST_URL_ORIGIN = 'https://test.com'
 const LEARN_HOSTNAME = 'learn.hashicorp.com'
-const DEV_DOT_HOSTNAME = 'developer.hashicorp.com'
 
 const PRODUCT_SLUGS_TO_HOST_NAMES = {
   boundary: 'boundaryproject.io',
@@ -126,15 +125,6 @@ export default {
         if (hostname === LEARN_HOSTNAME) {
           context.report(
             `Unexpected link to \`learn.hashicorp.com\`: \`${node.url}\`. Replace it with a relative path internal to Developer with the format: \`/{productSlug}/tutorials/{collectionSlug}/{tutorialSlug}\`.`,
-            file,
-            node
-          )
-        }
-
-        // Check for developer hostname
-        if (hostname === DEV_DOT_HOSTNAME) {
-          context.report(
-            `Unexpected fully-qualified link to \`developer.hashicorp.com\`: \`${node.url}\`. Replace with a relative path internal to Developer. Possibly: \`${pathname}${search}${hash}\`.`,
             file,
             node
           )
