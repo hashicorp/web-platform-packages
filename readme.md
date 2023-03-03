@@ -16,6 +16,7 @@ This monorepo contains a collection of packages which layer a number of configur
 Current packages:
 
 - [`@hashicorp/platform-analytics`](/packages/analytics)
+- [`@hashicorp/platform-content-conformance`](/packages/content-conformance)
 - [`@hashicorp/platform-cli`](/packages/cli)
 - [`@hashicorp/platform-cms`](/packages/cms)
 - [`@hashicorp/platform-code-highlighting`](/packages/code-highlighting)
