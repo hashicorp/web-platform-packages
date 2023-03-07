@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.10
+
+### Patch Changes
+
+- [#180](https://github.com/hashicorp/web-platform-packages/pull/180) [`965bd52`](https://github.com/hashicorp/web-platform-packages/commit/965bd52fca4ea89f92c10392310e79ef0071b7c1) Thanks [@BRKalow](https://github.com/BRKalow)! - Remove check for fully-qualified developer links in ensure-valid-link-format
+
 ## 0.0.9
 
 ### Patch Changes
