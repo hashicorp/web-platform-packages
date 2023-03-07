@@ -171,23 +171,31 @@ describe('LoadFilesystemIntegration', () => {
         "current_release": {
           "components": [
             {
+              "name": "Docker Builder",
               "readme": null,
-              "slug": "builder",
+              "slug": "docker-builder",
+              "type": "builder",
               "variable_groups": [],
             },
             {
+              "name": "Docker Platform",
               "readme": null,
-              "slug": "platform",
+              "slug": "docker-platform",
+              "type": "platform",
               "variable_groups": [],
             },
             {
+              "name": "Docker Registry",
               "readme": null,
-              "slug": "registry",
+              "slug": "docker-registry",
+              "type": "registry",
               "variable_groups": [],
             },
             {
+              "name": "Docker Task",
               "readme": null,
-              "slug": "task",
+              "slug": "docker-task",
+              "type": "task",
               "variable_groups": [],
             },
           ],
