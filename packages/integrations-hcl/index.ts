@@ -100,13 +100,13 @@ export default async function LoadFilesystemIntegration(
 
   // Calculate each Component object
   const allComponents: Array<Component> = []
-  for (let i = 0; i < hclIntegration.components.length; i++) {
+  for (let i = 0; i < hclIntegration.component.length; i++) {
     allComponents.push(
       await loadComponent(
         repoRootDirectory,
-        hclIntegration.components[i].type,
-        hclIntegration.components[i].name,
-        hclIntegration.components[i].slug,
+        hclIntegration.component[i].type,
+        hclIntegration.component[i].name,
+        hclIntegration.component[i].slug,
         variableGroupConfigs.result
       )
     )

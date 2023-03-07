@@ -36,7 +36,7 @@ const integration = z.object({
   name: z.string(),
   description: z.string(),
   identifier: z.string(),
-  components: component.array().min(1, 'At least one component is required'),
+  component: component.array().min(1, 'At least one component is required'),
   // optionals
   flags: z.string().array().default([]),
   hide_versions: z.boolean().default(false),

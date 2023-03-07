@@ -5,6 +5,12 @@ integration {
   flags       = ["builtin"]
 
   component {
+    type = "builder"
+    name = "Docker Builder"
+    slug = "docker-builder"
+  }
+
+  component {
     type = "platform"
     name = "Docker Platform"
     slug = "docker-platform"
@@ -21,12 +27,6 @@ integration {
     name = "Docker Task"
     slug = "docker-task"
   }
-
-  component { 
-    type = "builder"
-    name = "Docker Builder"
-    slug = "docker-builder"
-  }  
 
   license {
     type = "MPL-2.0"
