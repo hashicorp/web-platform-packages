@@ -11,6 +11,21 @@ enum Product {
   BOUNDARY = 'boundary',
 }
 
+const Variable = z.object({
+  key: z.string(),
+  description: z.string().optional(),
+  type: z.string().optional(),
+  required: z.boolean().optional(),
+  default_value: z.string().optional(),
+})
+export type Variable = z.infer<typeof Variable>
+
+export const VariableGroup = z.object({
+  variable_group_config_id: z.string(),
+  variables: Variable.array(),
+})
+export type VariableGroup = z.infer<typeof VariableGroup>
+
 export const License = z.object({
   type: z.string().nullable(),
   url: z.string().nullable(),
@@ -29,6 +44,7 @@ export const Component = z.object({
   slug: z.string(),
   name: z.string(),
   readme: z.string().nullable(),
+  variable_groups: VariableGroup.array().optional(),
 })
 export type Component = z.infer<typeof Component>
 

@@ -1,14 +1,16 @@
-import * as path from 'path'
 import * as fs from 'fs'
-
+import * as path from 'path'
+import { z } from 'zod'
 import { IntegrationsAPI, VariableGroupConfig } from './lib/generated'
-
 import HCL from './lib/hcl'
+import {
+  Component,
+  Integration,
+  Variable,
+  VariableGroup,
+} from './schemas/integration'
 import MetadataHCLSchema from './schemas/metadata.hcl'
 import { getVariablesSchema } from './schemas/variables.hcl'
-import { Component, Docs, Integration, License } from './schemas/integration'
-
-import { z } from 'zod'
 
 const Config = z.object({
   identifier: z.string(),
@@ -152,7 +154,7 @@ async function loadComponent(
   }
 
   // Go through each VariableGroupConfig to try see if we need to load them
-  const variableGroups /**@todo Type Me */ = []
+  const variableGroups: Array<VariableGroup> = []
 
   for (let i = 0; i < variableGroupConfigs.length; i++) {
     const variableGroupConfig = variableGroupConfigs[i]
@@ -169,7 +171,7 @@ async function loadComponent(
       }
 
       // Map the HCL File variable configuration to the Variable defaults
-      const variables /** @todo Type Me */ = hclConfig.result.data[
+      const variables: Array<Variable> = hclConfig.result.data[
         variableGroupConfig.stanza
       ].map((v) => {
         return {
@@ -194,7 +196,6 @@ async function loadComponent(
     name: componentName,
     slug: componentSlug,
     readme: readmeContent,
-    // @ts-expect-error - TODO: Type Me
     variable_groups: variableGroups,
   }
 }
