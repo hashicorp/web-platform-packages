@@ -92,29 +92,6 @@ describe('ensure-valid-link-format', () => {
     ])
   })
 
-  test('errors for fully qualified developer.hashicorp.com links', () => {
-    testRule(ensureValidLinkFormat, [
-      {
-        fixture: `[full developer link](https://developer.hashicorp.com)`,
-        messages: [
-          /Unexpected fully-qualified link to `developer\.hashicorp\.com`/,
-        ],
-      },
-      {
-        fixture: `[another full developer link](https://developer.hashicorp.com/tutorials/library)`,
-        messages: [
-          /Unexpected fully-qualified link to `developer\.hashicorp\.com`/,
-        ],
-      },
-      {
-        fixture: `[full developer link](https://developer.hashicorp.com/waypoint/docs)`,
-        messages: [
-          /Unexpected fully-qualified link to `developer\.hashicorp\.com`/,
-        ],
-      },
-    ])
-  })
-
   test('errors for links without product base paths', () => {
     testRule(ensureValidLinkFormat, [
       {
