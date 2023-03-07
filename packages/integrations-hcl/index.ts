@@ -104,7 +104,9 @@ export default async function LoadFilesystemIntegration(
     allComponents.push(
       await loadComponent(
         repoRootDirectory,
-        hclIntegration.components[i],
+        hclIntegration.components[i].type,
+        hclIntegration.components[i].name,
+        hclIntegration.components[i].slug,
         variableGroupConfigs.result
       )
     )
@@ -132,10 +134,16 @@ export default async function LoadFilesystemIntegration(
 
 async function loadComponent(
   repoRootDirectory: string,
+  componentType: string,
+  componentName: string,
   componentSlug: string,
   variableGroupConfigs: Array<VariableGroupConfig>
 ): Promise<Component> {
-  const componentReadmeFile = `${repoRootDirectory}/components/${componentSlug}/README.md`
+  // Calculate the location of the folder where the README / variables, etc reside
+  const componentFolder = `${repoRootDirectory}/components/${componentType}/${componentSlug}`
+
+  // Load the README if it exists
+  const componentReadmeFile = `${componentFolder}/README.md`
   let readmeContent: string | null = null
   try {
     readmeContent = fs.readFileSync(componentReadmeFile, 'utf8')
@@ -148,7 +156,7 @@ async function loadComponent(
 
   for (let i = 0; i < variableGroupConfigs.length; i++) {
     const variableGroupConfig = variableGroupConfigs[i]
-    const variableGroupFile = `${repoRootDirectory}/components/${componentSlug}/${variableGroupConfig.filename}`
+    const variableGroupFile = `${componentFolder}/${variableGroupConfig.filename}`
     if (fs.existsSync(variableGroupFile)) {
       // Load & Validate the Variable Files (parameters.hcl, outputs.hcl, etc.)
       const fileContent = fs.readFileSync(variableGroupFile, 'utf8')
@@ -182,6 +190,8 @@ async function loadComponent(
   }
 
   return {
+    type: componentType,
+    name: componentName,
     slug: componentSlug,
     readme: readmeContent,
     // @ts-expect-error - TODO: Type Me

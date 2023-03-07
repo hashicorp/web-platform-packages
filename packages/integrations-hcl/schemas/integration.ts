@@ -25,7 +25,9 @@ export const Docs = z.object({
 export type Docs = z.infer<typeof Docs>
 
 export const Component = z.object({
+  type: z.string(),
   slug: z.string(),
+  name: z.string(),
   readme: z.string().nullable(),
 })
 export type Component = z.infer<typeof Component>

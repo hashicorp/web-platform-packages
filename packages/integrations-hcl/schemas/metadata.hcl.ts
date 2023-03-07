@@ -25,12 +25,18 @@ const docs = z.discriminatedUnion('process_docs', [
   }),
 ])
 
+const component = z.object({
+  type: z.string(),
+  name: z.string(),
+  slug: z.string(),
+})
+
 const integration = z.object({
   // required
   name: z.string(),
   description: z.string(),
   identifier: z.string(),
-  components: z.string().array().min(1, 'At least one component is required.'),
+  components: component.array().min(1, 'At least one component is required'),
   // optionals
   flags: z.string().array().default([]),
   hide_versions: z.boolean().default(false),
