@@ -79,6 +79,7 @@
 
 .dropdownWrapper {
   width: 22px;
+  min-width: 22px;
   background: rgba(var(--light-body-color-rgb-components), 0.1);
 }
 

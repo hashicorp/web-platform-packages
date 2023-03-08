@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 5.0.0
+
+### Major Changes
+
+- [#163](https://github.com/hashicorp/web-platform-packages/pull/163) [`bd7a7b6`](https://github.com/hashicorp/web-platform-packages/commit/bd7a7b6903da247d427e024e65b73d717026f74c) Thanks [@BRKalow](https://github.com/BRKalow)! - Remove usage of next-transpile-modules in favor of next's native transpilePackages option. Requires next >=13.1.0.
+
 ## 4.2.0
 
 ### Minor Changes

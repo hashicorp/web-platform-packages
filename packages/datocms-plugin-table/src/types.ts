@@ -24,12 +24,8 @@ export type Data = Row[]
 
 export type Actions = {
   onCellUpdate: (index: number, column: string, value: CellValue) => void
-  onMultipleCellUpdate: (
-    index: number,
-    column: string,
-    value: string[][]
-  ) => void
   onAddColumn: (column: string, toTheLeft: boolean) => void
+  onMoveColumn: (column: string, toTheLeft: boolean) => void
   onRemoveColumn: (column: string) => void
   onColumnRename: (column: string, newColumn: string) => void
   onAddRow: (row: number, toTheBottom: boolean) => void
