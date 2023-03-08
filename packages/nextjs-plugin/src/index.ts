@@ -2,7 +2,7 @@ import util from 'util'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withOptimizedImages from '@hashicorp/next-optimized-images'
 import { NextConfig } from 'next'
-import withGraphqlBasic from './plugins/with-graphql-basic'
+import withGraphql from './plugins/with-graphql'
 import withFramerMotionEsmodulesDisabled from './plugins/with-framer-motion-esmodules-disabled'
 import { getHashicorpPackages } from './get-hashicorp-packages'
 import { withInlineSvgLoader } from './plugins/with-inline-svg-loader'
@@ -39,7 +39,7 @@ function withHashicorp({
   ): NextConfig {
     const chain = [
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-      withGraphqlBasic(),
+      withGraphql(),
       withFramerMotionEsmodulesDisabled(),
     ]
 
