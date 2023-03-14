@@ -1,14 +1,16 @@
-import * as path from 'path'
 import * as fs from 'fs'
-
+import * as path from 'path'
+import { z } from 'zod'
 import { IntegrationsAPI, VariableGroupConfig } from './lib/generated'
-
 import HCL from './lib/hcl'
+import {
+  Component,
+  Integration,
+  Variable,
+  VariableGroup,
+} from './schemas/integration'
 import MetadataHCLSchema from './schemas/metadata.hcl'
 import { getVariablesSchema } from './schemas/variables.hcl'
-import { Component, Docs, Integration, License } from './schemas/integration'
-
-import { z } from 'zod'
 
 const Config = z.object({
   identifier: z.string(),
@@ -100,11 +102,13 @@ export default async function LoadFilesystemIntegration(
 
   // Calculate each Component object
   const allComponents: Array<Component> = []
-  for (let i = 0; i < hclIntegration.components.length; i++) {
+  for (let i = 0; i < hclIntegration.component.length; i++) {
     allComponents.push(
       await loadComponent(
         repoRootDirectory,
-        hclIntegration.components[i],
+        hclIntegration.component[i].type,
+        hclIntegration.component[i].name,
+        hclIntegration.component[i].slug,
         variableGroupConfigs.result
       )
     )
@@ -132,10 +136,16 @@ export default async function LoadFilesystemIntegration(
 
 async function loadComponent(
   repoRootDirectory: string,
+  componentType: string,
+  componentName: string,
   componentSlug: string,
   variableGroupConfigs: Array<VariableGroupConfig>
 ): Promise<Component> {
-  const componentReadmeFile = `${repoRootDirectory}/components/${componentSlug}/README.md`
+  // Calculate the location of the folder where the README / variables, etc reside
+  const componentFolder = `${repoRootDirectory}/components/${componentType}/${componentSlug}`
+
+  // Load the README if it exists
+  const componentReadmeFile = `${componentFolder}/README.md`
   let readmeContent: string | null = null
   try {
     readmeContent = fs.readFileSync(componentReadmeFile, 'utf8')
@@ -144,11 +154,11 @@ async function loadComponent(
   }
 
   // Go through each VariableGroupConfig to try see if we need to load them
-  const variableGroups /**@todo Type Me */ = []
+  const variableGroups: Array<VariableGroup> = []
 
   for (let i = 0; i < variableGroupConfigs.length; i++) {
     const variableGroupConfig = variableGroupConfigs[i]
-    const variableGroupFile = `${repoRootDirectory}/components/${componentSlug}/${variableGroupConfig.filename}`
+    const variableGroupFile = `${componentFolder}/${variableGroupConfig.filename}`
     if (fs.existsSync(variableGroupFile)) {
       // Load & Validate the Variable Files (parameters.hcl, outputs.hcl, etc.)
       const fileContent = fs.readFileSync(variableGroupFile, 'utf8')
@@ -161,7 +171,7 @@ async function loadComponent(
       }
 
       // Map the HCL File variable configuration to the Variable defaults
-      const variables /** @todo Type Me */ = hclConfig.result.data[
+      const variables: Array<Variable> = hclConfig.result.data[
         variableGroupConfig.stanza
       ].map((v) => {
         return {
@@ -182,9 +192,10 @@ async function loadComponent(
   }
 
   return {
+    type: componentType,
+    name: componentName,
     slug: componentSlug,
     readme: readmeContent,
-    // @ts-expect-error - TODO: Type Me
     variable_groups: variableGroups,
   }
 }
