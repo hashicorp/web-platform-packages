@@ -1,4 +1,4 @@
-const markdownDefaults = require('.').default
+import markdownDefaults from './index'
 
 test('mdx options default', () => {
   const opts = markdownDefaults()
