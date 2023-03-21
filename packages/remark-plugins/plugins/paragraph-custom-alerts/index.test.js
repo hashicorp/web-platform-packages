@@ -1,18 +1,22 @@
-import { remark } from 'remark'
-import remarkMdx from 'remark-mdx'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
 import paragraphCustomAlerts from './index.js'
 
-const compiler = remark().use(remarkMdx).use(paragraphCustomAlerts)
+const compiler = unified()
+  .use(remarkParse)
+  .use(paragraphCustomAlerts)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeStringify, { allowDangerousHtml: true })
 
 describe('paragraph-custom-alerts', () => {
   it('should produce the expected html output', () => {
-    expect(compiler.processSync(`=> this is a success paragraph`).toString())
-      .toMatchInlineSnapshot(`
-      "<div className="alert alert-success g-type-body">
-        this is a success paragraph
-      </div>
-      "
-    `)
+    expect(
+      compiler.processSync(`=> this is a success paragraph`).toString()
+    ).toMatchInlineSnapshot(
+      `"<div class="alert alert-success g-type-body"><p>this is a success paragraph</p></div>"`
+    )
   })
 
   it('should handle multiple paragraph blocks', () => {
@@ -24,18 +28,10 @@ this is another "normal" block
 
 => success block here! yeah!`
     expect(compiler.processSync(md).toString()).toMatchInlineSnapshot(`
-      "this is a normal, non-alert paragraph
-
-      <div className="alert alert-warning g-type-body">
-        this is a warning block
-      </div>
-
-      this is another "normal" block
-
-      <div className="alert alert-success g-type-body">
-        success block here! yeah!
-      </div>
-      "
+      "<p>this is a normal, non-alert paragraph</p>
+      <div class="alert alert-warning g-type-body"><p>this is a warning block</p></div>
+      <p>this is another "normal" block</p>
+      <div class="alert alert-success g-type-body"><p>success block here! yeah!</p></div>"
     `)
   })
 })
