@@ -24,7 +24,7 @@ test('mdx options with custom plugins & options', () => {
   expect(opts.remarkPlugins[2].name).toBe('paragraphCustomAlertsPlugin')
   expect(opts.remarkPlugins[3][0].name).toBe('typographyPlugin')
   expect(opts.remarkPlugins[4].name).toBe('foo')
-  expect(opts.remarkPlugins[5].name).toBe('math')
+  expect(opts.remarkPlugins[5].name).toBe('remarkMath')
   expect(opts.rehypePlugins[0][0].name).toBe('')
   expect(opts.rehypePlugins[1].name).toBe('rehypeSurfaceCodeNewlines')
   expect(opts.rehypePlugins[2].name).toBe('bar')
