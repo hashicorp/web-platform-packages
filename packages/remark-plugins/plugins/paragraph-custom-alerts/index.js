@@ -52,7 +52,6 @@ export default function paragraphCustomAlertsPlugin() {
                   )
                 : node
             })
-            console.dir(parent.children, { depth: Infinity })
           }
         })
         prevTextNode = textNode
