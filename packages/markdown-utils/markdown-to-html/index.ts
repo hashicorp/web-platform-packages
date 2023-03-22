@@ -1,4 +1,4 @@
-import unified, { Pluggable } from 'unified'
+import { unified, type Pluggable } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
@@ -63,6 +63,8 @@ export default async function markdownToHtml(
   //  Note: we need allowDangerousHtml so that we can stringify `html` type nodes,
   //  which our `anchor-links` plugin produces. Ref:
   //  https://github.com/hashicorp/remark-plugins/blob/master/plugins/anchor-links/index.js#L68
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   processor.use(rehypeStringify, { allowDangerousHtml: true })
   //  Use our configured processor to get from markdown to HTML
   const htmlOutput = String(await processor.process(markdown))
