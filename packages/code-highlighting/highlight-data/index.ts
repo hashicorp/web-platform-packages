@@ -22,9 +22,9 @@ type DataNode = {
  * these modifications.
  * @param data
  */
-export default async function highlightData(
-  data: Record<string, DataNode | unknown>
-): Promise<Record<string, DataNode | unknown>> {
+export default async function highlightData<T extends object>(
+  data: T
+): Promise<T> {
   return await traverse.traverse(data, async (_key, value) => {
     //  We're looking for objects
     if (!traverse.isObject(value)) return value
