@@ -24,9 +24,9 @@ async function visitProperty<TValue>(
   if (isObject(handledValue)) {
     return await visitObject(handledValue, handleNode)
   } else if (Array.isArray(handledValue)) {
-    return ((await Promise.all(
+    return (await Promise.all(
       handledValue.map((v) => visitProperty(key, v, handleNode))
-    )) as unknown) as TValue
+    )) as unknown as TValue
   } else {
     return handledValue
   }
@@ -41,9 +41,9 @@ export function isObject<T>(
   )
 }
 
-export async function traverse<TValue, TObject extends Record<string, TValue>>(
-  valueIn: unknown | TObject,
+export async function traverse<T extends object>(
+  valueIn: T,
   handleNode: HandleNode = (_k, v) => v
-): Promise<TObject> {
+): Promise<T> {
   return await visitProperty(false, valueIn, handleNode)
 }
