@@ -1,5 +1,11 @@
 # @hashicorp/platform-code-highlighting
 
+## 0.2.0
+
+### Minor Changes
+
+- [#186](https://github.com/hashicorp/web-platform-packages/pull/186) [`38cbd2c`](https://github.com/hashicorp/web-platform-packages/commit/38cbd2c8fc7fda3139d07b120d4bfc95d738e989) Thanks [@dstaley](https://github.com/dstaley)! - Retain original input type
+
 ## 0.1.2
 
 ### Patch Changes

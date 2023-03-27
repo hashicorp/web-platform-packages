@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-code-highlighting",
   "description": "Code highlighting utilities for HashiCorp next.js websites",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "HashiCorp",
   "dependencies": {
     "@mapbox/rehype-prism": "0.5.0",
