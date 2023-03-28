@@ -1,5 +1,16 @@
 # @hashicorp/platform-markdown-utils
 
+## 0.3.0
+
+### Minor Changes
+
+- [#185](https://github.com/hashicorp/web-platform-packages/pull/185) [`91bb543`](https://github.com/hashicorp/web-platform-packages/commit/91bb5430f826b211cfef149e33cc154c38fccec7) Thanks [@dstaley](https://github.com/dstaley)! - Emit HTML instead of MDX
+
+### Patch Changes
+
+- Updated dependencies [[`91bb543`](https://github.com/hashicorp/web-platform-packages/commit/91bb5430f826b211cfef149e33cc154c38fccec7)]:
+  - @hashicorp/platform-remark-plugins@0.2.0
+
 ## 0.2.2
 
 ### Patch Changes
