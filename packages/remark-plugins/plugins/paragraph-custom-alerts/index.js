@@ -35,16 +35,18 @@ export default function paragraphCustomAlertsPlugin() {
             parent.children = parent.children.map((node) => {
               return is(pNode, node)
                 ? u(
-                    'mdxJsxFlowElement',
+                    'wrapper',
                     {
-                      name: 'div',
-                      attributes: [
-                        u(
-                          'mdxJsxAttribute',
-                          { name: 'className' },
-                          `alert alert-${sigils[symbol]} g-type-body`
-                        ),
-                      ],
+                      data: {
+                        hName: 'div',
+                        hProperties: {
+                          className: [
+                            `alert`,
+                            `alert-${sigils[symbol]}`,
+                            `g-type-body`,
+                          ],
+                        },
+                      },
                     },
                     [node]
                   )

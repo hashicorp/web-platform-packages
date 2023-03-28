@@ -7,7 +7,7 @@ const isRunningInEsmMode = !!process.env.TEST_ESM
  *
  * TODO: determine this from "type": "module" in package.json
  */
-const ESM_PACKAGES = ['content-conformance', 'remark-plugins']
+const ESM_PACKAGES = ['content-conformance', 'remark-plugins', 'markdown-utils']
 
 /**
  * Override the base next jest-transformer to force it into ESM mode
