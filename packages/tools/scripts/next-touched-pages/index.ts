@@ -16,6 +16,7 @@ interface BuildManifest {
 }
 
 interface Configuration {
+  name?: string
   paths?: Record<string, string[]>
 }
 
@@ -173,6 +174,12 @@ async function generateSourceToPageMap(
   return sourceToPageMap
 }
 
+async function getGitPrefix(): Promise<string | null> {
+  const { stdout } = await asyncExec('git rev-parse --show-prefix')
+  const prefix = stdout.trim()
+  return prefix ?? null
+}
+
 async function getGitChangedFiles(
   baseBranch: string,
   branch: string
@@ -184,7 +191,14 @@ async function getGitChangedFiles(
   const { stdout } = await asyncExec(
     `git --no-pager diff --name-only 'origin/${branch}' '${mergeBase}'`
   )
-  return stdout.split(os.EOL)
+  const prefix = await getGitPrefix()
+  return stdout.split(os.EOL).map((p) => {
+    if (prefix && p.startsWith(prefix)) {
+      return p.replace(prefix, '')
+    }
+
+    return p
+  })
 }
 
 export function getListOfUrls(
@@ -230,15 +244,20 @@ export function generateCommentMarkdown(
     branch,
     deployUrl,
     dynamicPathsConfig,
+    packageName,
   }: {
     baseBranch?: string
     baseBranchDeployUrl?: string
     branch?: string
     deployUrl?: string
     dynamicPathsConfig?: Record<string, string[]>
+    packageName?: string
   }
 ): string {
-  let comment = summary.addHeading('Changed Pages', 2)
+  let comment = summary.addHeading(
+    packageName ? `Changed Pages for ${packageName}` : 'Changed Pages',
+    2
+  )
   if (changedPages.length > 0) {
     comment = comment.addTable([
       [
@@ -285,12 +304,15 @@ async function printCommentMarkdown(
 
 async function loadConfig(): Promise<Configuration> {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    /* eslint-disable @typescript-eslint/no-var-requires */
     const config = require(path.join(
       process.cwd(),
       'next-touched-pages.config.js'
     ))
-    return config as Configuration
+    const pkg = require(path.join(process.cwd(), 'package.json'))
+    /* eslint-enable @typescript-eslint/no-var-requires */
+
+    return { name: pkg.name, ...config } as Configuration
   } catch {
     return {}
   }
@@ -377,6 +399,7 @@ export default async function main() {
           baseBranch: argv.baseBranch,
           baseBranchDeployUrl: argv.baseBranchDeployUrl,
           dynamicPathsConfig: config.paths,
+          packageName: config.name,
         })
         break
     }
