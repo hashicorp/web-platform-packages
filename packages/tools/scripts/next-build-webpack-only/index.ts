@@ -1,10 +1,12 @@
 import { spawn } from 'child_process'
+import which from 'which'
 
 /**
  * Wrap the next build command to only run the webpack step of the build, short-circuiting before static generation.
  */
 export default async function main() {
-  const buildProc = spawn('./node_modules/.bin/next', ['build'], {
+  const nextBin = await which('next')
+  const buildProc = spawn(nextBin, ['build'], {
     env: { ...process.env, FORCE_COLOR: 'true' },
   })
 
