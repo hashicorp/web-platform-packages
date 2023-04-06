@@ -1,5 +1,13 @@
 # @hashicorp/platform-tools
 
+## 0.9.0
+
+### Minor Changes
+
+- [#191](https://github.com/hashicorp/web-platform-packages/pull/191) [`804ed22`](https://github.com/hashicorp/web-platform-packages/commit/804ed22de4da89ed9d0e35e9a636421475ca8407) Thanks [@dstaley](https://github.com/dstaley)! - Support being run in a subdirectory
+
+* [#189](https://github.com/hashicorp/web-platform-packages/pull/189) [`cb02c01`](https://github.com/hashicorp/web-platform-packages/commit/cb02c01247d43bfc4fa544b34a4f2b6b2be46320) Thanks [@dstaley](https://github.com/dstaley)! - Correctly find the next executable in monorepos
+
 ## 0.8.0
 
 ### Minor Changes

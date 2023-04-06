@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.7.0
+
+### Minor Changes
+
+- [#192](https://github.com/hashicorp/web-platform-packages/pull/192) [`787c569`](https://github.com/hashicorp/web-platform-packages/commit/787c569b7c5fe6c74f0538456dc25daedaa6344e) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - bump prettier from 2.5 to 2.8
+
 ## 2.6.0
 
 ### Minor Changes
