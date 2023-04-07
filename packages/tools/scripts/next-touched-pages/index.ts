@@ -18,6 +18,7 @@ interface BuildManifest {
 interface Configuration {
   name?: string
   paths?: Record<string, string[]>
+  skipCommentIfEmpty?: boolean
 }
 
 const css = /\/\*+[\s\S]*?sourceMappingURL\s*=([\s\S]*?)\*\//
@@ -245,6 +246,7 @@ export function generateCommentMarkdown(
     deployUrl,
     dynamicPathsConfig,
     packageName,
+    skipCommentIfEmpty,
   }: {
     baseBranch?: string
     baseBranchDeployUrl?: string
@@ -252,10 +254,17 @@ export function generateCommentMarkdown(
     deployUrl?: string
     dynamicPathsConfig?: Record<string, string[]>
     packageName?: string
+    skipCommentIfEmpty?: boolean
   }
 ): string {
+  // If there aren't any changed pages and skipCommentIfEmpty is truthy, return
+  // an empty string.
+  if (skipCommentIfEmpty && changedPages.length === 0) {
+    return ''
+  }
+
   let comment = summary.addHeading(
-    packageName ? `Changed Pages for ${packageName}` : 'Changed Pages',
+    packageName ? `📄 Changed Pages for ${packageName}` : '📄 Changed Pages',
     2
   )
   if (changedPages.length > 0) {
@@ -400,6 +409,7 @@ export default async function main() {
           baseBranchDeployUrl: argv.baseBranchDeployUrl,
           dynamicPathsConfig: config.paths,
           packageName: config.name,
+          skipCommentIfEmpty: config.skipCommentIfEmpty,
         })
         break
     }
