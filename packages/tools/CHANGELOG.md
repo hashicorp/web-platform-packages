@@ -1,5 +1,11 @@
 # @hashicorp/platform-tools
 
+## 0.10.0
+
+### Minor Changes
+
+- [#199](https://github.com/hashicorp/web-platform-packages/pull/199) [`7c4c6a4`](https://github.com/hashicorp/web-platform-packages/commit/7c4c6a405b8b04b12e23f94a361940647136e09b) Thanks [@dstaley](https://github.com/dstaley)! - Add support for skipCommentIfEmpty
+
 ## 0.9.0
 
 ### Minor Changes
