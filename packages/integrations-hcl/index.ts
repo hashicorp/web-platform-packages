@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import { glob } from 'glob'
 import * as path from 'path'
 import { z } from 'zod'
 import { IntegrationsAPI, VariableGroupConfig } from './lib/generated'
@@ -70,6 +71,35 @@ export default async function LoadFilesystemIntegration(
   )
   const metadataFilePath = path.join(repoRootDirectory, 'metadata.hcl')
 
+  // Throw if the metadata.hcl file doesn't exist
+  if (!fs.existsSync(metadataFilePath)) {
+    const matches = await glob('**/metadata.hcl', { cwd: config.repo_path })
+    // If no metadata.hcl files were found, throw a helpful error
+    if (matches.length === 0) {
+      throw new Error(
+        `No metadata.hcl file was found in the provided repo_path: '${config.repo_path}'.` +
+          ` ` +
+          `This may be happening if you forgot to checkout your repo, checked it out under a different path, or the repo is missing a metadata.hcl file.` +
+          ` ` +
+          `Please ensure none of these conditions are true, and try again.` +
+          ` ` +
+          `If the problem persists, please contact open an issue at https://github.com/hashicorp/web-platform-packages/issues`
+      )
+    }
+    // If metadata.hcl files were found elsewhere, throw a helpful error
+    if (matches.length >= 1) {
+      throw new Error(
+        `The following metadata.hcl path, ${metadataFilePath}, was derived from config values and integration data, but it does not exist.` +
+          ` ` +
+          `Other metadata.hcl files were found in the provided repo_path: '${config.repo_path}'.` +
+          `\n\n` +
+          matches.map((m) => ` - ${m}`).join('\n') +
+          `\n\n` +
+          `Please double check config values, and try again.`
+      )
+    }
+  }
+
   const fileContent = fs.readFileSync(metadataFilePath, 'utf8')
   const hclConfig = new HCL(fileContent, MetadataHCLSchema)
   if (!hclConfig.result.data) {
@@ -84,6 +114,15 @@ export default async function LoadFilesystemIntegration(
       repoRootDirectory,
       hclIntegration.docs[0].readme_location
     )
+
+    // Throw if the README file doesn't exist
+    if (!fs.existsSync(readmeFile)) {
+      throw new Error(
+        `The README file, ${readmeFile}, was derived from config values and integration data, but it does not exist.` +
+          ` ` +
+          `Please double check the "readme_location" value in ${metadataFilePath}, and try again.`
+      )
+    }
     readmeContent = fs.readFileSync(readmeFile, 'utf8')
   }
 
