@@ -161,7 +161,7 @@ describe('LoadFilesystemIntegration', () => {
 
     const result = await LoadFilesystemIntegration({
       identifier: 'waypoint/BrandonRomano/docker',
-      repo_path: fixtureDir,
+      repo_path: path.join(fixtureDir, 'waypoint'),
       version: '0.0.0',
     })
 
@@ -224,4 +224,45 @@ describe('LoadFilesystemIntegration', () => {
       }
     `)
   })
+
+  it.each([
+    // fixure directory, error regexp
+    ['incorrect-path', /The following metadata.hcl path/i],
+    ['forgot-to-checkout', /No metadata.hcl file was found/i],
+  ] as const)(
+    'should return a useful error if metadata.hcl could not be found',
+    async (testDir, errorRegExp) => {
+      // mock the API call to fetch the organization
+      scope.get('/organizations/BrandonRomano').reply(200, {
+        meta: {
+          status_code: 200,
+          status_text: 'OK',
+        },
+        result: {
+          id: 'f5225571-394f-4dce-ab01-bb16d46910f8',
+        },
+      })
+
+      // mock the API call to fetch the integration
+      scope
+        .get(
+          '/products/waypoint/organizations/f5225571-394f-4dce-ab01-bb16d46910f8/integrations/docker'
+        )
+        .reply(200, {
+          meta: {
+            status_code: 200,
+            status_text: 'OK',
+          },
+          result: {},
+        })
+
+      await expect(() =>
+        LoadFilesystemIntegration({
+          identifier: 'waypoint/BrandonRomano/docker',
+          repo_path: path.join(fixtureDir, testDir),
+          version: '0.0.0',
+        })
+      ).rejects.toThrow(errorRegExp)
+    }
+  )
 })
