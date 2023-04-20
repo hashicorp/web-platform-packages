@@ -1,9 +1,8 @@
 integration {
-  name             = "Docker"
-  description      = "Use Waypoint on a Docker instance."
-  identifier       = "waypoint/docker"
-  flags            = ["builtin"]
-  integration_type = null
+  name        = "Docker"
+  description = "Use Waypoint on a Docker instance."
+  identifier  = "waypoint/docker"
+  flags       = ["builtin"]
 
   component {
     type = "builder"
