@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.11.1
+
+### Patch Changes
+
+- [#203](https://github.com/hashicorp/web-platform-packages/pull/203) [`dd65f08`](https://github.com/hashicorp/web-platform-packages/commit/dd65f08293c1456cad0f5d25e38531ae6a282446) Thanks [@BRKalow](https://github.com/BRKalow)! - Update types for window.analytics to include the latest APIs
+
 ## 0.11.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.7.1
+
+### Patch Changes
+
+- [#204](https://github.com/hashicorp/web-platform-packages/pull/204) [`72497fe`](https://github.com/hashicorp/web-platform-packages/commit/72497fefbed8b36b4d1e219906d92493feda5814) Thanks [@BRKalow](https://github.com/BRKalow)! - Update casing for some words in markdown blocks.
+
 ## 2.7.0
 
 ### Minor Changes
