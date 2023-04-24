@@ -1,4 +1,4 @@
-/// <reference types="@types/segment-analytics" />
+/// <reference types="@segment/analytics-next" />
 
 declare module '@next/bundle-analyzer'
 declare module 'next-optimized-images'
@@ -30,10 +30,3 @@ type $TSFixMe = any
  * Infer the promise value type from a PromiseLike object
  */
 type ThenType<T> = T extends PromiseLike<infer U> ? U : T
-
-/**
- * Declare types for window.analytics from segment
- */
-interface Window {
-  analytics: SegmentAnalytics.AnalyticsJS
-}
