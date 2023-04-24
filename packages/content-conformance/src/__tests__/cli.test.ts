@@ -5,6 +5,19 @@ import { currentFilePath, getFixturePath } from '../test/utils'
 const fixturePath = getFixturePath('basic-with-content-files')
 
 function execCli(...args: string[]) {
+  try {
+    return String(
+      execFileSync('node', [
+        path.join(currentFilePath, '../../..', '/dist/cli.js'),
+        ...args,
+      ])
+    )
+  } catch (error) {
+    return String(error.stdout)
+  }
+}
+
+function execCliExitCode(...args: string[]) {
   return String(
     execFileSync('node', [
       path.join(currentFilePath, '../../..', '/dist/cli.js'),
@@ -115,5 +128,17 @@ describe('Content-conformance CLI', () => {
       ✖ 1 error
       "
     `)
+  })
+
+  test('Returns non-zero exit code on failure', () => {
+    expect(() =>
+      execCliExitCode(
+        '--cwd',
+        `${fixturePath}`,
+        `./content/index.mdx`,
+        '--config',
+        './content-conformance.config.mjs'
+      )
+    ).toThrow()
   })
 })

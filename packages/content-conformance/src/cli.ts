@@ -2,7 +2,13 @@
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import chalk from 'chalk'
-import { ContentConformanceRunner } from './runner.js'
+import { ContentConformanceRunner, RunnerStatus } from './runner.js'
+
+export const RunnerExitCode = {
+  [RunnerStatus.RUNNING]: 0,
+  [RunnerStatus.SUCCESS]: 0,
+  [RunnerStatus.FAILURE]: 1,
+}
 
 // Disable colored output when running in a test environment so we can snapshot the CLI output without the color codes.
 if (process.env.NODE_ENV === 'test') {
@@ -94,5 +100,7 @@ yargs(hideBin(process.argv)).command(
       console.log('')
       console.log(chalk.redBright(stack))
     }
+
+    process.exitCode = RunnerExitCode[runner.status ?? 'SUCCESS']
   }
 ).argv
