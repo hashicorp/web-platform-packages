@@ -1,3 +1,4 @@
+import { getSegmentId } from '../analytics-js-helpers'
 import { getProductIntentFromURL } from '../get-product-intent-from-url'
 import { getUTMParamsCaptureState } from '../utm-params-capture'
 
@@ -51,7 +52,7 @@ export function addGlobalLinkHandler(
           .value
       )
     ) {
-      const segmentAnonymousId = getSegmentAnonymousId()
+      const segmentAnonymousId = getSegmentId()
       const productIntent = getProductIntentFromURL()
       const utmParams = getUTMParamsCaptureState()
 
@@ -93,17 +94,4 @@ export function addGlobalLinkHandler(
   })
 
   hasHandler = true
-}
-
-function getSegmentAnonymousId(): string | null {
-  if (
-    typeof window !== undefined &&
-    window.analytics &&
-    window.analytics.user &&
-    typeof window.analytics.user === 'function'
-  ) {
-    return window.analytics.user().anonymousId()
-  } else {
-    return null
-  }
 }

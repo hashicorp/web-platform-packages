@@ -30,7 +30,7 @@ export const track = (
 /**
  * Retrieve segment's anonymousId for the current visitorId
  */
-export function getSegmentId(): string | null {
+export function getSegmentId(): string | null | undefined {
   if (isAnalyticsMethodAvailable('user')) {
     return window.analytics.user().anonymousId()
   } else {
