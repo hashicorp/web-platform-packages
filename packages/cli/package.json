@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-cli",
   "description": "CLI for code generation, linting, formatting, etc for HashiCorp next.js websites",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "author": "HashiCorp",
   "bin": {
     "next-hashicorp": "next-hashicorp"
@@ -10,7 +10,7 @@
     "private": false
   },
   "dependencies": {
-    "@hashicorp/platform-cms": "0.3.0",
+    "@hashicorp/platform-cms": "0.4.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
     "chalk": "4.1.0",

@@ -1,5 +1,11 @@
 # @hashicorp/platform-types
 
+## 0.4.0
+
+### Minor Changes
+
+- [#154](https://github.com/hashicorp/web-platform-packages/pull/154) [`949a1fa`](https://github.com/hashicorp/web-platform-packages/commit/949a1faa6aea8cc83be6045f7d8c375edd41b664) Thanks [@dstaley](https://github.com/dstaley)! - Remove empty module declaration for rivet-graphql
+
 ## 0.3.1
 
 ### Patch Changes
