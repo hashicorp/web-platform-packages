@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.11
+
+### Patch Changes
+
+- [#205](https://github.com/hashicorp/web-platform-packages/pull/205) [`d28384c`](https://github.com/hashicorp/web-platform-packages/commit/d28384c7f5229ec17c8b381127efa40e12359c01) Thanks [@nayres](https://github.com/nayres)! - Added non-zero exit code for Content Conformance CLI
+
 ## 0.0.10
 
 ### Patch Changes

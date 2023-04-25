@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.11.2
+
+### Patch Changes
+
+- [#209](https://github.com/hashicorp/web-platform-packages/pull/209) [`8e8fb6b`](https://github.com/hashicorp/web-platform-packages/commit/8e8fb6b4155857ff26c075f9ace4d5ceabfeed9f) Thanks [@BRKalow](https://github.com/BRKalow)! - Fix return type of getSegmentAnonymousId()
+
 ## 0.11.1
 
 ### Patch Changes
