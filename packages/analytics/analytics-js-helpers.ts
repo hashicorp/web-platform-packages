@@ -5,7 +5,7 @@
  * Determines whether or not `window.analytics.track` can be invoked.
  */
 export const isAnalyticsMethodAvailable = (
-  method: keyof typeof window['analytics']
+  method: keyof (typeof window)['analytics']
 ): boolean => {
   return (
     typeof window !== 'undefined' &&
@@ -30,7 +30,7 @@ export const track = (
 /**
  * Retrieve segment's anonymousId for the current visitorId
  */
-export function getSegmentId(): string | null {
+export function getSegmentId(): string | null | undefined {
   if (isAnalyticsMethodAvailable('user')) {
     return window.analytics.user().anonymousId()
   } else {
