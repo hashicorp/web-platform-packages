@@ -5,7 +5,7 @@
  * Determines whether or not `window.analytics.track` can be invoked.
  */
 export const isAnalyticsMethodAvailable = (
-  method: keyof (typeof window)['analytics']
+  method: keyof typeof window['analytics']
 ): boolean => {
   return (
     typeof window !== 'undefined' &&
