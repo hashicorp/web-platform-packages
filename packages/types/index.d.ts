@@ -10,7 +10,6 @@ declare module '@hashicorp/react-consent-manager'
 declare module 'framer-motion/dist/es/motion/features/layout'
 declare module 'framer-motion/dist/es/projection/node/HTMLProjectionNode'
 
-declare module 'rivet-graphql'
 declare module '*.graphql'
 
 declare module '@mapbox/rehype-prism'
