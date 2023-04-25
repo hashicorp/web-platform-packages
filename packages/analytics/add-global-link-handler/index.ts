@@ -95,7 +95,7 @@ export function addGlobalLinkHandler(
   hasHandler = true
 }
 
-function getSegmentAnonymousId(): string | null {
+function getSegmentAnonymousId(): string | null | undefined {
   if (
     typeof window !== undefined &&
     window.analytics &&
