@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-nextjs-plugin",
   "description": "Core plugin for HashiCorp next.js websites",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "author": "HashiCorp",
   "scripts": {
     "build": "rm -rf ./dist && tsc"
@@ -17,7 +17,7 @@
     "svgo-loader": "^4.0.0"
   },
   "devDependencies": {
-    "@hashicorp/platform-types": "^0.3.0",
+    "@hashicorp/platform-types": "^0.4.0",
     "@types/postcss-normalize": "^9.0.1",
     "@types/postcss-preset-env": "^6.7.0",
     "@types/webpack": "^4.41.26"

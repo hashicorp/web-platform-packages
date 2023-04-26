@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 5.1.0
+
+### Minor Changes
+
+- [#154](https://github.com/hashicorp/web-platform-packages/pull/154) [`9a33aa9`](https://github.com/hashicorp/web-platform-packages/commit/9a33aa910661d6555957d57bdb5017f7500d80c1) Thanks [@dstaley](https://github.com/dstaley)! - Use graphql-tag/loader to support #import statements in graphql files
+
 ## 5.0.0
 
 ### Major Changes

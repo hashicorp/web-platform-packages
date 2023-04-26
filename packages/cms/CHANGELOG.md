@@ -1,5 +1,11 @@
 # @hashicorp/platform-cms
 
+## 0.4.0
+
+### Minor Changes
+
+- [#154](https://github.com/hashicorp/web-platform-packages/pull/154) [`2a4f90b`](https://github.com/hashicorp/web-platform-packages/commit/2a4f90b4b3179f977f8685e5b3834d6f3dfe0f93) Thanks [@dstaley](https://github.com/dstaley)! - Upgrade rivet-graphql to latest version
+
 ## 0.3.0
 
 ### Minor Changes

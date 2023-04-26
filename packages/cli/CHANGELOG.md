@@ -1,5 +1,12 @@
 # @hashicorp/platform-cli
 
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`2a4f90b`](https://github.com/hashicorp/web-platform-packages/commit/2a4f90b4b3179f977f8685e5b3834d6f3dfe0f93)]:
+  - @hashicorp/platform-cms@0.4.0
+
 ## 2.7.1
 
 ### Patch Changes
