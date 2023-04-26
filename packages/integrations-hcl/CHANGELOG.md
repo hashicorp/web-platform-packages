@@ -1,5 +1,11 @@
 # @hashicorp/integrations-hcl
 
+## 0.3.1
+
+### Patch Changes
+
+- [#202](https://github.com/hashicorp/web-platform-packages/pull/202) [`2ba45e9`](https://github.com/hashicorp/web-platform-packages/commit/2ba45e9b87b9f12c293b769d9828336ac1bbebc0) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - improve error messages
+
 ## 0.3.0
 
 ### Minor Changes
