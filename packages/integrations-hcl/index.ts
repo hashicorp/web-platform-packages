@@ -180,7 +180,7 @@ export default async function LoadFilesystemIntegration(
     docs: hclIntegration.docs[0],
     hide_versions: hclIntegration.hide_versions,
     license: hclIntegration.license[0],
-    integrationType: hclIntegration.integration_type,
+    integration_type: hclIntegration.integration_type,
   }
 }
 
