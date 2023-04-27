@@ -100,11 +100,22 @@ export default async function LoadFilesystemIntegration(
     }
   }
 
+  // @todo(kevinwang):
+  // Maybe lift file content reading into HCL class and throw a more helpful error message
   const fileContent = fs.readFileSync(metadataFilePath, 'utf8')
   const hclConfig = new HCL(fileContent, MetadataHCLSchema)
+  // throw a verbose error message with the filepath and contents
   if (!hclConfig.result.data) {
-    throw new Error(hclConfig.result.error.message)
+    throw new Error(
+      hclConfig.result.error.message +
+        '\n' +
+        'File: ' +
+        metadataFilePath +
+        '\n' +
+        fileContent
+    )
   }
+
   const hclIntegration = hclConfig.result.data.integration[0]
 
   // Read the README
@@ -156,7 +167,6 @@ export default async function LoadFilesystemIntegration(
   // Return Integration with all defaults set
   return {
     id: apiIntegration.id,
-    // @ts-expect-error - we can ignore this Enum vs. String mismatch
     product: apiIntegration.product.slug,
     identifier: hclIntegration.identifier,
     name: hclIntegration.name,
@@ -170,6 +180,7 @@ export default async function LoadFilesystemIntegration(
     docs: hclIntegration.docs[0],
     hide_versions: hclIntegration.hide_versions,
     license: hclIntegration.license[0],
+    integration_type: hclIntegration.integration_type,
   }
 }
 

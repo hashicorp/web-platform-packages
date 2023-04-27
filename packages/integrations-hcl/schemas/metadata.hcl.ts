@@ -36,8 +36,8 @@ const integration = z.object({
   name: z.string(),
   description: z.string(),
   identifier: z.string(),
-  component: component.array().min(1, 'At least one component is required'),
   // optionals
+  component: component.array().default([]),
   flags: z.string().array().default([]),
   hide_versions: z.boolean().default(false),
   license: license
@@ -53,6 +53,7 @@ const integration = z.object({
         readme_location: './README.md',
       },
     ]),
+  integration_type: z.string().nullable().optional().default(null),
 })
 
 const schema = z.object({
