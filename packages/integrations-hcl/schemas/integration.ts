@@ -57,7 +57,7 @@ export type Release = z.infer<typeof Release>
 
 export const Integration = z.object({
   id: z.string(),
-  product: z.nativeEnum(Product),
+  product: z.nativeEnum(Product).or(z.string()),
   name: z.string(),
   description: z.string(),
   identifier: z.string(),
@@ -66,5 +66,6 @@ export const Integration = z.object({
   hide_versions: z.boolean(),
   license: License,
   docs: Docs,
+  integrationType: z.string().optional().default(null),
 })
 export type Integration = z.infer<typeof Integration>

@@ -215,6 +215,7 @@ describe('LoadFilesystemIntegration', () => {
         "hide_versions": false,
         "id": "42928403-1ab8-435e-85a2-5a8f274a5a50",
         "identifier": "waypoint/docker",
+        "integrationType": null,
         "license": {
           "type": "MPL-2.0",
           "url": "https://github.com/hashicorp/waypoint/blob/main/LICENSE",
