@@ -1,5 +1,11 @@
 # @hashicorp/integrations-hcl
 
+## 0.4.0
+
+### Minor Changes
+
+- [#212](https://github.com/hashicorp/web-platform-packages/pull/212) [`e2ddb3d`](https://github.com/hashicorp/web-platform-packages/commit/e2ddb3d55a035729cf4b706add85ab8bfe830260) Thanks [@thiskevinwang](https://github.com/thiskevinwang)! - Add support for `integration_type`. Remove at-least-one component requirement.
+
 ## 0.3.1
 
 ### Patch Changes
