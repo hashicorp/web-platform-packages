@@ -1,5 +1,11 @@
 # @hashicorp/platform-markdown-utils
 
+## 0.3.2
+
+### Patch Changes
+
+- [#214](https://github.com/hashicorp/web-platform-packages/pull/214) [`30c6c58`](https://github.com/hashicorp/web-platform-packages/commit/30c6c58752c85ee7d377c6d2c2d36f3b67b43919) Thanks [@dstaley](https://github.com/dstaley)! - Remove unused @mdx-js/react dependency
+
 ## 0.3.1
 
 ### Patch Changes
