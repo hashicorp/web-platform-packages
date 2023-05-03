@@ -4,7 +4,8 @@ import * as path from 'path'
 import { z } from 'zod'
 import { IntegrationsAPI } from './lib/generated'
 import { Integration } from './schemas/integration'
-import { loadDefaultIntegrationDirectory } from './strategies/default/load_integration_directory'
+import { loadDefaultIntegrationDirectory } from './strategies/default/load_default_directory'
+import { loadNomadPackIntegrationDirectory } from './strategies/nomad-pack/load_pack_directory'
 
 const Config = z.object({
   identifier: z.string(),
@@ -111,8 +112,12 @@ export default async function LoadFilesystemIntegration(
   // configuration to a standardized Integrations object.
   switch (config.strategy) {
     case 'nomad-pack': {
-      console.log('TODO')
-      return null
+      return loadNomadPackIntegrationDirectory(
+        integrationDirectory,
+        apiIntegration.id,
+        apiIntegration.product.slug,
+        config.version
+      )
     }
 
     default: {
