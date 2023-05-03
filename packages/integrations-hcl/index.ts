@@ -17,61 +17,62 @@ const Config = z.object({
   identifier: z.string(),
   repo_path: z.string(),
   version: z.string(),
+  strategy: z.enum(['default', 'nomad-pack']).default('default'),
 })
 type Config = z.infer<typeof Config>
 
 export default async function LoadFilesystemIntegration(
   config: Config
 ): Promise<Integration> {
-  // Create the API client
-  const client = new IntegrationsAPI({
+  // Create an API client instance
+  const apiClient = new IntegrationsAPI({
     BASE: process.env.INPUT_INTEGRATIONS_API_BASE_URL,
   })
 
-  // Fetch the Integration from the API that we're looking to update
+  // Parse & Validate the Integration Identifier
   const [productSlug, organizationSlug, integrationSlug] =
     config.identifier.split('/')
-
-  // Throw if the identifier is invalid
   if (!productSlug || !organizationSlug || !integrationSlug) {
+    // Throw if the identifier is invalid
     throw new Error(
       `Invalid integration identifier: '${config.identifier}'.` +
         ` The expected format is 'productSlug/organizationSlug/integrationSlug'`
     )
   }
 
-  const organization = await client.organizations.fetchOrganization(
+  // Validate the Organization as specified in the identifier exists
+  const organization = await apiClient.organizations.fetchOrganization(
     organizationSlug
   )
-
   if (organization.meta.status_code != 200) {
     throw new Error(
       `Organization not found for integration identifier: '${config.identifier}'`
     )
   }
 
-  const integrationFetchResult = await client.integrations.fetchIntegration(
+  // Fetch the Integration from the API. We need to ensure that it exists,
+  // and therefore has already been registered.
+  const integrationFetchResult = await apiClient.integrations.fetchIntegration(
     productSlug,
     organization.result.id,
     integrationSlug
   )
-
   if (integrationFetchResult.meta.status_code !== 200) {
     throw new Error(
       `Integration not found for integration identifier: '${config.identifier}'`
     )
   }
-
   const apiIntegration = integrationFetchResult.result
 
-  // Parse out & validate the metadata.hcl file
-  const repoRootDirectory = path.join(
+  // Determine the location of the Integration & validate that it has a metadata.hcl file
+  const integrationDirectory = path.join(
     config.repo_path,
     apiIntegration.subdirectory || ''
   )
-  const metadataFilePath = path.join(repoRootDirectory, 'metadata.hcl')
+  const metadataFilePath = path.join(integrationDirectory, 'metadata.hcl')
 
-  // Throw if the metadata.hcl file doesn't exist
+  // Throw if the metadata.hcl file doesn't exist. We don't validate it at
+  // this point beyond checking that it exists.
   if (!fs.existsSync(metadataFilePath)) {
     const matches = await glob('**/metadata.hcl', { cwd: config.repo_path })
     // If no metadata.hcl files were found, throw a helpful error
@@ -100,8 +101,41 @@ export default async function LoadFilesystemIntegration(
     }
   }
 
-  // @todo(kevinwang):
-  // Maybe lift file content reading into HCL class and throw a more helpful error message
+  // Load the Integration's product VariableGroupConfigs. This is information
+  // that we need to parse out the Integration from the Filesystem.
+  const variableGroupConfigs =
+    await apiClient.variableGroupConfigs.fetchVariableGroupConfigs(
+      apiIntegration.product.slug,
+      '100'
+    )
+  if (variableGroupConfigs.meta.status_code !== 200) {
+    throw new Error(
+      `Failed to load 'variable_group' configs for product: '${apiIntegration.product.slug}'`
+    )
+  }
+
+  // Depending on the Strategy that is specified, we read the filesystem and coerce the
+  // configuration to a standardized Integrations object.
+  // TODO: put the switch statement here based off of the strategy specified
+  return loadMetadatafile(
+    integrationDirectory,
+    apiIntegration.id,
+    apiIntegration.product.slug,
+    config.version,
+    variableGroupConfigs.result
+  )
+}
+
+async function loadMetadatafile(
+  integrationDirectory: string,
+  integrationID: string,
+  integrationProductSlug: string,
+  currentReleaseVersion: string,
+  variableGroupConfigs: VariableGroupConfig[]
+): Promise<Integration> {
+  const metadataFilePath = path.join(integrationDirectory, 'metadata.hcl')
+
+  // Read & Validate the Metadata file
   const fileContent = fs.readFileSync(metadataFilePath, 'utf8')
   const hclConfig = new HCL(fileContent, MetadataHCLSchema)
   // throw a verbose error message with the filepath and contents
@@ -122,7 +156,7 @@ export default async function LoadFilesystemIntegration(
   let readmeContent: string | null = null
   if (hclIntegration.docs[0].process_docs) {
     const readmeFile = path.join(
-      repoRootDirectory,
+      integrationDirectory,
       hclIntegration.docs[0].readme_location
     )
 
@@ -137,42 +171,29 @@ export default async function LoadFilesystemIntegration(
     readmeContent = fs.readFileSync(readmeFile, 'utf8')
   }
 
-  // Load the Products VariableGroupConfigs so we can load any component variables
-  const variableGroupConfigs =
-    await client.variableGroupConfigs.fetchVariableGroupConfigs(
-      apiIntegration.product.slug,
-      '100'
-    )
-
-  if (variableGroupConfigs.meta.status_code !== 200) {
-    throw new Error(
-      `Failed to load 'variable_group' configs for product: '${apiIntegration.product.slug}'`
-    )
-  }
-
   // Calculate each Component object
   const allComponents: Array<Component> = []
   for (let i = 0; i < hclIntegration.component.length; i++) {
     allComponents.push(
       await loadComponent(
-        repoRootDirectory,
+        integrationDirectory,
         hclIntegration.component[i].type,
         hclIntegration.component[i].name,
         hclIntegration.component[i].slug,
-        variableGroupConfigs.result
+        variableGroupConfigs
       )
     )
   }
 
   // Return Integration with all defaults set
   return {
-    id: apiIntegration.id,
-    product: apiIntegration.product.slug,
+    id: integrationID,
+    product: integrationProductSlug,
     identifier: hclIntegration.identifier,
     name: hclIntegration.name,
     description: hclIntegration.description,
     current_release: {
-      version: config.version,
+      version: currentReleaseVersion,
       readme: readmeContent,
       components: allComponents,
     },
@@ -185,7 +206,7 @@ export default async function LoadFilesystemIntegration(
 }
 
 async function loadComponent(
-  repoRootDirectory: string,
+  repoRootDirectory: string, // TODO: Rename to `integrationDirectory`
   componentType: string,
   componentName: string,
   componentSlug: string,
