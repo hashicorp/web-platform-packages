@@ -206,14 +206,14 @@ async function loadMetadatafile(
 }
 
 async function loadComponent(
-  repoRootDirectory: string, // TODO: Rename to `integrationDirectory`
+  integrationDirectory: string,
   componentType: string,
   componentName: string,
   componentSlug: string,
   variableGroupConfigs: Array<VariableGroupConfig>
 ): Promise<Component> {
   // Calculate the location of the folder where the README / variables, etc reside
-  const componentFolder = `${repoRootDirectory}/components/${componentType}/${componentSlug}`
+  const componentFolder = `${integrationDirectory}/components/${componentType}/${componentSlug}`
 
   // Load the README if it exists
   const componentReadmeFile = `${componentFolder}/README.md`
