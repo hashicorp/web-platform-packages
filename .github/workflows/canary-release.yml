@@ -3,7 +3,7 @@ name: Canary Release
 on:
   workflow_call:
     secrets:
-      PUBLISH_GITHUB_TOKEN:
+      CHANGESETS_PAT:
         required: true
       NPM_TOKEN:
         required: true
@@ -36,7 +36,7 @@ jobs:
       - name: Version
         run: npx changeset version --snapshot canary
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESETS_PAT }}
 
       - name: Publish Canary Packages
         id: changesets
@@ -45,7 +45,7 @@ jobs:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release:canary
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESETS_PAT }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Compute new packages info
