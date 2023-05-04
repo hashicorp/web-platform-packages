@@ -11,7 +11,7 @@ const Config = z.object({
   identifier: z.string(),
   repo_path: z.string(),
   version: z.string(),
-  strategy: z.enum(['default', 'nomad-pack']).default('default'),
+  strategy: z.enum(['default', 'nomad-pack']).default('default').optional(),
 })
 type Config = z.infer<typeof Config>
 
