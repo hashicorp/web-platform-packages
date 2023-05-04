@@ -3,7 +3,7 @@ name: Release
 on:
   workflow_call:
     secrets:
-      PUBLISH_GITHUB_TOKEN:
+      CHANGESETS_PAT:
         required: true
       NPM_TOKEN:
         required: true
@@ -37,5 +37,5 @@ jobs:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESETS_PAT }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
