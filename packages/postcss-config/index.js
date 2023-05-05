@@ -5,7 +5,7 @@ module.exports = {
       '@csstools/postcss-global-data',
       {
         files: [
-          require.resolve('@hashicorp/mktg-global-styles/custom-media.css'),
+          'node_modules://@hashicorp/mktg-global-styles/custom-media.css',
         ],
       },
     ],
