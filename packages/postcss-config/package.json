@@ -4,9 +4,10 @@
   "version": "0.2.0",
   "author": "HashiCorp",
   "dependencies": {
+    "@csstools/postcss-global-data": "^1.0.3",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-normalize": "^10.0.1",
-    "postcss-preset-env": "^7.7.1"
+    "postcss-preset-env": "^8.3.2"
   },
   "peerDependencies": {
     "@hashicorp/mktg-global-styles": "^4.0.0"
