@@ -1,5 +1,11 @@
 # @hashicorp/integrations-hcl
 
+## 0.5.0
+
+### Minor Changes
+
+- [#216](https://github.com/hashicorp/web-platform-packages/pull/216) [`1f7c61c`](https://github.com/hashicorp/web-platform-packages/commit/1f7c61c138a3fa4b3d50e06de5069b56aa114c57) Thanks [@BrandonRomano](https://github.com/BrandonRomano)! - Support a 'strategy' field for multiple integrations-hcl consumption paths. Includes a strategy for nomad-pack.
+
 ## 0.4.0
 
 ### Minor Changes
