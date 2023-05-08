@@ -66,6 +66,9 @@ export async function loadNomadPackIntegrationDirectory(
       type: null,
       url: null,
     },
+    // This comes from the pack `integration_type` configuration in our integrations repo.
+    // In the event the slug there ever changes, so does this.
+    // https://github.com/hashicorp/integrations/blob/main/nomad/_config.hcl#L6
     integration_type: 'pack',
   }
 }
