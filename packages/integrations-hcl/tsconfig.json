@@ -8,7 +8,7 @@
     // fix error TS1056: Accessors are only available when targeting ECMAScript 5 and higher.
     "target": "ESNext"
   },
-  "include": ["./lib", "./schemas", "./index.ts"],
+  "include": ["./lib", "./schemas", "./strategies", "./index.ts"],
   "exclude": [
     "node_modules",
     "**/__fixtures__/**/*",
