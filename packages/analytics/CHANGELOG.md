@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.12.0
+
+### Minor Changes
+
+- [#221](https://github.com/hashicorp/web-platform-packages/pull/221) [`f05c77c`](https://github.com/hashicorp/web-platform-packages/commit/f05c77c6a0993c8c589de846952e56f1420fd660) Thanks [@mwickett](https://github.com/mwickett)! - Update url used to load Fathom script - custom domains no longer work
+
 ## 0.11.2
 
 ### Patch Changes
