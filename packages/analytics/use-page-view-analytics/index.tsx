@@ -31,7 +31,7 @@ export default function usePageviewAnalytics({
       if (navigator.sendBeacon === undefined) return
 
       load(siteId, {
-        url: 'https://tarantula.hashicorp.com/script.js',
+        url: 'https://cdn.usefathom.com/script.js',
         includedDomains: includedDomains.split(' '),
       })
 
