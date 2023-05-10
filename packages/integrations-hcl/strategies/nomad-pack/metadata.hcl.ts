@@ -12,6 +12,7 @@ const pack = z.object({
 const integration = z.object({
   identifier: z.string(),
   flags: z.string().array().default([]),
+  name: z.string().optional(),
 })
 
 const schema = z.object({
