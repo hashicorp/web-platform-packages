@@ -51,6 +51,7 @@ export async function loadNomadPackIntegrationDirectory(
   const readmeLines = rawReadmeContent.split('\n')
   const h1Regex = /^# .*/g
   if (h1Regex.test(readmeLines[0])) {
+    console.log('Removing leading H1 from README content...')
     readmeLines.shift()
     // The next line is likely an empty line, so let's remove that
     if (readmeLines[0] === '') {
