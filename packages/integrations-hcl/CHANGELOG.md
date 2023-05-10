@@ -1,5 +1,12 @@
 # @hashicorp/integrations-hcl
 
+## 0.6.0
+
+### Minor Changes
+
+- [#223](https://github.com/hashicorp/web-platform-packages/pull/223) [`655c87d`](https://github.com/hashicorp/web-platform-packages/commit/655c87da6b48a17bfd4a11df7037644be3bccd8f) Thanks [@BrandonRomano](https://github.com/BrandonRomano)! - - Allows for pack.name to be overridden via integration.name
+  - Removes the first line if it's an H1 in the README
+
 ## 0.5.0
 
 ### Minor Changes
