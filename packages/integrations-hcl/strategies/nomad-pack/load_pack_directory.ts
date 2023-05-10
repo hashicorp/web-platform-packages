@@ -42,13 +42,29 @@ export async function loadNomadPackIntegrationDirectory(
         `For Nomad Packs, the README file must be located at ./README.md, relative to the subdirectory of the Pack.`
     )
   }
-  const readmeContent: string = fs.readFileSync(readmeFile, 'utf8')
+
+  // Read the README
+  const rawReadmeContent: string = fs.readFileSync(readmeFile, 'utf8')
+
+  // If the first line is a H1, remove it. Keeping it will create a
+  // duplicate title in our content on the website.
+  const readmeLines = rawReadmeContent.split('\n')
+  const h1Regex = /^# .*/g
+  if (h1Regex.test(readmeLines[0])) {
+    console.log('Removing leading H1 from README content...')
+    readmeLines.shift()
+    // The next line is likely an empty line, so let's remove that
+    if (readmeLines[0] === '') {
+      readmeLines.shift()
+    }
+  }
+  const readmeContent = readmeLines.join('\n')
 
   return {
     id: integrationID,
     product: integrationProductSlug,
     identifier: integrationStanza.identifier,
-    name: packStanza.name,
+    name: integrationStanza.name ? integrationStanza.name : packStanza.name,
     description: packStanza.description,
     current_release: {
       version: currentReleaseVersion,
