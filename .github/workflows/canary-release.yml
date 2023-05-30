@@ -40,7 +40,7 @@ jobs:
 
       - name: Publish Canary Packages
         id: changesets
-        uses: changesets/action@master # TSCCR: no entry for repository "changesets/action"
+        uses: changesets/action@master  # TSCCR: no entry for repository "changesets/action"
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release:canary
@@ -59,7 +59,7 @@ jobs:
           echo "::set-output name=packageList::$(echo ${{toJson(steps.changesets.outputs.publishedPackages)}} | jq 'reduce .[] as $item (""; . + "#### \($item.name)@\($item.version)\n```\nnpm install \($item.name)@canary\n```\n")')"
 
       - name: Comment
-        uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd # v2.5.0
+        uses: marocchino/sticky-pull-request-comment@f61b6cf21ef2fcc468f4345cdfcc9bda741d2343 # v2.6.2
         if: success() && steps.changesets.outputs.published == 'true'
         with:
           header: 'canary-release'
