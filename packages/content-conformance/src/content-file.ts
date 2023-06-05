@@ -34,7 +34,7 @@ export class ContentFile extends VFile {
     super(value)
     this.parseFrontmatter()
 
-    // If a partialsDirectory is provided, check if the file is in the directory
+    // If a partialsDirectories is provided, check if the file is in the directory
     if ((value as Options)?.path && opts?.partialsDirectories) {
       this.isPartial = opts.partialsDirectories.some((partialsDirectory) =>
         String((value as Options).path).startsWith(partialsDirectory)
