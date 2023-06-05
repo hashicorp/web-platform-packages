@@ -11,7 +11,7 @@ import type { Test } from 'unist-util-is'
 import type { Node } from 'unist'
 
 interface ContentFileOpts {
-  partialsDirectory?: string
+  partialsDirectories?: string[]
 }
 
 /**
@@ -35,9 +35,9 @@ export class ContentFile extends VFile {
     this.parseFrontmatter()
 
     // If a partialsDirectory is provided, check if the file is in the directory
-    if ((value as Options)?.path && opts?.partialsDirectory) {
-      this.isPartial = String((value as Options).path).startsWith(
-        opts.partialsDirectory
+    if ((value as Options)?.path && opts?.partialsDirectories) {
+      this.isPartial = opts.partialsDirectories.some((partialsDirectory) =>
+        String((value as Options).path).startsWith(partialsDirectory)
       )
     }
   }
