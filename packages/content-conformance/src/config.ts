@@ -7,7 +7,7 @@ import { loadModuleFromFilePath, getPackageFilePath } from './utils.js'
 const CONFIG_FILE_NAME = 'content-conformance.config.mjs'
 
 const CONFIG_DEFAULTS = {
-  partialsDirectory: 'content/partials',
+  partialsDirectories: ['content/partials', 'docs/partials'],
 }
 
 const RuleLevels = z.enum(['off', 'warn', 'error'])
@@ -22,7 +22,7 @@ const ContentConformanceConfig = z.object({
   root: z.string(),
   preset: z.string().optional(),
   contentFileGlobPattern: z.string(),
-  partialsDirectory: z.string().optional(),
+  partialsDirectories: z.array(z.string()).optional(),
   dataFileGlobPattern: z.string().optional(),
   presets: z.array(z.string()).optional(),
   rules: z.record(ContentConformanceConfigRule).optional(),
@@ -88,8 +88,8 @@ export async function loadConfig({
 }
 
 function applyConfigDefaults(config: ContentConformanceConfig) {
-  if (!config.partialsDirectory) {
-    config.partialsDirectory = CONFIG_DEFAULTS.partialsDirectory
+  if (!config.partialsDirectories) {
+    config.partialsDirectories = [...CONFIG_DEFAULTS.partialsDirectories]
   }
 }
 

@@ -69,7 +69,7 @@ Rules can be specified with differing severity to control the check's failure st
 export default {
   root: '.',
   contentFileGlobPattern: 'content/**/*.mdx',
-  partialsDirectory: 'content/partials',
+  partialsDirectories: ['content/partials'],
   rules: {
     'with-config': [
       'error',
