@@ -144,4 +144,37 @@ describe('ContentConformanceEngine', () => {
       }
     `)
   })
+
+  test('detects partials in docs/partials', async () => {
+    const filePaths: Set<ContentFile> = new Set()
+    const opts = {
+      root: getFixturePath('basic-with-content-files'),
+      contentFileGlobPattern: '{content,docs}/**/*.mdx',
+      partialsDirectories: ['docs/partials'],
+      rules: [
+        {
+          level: 'warn' as const,
+          type: 'content' as const,
+          id: 'fake-rule-for-visiting-all-files',
+          description: 'This is a fake rule for testing purposes',
+          executor: {
+            async contentFile(file) {
+              // accumulate files for assertion
+              if (file.isPartial) filePaths.add(file.path)
+            },
+          },
+        },
+      ],
+    }
+
+    const engine = new ContentConformanceEngine(opts)
+
+    await engine.execute()
+
+    expect(filePaths).toMatchInlineSnapshot(`
+      Set {
+        "docs/partials/some-partial.mdx",
+      }
+    `)
+  })
 })

@@ -126,10 +126,10 @@ this is an invalid multi-line description.
       `)
     })
 
-    it('should set isPartial based on the path and partialsDirectory', () => {
+    it('should set isPartial based on the path and partialsDirectories', () => {
       const file = new ContentFile(
         { value: 'I am a partial', path: 'content/partials/partial.mdx' },
-        { partialsDirectory: 'content/partials' }
+        { partialsDirectories: ['content/partials'] }
       )
 
       expect(file.isPartial).toBeTruthy()

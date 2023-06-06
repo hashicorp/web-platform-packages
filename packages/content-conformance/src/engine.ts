@@ -73,7 +73,7 @@ export class ContentConformanceEngine {
           path: String(filepath),
           value: contents,
         },
-        { partialsDirectory: this.opts.partialsDirectory }
+        { partialsDirectories: this.opts.partialsDirectories }
       )
 
       this.contentFiles.push(file)

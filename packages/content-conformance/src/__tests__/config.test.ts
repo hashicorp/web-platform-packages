@@ -18,7 +18,10 @@ describe('loadConfig', () => {
         "./rules/must-have-h1": "error",
       }
     `)
-    expect(config.partialsDirectory).toEqual('content/partials')
+    expect(config.partialsDirectories).toEqual([
+      'content/partials',
+      'docs/partials',
+    ])
   })
 
   test('it loads config presets', async () => {
