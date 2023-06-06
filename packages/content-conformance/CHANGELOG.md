@@ -1,5 +1,11 @@
 # @hashicorp/platform-content-conformance
 
+## 0.0.12
+
+### Patch Changes
+
+- [#231](https://github.com/hashicorp/web-platform-packages/pull/231) [`a527706`](https://github.com/hashicorp/web-platform-packages/commit/a52770649e05c1218ffbc1aee37a8b3c5c84c090) Thanks [@BRKalow](https://github.com/BRKalow)! - Update partialsDirectory to partialsDirectories and add docs/partials
+
 ## 0.0.11
 
 ### Patch Changes
