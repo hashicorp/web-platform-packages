@@ -61,6 +61,15 @@ There are several custom Markdown plugins that are available by default that enh
 
   ...while it perhaps would not be an improved user experience, no links would break because of it. The best approach is to **avoid changing headlines and inline code at the start of a list item**. If you must change one of these items, make sure to tag someone from the digital marketing development team on your pull request, they will help to ensure as much compatibility as possible.
 
+#### Themed Images
+
+To conditionally render images based on the theme state, append your image src url with `#{dark|light}-theme-only` and the application will hide / show the asset based on the theme.
+
+```markdown
+![Hello World Dark](/img/boundary/hello-world-dark.jpg#dark-theme-only)
+![Hello World Light](/img/boundary/hello-world-light.jpg#light-theme-only)
+```
+
 ### Custom Components
 
 A number of custom [mdx components](https://mdxjs.com/) are available for use within any `.mdx` file. Each one is documented below:
