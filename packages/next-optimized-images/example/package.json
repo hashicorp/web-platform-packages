@@ -13,6 +13,6 @@
     "next-optimized-images": "^2.4.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "webp-loader": "^0.4.0"
+    "webp-loader": "^0.6.0"
   }
 }
