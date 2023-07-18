@@ -50,5 +50,13 @@ module.exports = {
         ignoreProperties: ['composes'],
       },
     ],
+
+    // we don't enforce a standard naming pattern
+    'selector-class-pattern': null,
+    'keyframes-name-pattern': null,
+    'custom-property-pattern': null,
+
+    // we didn't previously limit numerical precision
+    'number-max-precision': null,
   },
 }
