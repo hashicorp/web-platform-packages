@@ -5,17 +5,8 @@ const cssModulesSelectorPseudoClassNoUnknownOptions =
   cssModulesRules['selector-pseudo-class-no-unknown'][1]
 
 module.exports = {
-  extends: [
-    'stylelint-config-standard',
-    'stylelint-config-css-modules',
-    'stylelint-config-prettier',
-  ],
-  plugins: [
-    'stylelint-media-use-custom-media',
-    'stylelint-order',
-    'stylelint-use-nesting',
-    'stylelint-value-no-unknown-custom-properties',
-  ],
+  extends: ['stylelint-config-standard', 'stylelint-config-css-modules'],
+  plugins: ['stylelint-order', 'stylelint-use-nesting'],
   ignoreFiles: ['public/**/*.css', 'out/**/*.css'],
   rules: {
     'csstools/use-nesting': 'always',
