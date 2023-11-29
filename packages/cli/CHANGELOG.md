@@ -1,5 +1,15 @@
 # @hashicorp/platform-cli
 
+## 2.7.3
+
+### Patch Changes
+
+- [#236](https://github.com/hashicorp/web-platform-packages/pull/236) [`6190fc2`](https://github.com/hashicorp/web-platform-packages/commit/6190fc2dca5d2dba49e34d12bedd60e2978e6f54) Thanks [@kendallstrautman](https://github.com/kendallstrautman)! - Update docs with themed image syntax
+
+* [#248](https://github.com/hashicorp/web-platform-packages/pull/248) [`033e568`](https://github.com/hashicorp/web-platform-packages/commit/033e568b200ba21c66513e1933c245d736a4969b) Thanks [@dstaley](https://github.com/dstaley)! - Update ejs dependency
+
+- [#253](https://github.com/hashicorp/web-platform-packages/pull/253) [`5a8b65e`](https://github.com/hashicorp/web-platform-packages/commit/5a8b65e376ee0c0378ad3c9940b4bfc9fa9eed80) Thanks [@dstaley](https://github.com/dstaley)! - Update Web Presence GitHub team name
+
 ## 2.7.2
 
 ### Patch Changes
