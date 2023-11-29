@@ -193,7 +193,7 @@ It's also worth noting that this component will automatically adjust to the corr
 
 #### Other Components
 
-Other custom components can be made available on a per-site basis, the above are the standards. If you have questions about custom components that are not documented here, or have a request for a new custom component, please reach out to @hashicorp/digital-marketing.
+Other custom components can be made available on a per-site basis, the above are the standards. If you have questions about custom components that are not documented here, or have a request for a new custom component, please reach out to @hashicorp/web-presence.
 
 ### Syntax Highlighting
 
