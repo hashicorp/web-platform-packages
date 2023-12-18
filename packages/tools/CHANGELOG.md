@@ -1,5 +1,11 @@
 # @hashicorp/platform-tools
 
+## 0.11.0
+
+### Minor Changes
+
+- [#254](https://github.com/hashicorp/web-platform-packages/pull/254) [`a8eb6bb`](https://github.com/hashicorp/web-platform-packages/commit/a8eb6bb2ec84404f0188d542ec7e39db1e0fb6b0) Thanks [@dstaley](https://github.com/dstaley)! - Disable .env file logging
+
 ## 0.10.0
 
 ### Minor Changes
