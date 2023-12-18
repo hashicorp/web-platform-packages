@@ -49,7 +49,16 @@ async function main() {
     // Load env variables from .env using Next.js's utility
     const env = loadEnvConfig(
       process.cwd(),
-      process.env.NODE_ENV !== 'production'
+      process.env.NODE_ENV !== 'production',
+      {
+        info() {
+          // disable console.info calls for loaded env files
+          return
+        },
+        error(...args: any[]) {
+          console.error(...args)
+        },
+      }
     )
 
     const projectOptions = argv.project
