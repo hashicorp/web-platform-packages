@@ -69,6 +69,14 @@ module.exports = {
       ],
 
       rules: {
+        // Extend jsx-a11y/alt-text to also look for Next.js Images
+        "jsx-a11y/alt-text": [2, {
+          "elements": ["img", "object", "area", "input[type=\"image\"]"],
+          "img": ["img", "Image", "NextImage"],
+          "object": ["Object"],
+          "area": ["Area"],
+          "input[type=\"image\"]": ["InputImage"]
+        }],
         // TypeScript's `noFallthroughCasesInSwitch` option is more robust (#6906)
         'default-case': 'off',
         // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
