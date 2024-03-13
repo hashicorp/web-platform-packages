@@ -1,5 +1,11 @@
 # @hashicorp/platform-cli
 
+## 2.8.0
+
+### Minor Changes
+
+- [#257](https://github.com/hashicorp/web-platform-packages/pull/257) [`0308a62`](https://github.com/hashicorp/web-platform-packages/commit/0308a621b2a22f83bca06163d0d4fde7b78b72b3) Thanks [@RubenSandwich](https://github.com/RubenSandwich)! - Update the jsx/a11y alt text rule to check next.js images
+
 ## 2.7.3
 
 ### Patch Changes
