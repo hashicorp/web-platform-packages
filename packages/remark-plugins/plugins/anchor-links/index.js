@@ -1,4 +1,4 @@
-import { generateSlug, generateAriaLabel } from '../../util/generate-slug'
+import { generateSlug, generateAriaLabel } from '../../util/generate-slug.js'
 import { map } from 'unist-util-map'
 import { is } from 'unist-util-is'
 import { remark } from 'remark'
