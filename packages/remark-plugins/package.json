@@ -1,7 +1,7 @@
 {
   "name": "@hashicorp/platform-remark-plugins",
   "description": "A potpourri of remark plugins used to process .mdx files",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Jeff Escalante",
   "bugs": "https://github.com/hashicorp/web-platform-packages/issues",
   "contributors": [],
