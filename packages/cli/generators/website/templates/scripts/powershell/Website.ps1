@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 Write-Host "==> Downloading latest Docker image..."
 
 & docker pull hashicorp/<%= name %>website

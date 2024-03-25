@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import marked from 'marked'
 import Link from 'next/link'
 import Image from '@hashicorp/react-image'

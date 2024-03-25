@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getSegmentId } from '../analytics-js-helpers'
 import { getProductIntentFromURL } from '../get-product-intent-from-url'
 import { getUTMParamsCaptureState } from '../utm-params-capture'

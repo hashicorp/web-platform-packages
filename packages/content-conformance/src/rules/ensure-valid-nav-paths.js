@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import flat from 'flat'
 
 // flatten navData json object and visit all paths (keys that end with ".path")

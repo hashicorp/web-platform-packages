@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import tinymce from 'tinymce'
 import { Editor as ReactEditor } from '@tinymce/tinymce-react'
 import { useState } from 'react'
