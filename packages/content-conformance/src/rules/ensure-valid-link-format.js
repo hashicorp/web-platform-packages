@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const TEST_URL_ORIGIN = 'https://test.com'
 const LEARN_HOSTNAME = 'learn.hashicorp.com'
 

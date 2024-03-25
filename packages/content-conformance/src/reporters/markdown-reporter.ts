@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { stringifyPosition } from 'unist-util-stringify-position'
 import { VFile } from 'vfile'
 import { statistics, VFileMessage } from 'vfile-statistics'

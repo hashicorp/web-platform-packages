@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { testRule } from '../../test/utils'
 
 import imageMustHaveAlt from '../image-must-have-alt'

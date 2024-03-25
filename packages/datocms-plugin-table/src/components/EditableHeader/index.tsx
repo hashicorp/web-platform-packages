@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Column } from 'react-table'
 import { Actions, Row } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

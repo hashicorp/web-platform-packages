@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # For configuration details, see:
 # https://circleci.com/docs/2.0/configuration-reference
 version: 2.1

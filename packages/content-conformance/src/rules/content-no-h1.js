@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // eslint-disable-next-line import/no-anonymous-default-export
 /** @type {import('../types.js').ConformanceRuleBase} */
 export default {

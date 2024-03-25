@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { Plugin, Context } from '@segment/analytics-next'
 
 function createLogger(type: string) {

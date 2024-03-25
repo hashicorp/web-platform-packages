@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { RenderFieldExtensionCtx } from 'datocms-plugin-sdk'
 import { Canvas } from 'datocms-react-ui'
 import get from 'lodash-es/get'
