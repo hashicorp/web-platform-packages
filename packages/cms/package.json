@@ -15,5 +15,8 @@
     "type": "git",
     "url": "https://github.com/hashicorp/web-platform-packages.git",
     "directory": "packages/cms"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }
