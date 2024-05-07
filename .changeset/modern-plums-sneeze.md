@@ -1,5 +1,5 @@
 ---
-"@hashicorp/platform-cms": patch
+"@hashicorp/platform-cms": minor
 ---
 
 fix(CMS): source environment variables
