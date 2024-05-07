@@ -1,7 +1,5 @@
 const nextEnv = require('@next/env')
-const env = nextEnv.loadEnvConfig('../')
-console.log(env)
-console.log(process.cwd())
+nextEnv.loadEnvConfig(process.cwd())
 
 // Return draft content from Dato app is in preview mode
 // Default to production endpoint if undefined to avoid unexpectedly exposing draft content
