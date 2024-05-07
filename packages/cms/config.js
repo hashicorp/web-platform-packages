@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: ['.env.local', '.env'] })
 
 // Return draft content from Dato app is in preview mode
 // Default to production endpoint if undefined to avoid unexpectedly exposing draft content
