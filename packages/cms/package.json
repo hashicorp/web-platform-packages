@@ -4,7 +4,7 @@
   "version": "0.4.0",
   "author": "HashiCorp",
   "dependencies": {
-    "@next/env": "^14.2.3",
+    "dotenv": "^16.4.5",
     "rivet-graphql": "^0.6.0-canary-20230309231927"
   },
   "license": "MPL-2.0",
