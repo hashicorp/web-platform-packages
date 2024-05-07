@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // Return draft content from Dato app is in preview mode
 // Default to production endpoint if undefined to avoid unexpectedly exposing draft content
 let url = process.env.HASHI_DATO_ENVIRONMENT
