@@ -4,6 +4,7 @@
   "version": "0.4.0",
   "author": "HashiCorp",
   "dependencies": {
+    "@next/env": "^14.2.3",
     "rivet-graphql": "^0.6.0-canary-20230309231927"
   },
   "license": "MPL-2.0",
@@ -15,8 +16,5 @@
     "type": "git",
     "url": "https://github.com/hashicorp/web-platform-packages.git",
     "directory": "packages/cms"
-  },
-  "devDependencies": {
-    "dotenv": "^16.4.5"
   }
 }
