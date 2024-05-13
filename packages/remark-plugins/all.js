@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import anchorLinks from './plugins/anchor-links/index.js'
 import paragraphCustomAlerts from './plugins/paragraph-custom-alerts/index.js'
 import typography from './plugins/typography/index.js'

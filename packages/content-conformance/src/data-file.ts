@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import yaml from 'yaml'
 import { VFile } from 'vfile'
 import type { Compatible } from 'vfile'

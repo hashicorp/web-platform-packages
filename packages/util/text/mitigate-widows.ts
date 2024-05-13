@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Avoids leaving words "alone at the end" by replacing spaces with `&nbsp;`
  * @param {string} string - String to modify
  * @param {number} [unbreakLimit=12] - Unbreakable end part won't exceed this length

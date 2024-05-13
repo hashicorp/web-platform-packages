@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { RenderModalCtx } from 'datocms-plugin-sdk'
 import { Button, Canvas } from 'datocms-react-ui'
 import { useState } from 'react'

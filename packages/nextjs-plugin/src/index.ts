@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import util from 'util'
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import withOptimizedImages from '@hashicorp/next-optimized-images'

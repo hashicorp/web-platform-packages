@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 @import '~@hashicorp/react-global-styles/style.css';
 @import '~@hashicorp/react-consent-manager/dist/style.css';
 @import '~@hashicorp/react-button/dist/style.css';

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import './style.css'
 import { fetch } from '@hashicorp/nextjs-scripts/dato/client'
 import query from './query.graphql'
