@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { RenderConfigScreenCtx } from 'datocms-plugin-sdk'
 import { Canvas, ContextInspector } from 'datocms-react-ui'
 import s from './styles.module.css'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const withHashicorp = require('@hashicorp/nextjs-scripts')
 
 module.exports = withHashicorp()({
