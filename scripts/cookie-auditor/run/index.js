@@ -1,6 +1,6 @@
 import { pages } from '../configs/main'
 import XLSX from 'xlsx'
-import { chromium, firefox } from 'playwright'
+import { chromium, firefox, devices } from 'playwright'
 import isEqual from 'lodash.isequal'
 import path from 'path'
 import fs from 'fs'
@@ -103,7 +103,22 @@ async function createNewWorkbooks(sites) {
     // Open a browser with the specified browser engine
     console.log(`Launching ${browserType.name()} browser...`)
 
-    const browser = await browserType.launch()
+    const browser = await browserType.launch({
+      ...(browserType === chromium
+        ? {
+            ...devices['Desktop Chrome'],
+          }
+        : {}),
+      ...(browserType === firefox
+        ? {
+            ...devices['Desktop Firefox'],
+            firefoxUserPrefs: {
+              'network.cookie.cookieBehavior': 0,
+              'privacy.trackingprotection.enabled': false,
+            },
+          }
+        : {}),
+    })
 
     // Collect data from each page and add it to the browser-specific workbook
     console.log('Beginning cookie collection...')
