@@ -7,7 +7,7 @@ A script that gathers the cookie data from given sites into Excel workbooks. It 
 1. In your command line, run `cd scripts/cookie-auditor` from the project root.
 2. Then, run `npm i` to install deps.
 3. Add an Excel workbook of base data to `scripts/cookie-auditor/base-data` if not already there. (Future versions of this script will skip data comparison if no base data is found, but continue with new data generation).
-4. Finally, run `npm run start` to execute the script.
+4. Finally, run `npm run start`. This will update your locally installed `playwright` browsers and then execute the script.
 
 ## Known issues
 

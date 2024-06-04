@@ -9,9 +9,10 @@
     "xlsx": "^0.17.3"
   },
   "devDependencies": {
-    "playwright": "^1.16.3"
+    "playwright": "^1.44.1"
   },
   "scripts": {
-    "start": "DEBUG=pw:api node -r esm ./run"
+    "//comment": "Install latest Playwright browsers, then run the script",
+    "start": "npx playwright install && DEBUG=pw:api node -r esm ./run"
   }
 }
