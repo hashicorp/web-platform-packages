@@ -1,0 +1,18 @@
+{
+  "name": "cookie-auditor",
+  "description": "Cookie auditing script for HashiCorp websites",
+  "version": "0.1.0",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "glob": "^7.2.0",
+    "lodash.isequal": "^4.5.0",
+    "xlsx": "^0.17.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.44.1"
+  },
+  "scripts": {
+    "//comment": "Install latest Playwright browsers, then run the script",
+    "start": "npx playwright install && DEBUG=pw:api node -r esm ./run"
+  }
+}
