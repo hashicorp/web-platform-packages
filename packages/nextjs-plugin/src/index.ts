@@ -1,11 +1,8 @@
 import util from 'util'
 import withBundleAnalyzer from '@next/bundle-analyzer'
-import withOptimizedImages from '@hashicorp/next-optimized-images'
 import { NextConfig } from 'next'
-import withGraphql from './plugins/with-graphql'
 import withFramerMotionEsmodulesDisabled from './plugins/with-framer-motion-esmodules-disabled'
 import { getHashicorpPackages } from './get-hashicorp-packages'
-import { withInlineSvgLoader } from './plugins/with-inline-svg-loader'
 
 const debugLog = util.debuglog('@hashicorp/platform-nextjs-plugin')
 
@@ -27,11 +24,7 @@ interface NextHashiCorpOptions {
 export = withHashicorp
 
 // Export a plugin function that just goes through and calls our chain
-function withHashicorp({
-  dato = {},
-  transpileModules = [],
-  nextOptimizedImages = false,
-}: NextHashiCorpOptions = {}): (
+function withHashicorp({ dato = {} }: NextHashiCorpOptions = {}): (
   nextConfig?: Partial<NextConfig>
 ) => NextConfig {
   return function withHashicorpInternal(
@@ -39,39 +32,8 @@ function withHashicorp({
   ): NextConfig {
     const chain = [
       withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' }),
-      withGraphql(),
       withFramerMotionEsmodulesDisabled(),
     ]
-
-    // If nextOptimizedImages is true, add the plugin and set the necessary config value
-    if (nextOptimizedImages) {
-      chain.unshift(withOptimizedImages)
-
-      nextConfig.images = {
-        disableStaticImages: true,
-        ...nextConfig.images,
-      }
-    } else {
-      // This allows us to continue to use the ?include resource query so we can render SVGs with @hashicorp/react-inline-svg
-      chain.unshift(withInlineSvgLoader())
-    }
-
-    if (transpileModules.length > 0) {
-      if (isNextVersionAtLeast('13.1.0')) {
-        console.warn(
-          '[hashicorp] our unique config value transpileModules is deprecated, use nextConfig.transpilePackages instead.'
-        )
-      } else {
-        console.error(
-          '[hashicorp] transpileModules usage detected on next <13.1.0. This is no longer supported. Upgrade next and use nextConfig.transpilePackages instead.'
-        )
-      }
-
-      nextConfig.transpilePackages = [
-        ...transpileModules,
-        ...(nextConfig?.transpilePackages ?? []),
-      ]
-    }
 
     if (process.env.SOURCEMAPS === 'true') {
       nextConfig.productionBrowserSourceMaps = true
@@ -152,21 +114,4 @@ function withHashicorp({
 
     return chain.reduce((acc, next) => next(acc), nextConfig) as NextConfig
   }
-}
-
-/**
- *
- * @param minimumVersion Minimum semver version, can include or omit the minor or patch version
- */
-function isNextVersionAtLeast(minimumVersion: string) {
-  const [major, minor = 0, patch = 0] =
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    (require('next/package.json').version as string).split('.')
-  const [minMajor, minMinor = 0, minPatch = 0] = minimumVersion.split('.')
-
-  if (major >= minMajor && minor >= minMinor && patch >= minPatch) {
-    return true
-  }
-
-  return false
 }

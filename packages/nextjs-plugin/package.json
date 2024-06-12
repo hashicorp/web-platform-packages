@@ -7,14 +7,8 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@hashicorp/next-optimized-images": "0.2.0",
     "@next/bundle-analyzer": "10.0.3",
-    "graphql-tag": "^2.12.6",
-    "imagemin-mozjpeg": "9.0.0",
-    "imagemin-optipng": "8.0.0",
-    "imagemin-svgo": "8.0.0",
-    "postcss-normalize": "10.0.1",
-    "svgo-loader": "^4.0.0"
+    "postcss-normalize": "10.0.1"
   },
   "devDependencies": {
     "@hashicorp/platform-types": "^0.4.0",
@@ -23,7 +17,7 @@
     "@types/webpack": "^4.41.26"
   },
   "peerDependencies": {
-    "next": ">= 12.0.5"
+    "next": ">= 13.4.0"
   },
   "files": [
     "dist/**"
