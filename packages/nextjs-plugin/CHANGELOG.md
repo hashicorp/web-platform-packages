@@ -1,5 +1,11 @@
 # @hashicorp/platform-nextjs-plugin
 
+## 5.1.1
+
+### Patch Changes
+
+- [#268](https://github.com/hashicorp/web-platform-packages/pull/268) [`9094487`](https://github.com/hashicorp/web-platform-packages/commit/9094487c570e54f62bdad4a8dbd48a05f6da0f6b) Thanks [@LeahMarieBush](https://github.com/LeahMarieBush)! - Turn off cleanupIds for svgo loader
+
 ## 5.1.0
 
 ### Minor Changes
