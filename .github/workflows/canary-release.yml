@@ -1,9 +1,5 @@
 name: Canary Release
 
-permissions:
-  pull-requests: write
-  contents: write
-
 on:
   workflow_call:
     secrets:
