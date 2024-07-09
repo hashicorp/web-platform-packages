@@ -24,6 +24,9 @@ export function withInlineSvgLoader() {
                       overrides: {
                         removeViewBox: false,
                         collapseGroups: false,
+                        cleanupIds: {
+                          minify: false,
+                        },
                       },
                     },
                   },
