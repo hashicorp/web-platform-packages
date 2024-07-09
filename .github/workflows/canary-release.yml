@@ -1,10 +1,11 @@
 name: Canary Release
 
+permissions:
+  pull-requests: write
+
 on:
   workflow_call:
     secrets:
-      CHANGESETS_PAT:
-        required: true
       NPM_TOKEN:
         required: true
   pull_request:
@@ -36,7 +37,7 @@ jobs:
       - name: Version
         run: npx changeset version --snapshot canary
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESETS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Canary Packages
         id: changesets
@@ -46,7 +47,7 @@ jobs:
           publish: npm run release:canary
           createGithubReleases: false
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESETS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Compute new packages info
