@@ -44,52 +44,46 @@ export function addGlobalLinkHandler(
 
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
+    const href = linkElement && linkElement.getAttribute('href')
+    if (!href || !containsDestination(href)) return
+
+    const segmentAnonymousId = getSegmentId()
+    const productIntent = getProductIntentFromURL()
+    const utmParams = getUTMParamsCaptureState()
+
+    const url = new URL(linkElement.href)
+
+    // Safegaurd against absolute URLs that are on the same domain origin
+    if (window.location.origin === url.origin) {
+      return
+    }
+
+    event.preventDefault()
+
+    if (segmentAnonymousId) {
+      url.searchParams.set('ajs_aid', segmentAnonymousId)
+    }
+
+    if (productIntent) {
+      url.searchParams.set('product_intent', productIntent)
+    }
+
+    if (Object.keys(utmParams).length > 0) {
+      for (const [key, value] of Object.entries(utmParams)) {
+        url.searchParams.set(key, value)
+      }
+    }
+
+    callback && callback(url.href)
 
     if (
-      linkElement &&
-      containsDestination(
-        (linkElement as HTMLAnchorElement).attributes.getNamedItem('href')!
-          .value
-      )
+      linkElement.getAttribute('target') === '_blank' ||
+      event.ctrlKey ||
+      event.metaKey
     ) {
-      const segmentAnonymousId = getSegmentId()
-      const productIntent = getProductIntentFromURL()
-      const utmParams = getUTMParamsCaptureState()
-
-      const url = new URL(linkElement.href)
-
-      // Safegaurd against absolute URLs that are on the same domain origin
-      if (window.location.origin === url.origin) {
-        return
-      }
-
-      event.preventDefault()
-
-      if (segmentAnonymousId) {
-        url.searchParams.set('ajs_aid', segmentAnonymousId)
-      }
-
-      if (productIntent) {
-        url.searchParams.set('product_intent', productIntent)
-      }
-
-      if (Object.keys(utmParams).length > 0) {
-        for (const [key, value] of Object.entries(utmParams)) {
-          url.searchParams.set(key, value)
-        }
-      }
-
-      callback && callback(url.href)
-
-      if (
-        linkElement.getAttribute('target') === '_blank' ||
-        event.ctrlKey ||
-        event.metaKey
-      ) {
-        window.open(url.href, '_blank')
-      } else {
-        location.href = url.href
-      }
+      window.open(url.href, '_blank')
+    } else {
+      location.href = url.href
     }
   })
 
