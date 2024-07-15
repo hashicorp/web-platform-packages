@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const surfaceNewlines = require('./surface-newlines')
 const unified = require('unified')
 const stringify = require('rehype-stringify')

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { validatePluginDocsFiles } from './validate-plugin-docs-files'
 import AdmZip from 'adm-zip'

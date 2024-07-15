@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { unified, type Pluggable } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { remark } from 'remark'
 import remarkMdx from 'remark-mdx'
 import remarkRehype from 'remark-rehype'
