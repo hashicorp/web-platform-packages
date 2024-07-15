@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 module.exports = {
   // The parser is inherited from the eslint-config-next, extended here
   extends: ['eslint:recommended', 'plugin:prettier/recommended', 'next'],

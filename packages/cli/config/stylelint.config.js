@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const { rules: cssModulesRules } = require('stylelint-config-css-modules')
 
 /** Options directly imported from stylelint-config-css-modules */
