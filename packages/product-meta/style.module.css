@@ -105,3 +105,27 @@
   --brand-link-on-dark: var(--vault-link-on-dark);
   --brand-text-on-primary: var(--vault-text-on-primary);
 }
+
+/* Uses Vault tokens for now */
+.vaultRadar {
+  --brand: var(--vault);
+  --brand-secondary: var(--vault-secondary);
+  --brand-logomark: var(--vault-logomark);
+  --brand-accent: var(--vault-accent);
+  --brand-gradient: var(--vault-gradient);
+  --brand-link: var(--vault-link);
+  --brand-link-on-dark: var(--vault-link-on-dark);
+  --brand-text-on-primary: var(--vault-text-on-primary);
+}
+
+/* Uses Vault tokens for now */
+.vaultSecrets {
+  --brand: var(--vault);
+  --brand-secondary: var(--vault-secondary);
+  --brand-logomark: var(--vault-logomark);
+  --brand-accent: var(--vault-accent);
+  --brand-gradient: var(--vault-gradient);
+  --brand-link: var(--vault-link);
+  --brand-link-on-dark: var(--vault-link-on-dark);
+  --brand-text-on-primary: var(--vault-text-on-primary);
+}
