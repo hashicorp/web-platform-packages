@@ -7,21 +7,18 @@ interface ProductMeta {
   themeClass?: string
 }
 
-export const products = [
-  'hashicorp',
-  'boundary',
-  'consul',
-  'nomad',
-  'packer',
-  'terraform',
-  'vault',
-  'vaultRadar',
-  'vaultSecrets',
-  'vagrant',
-  'waypoint',
-] as const
-
-export type Products = (typeof products)[number]
+type Products =
+  | 'hashicorp'
+  | 'boundary'
+  | 'consul'
+  | 'nomad'
+  | 'packer'
+  | 'terraform'
+  | 'vault'
+  | 'vaultRadar'
+  | 'vaultSecrets'
+  | 'vagrant'
+  | 'waypoint'
 
 type ISlugToDisplayNameMap = {
   [Property in Products]: string
