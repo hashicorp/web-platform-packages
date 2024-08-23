@@ -1,6 +1,5 @@
 import * as React from 'react'
 import s from './style.module.css'
-import capitalize from '@hashicorp/platform-util/text/capitalize'
 
 interface ProductMeta {
   name: string
@@ -8,16 +7,39 @@ interface ProductMeta {
   themeClass?: string
 }
 
-type Products =
-  | 'hashicorp'
-  | 'boundary'
-  | 'consul'
-  | 'nomad'
-  | 'packer'
-  | 'terraform'
-  | 'vault'
-  | 'vagrant'
-  | 'waypoint'
+export const products = [
+  'hashicorp',
+  'boundary',
+  'consul',
+  'nomad',
+  'packer',
+  'terraform',
+  'vault',
+  'vaultRadar',
+  'vaultSecrets',
+  'vagrant',
+  'waypoint',
+] as const
+
+export type Products = (typeof products)[number]
+
+type ISlugToDisplayNameMap = {
+  [Property in Products]: string
+}
+
+const slugToDisplayNameMap: ISlugToDisplayNameMap = {
+  hashicorp: 'Hashicorp',
+  boundary: 'Boundary',
+  consul: 'Consul',
+  nomad: 'Nomad',
+  packer: 'Packer',
+  terraform: 'Terraform',
+  vault: 'Vault',
+  vaultRadar: 'Vault Radar',
+  vaultSecrets: 'Vault Secrets',
+  vagrant: 'Vagrant',
+  waypoint: 'Waypoint',
+}
 
 const DEFAULT: ProductMeta = {
   name: 'Hashicorp',
@@ -36,7 +58,7 @@ function useProductMeta(_product?: Products): ProductMeta {
   const product = _product?.toLowerCase()
   const ctx = React.useContext(ProductContext) ?? DEFAULT
   const slug = product ?? ctx.slug
-  const name = capitalize(product ?? ctx.name)
+  const name = product ? slugToDisplayNameMap[product] : ctx.name
   const themeClass = product ? s[product] : ctx.themeClass // class resets base `brand` css variables per theme
 
   if (process.env.NODE_ENV !== 'production' && !ctx && !product) {
