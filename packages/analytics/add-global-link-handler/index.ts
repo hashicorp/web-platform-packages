@@ -45,7 +45,11 @@ export function addGlobalLinkHandler(
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
     const href = linkElement && linkElement.getAttribute('href')
-    if (!href || !containsDestination(href)) return
+    if (!href) return
+
+    if (!containsDestination(href)) {
+      linkElement.setAttribute('target', '_blank')
+    }
 
     const segmentAnonymousId = getSegmentId()
     const productIntent = getProductIntentFromURL()
