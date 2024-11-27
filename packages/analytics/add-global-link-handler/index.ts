@@ -81,9 +81,11 @@ export function addGlobalLinkHandler(
 
     callback && callback(url.href)
 
+    console.log('checking for internal link')
     const isInternalLink = isInternal(url.href)
 
     if (!isInternalLink) {
+      console.log('external! set target to blank')
       linkElement.setAttribute('target', '_blank')
     }
 
