@@ -42,15 +42,14 @@ export function addGlobalLinkHandler(
 ) {
   if (typeof window === 'undefined' || hasHandler) return
 
-  const isInternal = (url: string) => {
-    const hostname = new URL(url).hostname
-    return hostname === 'hashicorp.com'
-  }
-
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
     const href = linkElement && linkElement.getAttribute('href')
-    if (!href || !containsDestination(href)) return
+    if (!href) return
+
+    if (!containsDestination(href)) {
+      linkElement.setAttribute('target', '_blank')
+    }
 
     const segmentAnonymousId = getSegmentId()
     const productIntent = getProductIntentFromURL()
@@ -80,14 +79,6 @@ export function addGlobalLinkHandler(
     }
 
     callback && callback(url.href)
-
-    console.log('checking for internal link')
-    const isInternalLink = isInternal(url.href)
-
-    if (!isInternalLink) {
-      console.log('external! set target to blank')
-      linkElement.setAttribute('target', '_blank')
-    }
 
     if (
       linkElement.getAttribute('target') === '_blank' ||
