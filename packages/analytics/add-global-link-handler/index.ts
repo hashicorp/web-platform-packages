@@ -42,6 +42,11 @@ export function addGlobalLinkHandler(
 ) {
   if (typeof window === 'undefined' || hasHandler) return
 
+  const isInternal = (url: string) => {
+    const hostname = new URL(url).hostname
+    return hostname === 'hashicorp.com'
+  }
+
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
     const href = linkElement && linkElement.getAttribute('href')
@@ -75,6 +80,12 @@ export function addGlobalLinkHandler(
     }
 
     callback && callback(url.href)
+
+    const isInternalLink = isInternal(url.href)
+
+    if (!isInternalLink) {
+      linkElement.setAttribute('target', '_blank')
+    }
 
     if (
       linkElement.getAttribute('target') === '_blank' ||
