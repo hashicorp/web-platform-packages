@@ -51,11 +51,8 @@ export function addGlobalLinkHandler(
     const href = linkElement && linkElement.getAttribute('href')
     if (!href) return
 
+    const targetIsBlank = linkElement.getAttribute('target') === '_blank'
     const isExternalLink = !containsDestination(href) && !isRelative(href)
-
-    if (isExternalLink) {
-      linkElement.setAttribute('target', '_blank')
-    }
 
     const segmentAnonymousId = getSegmentId()
     const productIntent = getProductIntentFromURL()
@@ -86,11 +83,7 @@ export function addGlobalLinkHandler(
 
     callback && callback(url.href)
 
-    if (
-      linkElement.getAttribute('target') === '_blank' ||
-      event.ctrlKey ||
-      event.metaKey
-    ) {
+    if (targetIsBlank || event.ctrlKey || event.metaKey || isExternalLink) {
       window.open(url.href, '_blank')
     } else {
       location.href = url.href
