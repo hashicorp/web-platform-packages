@@ -33,6 +33,10 @@ const containsDestination = (str: string): boolean =>
     return str.indexOf(destination) >= 0
   })
 
+const isRelative = (str: string): boolean => {
+  return str.startsWith('/')
+}
+
 // Track if we've setup this handler already to prevent registering the handler
 // multiple times.
 let hasHandler = false
@@ -47,7 +51,9 @@ export function addGlobalLinkHandler(
     const href = linkElement && linkElement.getAttribute('href')
     if (!href) return
 
-    if (!containsDestination(href)) {
+    const isExternalLink = !containsDestination(href) && !isRelative(href)
+
+    if (isExternalLink) {
       linkElement.setAttribute('target', '_blank')
     }
 
