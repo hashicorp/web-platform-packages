@@ -33,6 +33,10 @@ const containsDestination = (str: string): boolean =>
     return str.indexOf(destination) >= 0
   })
 
+const isRelative = (str: string): boolean => {
+  return str.startsWith('/')
+}
+
 // Track if we've setup this handler already to prevent registering the handler
 // multiple times.
 let hasHandler = false
@@ -45,7 +49,10 @@ export function addGlobalLinkHandler(
   window.addEventListener('click', (event) => {
     const linkElement = (event.target as HTMLElement).closest('a')
     const href = linkElement && linkElement.getAttribute('href')
-    if (!href || !containsDestination(href)) return
+    if (!href) return
+
+    const targetIsBlank = linkElement.getAttribute('target') === '_blank'
+    const isExternalLink = !containsDestination(href) && !isRelative(href)
 
     const segmentAnonymousId = getSegmentId()
     const productIntent = getProductIntentFromURL()
@@ -76,11 +83,7 @@ export function addGlobalLinkHandler(
 
     callback && callback(url.href)
 
-    if (
-      linkElement.getAttribute('target') === '_blank' ||
-      event.ctrlKey ||
-      event.metaKey
-    ) {
+    if (targetIsBlank || event.ctrlKey || event.metaKey || isExternalLink) {
       window.open(url.href, '_blank')
     } else {
       location.href = url.href
