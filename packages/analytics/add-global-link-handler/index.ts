@@ -46,49 +46,54 @@ export function addGlobalLinkHandler(
 ) {
   if (typeof window === 'undefined' || hasHandler) return
 
-  window.addEventListener('click', (event) => {
-    const linkElement = (event.target as HTMLElement).closest('a')
-    const href = linkElement && linkElement.getAttribute('href')
-    if (!href) return
+  window.addEventListener(
+    'click',
+    (event) => {
+      const linkElement = (event.target as HTMLElement).closest('a')
+      const href = linkElement && linkElement.getAttribute('href')
+      if (!href) return
 
-    const targetIsBlank = linkElement.getAttribute('target') === '_blank'
-    const isExternalLink = !containsDestination(href) && !isRelative(href)
+      const targetIsBlank = linkElement.getAttribute('target') === '_blank'
+      const isExternalLink = !containsDestination(href) && !isRelative(href)
 
-    const segmentAnonymousId = getSegmentId()
-    const productIntent = getProductIntentFromURL()
-    const utmParams = getUTMParamsCaptureState()
+      const segmentAnonymousId = getSegmentId()
+      const productIntent = getProductIntentFromURL()
+      const utmParams = getUTMParamsCaptureState()
 
-    const url = new URL(linkElement.href)
+      const url = new URL(linkElement.href)
 
-    // Safegaurd against absolute URLs that are on the same domain origin
-    if (window.location.origin === url.origin) {
-      return
-    }
-
-    event.preventDefault()
-
-    if (segmentAnonymousId) {
-      url.searchParams.set('ajs_aid', segmentAnonymousId)
-    }
-
-    if (productIntent) {
-      url.searchParams.set('product_intent', productIntent)
-    }
-
-    if (Object.keys(utmParams).length > 0) {
-      for (const [key, value] of Object.entries(utmParams)) {
-        url.searchParams.set(key, value)
+      // Safegaurd against absolute URLs that are on the same domain origin
+      if (window.location.origin === url.origin) {
+        return
       }
-    }
 
-    callback && callback(url.href)
+      event.preventDefault()
+      event.stopPropagation()
 
-    if (targetIsBlank || event.ctrlKey || event.metaKey || isExternalLink) {
-      window.open(url.href, '_blank')
-    } else {
-      location.href = url.href
-    }
-  })
+      if (segmentAnonymousId) {
+        url.searchParams.set('ajs_aid', segmentAnonymousId)
+      }
+
+      if (productIntent) {
+        url.searchParams.set('product_intent', productIntent)
+      }
+
+      if (Object.keys(utmParams).length > 0) {
+        for (const [key, value] of Object.entries(utmParams)) {
+          url.searchParams.set(key, value)
+        }
+      }
+
+      callback && callback(url.href)
+
+      if (targetIsBlank || isExternalLink || event.ctrlKey || event.metaKey) {
+        window.open(url.href, '_blank')
+      } else {
+        location.href = url.href
+      }
+    },
+    true
+  )
 
   hasHandler = true
 }
