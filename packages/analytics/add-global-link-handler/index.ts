@@ -81,8 +81,10 @@ export function addGlobalLinkHandler(
       event.ctrlKey ||
       event.metaKey
     ) {
+      console.log('navigating to new page in new window')
       window.open(url.href, '_blank')
     } else {
+      console.log('navigating to new page')
       location.href = url.href
     }
   })
