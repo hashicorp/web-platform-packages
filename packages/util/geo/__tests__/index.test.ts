@@ -1,4 +1,9 @@
 /** @jest-environment jsdom */
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Cookies from 'js-cookie'
 import { getGeoInformation, __test__resetGeoInformation } from '..'
 

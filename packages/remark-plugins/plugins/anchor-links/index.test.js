@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { remark } from 'remark'
 import html from 'remark-html'
 import anchorLinks from './index'

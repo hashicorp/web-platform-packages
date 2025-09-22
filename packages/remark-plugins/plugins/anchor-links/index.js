@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { generateSlug, generateAriaLabel } from '../../util/generate-slug.js'
 import { map } from 'unist-util-map'
 import { is } from 'unist-util-is'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Column as TableColumn, Row as TableRow } from 'react-table'
 import { Actions, CellValue, cellTypes, RichTextProps, Row } from '../../types'
 import { isBlankColumnHeader } from '../../utils/constants'

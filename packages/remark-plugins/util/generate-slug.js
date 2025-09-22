@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export function generateSlug(headline, links = []) {
   let slug = headline
     .toLowerCase()

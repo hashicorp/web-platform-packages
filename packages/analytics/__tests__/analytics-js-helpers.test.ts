@@ -1,4 +1,9 @@
 /** @jest-environment jsdom */
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { jest } from '@jest/globals'
 import {
   getSegmentId,

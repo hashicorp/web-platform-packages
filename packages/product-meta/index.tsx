@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import * as React from 'react'
 import s from './style.module.css'
 import capitalize from '@hashicorp/platform-util/text/capitalize'

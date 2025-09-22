@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 function visitor(navNodes, report, depth = 0) {
   //  In order to be a valid branch, there needs to be at least one navNode.
   if (navNodes.length === 0) {

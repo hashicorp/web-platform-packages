@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import usePageviewAnalytics from './use-page-view-analytics'
 
 export { default as useErrorPageAnalytics } from './use-error-page-analytics'

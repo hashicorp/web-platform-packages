@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 FROM node:10.16.3-alpine
 RUN apk add --update --no-cache git make g++ automake autoconf libtool nasm libpng-dev
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import NotFound from './404'
 import Bugsnag from '@hashicorp/nextjs-scripts/lib/bugsnag'
 

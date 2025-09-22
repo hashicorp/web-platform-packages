@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /** @type {import('../types.js').ConformanceRuleBase} */
 export default {
   type: 'content',

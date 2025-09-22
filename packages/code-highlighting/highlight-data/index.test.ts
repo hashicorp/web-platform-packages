@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import highlightData from '.'
 // Fixtures
 import JS_FIXTURE from '../fixtures/hello-world'

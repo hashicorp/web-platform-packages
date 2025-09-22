@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import allPlugins from '@hashicorp/platform-remark-plugins/all'
 import highlight from '@mapbox/rehype-prism'
 import { Pluggable } from 'unified'

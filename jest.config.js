@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const makeConfig = require('./packages/configs/jest/config')
 
 const isRunningInEsmMode = !!process.env.TEST_ESM

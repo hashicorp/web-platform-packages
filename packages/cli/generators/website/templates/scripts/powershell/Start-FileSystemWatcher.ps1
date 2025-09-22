@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Start-FileSystemWatcher.ps1 - File System Watcher in Powershell.
 # Source: https://www.mobzystems.com/code/using-a-filesystemwatcher-from-powershell/
 
