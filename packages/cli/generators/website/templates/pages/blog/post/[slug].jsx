@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import AuthorCard from '../../../components/author-card'
 import blogPostQuery from './query.graphql'
 import rivetQuery, { client } from '@hashicorp/nextjs-scripts/dato/client'

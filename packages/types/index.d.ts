@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /// <reference types="@segment/analytics-next" />
 
 declare module '@next/bundle-analyzer'

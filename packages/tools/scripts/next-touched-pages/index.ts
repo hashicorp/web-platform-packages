@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { exec } from 'node:child_process'
 import fs from 'node:fs/promises'
 import os from 'node:os'

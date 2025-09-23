@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * A list of Packer plugin component types. This maps to directory names within `./docs`:
  * - @see https://github.com/hashicorp/packer-plugin-scaffolding/tree/main/docs
  */

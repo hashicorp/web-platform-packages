@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getFixturePath } from '../test/utils'
 import { ContentConformanceRunner } from '../runner'
 

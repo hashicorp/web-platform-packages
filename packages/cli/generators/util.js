@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const fse = require('fs-extra')
 const path = require('path')
 const ejs = require('ejs')

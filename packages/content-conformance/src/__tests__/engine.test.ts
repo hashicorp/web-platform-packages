@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import report from 'vfile-reporter'
 import { ContentFile } from '../content-file'
 import { ContentConformanceEngine } from '../engine'

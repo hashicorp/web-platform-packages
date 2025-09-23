@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 type HandleNode<TValue = any> = (
   k: string | number | symbol,
   v: TValue

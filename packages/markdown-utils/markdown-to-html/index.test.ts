@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Node } from 'unist'
 import markdownToHtml from './'
 import visit from 'unist-util-visit'

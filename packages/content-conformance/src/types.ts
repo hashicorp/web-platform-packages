@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { VFile } from 'vfile'
 import type { Node } from 'unist'
 import { ContentFile } from './content-file.js'

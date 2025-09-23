@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import markdownToInlineHtml from './index'
 
 test('returns an empty string for an empty markdown string', async () => {
