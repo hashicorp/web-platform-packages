@@ -1,5 +1,11 @@
 # @hashicorp/platform-analytics
 
+## 0.12.1
+
+### Patch Changes
+
+- [#273](https://github.com/hashicorp/web-platform-packages/pull/273) [`ba51c44`](https://github.com/hashicorp/web-platform-packages/commit/ba51c447e3f46b6002e3a3f9a35996beca6c440f) Thanks [@prestonbourne](https://github.com/prestonbourne)! - fix: add only execute on links with `href`
+
 ## 0.12.0
 
 ### Minor Changes
