@@ -19,7 +19,6 @@ require('tinymce/plugins/code')
 require('tinymce/plugins/emoticons')
 require('tinymce/plugins/link')
 require('tinymce/plugins/lists')
-require('tinymce/plugins/paste')
 // require('tinymce/plugins/autoresize')
 
 interface TextEditorProps {
