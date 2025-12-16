@@ -22,7 +22,7 @@
     "glob": "^10.2.1",
     "hcl2-parser": "^1.0.3",
     "node-fetch": "^2.6.7",
-    "zod": "^3.19.1"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "nock": "^13.2.9",
