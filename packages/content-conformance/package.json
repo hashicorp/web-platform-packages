@@ -28,7 +28,7 @@
     "vfile-reporter": "^7.0.4",
     "vfile-reporter-json": "^3.2.0",
     "vfile-statistics": "^2.0.0",
-    "yaml": "^2.2.2",
+    "yaml": "^2.8.3",
     "yargs": "^17.4.1",
     "zod": "^3.22.3"
   },
