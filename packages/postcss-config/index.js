@@ -7,6 +7,14 @@ module.exports = {
   plugins: [
     'postcss-flexbugs-fixes',
     [
+      '@csstools/postcss-global-data',
+      {
+        files: [
+          'node_modules://@hashicorp/mktg-global-styles/custom-media.css',
+        ],
+      },
+    ],
+    [
       'postcss-preset-env',
       {
         stage: 3,
@@ -14,11 +22,7 @@ module.exports = {
         autoprefixer: { flexbox: 'no-2009' },
         features: {
           'nesting-rules': true,
-          'custom-media-queries': {
-            importFrom: require.resolve(
-              '@hashicorp/mktg-global-styles/custom-media.css'
-            ),
-          },
+          'custom-media-queries': true,
           'custom-properties': false,
         },
       },
