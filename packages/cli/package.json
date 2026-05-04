@@ -30,7 +30,7 @@
     "readdirp": "3.5.0",
     "signale": "1.4.0",
     "slugify": "1.4.6",
-    "stylelint": "13.8.0",
+    "stylelint": "15.10.1",
     "stylelint-config-css-modules": "2.2.0",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-standard": "20.0.0",
