@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "author": "HashiCorp",
   "dependencies": {
-    "js-cookie": "^2.2.1",
+    "js-cookie": "^3.0.7",
     "nprogress": "0.2.0"
   },
   "devDependencies": {
