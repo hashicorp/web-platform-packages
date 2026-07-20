@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@vercel/fetch": "^6.2.0",
-    "adm-zip": "^0.5.9",
+    "adm-zip": "^0.6.0",
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
